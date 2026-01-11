@@ -1,0 +1,326 @@
+.work-process {
+  padding: 60px 0 40px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left gradient blur effect */
+.gradient-blur-left {
+  position: absolute;
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(255, 102, 51, 0.15) 0%, rgba(255, 102, 51, 0.08) 40%, rgba(255, 102, 51, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.work-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.process-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.process-header h2 {
+  font-size: 32px;
+  color: #333;
+}
+
+.process-header .highlight {
+  color: #FF6633;
+}
+
+.btn-enroll {
+  padding: 12px 30px;
+  background: #FF6633;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-enroll:hover {
+  background: #e55522;
+}
+
+.process-content {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.process-visual-new {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  margin-bottom: 40px;
+}
+
+.work-curve {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.work-step {
+  position: absolute;
+  display: block;
+  max-width: 220px;
+  z-index: 2;
+}
+
+.step-number {
+  font-size: 140px;
+  font-weight: 800;
+  color: rgba(255, 102, 51, 0.08);
+  position: absolute;
+  right: -30px;
+  top: -60px;
+  z-index: -1;
+  line-height: 1;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.work-icon {
+  font-size: 18px;
+  background: #FF6633;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 102, 51, 0.3);
+  margin-bottom: 12px;
+}
+
+.work-content h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.work-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Step 1 - Bottom Left */
+.work-step-1 {
+  left: 0%;
+  bottom: 30px;
+}
+
+.work-step-1 .step-number {
+  left: -10px;
+  right: auto;
+  top: -50px;
+}
+
+/* Step 2 - Center Middle */
+.work-step-2 {
+  left: 38%;
+  bottom: 100px;
+  transform: translateX(-50%);
+}
+
+.work-step-2 .step-number {
+  right: -50px;
+  top: -50px;
+}
+
+/* Step 3 - Top Right */
+.work-step-3 {
+  right: 5%;
+  top: 20px;
+}
+
+.work-step-3 .step-number {
+  right: -30px;
+  top: -50px;
+}
+
+/* School Acceptance Section */
+.school-acceptance {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.acceptance-content {
+  flex: 1;
+}
+
+.acceptance-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.acceptance-content p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #666;
+  margin-bottom: 18px;
+}
+
+.acceptance-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-secondary-outline {
+  padding: 10px 20px;
+  background: white;
+  color: #FF6633;
+  border: 2px solid #FF6633;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-secondary-outline:hover {
+  background: #FF6633;
+  color: white;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  background: #FF6633;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #e55522;
+}
+
+.acceptance-badge {
+  flex-shrink: 0;
+}
+
+.badge-container {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, #FF6633 0%, #FF8555 100%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0 6px 20px rgba(255, 102, 51, 0.3);
+  border: 4px solid white;
+  position: relative;
+}
+
+.badge-seal {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.badge-text {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.badge-subtitle {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+@media (max-width: 968px) {
+  .gradient-blur-left {
+    width: 200px;
+    height: 200px;
+    left: -50px;
+    top: 100px;
+    transform: none;
+  }
+  
+  .process-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .process-visual-new {
+    height: auto;
+    min-height: 900px;
+  }
+  
+  .work-curve {
+    display: none;
+  }
+  
+  .work-step {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin: 0 auto 60px;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .step-number {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    font-size: 100px;
+  }
+  
+  .work-icon {
+    margin: 0 auto 12px;
+  }
+  
+  .school-acceptance {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .acceptance-buttons {
+    justify-content: center;
+  }
+}
