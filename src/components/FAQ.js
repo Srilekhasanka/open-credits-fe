@@ -9,23 +9,23 @@ const FAQ = () => {
   const faqs = [
     {
       question: 'How much Does the Course Cost?',
-      answer: 'Our courses are priced at $180 per credit hour. We offer flexible payment plans and financial aid options to make education more accessible for everyone.'
+      answer: 'Our courses are designed to be affordable and flexible, helping students save time and graduate faster. For U.S. students, each course costs $250, while international students pay $850 per course.'
     },
     {
-      question: 'Are there additional Fees? Like book and material?',
-      answer: 'No additional fees are required. All course materials, books, and resources are included in the course price. You get complete access to everything you need.'
+      question: 'Why is Open Credits so affordable?',
+      answer: 'Open Credits is fully online, so we don’t have the high costs of traditional colleges. That means you get high-quality courses at prices that fit your budget.'
     },
     {
-      question: 'Is there a time commitment?',
-      answer: 'Our courses are self-paced, allowing you to complete them according to your own schedule. Most students complete a course in 4-6 weeks, but you can take longer if needed.'
+      question: 'Will someone help me transfer my courses?',
+      answer: 'Yes! Each student gets an academic advisor who guides you through the transfer process to make it smooth and stress-free.'
     },
     {
-      question: 'Are there any monthly course fees?',
-      answer: 'No monthly fees! You pay once for each course and have access until you complete it. No recurring charges or hidden subscription fees.'
+      question: 'How can I check if my university will accept these credits?',
+      answer: 'You can either:\n1. See if your university is on our list of schools that accept our credits.\n2. Review your university’s transfer credit policy — if they accept credits from online courses, your credits usually qualify.'
     },
     {
-      question: 'What is your 30 day money guarantee?',
-      answer: 'We offer a 30-day money-back guarantee. If you\'re not satisfied with your course for any reason within the first 30 days, we\'ll provide a full refund.'
+      question: 'Are there exams? How is grading done?',
+      answer: 'Yes, courses include online exams. Your final grade is based on participation, coursework, and exams, so you’re graded fairly while enjoying flexible online learning.'
     }
   ];
 
@@ -50,7 +50,7 @@ const FAQ = () => {
                   onClick={() => toggleFAQ(index)}
                 >
                   <span>{faq.question}</span>
-                  <span className="faq-icon">{activeIndex === index ? 'ƒ^\'' : '+'}</span>
+                  <span className="faq-icon">{activeIndex === index ? '-' : '+'}</span>
                 </button>
                 {activeIndex === index && (
                   <div className="faq-answer">
