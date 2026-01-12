@@ -1,0 +1,42 @@
+﻿.featured-universities {
+  padding: 70px 0 80px;
+  background: #fff;
+}
+
+.featured-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.featured-container h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #1f1f1f;
+  font-weight: 700;
+}
+
+.featured-container .highlight {
+  color: #ff6633;
+}
+
+.featured-image-wrap {
+  width: 100%;
+  border-radius: 16px;
+  background: #f2f2f2;
+  padding: 22px;
+}
+
+.featured-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 640px) {
+  .featured-image-wrap {
+    padding: 14px;
+  }
+}

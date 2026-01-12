@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import doYouHaveQuestions from '../assets/doyouhavequestions.png';
+import whatsappIcon from '../assets/whatsapp.png';
 import './FAQ.css';
 
 const FAQ = () => {
@@ -36,19 +38,19 @@ const FAQ = () => {
       <div className="faq-container">
         <div className="faq-content">
           <h2>Frequently Asked <span className="highlight">Questions</span></h2>
-          
+
           <div className="faq-list">
             {faqs.map((faq, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={`faq-item ${activeIndex === index ? 'active' : ''}`}
               >
-                <button 
+                <button
                   className="faq-question"
                   onClick={() => toggleFAQ(index)}
                 >
                   <span>{faq.question}</span>
-                  <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
+                  <span className="faq-icon">{activeIndex === index ? 'ƒ^\'' : '+'}</span>
                 </button>
                 {activeIndex === index && (
                   <div className="faq-answer">
@@ -62,13 +64,25 @@ const FAQ = () => {
 
         <div className="faq-support">
           <div className="support-card">
-            <div className="support-icon">💬</div>
-            <h3>Do you have questions?</h3>
-            <p>
-              If you want to get one-on-one support and financial 
-              advice from one of our friendly experts, get in touch today.
+            <div className="support-image-wrap">
+              <img
+                className="support-image"
+                src={doYouHaveQuestions}
+                alt="Do you have questions"
+              />
+            </div>
+            <h3 className="support-title">Do you have more questions?</h3>
+            <p className="support-text">
+              End-to-end payments and financial management in a single solution. Meet
+              the right platform to help realize.
             </p>
-            <button className="btn-contact-us">Contact Us</button>
+            <div className="support-actions">
+              <button className="btn-chat" type="button">
+                Chat Now
+                <img className="btn-chat-icon" src={whatsappIcon} alt="" aria-hidden="true" />
+              </button>
+              <button className="btn-advisor" type="button">Talk to an Advisor</button>
+            </div>
           </div>
         </div>
       </div>

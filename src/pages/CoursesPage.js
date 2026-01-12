@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import courseService from '../services/courseService';
 import '../App.css';
 
 const CoursesPage = () => {
@@ -11,8 +12,10 @@ const CoursesPage = () => {
   const [subject, setSubject] = useState('All');
   const [accepted, setAccepted] = useState('All');
   const [sortBy, setSortBy] = useState('Featured');
+  const [loading, setLoading] = useState(false);
+  const [loadError, setLoadError] = useState('');
 
-  const courses = [
+  const coursesData = [
     { id: 1, code: 'BUS 230', name: 'Project Management', desc: 'Project Management Essentials certificate provides students wit...', price: 250, tags: ['NCCRS Courses', 'Business'], icon: '📊', color: '#ff9800', credits: 'ACE Credits, CSU (Cal-State)', subject: 'Business', auth: 'NCCRS' },
     { id: 2, code: 'BUS 250', name: 'Business Law (ACE)', desc: 'This certificate provides business leaders with an...', price: 250, tags: ['NCCRS Courses', 'Gen Eds'], icon: '⚖️', color: '#ff9800', credits: 'ACE Courses, Business', subject: 'Business', auth: 'ACE' },
     { id: 3, code: 'BUS 300', name: 'International Business', desc: "You'll expand thinking internationally trade, global...", price: 250, tags: ['NCCRS Courses', 'Business'], icon: '🌍', color: '#ff9800', credits: 'ACE Courses, Business', subject: 'Business', auth: 'ACE' },
@@ -33,6 +36,72 @@ const CoursesPage = () => {
     { id: 18, code: 'CS 210', name: 'Introduction to Java', desc: 'Learn programming in Java and OOC++ with Artificial...', price: 250, tags: ['NCCRS Courses', 'Computer Science'], icon: '💻', color: '#673ab7', credits: 'Computer Science', subject: 'Computer Science', auth: 'NCCRS' },
   ];
 
+  const [courses, setCourses] = useState(coursesData);
+
+  const normalizeCourse = (course) => {
+    const tags = Array.isArray(course.tags) ? course.tags : [];
+    if (!tags.length) {
+      if (course.credential_type) tags.push(course.credential_type);
+      if (course.subject_area) tags.push(course.subject_area);
+    }
+
+    return {
+      id: course.id ?? course.course_id ?? course._id ?? course.slug ?? course.code ?? course.name,
+      code: course.code ?? course.course_code ?? '',
+      name: course.name ?? course.title ?? '',
+      desc: course.description ?? course.desc ?? '',
+      price: Number(course.price ?? course.cost ?? 0),
+      tags,
+      icon: course.icon ?? 'C',
+      color: course.color ?? '#ff9800',
+      credits: course.credits ?? course.credit_info ?? '',
+      subject: course.subject ?? course.subject_area ?? '',
+      auth: course.auth ?? (course.ace_certified ? 'ACE' : course.nccrs_certified ? 'NCCRS' : '')
+    };
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchCourses = async () => {
+      setLoading(true);
+      setLoadError('');
+
+      try {
+        const params = {
+          search: searchQuery || undefined,
+          subject_area: subject !== 'All' && subject !== 'Subject' ? subject : undefined,
+          is_active: true,
+          page: 0,
+          limit: 50
+        };
+
+        const payload = await courseService.getCourses(params);
+        const items = Array.isArray(payload) ? payload : payload?.courses || payload?.data || [];
+
+        if (isMounted) {
+          const normalized = items.map(normalizeCourse);
+          setCourses(normalized);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setLoadError('Failed to load courses. Please try again.');
+          setCourses(coursesData);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchCourses();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [searchQuery, subject, authenticated]);
+
   // Filter courses based on all criteria
   const filteredCourses = courses.filter(course => {
     // Search filter
@@ -50,9 +119,9 @@ const CoursesPage = () => {
 
   // Sort courses
   const sortedCourses = [...filteredCourses].sort((a, b) => {
-    if (sortBy === 'Price: Low to High') return a.price - b.price;
-    if (sortBy === 'Price: High to Low') return b.price - a.price;
-    if (sortBy === 'Name A-Z') return a.name.localeCompare(b.name);
+    if (sortBy === 'Price: Low to High') return (Number(a.price) || 0) - (Number(b.price) || 0);
+    if (sortBy === 'Price: High to Low') return (Number(b.price) || 0) - (Number(a.price) || 0);
+    if (sortBy === 'Name A-Z') return (a.name || '').localeCompare(b.name || '');
     return 0; // Featured - default order
   });
 
@@ -149,13 +218,21 @@ const CoursesPage = () => {
             </select>
           </div>
         </div>
+        {loadError && (
+          <div style={{ marginBottom: '20px', color: '#d32f2f', fontSize: '14px' }}>
+            {loadError}
+          </div>
+        )}
 
         {/* Course Grid */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
-          gap: '25px' 
-        }}>
+        {loading ? (
+          <div style={{ fontSize: '14px', color: '#666' }}>Loading courses...</div>
+        ) : (
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
+            gap: '25px' 
+          }}>
           {sortedCourses.map(course => (
             <div key={course.id} style={{
               backgroundColor: 'white',
@@ -204,7 +281,7 @@ const CoursesPage = () => {
 
               {/* Tags */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '15px' }}>
-                {course.tags.map((tag, idx) => (
+                {(course.tags || []).map((tag, idx) => (
                   <span key={idx} style={{
                     padding: '4px 10px',
                     backgroundColor: '#fff5f0',
@@ -249,6 +326,7 @@ const CoursesPage = () => {
             </div>
           ))}
         </div>
+        )}
       </div>
     </div>
   );

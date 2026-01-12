@@ -24,13 +24,16 @@
   font-weight: 600;
 }
 
-.logo-icon {
-  color: #FF6633;
-  font-size: 24px;
+.logo-image {
+  height: 28px;
+  width: auto;
+  display: block;
 }
 
 .logo-text {
-  color: #333;
+  color: #FF6633;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .nav {
@@ -55,20 +58,20 @@
   gap: 15px;
 }
 
-.btn-signin {
+.btn-outline {
   padding: 10px 25px;
   background: white;
-  border: 1px solid #ddd;
+  border: 1px solid #FF6633;
   border-radius: 5px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
+  color: #FF6633;
 }
 
-.btn-signin:hover {
-  border-color: #FF6633;
-  color: #FF6633;
+.btn-outline:hover {
+  background: #fff5f0;
 }
 
 .btn-primary {
