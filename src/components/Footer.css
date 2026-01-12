@@ -38,27 +38,30 @@
 
 .footer-social {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 11px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
   color: #5a5a5a;
 }
 
 .footer-social .social-links {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-social .social-links a {
-  width: 28px;
-  height: 28px;
-  background: #f2f2f2;
-  border-radius: 50%;
+  background: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #444;
   text-decoration: none;
+}
+
+.footer-social .social-links a svg {
+  width: 14px;
+  height: 14px;
 }
 
 .footer-main {

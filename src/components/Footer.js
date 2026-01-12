@@ -1,7 +1,8 @@
 import React from 'react';
 import './Footer.css';
 import companyLogo from '../assets/company-logo.png';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { FaFacebookF, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
@@ -15,17 +16,27 @@ const Footer = () => {
           <div className="footer-social">
             <span>Connect with us</span>
             <div className="social-links">
-              <a href="#facebook" aria-label="Facebook">
+              <a
+                href="https://www.youtube.com/channel/UC_-jWh7QNdsUgdhBcUseXyw"
+                aria-label="YouTube"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaYoutube />
+              </a>
+              <a href="https://x.com/opencredits_org" aria-label="X" target="_blank" rel="noreferrer">
+                <FaXTwitter />
+              </a>
+              <a href="#facebook" aria-label="Facebook" target="_blank" rel="noreferrer">
                 <FaFacebookF />
               </a>
-              <a href="#twitter" aria-label="Twitter">
-                <FaTwitter />
-              </a>
-              <a href="#linkedin" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/company/opencredits/about/?viewAsMember=true"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FaLinkedinIn />
-              </a>
-              <a href="#instagram" aria-label="Instagram">
-                <FaInstagram />
               </a>
             </div>
           </div>
