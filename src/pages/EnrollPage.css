@@ -1,0 +1,117 @@
+.enroll-page {
+  background: #fff;
+  padding: 56px 0 80px;
+  color: #1f1f1f;
+}
+
+.enroll-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.enroll-page h1 {
+  font-size: 24px;
+  margin: 0 0 12px;
+}
+
+.enroll-note {
+  font-size: 12px;
+  color: #5f5f5f;
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 0 32px;
+}
+
+.enroll-note a {
+  color: #ff6b2c;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.enroll-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.enroll-card {
+  border: 1px solid #f6d6c7;
+  border-radius: 16px;
+  padding: 22px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 320px;
+}
+
+.enroll-card h2 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.enroll-desc {
+  font-size: 11px;
+  color: #6b6b6b;
+  margin: 0;
+}
+
+.enroll-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.enroll-price-main {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.enroll-price-sub {
+  font-size: 11px;
+  color: #7a7a7a;
+}
+
+.enroll-detail {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: #4b4b4b;
+  margin-top: 4px;
+}
+
+.enroll-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e8f0ff;
+  color: #2f6bff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.enroll-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  background: #ff6b2c;
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.enroll-cta:hover {
+  background: #f25d1f;
+}
+
+@media (max-width: 980px) {
+  .enroll-grid {
+    grid-template-columns: 1fr;
+  }
+}

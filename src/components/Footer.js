@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 import companyLogo from '../assets/company-logo.png';
 import { FaFacebookF, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -45,7 +47,9 @@ const Footer = () => {
         <div className="footer-main">
           <div className="footer-hero">
             <h2>Transferable College Credits – 100% Online</h2>
-            <button className="footer-cta" type="button">Enroll Now</button>
+            <button className="footer-cta" type="button" onClick={() => navigate('/enroll')}>
+              Enroll Now
+            </button>
             <div className="footer-contact">
               <h4>Contact us</h4>
               <p>+1 (669) 369-9668</p>

@@ -17,6 +17,7 @@ import ProfilePage from './pages/ProfilePage';
 import MyCoursesPage from './pages/MyCoursesPage';
 import PaymentPage from './pages/PaymentPage';
 import CourseLearningPage from './pages/CourseLearningPage';
+import EnrollPage from './pages/EnrollPage';
 
 function AppContent() {
   const location = useLocation();
@@ -37,6 +38,7 @@ function AppContent() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/get-started" element={<GetStartedPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/enroll" element={<EnrollPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
       </Routes>

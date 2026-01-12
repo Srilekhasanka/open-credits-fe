@@ -93,7 +93,9 @@ const PopularCourses = () => {
 
               <div className="course-footer">
                 <span className="course-price">{course.price}</span>
-                <button className="btn-enroll">Enroll Now</button>
+                <button className="btn-enroll" onClick={() => navigate('/enroll')}>
+                  Enroll Now
+                </button>
               </div>
             </div>
           ))}
