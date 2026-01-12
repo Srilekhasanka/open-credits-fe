@@ -62,7 +62,7 @@ const EnrollPage = () => {
     '[Authorized Signatory Name]\r\n' +
     '[Designation]\r\n' +
     '[Organization Name]\r\n';
-  const mailtoHref = `mailto:Connect@opencredits.org?subject=${encodeURIComponent(
+  const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=Connect@opencredits.org&su=${encodeURIComponent(
     mailSubject
   )}&body=${encodeURIComponent(mailBody)}`;
 
@@ -73,7 +73,7 @@ const EnrollPage = () => {
         <p className="enroll-note">
           NOTE : Education loans or sponsorships can be used to take Open Credits Courses. We
           provide an official offer letter on request. Send us an Email -
-          <a href={mailtoHref}>
+          <a href={gmailHref} target="_blank" rel="noreferrer">
             Connect@opencredits.org
           </a>
         </p>
