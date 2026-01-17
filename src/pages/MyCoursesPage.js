@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiBell } from 'react-icons/fi';
+import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import '../components/DashboardLayout.css';
 
 const MyCoursesPage = () => {
-  const { isAuthenticated, user, enrolledCourses } = useAuth();
+  const { isAuthenticated, user, enrolledCourses, cartItems } = useAuth();
   const navigate = useNavigate();
 
   if (!isAuthenticated) {
@@ -57,18 +57,23 @@ const MyCoursesPage = () => {
     <div className="dashboard__main">
       <header className="dashboard__topbar">
         <div className="dashboard__welcome">
-          <p>Welcome back,</p>
-          <h1>{formattedName}!</h1>
+          <h1>
+            Welcome back, <span>{formattedName}!</span>
+          </h1>
         </div>
         <div className="dashboard__topbar-actions">
           <div className="dashboard__search">
+            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
             <FiSearch />
-            <input type="text" placeholder="Search courses" aria-label="Search courses" />
           </div>
+          <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
+            <FiShoppingCart />
+            {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
+          </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
             <FiBell />
           </button>
-          <button className="dashboard__avatar" type="button" onClick={() => navigate('/profile')}>
+          <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
           </button>
         </div>
@@ -81,7 +86,7 @@ const MyCoursesPage = () => {
               <h2>Enjoying Open Credits?</h2>
               <p>Refer it to your friends, family and more to win iPad, Mac Books, iPhones, and more.</p>
             </div>
-            <button type="button">Refer Now</button>
+            <button type="button" onClick={() => navigate('/resources')}>Refer Now</button>
           </section>
 
           <section className="dashboard__section">
@@ -91,7 +96,10 @@ const MyCoursesPage = () => {
                 const progressValue = course.progress ?? 20;
                 return (
                   <div key={course.id} className="dashboard__mini-card">
-                    <h3>{course.code}: {course.name}</h3>
+                    <div className="dashboard__mini-header">
+                      <div className="dashboard__mini-dot" />
+                      <h3>{course.code}: {course.name}</h3>
+                    </div>
                     <span>{progressValue}% complete</span>
                     <div className="dashboard__mini-progress">
                       <div style={{ width: `${progressValue}%` }} />
@@ -143,23 +151,21 @@ const MyCoursesPage = () => {
 
         <aside className="dashboard__profile">
           <div className="dashboard__profile-card">
+            <button className="dashboard__profile-link-inline" type="button" onClick={() => navigate('/my-account')}>
+              view profile
+            </button>
             <div className="dashboard__profile-avatar">{displayInitial}</div>
             <h3>{formattedName}</h3>
             <span>@{displayName}</span>
-            <button className="dashboard__profile-link" type="button" onClick={() => navigate('/profile')}>
-              View profile
-            </button>
           </div>
 
           <div className="dashboard__highlights">
             <h4>Highlights</h4>
             <div className="dashboard__highlight-item">
               <span>You have completed a course</span>
-              <button type="button">View</button>
             </div>
             <div className="dashboard__highlight-item">
-              <span>You have an incomplete quiz</span>
-              <button type="button">Resume</button>
+              <span>You have an incomplete Quiz</span>
             </div>
           </div>
         </aside>

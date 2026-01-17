@@ -11,7 +11,7 @@ const DashboardLayout = ({ children }) => {
   const location = useLocation();
 
   const navItems = [
-    { label: 'Dashboard', icon: <FiGrid />, path: '/my-courses' },
+    { label: 'Dashboard', icon: <FiGrid />, path: '/dashboard' },
     { label: 'My Courses', icon: <FiBookOpen />, path: '/my-courses' },
     { label: 'All Courses', icon: <FiBarChart2 />, path: '/courses' },
     { label: 'Affiliate', icon: <FiUsers />, path: '/resources' },
@@ -21,13 +21,15 @@ const DashboardLayout = ({ children }) => {
   return (
     <div className="dashboard">
       <aside className="dashboard__sidebar">
-        <Link to="/" className="dashboard__brand">
+        <Link to="/dashboard" className="dashboard__brand">
           <img src={companyLogo} alt="Open Credits" />
-          <span>Open Credits</span>
+          <span className="dashboard__brand-text">
+            Open <strong>Credits</strong>
+          </span>
         </Link>
         <nav className="dashboard__nav">
           {navItems.map((item) => {
-            const isActive = item.label === 'Dashboard' && location.pathname === item.path;
+            const isActive = location.pathname === item.path;
             return (
               <button
                 key={item.label}
@@ -42,12 +44,12 @@ const DashboardLayout = ({ children }) => {
           })}
         </nav>
         <div className="dashboard__sidebar-footer">
-          <button className="dashboard__nav-item" type="button" onClick={() => navigate('/profile')}>
+          <button className="dashboard__nav-item dashboard__sidebar-action" type="button" onClick={() => navigate('/my-account')}>
             <FiChevronRight />
             My Account
           </button>
           <button
-            className="dashboard__nav-item"
+            className="dashboard__nav-item dashboard__sidebar-action dashboard__sidebar-action--primary"
             type="button"
             onClick={() => {
               logout();
