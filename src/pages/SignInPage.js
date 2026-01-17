@@ -31,7 +31,7 @@ const SignInPage = () => {
         role: response.payload.user.role
       });
 
-      navigate('/');
+      navigate('/my-courses');
     } catch (err) {
       setError(err.message || 'Sign in failed. Please try again.');
     } finally {
