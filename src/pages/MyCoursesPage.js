@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
@@ -7,6 +7,18 @@ import '../components/DashboardLayout.css';
 const MyCoursesPage = () => {
   const { isAuthenticated, user, enrolledCourses, cartItems } = useAuth();
   const navigate = useNavigate();
+
+  const [courseFilter, setCourseFilter] = useState('all');
+
+  const filteredCourses = useMemo(() => {
+    if (courseFilter === 'completed') {
+      return enrolledCourses.filter((course) => course.status === 'Completed');
+    }
+    if (courseFilter === 'unfinished') {
+      return enrolledCourses.filter((course) => course.status !== 'Completed');
+    }
+    return enrolledCourses;
+  }, [enrolledCourses, courseFilter]);
 
   if (!isAuthenticated) {
     return (
@@ -23,34 +35,7 @@ const MyCoursesPage = () => {
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const displayInitial = displayName.charAt(0).toUpperCase();
 
-  const defaultContinueCourses = [
-    { id: 'bus-230', code: 'BUS 230', name: 'Project Management', progress: 20 },
-    { id: 'bus-231', code: 'BUS 230', name: 'Project Management', progress: 20 },
-    { id: 'bus-232', code: 'BUS 230', name: 'Project Management', progress: 20 }
-  ];
-
-  const defaultMyCourses = [
-    {
-      id: 'acc-210',
-      code: 'ACC 210',
-      name: 'Managerial Accounting',
-      progress: 80,
-      description: 'Learn core managerial accounting concepts and interpret financial statements.'
-    },
-    {
-      id: 'acc-211',
-      code: 'ACC 210',
-      name: 'Managerial Accounting',
-      progress: 80,
-      description: 'Learn core managerial accounting concepts and interpret financial statements.'
-    }
-  ];
-
-  const continueCourses = enrolledCourses.length > 0
-    ? enrolledCourses.slice(0, 3)
-    : defaultContinueCourses;
-  const myCourses = enrolledCourses.length > 0 ? enrolledCourses : defaultMyCourses;
-
+  const continueCourses = enrolledCourses.slice(0, 3);
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
 
   return (
@@ -89,64 +74,89 @@ const MyCoursesPage = () => {
             <button type="button" onClick={() => navigate('/resources')}>Refer Now</button>
           </section>
 
-          <section className="dashboard__section">
-            <div className="dashboard__section-title">Continue course</div>
-            <div className="dashboard__card-grid">
-              {continueCourses.map((course) => {
-                const progressValue = course.progress ?? 20;
-                return (
-                  <div key={course.id} className="dashboard__mini-card">
-                    <div className="dashboard__mini-header">
-                      <div className="dashboard__mini-dot" />
-                      <h3>{course.code}: {course.name}</h3>
-                    </div>
-                    <span>{progressValue}% complete</span>
-                    <div className="dashboard__mini-progress">
-                      <div style={{ width: `${progressValue}%` }} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="dashboard__section">
-            <div className="dashboard__section-header">
-              <div className="dashboard__section-title">My Courses</div>
-              <div className="dashboard__filters">
-                <button className="dashboard__filter-btn is-active" type="button">Completed Courses</button>
-                <button className="dashboard__filter-btn" type="button">Unfinished Courses</button>
-              </div>
-            </div>
-            <div className="dashboard__course-grid">
-              {myCourses.map((course) => {
-                const progressValue = course.progress ?? 80;
-                return (
-                  <div key={course.id} className="dashboard__course-card">
-                    <div className="dashboard__course-icon">{course.code?.split(' ')[0] || 'OC'}</div>
-                    <div>
-                      <h3>{course.code}: {course.name}</h3>
-                      <p>{course.description || 'Track your coursework, assignments, and weekly milestones.'}</p>
-                    </div>
-                    <div className="dashboard__progress">
+            <section className="dashboard__section">
+              <div className="dashboard__section-title">Continue course</div>
+              <div className="dashboard__card-grid">
+                {continueCourses.length === 0 && (
+                  <div className="mycourses__loading">No enrolled courses yet.</div>
+                )}
+                {continueCourses.map((course) => {
+                  const progressValue = course.progress ?? 20;
+                  return (
+                    <div key={course.id} className="dashboard__mini-card">
+                      <div className="dashboard__mini-header">
+                        <div className="dashboard__mini-dot" />
+                        <h3>{course.code}: {course.name}</h3>
+                      </div>
                       <span>{progressValue}% complete</span>
-                      <span>{progressValue}%</span>
+                      <div className="dashboard__mini-progress">
+                        <div style={{ width: `${progressValue}%` }} />
+                      </div>
                     </div>
-                    <div className="dashboard__progress-bar">
-                      <div style={{ width: `${progressValue}%` }} />
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="dashboard__section">
+              <div className="dashboard__section-header dashboard__section-header--stack">
+                <div className="dashboard__section-title">My Courses</div>
+                <div className="dashboard__filters">
+                  <button
+                    className="dashboard__filter-btn dashboard__filter-btn--sort"
+                    type="button"
+                  >
+                    Sort by
+                    <span aria-hidden="true" className="dashboard__sort-arrow">↑</span>
+                  </button>
+                  <button
+                    className={`dashboard__filter-btn ${courseFilter === 'completed' ? 'is-active' : ''}`}
+                    type="button"
+                    onClick={() => setCourseFilter('completed')}
+                  >
+                    Completed Courses
+                  </button>
+                  <button
+                    className={`dashboard__filter-btn ${courseFilter === 'unfinished' ? 'is-active' : ''}`}
+                    type="button"
+                    onClick={() => setCourseFilter('unfinished')}
+                  >
+                    Unfinished Courses
+                  </button>
+                </div>
+              </div>
+              <div className="dashboard__course-grid">
+                {filteredCourses.length === 0 && (
+                  <div className="mycourses__loading">No courses match this filter.</div>
+                )}
+                {filteredCourses.map((course) => {
+                  const progressValue = course.progress ?? 80;
+                  return (
+                    <div key={course.id} className="dashboard__course-card">
+                      <div className="dashboard__course-icon">{course.code?.split(' ')[0] || 'OC'}</div>
+                      <div>
+                        <h3>{course.code}: {course.name}</h3>
+                        <p>{course.description || 'Track your coursework, assignments, and weekly milestones.'}</p>
+                      </div>
+                      <div className="dashboard__progress">
+                        <span>{progressValue}% complete</span>
+                        <span>{progressValue}%</span>
+                      </div>
+                      <div className="dashboard__progress-bar">
+                        <div style={{ width: `${progressValue}%` }} />
+                      </div>
+                      <button
+                        className="dashboard__course-action"
+                        type="button"
+                        onClick={() => navigate(`/course/${course.id}/learn`)}
+                      >
+                        View Course
+                      </button>
                     </div>
-                    <button
-                      className="dashboard__course-action"
-                      type="button"
-                      onClick={() => navigate(`/course/${course.id}/learn`)}
-                    >
-                      View Course
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
+                  );
+                })}
+              </div>
+            </section>
         </div>
 
         <aside className="dashboard__profile">

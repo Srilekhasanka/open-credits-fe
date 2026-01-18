@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext();
 
@@ -72,6 +72,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('enrolledCourses', JSON.stringify(updatedCourses));
   };
 
+  const setEnrolledCoursesData = useCallback((courses) => {
+    setEnrolledCourses(courses);
+    localStorage.setItem('enrolledCourses', JSON.stringify(courses));
+  }, []);
+
   const addToCart = (course) => {
     const exists = cartItems.some((item) => item.id === course.id);
     if (exists) return false;
@@ -97,6 +102,7 @@ export const AuthProvider = ({ children }) => {
       register,
       enrolledCourses,
       enrollCourse,
+      setEnrolledCoursesData,
       cartItems,
       addToCart,
       removeFromCart

@@ -1,12 +1,67 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import enrollmentService from '../services/enrollmentService';
+import { USE_MOCK_API } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const MyCoursesListPage = () => {
-  const { isAuthenticated, user, enrolledCourses, cartItems } = useAuth();
+  const { isAuthenticated, user, enrolledCourses, cartItems, setEnrolledCoursesData } = useAuth();
   const navigate = useNavigate();
+  const [loadingEnrollments, setLoadingEnrollments] = useState(false);
+  const [courseFilter, setCourseFilter] = useState('all');
+
+  useEffect(() => {
+    if (USE_MOCK_API || !isAuthenticated) return;
+    let isMounted = true;
+
+    const fetchEnrollments = async () => {
+      setLoadingEnrollments(true);
+      try {
+        const payload = await enrollmentService.getEnrolledCourses();
+        const enrollments = payload?.enrollments || [];
+        const mapped = enrollments.map((item) => {
+          const rawName = item.course?.name || '';
+          const [codePart, ...nameParts] = rawName.split(':');
+          const hasCode = rawName.includes(':');
+          return {
+            id: item.course?.id || item.course_id || item.id,
+            code: hasCode ? codePart.trim() : '',
+            name: hasCode ? nameParts.join(':').trim() : rawName,
+            description: item.course?.description || '',
+            progress: 80,
+          };
+        });
+
+        if (isMounted) {
+          setEnrolledCoursesData(mapped);
+        }
+      } catch (error) {
+        // Keep fallback data when API is unavailable.
+      } finally {
+        if (isMounted) {
+          setLoadingEnrollments(false);
+        }
+      }
+    };
+
+    fetchEnrollments();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated, setEnrolledCoursesData]);
+
+  const filteredCourses = useMemo(() => {
+    if (courseFilter === 'completed') {
+      return enrolledCourses.filter((course) => course.status === 'Completed');
+    }
+    if (courseFilter === 'unfinished') {
+      return enrolledCourses.filter((course) => course.status !== 'Completed');
+    }
+    return enrolledCourses;
+  }, [enrolledCourses, courseFilter]);
 
   if (!isAuthenticated) {
     return (
@@ -24,32 +79,7 @@ const MyCoursesListPage = () => {
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
 
-  const fallbackCourses = [
-    {
-      id: 'acc-210',
-      code: 'ACC 210',
-      name: 'Managerial Accounting',
-      progress: 80,
-      description: 'Learn core managerial accounting concepts, interpret financial statements.'
-    },
-    {
-      id: 'acc-211',
-      code: 'ACC 210',
-      name: 'Managerial Accounting',
-      progress: 80,
-      description: 'Learn core managerial accounting concepts, interpret financial statements.'
-    },
-    {
-      id: 'acc-212',
-      code: 'ACC 210',
-      name: 'Managerial Accounting',
-      progress: 80,
-      description: 'Learn core managerial accounting concepts, interpret financial statements.'
-    }
-  ];
-
-  const myCourses = enrolledCourses.length > 0 ? enrolledCourses : fallbackCourses;
-  const courseCards = [...myCourses, ...myCourses].slice(0, 6);
+  const myCourses = filteredCourses;
 
   return (
     <div className="dashboard__main">
@@ -85,13 +115,34 @@ const MyCoursesListPage = () => {
               Sort by
               <span aria-hidden="true" className="mycourses__sort-arrow">↑</span>
             </button>
-            <button className="mycourses__filter mycourses__filter--active">Completed Courses</button>
-            <button className="mycourses__filter">Unfinished Courses</button>
+            <button
+              className={`mycourses__filter ${courseFilter === 'completed' ? 'mycourses__filter--active' : ''}`}
+              type="button"
+              onClick={() => setCourseFilter('completed')}
+            >
+              Completed Courses
+            </button>
+            <button
+              className={`mycourses__filter ${courseFilter === 'unfinished' ? 'mycourses__filter--active' : ''}`}
+              type="button"
+              onClick={() => setCourseFilter('unfinished')}
+            >
+              Unfinished Courses
+            </button>
           </div>
         </div>
 
         <div className="mycourses__grid">
-          {courseCards.map((course, index) => {
+          {loadingEnrollments && enrolledCourses.length === 0 && (
+            <div className="mycourses__loading">Loading enrolled courses...</div>
+          )}
+          {!loadingEnrollments && enrolledCourses.length === 0 && (
+            <div className="mycourses__loading">No enrolled courses found.</div>
+          )}
+          {!loadingEnrollments && enrolledCourses.length > 0 && myCourses.length === 0 && (
+            <div className="mycourses__loading">No courses match this filter.</div>
+          )}
+          {myCourses.map((course, index) => {
             const progressValue = course.progress ?? 80;
             return (
               <div key={`${course.id}-${index}`} className="mycourses__card">

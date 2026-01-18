@@ -4,15 +4,24 @@ import { useAuth } from '../context/AuthContext';
 import courseService from '../services/courseService';
 import '../App.css';
 import './CoursesPage.css';
+import businessIcon from '../assets/Business.png';
+import computerIcon from '../assets/Computer.png';
+import healthIcon from '../assets/Health.png';
+import lawIcon from '../assets/Law.png';
+import psychologyIcon from '../assets/Psychology.png';
+import scienceIcon from '../assets/Science.png';
+import literatureIcon from '../assets/Literature.png';
+import financeIcon from '../assets/Finance.png';
+import generalIcon from '../assets/General.png';
+import economyIcon from '../assets/Economy.png';
+import mathIcon from '../assets/Math.png';
 
 const CoursesPage = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
-  const [authenticated, setAuthenticated] = useState('All');
   const [subject, setSubject] = useState('All');
-  const [accepted, setAccepted] = useState('All');
-  const [sortBy, setSortBy] = useState('Featured');
+  const [sortBy, setSortBy] = useState('Price: Low to High');
   const [loading, setLoading] = useState(false);
   const [loadError, setLoadError] = useState('');
   const [showError, setShowError] = useState(false);
@@ -41,6 +50,42 @@ const CoursesPage = () => {
 
   const [courses, setCourses] = useState([]);
 
+  const subjectIcons = {
+    business: businessIcon,
+    'computer science': computerIcon,
+    computerscience: computerIcon,
+    health: healthIcon,
+    healthcare: healthIcon,
+    law: lawIcon,
+    lawandjustice: lawIcon,
+    psychology: psychologyIcon,
+    science: scienceIcon,
+    literature: literatureIcon,
+    finance: financeIcon,
+    finances: financeIcon,
+    general: generalIcon,
+    economics: economyIcon,
+    economy: economyIcon,
+    math: mathIcon
+  };
+
+  const getSubjectIcon = (course) => {
+    const raw = course.subject || '';
+    const normalized = raw.toLowerCase().replace(/\s+/g, '');
+    const spaced = raw.toLowerCase();
+    return subjectIcons[normalized] || subjectIcons[spaced] || null;
+  };
+
+  const parsePrice = (value) => {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    if (typeof value === 'string') {
+      const cleaned = value.replace(/[^0-9.]/g, '');
+      const parsed = Number(cleaned);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+    return 0;
+  };
+
   const normalizeCourse = (course) => {
     const tags = Array.isArray(course.tags) ? course.tags : [];
     if (!tags.length) {
@@ -53,7 +98,7 @@ const CoursesPage = () => {
       code: course.code ?? course.course_code ?? '',
       name: course.name ?? course.title ?? '',
       desc: course.description ?? course.desc ?? '',
-      price: Number(course.price ?? course.cost ?? 0),
+      price: parsePrice(course.price ?? course.cost),
       tags,
       icon: course.icon ?? 'C',
       color: course.color ?? '#ff9800',
@@ -71,13 +116,7 @@ const CoursesPage = () => {
       setLoadError('');
 
       try {
-        const params = {
-          search: searchQuery || undefined,
-          subject_area: subject !== 'All' && subject !== 'Subject' ? subject : undefined,
-          is_active: true,
-          page: 0,
-          limit: 50
-        };
+        const params = {};
 
         const payload = await courseService.getCourses(params);
         const items = Array.isArray(payload) ? payload : payload?.courses || payload?.data || [];
@@ -104,14 +143,13 @@ const CoursesPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [searchQuery, subject, authenticated, retryToken]);
+  }, [searchQuery, subject, retryToken]);
 
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           course.code.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesAuth = authenticated === 'All' || authenticated === 'Authenticated by' || course.auth === authenticated;
     const matchesSubject = subject === 'All' || subject === 'Subject' || course.subject === subject;
-    return matchesSearch && matchesAuth && matchesSubject;
+    return matchesSearch && matchesSubject;
   });
 
   const sortedCourses = [...filteredCourses].sort((a, b) => {
@@ -153,14 +191,10 @@ const CoursesPage = () => {
 
         <div className="courses-filters">
           <div className="filters-left">
-            <select value={authenticated} onChange={(e) => setAuthenticated(e.target.value)}>
-              <option value="All">Authenticated by</option>
-              <option value="ACE">ACE</option>
-              <option value="NCCRS">NCCRS</option>
-            </select>
-
+            <div className="subject-control">
+              <span className="subject-label">Subject</span>
             <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-              <option value="All">Subject</option>
+              <option value="All">All</option>
               <option value="Psychology">Psychology</option>
               <option value="Science">Science</option>
               <option value="Business">Business</option>
@@ -174,18 +208,25 @@ const CoursesPage = () => {
               <option value="Economics">Economics</option>
               <option value="Math">Math</option>
             </select>
-
-            <select value={accepted} onChange={(e) => setAccepted(e.target.value)}>
-              <option value="All">Accepted by</option>
-            </select>
+            </div>
           </div>
           <div className="filters-right">
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-              <option value="Featured">Sort by</option>
-              <option value="Price: Low to High">Price: Low to High</option>
-              <option value="Price: High to Low">Price: High to Low</option>
-              <option value="Name A-Z">Name A-Z</option>
-            </select>
+            <div className="sort-control">
+              <span className="sort-label">Sort by</span>
+              <select
+                className="sort-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="Price: Low to High">Price: Low to High</option>
+                <option value="Price: High to Low">Price: High to Low</option>
+              </select>
+              <span className="sort-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <path d="M4 6h12M6 10h8M8 14h4" />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -218,13 +259,21 @@ const CoursesPage = () => {
               <div key={course.id} className="course-card">
                 <div className="course-card-top">
                   <div className="course-icon">
-                    <span>OC</span>
+                    {getSubjectIcon(course) ? (
+                      <img
+                        src={getSubjectIcon(course)}
+                        alt={`${course.subject || 'Course'} icon`}
+                        className="course-icon-image"
+                      />
+                    ) : (
+                      <span>OC</span>
+                    )}
                   </div>
                   <div className="course-bookmark" aria-hidden="true" />
                 </div>
 
                 <h3>
-                  {course.code}: {course.name}
+                  {course.code ? `${course.code}: ` : ''}{course.name}
                 </h3>
                 <p className="course-desc">{course.desc}</p>
 

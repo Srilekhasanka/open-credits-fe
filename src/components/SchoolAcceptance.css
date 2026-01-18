@@ -1,90 +1,98 @@
 .school-acceptance {
   padding: 60px 0;
-  background: #fafafa;
+  background: #fff;
 }
 
 .acceptance-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 40px;
+  padding: 36px 44px;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 40px;
+  gap: 28px;
   align-items: center;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #efefef;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.acceptance-content {
+  max-width: 520px;
 }
 
 .acceptance-content h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
+  font-size: 22px;
+  margin-bottom: 12px;
   color: #333;
   font-weight: 700;
 }
 
 .acceptance-content p {
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.6;
   color: #666;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 
 .acceptance-buttons {
   display: flex;
   gap: 15px;
+  align-items: center;
 }
 
-.btn-outline {
-  padding: 12px 24px;
-  background: white;
+.school-acceptance .btn-outline {
+  padding: 8px 16px;
+  background: #fff;
   color: #FF6633;
-  border: 2px solid #FF6633;
-  border-radius: 5px;
-  font-size: 14px;
+  border: 1px solid #FF6633;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.btn-outline:hover {
+.school-acceptance .btn-outline:hover {
   background: #FF6633;
   color: white;
 }
 
-.btn-primary {
-  padding: 12px 24px;
+.school-acceptance .btn-primary {
+  padding: 8px 16px;
   background: #FF6633;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-.btn-primary:hover {
+.school-acceptance .btn-primary:hover {
   background: #e55522;
 }
 
 .guarantee-badge {
   display: flex;
   justify-content: center;
+  align-self: center;
 }
 
 .badge-card {
-  width: 220px;
+  width: 260px;
   background: transparent;
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
 
 .badge-card img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 @media (max-width: 968px) {

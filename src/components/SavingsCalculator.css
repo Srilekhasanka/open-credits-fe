@@ -24,95 +24,197 @@
 }
 
 .savings-card {
-  background: #fafafa;
-  border-radius: 16px;
-  padding: 28px 32px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  border-radius: 18px;
+  padding: 32px 36px 36px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
 }
 
-.savings-tabs {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 26px;
-}
-
-.tab-btn {
-  border: none;
-  background: transparent;
-  color: #666;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 6px 0;
-  border-bottom: 2px solid transparent;
-}
-
-.tab-btn.active {
-  color: #ff6633;
-  border-color: #ff6633;
-}
-
-.slider-row {
+.savings-grid {
   display: grid;
-  grid-template-columns: 1fr 120px;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 20px;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.8fr);
+  gap: 28px;
+  align-items: start;
 }
 
-.slider-copy label {
+.savings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field-group label {
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 12px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.search-input {
+  position: relative;
+}
+
+.search-input input {
+  width: 100%;
+  padding: 10px 36px 10px 12px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #333;
+  background: #fafafa;
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9b9b9b;
+  width: 18px;
+  height: 18px;
+}
+
+.search-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.field-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #333;
+  background: #fafafa;
+}
+
+.student-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.student-tab {
+  padding: 7px 14px;
+  border-radius: 16px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  color: #666;
+}
+
+.student-tab.active {
+  border-color: #9bb2ff;
+  color: #2b3cff;
+  box-shadow: 0 2px 8px rgba(43, 60, 255, 0.15);
+}
+
+.breakdown {
+  margin-top: 6px;
+}
+
+.breakdown h3 {
+  font-size: 13px;
+  margin-bottom: 10px;
   color: #333;
 }
 
-.slider-copy input[type='range'] {
-  width: 100%;
-  accent-color: #ff6633;
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+  gap: 16px;
 }
 
-.slider-value {
+.breakdown-row span {
+  flex: 1;
+}
+
+.breakdown-row strong {
+  color: #333;
+  min-width: 72px;
   text-align: right;
-  font-size: 20px;
-  font-weight: 700;
+}
+
+.breakdown-row.highlight strong {
   color: #ff6633;
 }
 
-.savings-divider {
-  height: 1px;
-  background: #e6e6e6;
-  margin: 26px 0 18px;
-}
-
-.savings-results {
+.savings-summary {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  font-size: 14px;
-  color: #555;
+  gap: 16px;
 }
 
-.result-row {
+.summary-card {
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
 }
 
-.result-row strong {
-  font-size: 16px;
+.summary-card strong {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.result-estimate {
-  color: #ff4a4a;
+.summary-outline {
+  border: 1px solid #ff9a7a;
+  color: #ff6633;
 }
 
-.result-open {
-  color: #2e9d3b;
+.summary-solid {
+  background: #ff6633;
+  color: #fff;
 }
 
-.result-save {
+.summary-solid strong {
+  color: #fff;
+}
+
+.bundle-section {
+  margin-top: 26px;
+}
+
+.bundle-section h3 {
+  font-size: 13px;
+  margin-bottom: 14px;
+  color: #333;
+}
+
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.bundle-card {
+  border: 1px solid #ffb397;
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  color: #ff6633;
+  background: #fff7f2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.bundle-card strong {
+  font-size: 18px;
   color: #ff6633;
 }
 
@@ -125,12 +227,11 @@
     padding: 22px;
   }
 
-  .slider-row {
+  .savings-grid {
     grid-template-columns: 1fr;
-    text-align: left;
   }
 
-  .slider-value {
-    text-align: left;
+  .bundle-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,6 +1,9 @@
 // API Base URL
 export const API_BASE_URL = 'https://gnh3rb7x-2994.inc1.devtunnels.ms/oc-be/api/v1';
 
+// Toggle mock mode when backend is unavailable
+export const USE_MOCK_API = false;
+
 // API Endpoints
 export const API_ENDPOINTS = {
   AUTH: {
@@ -17,6 +20,9 @@ export const API_ENDPOINTS = {
     DETAILS: (id) => `${API_BASE_URL}/courses/${id}`,
     ENROLL: (id) => `${API_BASE_URL}/courses/${id}/enroll`,
     PROGRESS: (id) => `${API_BASE_URL}/courses/${id}/progress`,
+  },
+  ENROLLMENTS: {
+    COURSES: `${API_BASE_URL}/enrollments/courses`,
   },
   USER: {
     PROFILE: `${API_BASE_URL}/user/profile`,

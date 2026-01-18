@@ -38,28 +38,27 @@
 }
 
 .btn-chat {
-  padding: 12px 28px;
+  padding: 10px 22px;
   background: white;
   color: #FF6633;
   border: 1px solid #FF6633;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
 }
 
 .btn-chat:hover {
   background: #fff5f0;
 }
 
-.chat-icon {
-  width: 18px;
-  height: 18px;
-  display: block;
+.hero-actions .btn-primary {
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 .hero-image {

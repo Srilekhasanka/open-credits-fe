@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import courseService from '../services/courseService';
 import '../components/DashboardLayout.css';
 
 const AllCoursesDashboardPage = () => {
@@ -15,6 +16,55 @@ const AllCoursesDashboardPage = () => {
     const timer = setTimeout(() => setToastMessage(''), 1800);
     return () => clearTimeout(timer);
   }, [toastMessage]);
+
+  const [courses, setCourses] = useState([]);
+  const [loadingCourses, setLoadingCourses] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchCourses = async () => {
+      setLoadingCourses(true);
+      try {
+        const payload = await courseService.getCourses({ is_active: true, page: 0, limit: 50 });
+        const items = Array.isArray(payload) ? payload : payload?.courses || payload?.data || [];
+        const normalized = items.map((course) => {
+          const rawName = course.name || course.title || '';
+          const [codePart, ...nameParts] = rawName.split(':');
+          const hasCode = rawName.includes(':');
+          const normalizedPrice = Number(String(course.price ?? course.cost ?? 0).replace(/[^0-9.]/g, ''));
+          return {
+            id: course.id ?? course.course_id ?? course._id ?? course.slug ?? course.code ?? rawName,
+            code: hasCode ? codePart.trim() : '',
+            name: hasCode ? nameParts.join(':').trim() : rawName,
+            description: course.description || course.desc || '',
+            price: Number.isNaN(normalizedPrice) ? 0 : normalizedPrice,
+            seats: '22/50 seats left'
+          };
+        });
+
+        if (isMounted) {
+          setCourses(normalized);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setCourses([]);
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingCourses(false);
+        }
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchCourses();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return (
@@ -31,57 +81,6 @@ const AllCoursesDashboardPage = () => {
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
-
-  const courses = [
-    {
-      id: 'acc-210',
-      code: 'ACC 210',
-      name: 'Managerial Accounting',
-      description: 'Learn core managerial accounting concepts, interpret financial statements.',
-      price: 850,
-      seats: '22/50 seats left'
-    },
-    {
-      id: 'bus-230',
-      code: 'BUS 230',
-      name: 'Project Management',
-      description: 'Build project management skills with real-world tools and workflows.',
-      price: 850,
-      seats: '22/50 seats left'
-    },
-    {
-      id: 'bus-250',
-      code: 'BUS 250',
-      name: 'Business Law',
-      description: 'Explore contracts, compliance, and foundational legal principles.',
-      price: 850,
-      seats: '22/50 seats left'
-    },
-    {
-      id: 'bus-306',
-      code: 'BUS 306',
-      name: 'Human Resources',
-      description: 'Learn hiring, culture, and people operations essentials.',
-      price: 850,
-      seats: '22/50 seats left'
-    },
-    {
-      id: 'bus-310',
-      code: 'BUS 310',
-      name: 'Entrepreneurship',
-      description: 'Turn ideas into a business plan with lean startup methods.',
-      price: 850,
-      seats: '22/50 seats left'
-    },
-    {
-      id: 'acc-211',
-      code: 'ACC 211',
-      name: 'Financial Accounting',
-      description: 'Understand balance sheets, cash flow, and core reporting.',
-      price: 850,
-      seats: '22/50 seats left'
-    }
-  ];
 
   return (
     <div className="dashboard__main">
@@ -121,6 +120,12 @@ const AllCoursesDashboardPage = () => {
         </div>
 
         <div className="allcourses__grid">
+          {loadingCourses && courses.length === 0 && (
+            <div className="mycourses__loading">Loading courses...</div>
+          )}
+          {!loadingCourses && courses.length === 0 && (
+            <div className="mycourses__loading">No courses found.</div>
+          )}
           {courses.map((course) => (
             <div key={course.id} className="allcourses__card">
               <div className="mycourses__card-top">

@@ -7,22 +7,30 @@ const WhyOpenCredits = () => {
     {
       icon: <FaDollarSign />,
       title: 'Affordable Tuition Cost',
-      description: 'University-level courses at a fraction of traditional cost for you.'
+      description: 'Save significantly compared to traditional college courses, without sacrificing quality or credibility.',
+      linkLabel: 'Calculate pricing',
+      linkHref: '#pricing'
     },
     {
       icon: <FaExchangeAlt />,
-      title: 'Transferable Credits',
-      description: 'Courses recommended by nationally recognized credit evaluators at 1000+ colleges.'
+      title: 'Transferable College Credits',
+      description: 'Courses recommended by nationally recognized credit evaluators at 1000+ colleges.',
+      linkLabel: 'View Courses',
+      linkHref: '/courses'
     },
     {
       icon: <FaBook />,
       title: 'Self-Paced Learning',
-      description: 'Learn anytime, anywhere with no start or end dates.'
+      description: 'Learn anytime, anywhere with no start or end dates.',
+      linkLabel: 'View accepted colleges',
+      linkHref: '#accepted-colleges'
     },
     {
       icon: <FaBolt />,
       title: 'Graduate Faster',
-      description: 'Earn transferable credits on your schedule and reduce time to graduation.'
+      description: 'Earn transferable credits on your schedule and reduce time to graduation.',
+      linkLabel: 'Schedule Call',
+      linkHref: '/get-started'
     }
   ];
 
@@ -37,7 +45,9 @@ const WhyOpenCredits = () => {
               <div className="feature-icon">{feature.icon}</div>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
-              <a href="#pricing" className="learn-more">View pricing →</a>
+              <a href={feature.linkHref} className="learn-more">
+                {feature.linkLabel} <span className="learn-more__arrow">→</span>
+              </a>
             </div>
           ))}
         </div>

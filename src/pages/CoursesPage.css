@@ -79,6 +79,47 @@
   flex-wrap: wrap;
 }
 
+.subject-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 10px 40px 10px 16px;
+  background: #fff;
+  min-width: 160px;
+}
+
+.subject-label {
+  font-size: 12px;
+  color: #444;
+}
+
+.subject-control select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  background: transparent;
+}
+
+.subject-control::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #9a9a9a;
+  border-bottom: 2px solid #9a9a9a;
+  transform: translateY(-50%) rotate(45deg);
+}
+
 .courses-filters select {
   height: 32px;
   padding: 0 12px;
@@ -87,6 +128,55 @@
   font-size: 12px;
   color: #444;
   background: #fff;
+}
+
+.sort-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 10px 40px 10px 16px;
+  background: #fff;
+  min-width: 140px;
+}
+
+.sort-label {
+  font-size: 12px;
+  color: #444;
+}
+
+.sort-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  background: transparent;
+}
+
+.sort-icon {
+  position: absolute;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sort-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
 }
 
 .courses-breadcrumb {
@@ -181,22 +271,47 @@
   background: #fff;
 }
 
+.course-icon-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
 .course-bookmark {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  border: 1px solid #e1e1e1;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
   position: relative;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .course-bookmark::after {
   content: "";
   position: absolute;
-  inset: 4px 6px;
+  left: 7px;
+  top: 5px;
+  width: 8px;
+  height: 10px;
+  border: 2px solid #b5b5b5;
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
+  box-sizing: border-box;
+}
+
+.course-bookmark::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 11px;
+  width: 8px;
+  height: 6px;
   border-left: 2px solid #b5b5b5;
   border-right: 2px solid #b5b5b5;
   border-bottom: 2px solid #b5b5b5;
-  border-top: none;
   border-radius: 0 0 2px 2px;
 }
 

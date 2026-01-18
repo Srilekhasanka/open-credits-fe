@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 import { useAuth } from '../context/AuthContext';
 import homeStudent from '../assets/homestudent.png';
-import whatsappIcon from '../assets/whatsapp.png';
 
 const Hero = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleEnroll = () => {
-    navigate('/courses');
+    navigate('/enroll');
   };
   
   return (
@@ -29,11 +28,12 @@ const Hero = () => {
           </p>
           {!isAuthenticated && (
             <div className="hero-actions">
-              <button className="btn-chat">
+              <button className="btn-chat" type="button">
                 Chat Now
-                <img src={whatsappIcon} alt="" className="chat-icon" />
               </button>
-              <button className="btn-primary" onClick={handleEnroll}>Talk to an Advisor</button>
+              <button className="btn-primary" type="button" onClick={handleEnroll}>
+                Enroll Now
+              </button>
             </div>
           )}
         </div>
