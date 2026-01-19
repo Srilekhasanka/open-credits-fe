@@ -14,8 +14,10 @@ const CourseLearningPage = () => {
   
   const [selectedLesson, setSelectedLesson] = useState(0);
   const [selectedModule, setSelectedModule] = useState(0);
+  const [openModuleIndex, setOpenModuleIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('overview');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isProgressMenuOpen, setIsProgressMenuOpen] = useState(false);
   
   // Quiz states
   const [isQuizActive, setIsQuizActive] = useState(false);
@@ -56,6 +58,7 @@ const CourseLearningPage = () => {
   const isUpdatingProgressRef = useRef(false);
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
+  const progressMenuRef = useRef(null);
 
   // Find the course
   const course = enrolledCourses.find((c) => String(c.id ?? c.course_id ?? c._id) === String(courseId));
@@ -166,6 +169,15 @@ const CourseLearningPage = () => {
 
   const currentLesson = courseContent.modules[selectedModule]?.lessons[selectedLesson];
   const totalLessons = courseContent.modules.reduce((acc, module) => acc + module.lessons.length, 0);
+  const completedLessons = useMemo(() => {
+    return courseContent.modules.reduce((acc, module) => {
+      const completedInModule = module.lessons.filter((lesson) => {
+        const progressValue = lessonProgress[lesson.id];
+        return (progressValue ?? 0) >= 98 || lesson.completed;
+      }).length;
+      return acc + completedInModule;
+    }, 0);
+  }, [courseContent.modules, lessonProgress]);
   const currentLessonNumber = courseContent.modules
     .slice(0, selectedModule)
     .reduce((acc, module) => acc + module.lessons.length, 0) + selectedLesson + 1;
@@ -272,6 +284,20 @@ const CourseLearningPage = () => {
       }
     };
   }, [streamUrl, isPlaying]);
+
+  useEffect(() => {
+    if (!isProgressMenuOpen) return;
+    const handleOutsideClick = (event) => {
+      if (!progressMenuRef.current) return;
+      if (!progressMenuRef.current.contains(event.target)) {
+        setIsProgressMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isProgressMenuOpen]);
 
   const normalizeProgressValue = (response) => {
     const payload = response?.payload ?? response?.data ?? response ?? {};
@@ -623,38 +649,75 @@ const CourseLearningPage = () => {
           </div>
         </div>
         <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-          <div style={{
-            backgroundColor: '#2d2f31',
-            padding: '8px 16px',
-            borderRadius: '4px',
-            fontSize: '13px',
-            color: '#ccc'
-          }}>
-            Progress: {course.progress}%
+          <div style={{ position: 'relative' }} ref={progressMenuRef}>
+            <button
+              type="button"
+              onClick={() => setIsProgressMenuOpen((prev) => !prev)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                backgroundColor: '#2d2f31',
+                padding: '6px 14px',
+                borderRadius: '6px',
+                fontSize: '13px',
+                color: '#ccc',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              <span style={{
+                width: '28px',
+                height: '28px',
+                borderRadius: '50%',
+                border: '1px solid #4a4d50',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#d0d3d6',
+                fontSize: '14px'
+              }}>
+                🏆
+              </span>
+              <span style={{ color: '#e6e7e8', fontWeight: 500 }}>Your progress</span>
+              <span style={{ color: '#9aa0a6' }}>{course.progress}%</span>
+              <span style={{ color: '#7f8489' }}>{isProgressMenuOpen ? '⌃' : '⌄'}</span>
+            </button>
+            {isProgressMenuOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '42px',
+                right: 0,
+                backgroundColor: '#1f2124',
+                border: '1px solid #2c2f33',
+                borderRadius: '10px',
+                padding: '14px 16px',
+                minWidth: '280px',
+                boxShadow: '0 10px 24px rgba(0,0,0,0.35)',
+                zIndex: 50
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-6px',
+                  right: '18px',
+                  width: '12px',
+                  height: '12px',
+                  backgroundColor: '#1f2124',
+                  borderLeft: '1px solid #2c2f33',
+                  borderTop: '1px solid #2c2f33',
+                  transform: 'rotate(45deg)'
+                }} />
+                <div style={{ color: '#e6e7e8', fontWeight: 600, marginBottom: '6px' }}>
+                  {completedLessons} of {totalLessons} complete.
+                </div>
+                <div style={{ color: '#9aa0a6', fontSize: '12px' }}>
+                  Finish course to get your certificate
+                </div>
+              </div>
+            )}
           </div>
-          {currentLesson?.id && lessonProgress[currentLesson.id] !== undefined && (
-            <div style={{
-              backgroundColor: '#2d2f31',
-              padding: '8px 16px',
-              borderRadius: '4px',
-              fontSize: '13px',
-              color: '#ccc'
-            }}>
-              Lesson: {lessonProgress[currentLesson.id]}%
-            </div>
-          )}
-          <button style={{
-            padding: '8px 20px',
-            backgroundColor: '#ff6b35',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            fontSize: '14px',
-            fontWeight: '600',
-            cursor: 'pointer'
-          }}>
-            ⭐ Rate Course
-          </button>
+          
+          
           {/* User Profile */}
           <div style={{
             width: '40px',
@@ -670,9 +733,9 @@ const CourseLearningPage = () => {
             cursor: 'pointer',
             border: '2px solid #2d2f31'
           }}
-          title={user?.name || 'User'}
+          title={user?.name || user?.email || ''}
           onClick={() => navigate('/profile')}>
-            {user?.name?.charAt(0).toUpperCase() || 'A'}
+            {(user?.name || user?.email || '').charAt(0).toUpperCase()}
           </div>
         </div>
       </div>
@@ -1149,28 +1212,33 @@ const CourseLearningPage = () => {
                     cursor: 'pointer'
                   }}
                   onClick={() => {
-                    setSelectedModule(moduleIdx);
-                    setSelectedLesson(0);
-                    setIsPlaying(false);
+                    setOpenModuleIndex((prev) => (prev === moduleIdx ? -1 : moduleIdx));
+                    if (openModuleIndex !== moduleIdx) {
+                      setSelectedModule(moduleIdx);
+                      setSelectedLesson(0);
+                      setIsPlaying(false);
+                    }
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>{module.title}</div>
                       <div style={{ color: '#ccc', fontSize: '12px' }}>
-                        {module.lessons.length} lessons • {module.duration}
+                        {module.lessons.length} lessons ? {module.duration}
                       </div>
                     </div>
-                    <span style={{ color: '#ccc' }}>▼</span>
+                    <span style={{ color: '#ccc' }}>{openModuleIndex === moduleIdx ? '⌃' : '⌄'}</span>
                   </div>
                 </div>
                 
-                {loadingLessonsId === module.id && (
-                  <div style={{ color: '#ccc', fontSize: '12px', padding: '8px 0 8px 8px' }}>
-                    Loading lessons...
-                  </div>
-                )}
-                {module.lessons.map((lesson, lessonIdx) => {
+                {openModuleIndex === moduleIdx && (
+                  <>
+                    {loadingLessonsId === module.id && (
+                      <div style={{ color: '#ccc', fontSize: '12px', padding: '8px 0 8px 8px' }}>
+                        Loading lessons...
+                      </div>
+                    )}
+                    {module.lessons.map((lesson, lessonIdx) => {
                   const progressValue = lessonProgress[lesson.id];
                   const isCompleted = progressValue >= 98 || lesson.completed;
                   return (
@@ -1202,21 +1270,38 @@ const CourseLearningPage = () => {
                         }
                       }}
                     >
-                      <div style={{ flex: 1 }}>
-                        <div style={{ color: 'white', fontSize: '13px', marginBottom: '4px' }}>
-                          {isCompleted ? '✓ ' : ''}{lesson.title}
+                      <div style={{ flex: 1, display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                        <div style={{
+                          width: '18px',
+                          height: '18px',
+                          borderRadius: '3px',
+                          border: isCompleted ? '1px solid #9c7dff' : '1px solid #5a5f63',
+                          backgroundColor: isCompleted ? '#9c7dff' : 'transparent',
+                          color: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '12px',
+                          lineHeight: 1,
+                          marginTop: '2px',
+                          flexShrink: 0
+                        }}>
+                          {isCompleted ? '?' : ''}
                         </div>
-                        <div style={{ color: '#ccc', fontSize: '11px' }}>
-                          {lesson.type === 'video' ? '▶' : lesson.type === 'quiz' ? '📝' : '📄'} {lesson.duration}
+                        <div>
+                          <div style={{ color: 'white', fontSize: '13px', marginBottom: '4px' }}>
+                            {lesson.title}
+                          </div>
+                          <div style={{ color: '#ccc', fontSize: '11px' }}>
+                            {lesson.type === 'video' ? '?' : lesson.type === 'quiz' ? '??' : '??'} {lesson.duration}
+                          </div>
                         </div>
                       </div>
-                      {isCompleted && (
-                        <span style={{ color: '#4caf50', fontSize: '16px' }}>✓</span>
-                      )}
                     </div>
                   );
                 })}
-              </div>
+                  </>
+                )}              </div>
             ))}
           </div>
         </div>

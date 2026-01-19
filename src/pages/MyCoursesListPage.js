@@ -28,12 +28,20 @@ const MyCoursesListPage = () => {
           const rawName = item.course?.name || '';
           const [codePart, ...nameParts] = rawName.split(':');
           const hasCode = rawName.includes(':');
+          const rawProgress =
+            item.progress ??
+            item.progress_percent ??
+            item.completed_percentage ??
+            item.course_progress ??
+            item.course?.progress ??
+            0;
+          const numericProgress = Number(rawProgress);
           return {
             id: item.course?.id || item.course_id || item.id,
             code: hasCode ? codePart.trim() : '',
             name: hasCode ? nameParts.join(':').trim() : rawName,
             description: item.course?.description || '',
-            progress: 80,
+            progress: Number.isFinite(numericProgress) ? numericProgress : 0,
           };
         });
 
@@ -190,7 +198,7 @@ const MyCoursesListPage = () => {
             <div className="mycourses__loading">{courseError}</div>
           )}
           {myCourses.map((course, index) => {
-            const progressValue = course.progress ?? 80;
+            const progressValue = course.progress ?? 0;
             return (
               <div key={`${course.id}-${index}`} className="mycourses__card">
                 <div className="mycourses__card-top">

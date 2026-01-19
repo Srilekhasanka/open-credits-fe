@@ -9,6 +9,7 @@ import DashboardLayout from './components/DashboardLayout';
 import HomePage from './pages/HomePage';
 import CoursesPage from './pages/CoursesPage';
 import HowItWorksPage from './pages/HowItWorksPage';
+import CorporatePartnershipsPage from './pages/CorporatePartnershipsPage';
 import FindMyCollegePage from './pages/FindMyCollegePage';
 import ShopPage from './pages/ShopPage';
 import FinancingPage from './pages/FinancingPage';
@@ -45,6 +46,7 @@ function AppContent() {
             <Route path="/my-courses/list" element={<MyCoursesListPage />} />
             <Route path="/my-courses" element={<MyCoursesListPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/partnerships/corporate" element={<CorporatePartnershipsPage />} />
             <Route path="/find-my-college" element={<FindMyCollegePage />} />
             <Route path="/shop" element={<CartDashboardPage />} />
             <Route path="/financing" element={<FinancingPage />} />
@@ -67,6 +69,7 @@ function AppContent() {
           <Route path="/my-courses/list" element={<MyCoursesListPage />} />
           <Route path="/my-courses" element={<MyCoursesListPage />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/partnerships/corporate" element={<CorporatePartnershipsPage />} />
           <Route path="/find-my-college" element={<FindMyCollegePage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/financing" element={<FinancingPage />} />

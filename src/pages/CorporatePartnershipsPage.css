@@ -1,209 +1,221 @@
-.enroll-page {
+.corporate-page {
   background: #fff;
-  padding: 56px 0 80px;
+  min-height: 100vh;
+  padding: 40px 0 80px;
   color: #1f1f1f;
 }
 
-.enroll-container {
-  max-width: 1100px;
+.corporate-container {
+  max-width: 980px;
   margin: 0 auto;
   padding: 0 20px;
+  text-align: center;
 }
 
-.enroll-page h1 {
-  font-size: 26px;
-  margin: 0 0 12px;
-}
-
-.enroll-note {
-  font-size: 12px;
-  color: #333;
-  line-height: 1.6;
-  max-width: 720px;
-  margin: 0 0 32px;
-}
-
-.enroll-note a {
-  color: #2f6bff;
-  text-decoration: underline;
-  margin-left: 4px;
-}
-
-.enroll-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.enroll-card {
-  border: 1px solid #f1d8cc;
+.corporate-hero {
   border-radius: 18px;
-  padding: 20px;
-  background: #fff;
+  border: 2px solid #1f6fff;
+  padding: 8px;
+  margin: 0 auto 22px;
+  max-width: 760px;
+}
+
+.corporate-hero img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.corporate-container h1 {
+  font-size: 26px;
+  margin: 0 0 16px;
+}
+
+.corporate-container h1 span {
+  color: #ff6b2c;
+}
+
+.corporate-container p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #666;
+  max-width: 640px;
+  margin: 0 auto 30px;
+}
+
+.corporate-actions {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 12px;
-  min-height: 420px;
-  box-shadow: 0 6px 16px rgba(12, 12, 12, 0.06);
-}
-
-.enroll-card h2 {
-  font-size: 14px;
-  margin: 0;
-}
-
-.enroll-desc {
-  font-size: 11px;
-  color: #6b6b6b;
-  margin: 0;
-}
-
-.enroll-price {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
+  flex-wrap: wrap;
   margin-top: 8px;
 }
 
-.enroll-price-main {
-  font-size: 26px;
+.corporate-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #ff6b2c;
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.corporate-button.is-outline {
+  background: #fff;
+  color: #ff6b2c;
+  border: 1px solid #ff6b2c;
+}
+
+.corporate-why {
+  padding: 70px 0 20px;
+  background: #fff;
+}
+
+.corporate-why-header {
+  text-align: left;
+  max-width: 100%;
+  margin: 0 0 18px;
+}
+
+.corporate-why-header h2 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.corporate-why-header h2 span {
+  color: #ff6b2c;
+}
+
+.corporate-why-header p {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.corporate-why-lead {
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.corporate-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+}
+
+.corporate-why-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.corporate-why-card h3 {
+  margin: 10px 0 6px;
+  font-size: 12px;
+}
+
+.corporate-why-card p {
+  margin: 0;
+  font-size: 10px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.corporate-why-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: #ff6b2c;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
   font-weight: 700;
 }
 
-.enroll-price-sub {
-  font-size: 11px;
-  color: #7a7a7a;
+.corporate-why--employers {
+  padding-top: 40px;
 }
 
-.enroll-illustration {
-  height: 140px;
-  border-radius: 14px;
-  background: #f9f1ec;
+.corporate-why-image {
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
+  margin: 0 0 18px;
 }
 
-.enroll-illustration::before,
-.enroll-illustration::after {
-  content: '';
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  opacity: 0.55;
+.corporate-why-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-.enroll-illustration::before {
-  top: -50px;
-  right: -40px;
-  background: #f2d0bf;
+.corporate-built {
+  padding: 40px 0 30px;
 }
 
-.enroll-illustration::after {
-  bottom: -50px;
-  left: -50px;
-  background: #d8c9ff;
-}
-
-.enroll-illustration svg {
-  width: 80px;
-  height: 80px;
-  stroke: currentColor;
-  stroke-width: 2.5;
-  fill: none;
-}
-
-.enroll-illustration--person {
-  color: #5a43f1;
-  background: #f7f3ff;
-}
-
-.enroll-illustration--globe {
-  color: #f29d49;
-  background: #fff5ea;
-}
-
-.enroll-illustration--building {
-  color: #1aa6c4;
-  background: #eaf7fb;
-}
-
-.enroll-features {
-  list-style: none;
-  margin: 6px 0 0;
-  padding: 0;
+.corporate-built__layout {
   display: grid;
-  gap: 8px;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 0.45fr);
+  gap: 26px;
+  align-items: start;
+}
+
+.corporate-built__copy h2 {
+  font-size: 18px;
+  margin: 0 0 14px;
+}
+
+.corporate-built__item {
+  margin-bottom: 18px;
+}
+
+.corporate-built__item h3 {
   font-size: 11px;
-  color: #4b4b4b;
+  margin: 0 0 6px;
 }
 
-.enroll-features li {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.corporate-built__item p {
+  font-size: 10px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.enroll-check {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #37b36b;
-  display: inline-block;
-  position: relative;
-  flex-shrink: 0;
+.corporate-built__image {
+  border-left: 1px dashed #cfd6e4;
+  padding-left: 20px;
 }
 
-.enroll-check::after {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 3px;
-  width: 6px;
-  height: 3px;
-  border-left: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  transform: rotate(-45deg);
+.corporate-built__image img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  object-fit: cover;
 }
 
-.enroll-cta {
-  margin-top: auto;
-  align-self: stretch;
-  padding: 9px 18px;
-  border-radius: 8px;
-  border: 1px solid #ff6b2c;
-  background: #fff;
-  color: #ff6b2c;
-  font-size: 11px;
-  cursor: pointer;
-  font-weight: 600;
+.corporate-orange {
+  padding: 24px 0 40px;
 }
 
-.enroll-cta--accent {
-  background: #ee6a2e;
-  color: #fff;
-  border-color: #ee6a2e;
+.corporate-orange__card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
 }
 
-.enroll-cta:hover {
-  background: #fff2ec;
-}
-
-.enroll-cta--accent:hover {
-  background: #e35f24;
-}
-
-@media (max-width: 980px) {
-  .enroll-grid {
-    grid-template-columns: 1fr;
-  }
+.corporate-orange__card img {
+  width: 100%;
+  display: block;
 }
 
 .savings-section {
-  margin-top: 44px;
+  margin: 44px 0;
 }
 
 .savings-section h2 {
@@ -369,10 +381,7 @@
   border-color: #ee6a2e;
 }
 
-.savings-pill.is-accent strong {
-  color: #fff;
-}
-
+.savings-pill.is-accent strong,
 .savings-pill.is-accent div,
 .savings-pill.is-accent span {
   color: #fff;
@@ -427,5 +436,32 @@
 
   .savings-bundle-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .corporate-container h1 {
+    font-size: 22px;
+  }
+
+  .corporate-hero {
+    border-radius: 14px;
+  }
+
+  .corporate-why-header {
+    text-align: center;
+  }
+
+  .corporate-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .corporate-built__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .corporate-built__image {
+    border-left: none;
+    padding-left: 0;
   }
 }

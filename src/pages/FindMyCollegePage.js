@@ -2,25 +2,30 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import '../App.css';
 import './FindMyCollegePage.css';
+import paceLogo from '../assets/pace.png';
+import sdsuLogo from '../assets/sdsu.png';
+import stonyLogo from '../assets/stony.png';
 
 const FindMyCollegePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const universities = [
-    { name: 'Bottega University', color: '#0f1a2f' },
-    { name: 'Charter Oak State College', color: '#2e5a3c' },
-    { name: 'Columbia Southern University', color: '#1e3a5f' },
-    { name: 'Crestpoint University', color: '#4a4a4a' },
-    { name: 'Dunlap-Stone University', color: '#1e4d6b' },
-    { name: 'EC-Council University', color: '#c41e3a' },
-    { name: 'Graceland University', color: '#3b2f6f' },
-    { name: 'PACE University', color: '#003366' },
+    { name: 'PACE University', logo: paceLogo, color: '#003366' },
+    { name: 'University at Buffalo', color: '#0047bb' },
+    { name: 'Stony Brook University', logo: stonyLogo, color: '#7a1f2b' },
     { name: 'NJCU', color: '#0f5aa5' },
-    { name: 'Indiana Tech', color: '#b43c2e' },
     { name: 'NJIT', color: '#d32f2f' },
+    { name: 'San Diego State University', logo: sdsuLogo, color: '#a6192e' },
+    { name: 'SUNY', color: '#0b3d91' },
     { name: 'The Ohio State University', color: '#bb0000' },
+    { name: 'MVNU', color: '#006f4c' },
+    { name: 'Franklin University', color: '#0f1a2f' },
+    { name: 'Central Michigan University', color: '#6a0030' },
     { name: 'Penn State', color: '#1e407c' },
-    { name: 'San Diego State University', color: '#a6192e' }
+    { name: 'Crestpoint University', color: '#4a4a4a' },
+    { name: 'Indiana Tech', color: '#b43c2e' },
+    { name: 'EC-Council University', color: '#c41e3a' },
+    { name: 'Graceland University', color: '#3b2f6f' }
   ];
 
   const filteredUniversities = universities.filter((uni) =>
@@ -55,9 +60,8 @@ const FindMyCollegePage = () => {
           <h1>Find Your College</h1>
           <p>
             Open Credits has sent transcripts to over 1,500 colleges and universities. If your
-            university is with the American Council on Education (ACE) or National College Credit
-            Recommendation Service (NCCRS), or accepts transcripts from a four-year university for
-            credit review.
+            university is with the nationally accredited bodies, or accepts transcripts from a
+            four-year university for credit review.
           </p>
         </div>
 
@@ -82,7 +86,11 @@ const FindMyCollegePage = () => {
           <div className="find-college-grid">
             {filteredUniversities.map((university) => (
               <div key={university.name} className="find-college-card">
-                <span style={{ color: university.color }}>{university.name}</span>
+                {university.logo ? (
+                  <img src={university.logo} alt={university.name} />
+                ) : (
+                  <span style={{ color: university.color }}>{university.name}</span>
+                )}
               </div>
             ))}
           </div>

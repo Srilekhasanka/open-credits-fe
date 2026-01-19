@@ -81,7 +81,7 @@ const MyCoursesPage = () => {
                   <div className="mycourses__loading">No enrolled courses yet.</div>
                 )}
                 {continueCourses.map((course) => {
-                  const progressValue = course.progress ?? 20;
+                  const progressValue = course.progress ?? 0;
                   return (
                     <div key={course.id} className="dashboard__mini-card">
                       <div className="dashboard__mini-header">
@@ -130,7 +130,7 @@ const MyCoursesPage = () => {
                   <div className="mycourses__loading">No courses match this filter.</div>
                 )}
                 {filteredCourses.map((course) => {
-                  const progressValue = course.progress ?? 80;
+                  const progressValue = course.progress ?? 0;
                   return (
                     <div key={course.id} className="dashboard__course-card">
                       <div className="dashboard__course-icon">{course.code?.split(' ')[0] || 'OC'}</div>

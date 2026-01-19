@@ -7,29 +7,45 @@ const pricingCards = [
     description: 'One course, pay only once and get 3 Credits.',
     price: '$250',
     priceSuffix: '/ course',
-    detail:
-      'Choose any 1 transferable college-credit courses (3 credits) Finish faster. Pay less. No fluff.',
-    cta: 'Enroll Now'
+    features: [
+      '1 transferable college- credit courses',
+      'No time restrictions',
+      'Loan approval Letter'
+    ],
+    cta: 'Enroll Now',
+    variant: 'primary',
+    icon: 'person'
   },
   {
     title: 'Single Course - One time Pay (International Students)',
     description: 'One course, pay only once and get 3 Credits.',
     price: '$850',
     priceSuffix: '/ course',
-    detail:
-      'Choose any 1 transferable college-credit courses (3 credits) Finish faster. Pay less. No fluff.',
-    cta: 'Enroll Now'
+    features: [
+      '1 transferable college- credit courses',
+      'No time restrictions product',
+      'Loan approval Letter'
+    ],
+    cta: 'Enroll Now',
+    variant: 'primary',
+    icon: 'globe'
   },
   {
-    title: 'University specific Pricing',
-    description: 'Custom Courses, bundles and university specific pricing.',
-    price: '$850',
-    priceSuffix: '/ course',
-    detail:
-      'Choose any 1 transferable college-credit courses (3 credits) Finish faster. Pay less. No fluff.',
-    cta: 'Calculate Now'
+    title: 'University specific Pricing and bundle discounts (Custom Plan)',
+    description: 'Custom Courses, bundles and university specific pricing',
+    price: '',
+    priceSuffix: '',
+    features: [
+      'Custom Plan for you',
+      'No time restrictions',
+      'Loan approval Letter'
+    ],
+    cta: 'Calculate Now',
+    variant: 'accent',
+    icon: 'building'
   }
 ];
+
 
 const EnrollPage = () => {
   const mailSubject =
@@ -71,32 +87,152 @@ const EnrollPage = () => {
       <div className="enroll-container">
         <h1>Enroll now</h1>
         <p className="enroll-note">
-          NOTE : Education loans or sponsorships can be used to take Open Credits Courses. We
-          provide an official offer letter on request. Send us an Email -
+          <strong>NOTE :</strong> Education loans or sponsorships can be used to take Open Credits
+          Courses. We provide an official offer letter on request.
+          <br />
+          Send us an Email -
           <a href={gmailHref} target="_blank" rel="noreferrer">
-            Connect@opencredits.org
+            contact@opencredits.org
           </a>
         </p>
 
         <div className="enroll-grid">
           {pricingCards.map((card) => (
             <article key={card.title} className="enroll-card">
+              <div className={`enroll-illustration enroll-illustration--${card.icon}`}>
+                {card.icon === 'person' && (
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <rect x="14" y="22" width="36" height="26" rx="3" />
+                    <circle cx="32" cy="18" r="6" />
+                    <path d="M32 28v16M26 36h12" />
+                  </svg>
+                )}
+                {card.icon === 'globe' && (
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <rect x="14" y="22" width="36" height="26" rx="3" />
+                    <circle cx="32" cy="18" r="7" />
+                    <path d="M25 18h14M32 11v14" />
+                  </svg>
+                )}
+                {card.icon === 'building' && (
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <rect x="14" y="22" width="36" height="26" rx="3" />
+                    <path d="M24 26h16v18H24zM28 30h4v4h-4zM32 30h4v4h-4zM28 36h4v4h-4zM32 36h4v4h-4z" />
+                  </svg>
+                )}
+              </div>
               <h2>{card.title}</h2>
               <p className="enroll-desc">{card.description}</p>
-              <div className="enroll-price">
-                <span className="enroll-price-main">{card.price}</span>
-                <span className="enroll-price-sub">{card.priceSuffix}</span>
-              </div>
-              <div className="enroll-detail">
-                <span className="enroll-check" aria-hidden="true">✓</span>
-                <span>{card.detail}</span>
-              </div>
-              <button type="button" className="enroll-cta">
+              {card.price && (
+                <div className="enroll-price">
+                  <span className="enroll-price-main">{card.price}</span>
+                  <span className="enroll-price-sub">{card.priceSuffix}</span>
+                </div>
+              )}
+              <ul className="enroll-features">
+                {card.features.map((feature) => (
+                  <li key={feature}>
+                    <span className="enroll-check" aria-hidden="true" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <button type="button" className={`enroll-cta enroll-cta--${card.variant}`}>
                 {card.cta}
               </button>
             </article>
           ))}
         </div>
+
+        <section className="savings-section">
+          <h2>
+            Calculate how much you save with <span>Open Credits</span>
+          </h2>
+          <div className="savings-card">
+            <div className="savings-left">
+              <div className="savings-field">
+                <label>Pick your University</label>
+                <div className="savings-input">
+                  <input type="text" placeholder="Search your college" />
+                  <span className="savings-icon" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" focusable="false">
+                      <circle cx="9" cy="9" r="6" />
+                      <line x1="13.5" y1="13.5" x2="18" y2="18" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div className="savings-field">
+                <label>Number of Courses</label>
+                <div className="savings-input">
+                  <select>
+                    <option>1 (1 course = 3 Credits)</option>
+                    <option>2 (2 courses = 6 Credits)</option>
+                    <option>3 (3 courses = 9 Credits)</option>
+                  </select>
+                </div>
+              </div>
+              <div className="savings-field">
+                <label>Student Type</label>
+                <div className="savings-toggle">
+                  <button type="button" className="is-active">U.S Local/ Military</button>
+                  <button type="button">International Student</button>
+                </div>
+              </div>
+              <div className="savings-breakdown">
+                <h3>Breakdown</h3>
+                <div className="savings-row">
+                  <span>Estimated cost per course (3 credits):</span>
+                  <span>$1400</span>
+                </div>
+                <div className="savings-row">
+                  <span>Estimated cost of living (per semester):</span>
+                  <span>$1400</span>
+                </div>
+                <div className="savings-row">
+                  <span>What you pay Open Credits per course (3 credits):</span>
+                  <span>$750</span>
+                </div>
+                <div className="savings-row is-total">
+                  <span>You save:</span>
+                  <span>$1400</span>
+                </div>
+              </div>
+            </div>
+            <div className="savings-right">
+              <div className="savings-pill">
+                <div>You Pay</div>
+                <strong>$11,000</strong>
+                <span>without Open Credits</span>
+              </div>
+              <div className="savings-pill is-accent">
+                <div>You Pay</div>
+                <strong>$2,000</strong>
+                <span>with Open Credits (Tax included)</span>
+              </div>
+            </div>
+            <div className="savings-bundles">
+              <h3>Also See - Bundle Savings</h3>
+              <div className="savings-bundle-grid">
+                <div className="savings-bundle">
+                  <div className="bundle-label">6 Course Bundle</div>
+                  <div className="bundle-price">$2,000</div>
+                  <div className="bundle-note">Save upto $11,000</div>
+                </div>
+                <div className="savings-bundle">
+                  <div className="bundle-label">12 Course Bundle</div>
+                  <div className="bundle-price">$2,000</div>
+                  <div className="bundle-note">Save upto $11,000</div>
+                </div>
+                <div className="savings-bundle">
+                  <div className="bundle-label">24 Course Bundle</div>
+                  <div className="bundle-price">$2,000</div>
+                  <div className="bundle-note">Save upto $11,000</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   );
