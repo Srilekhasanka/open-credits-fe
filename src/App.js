@@ -77,7 +77,7 @@ function AppContent() {
           <Route path="/my-account" element={<MyAccountDashboardPage />} />
           <Route path="/enroll" element={<EnrollPage />} />
           <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/payment/status" element={<PaymentPage />} />
+          <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
           <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
         </Routes>
       )}

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import enrollmentService from '../services/enrollmentService';
-import { USE_MOCK_API } from '../config/constants';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS, USE_MOCK_API } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const MyCoursesListPage = () => {
@@ -11,6 +12,8 @@ const MyCoursesListPage = () => {
   const navigate = useNavigate();
   const [loadingEnrollments, setLoadingEnrollments] = useState(false);
   const [courseFilter, setCourseFilter] = useState('all');
+  const [loadingCourseId, setLoadingCourseId] = useState('');
+  const [courseError, setCourseError] = useState('');
 
   useEffect(() => {
     if (USE_MOCK_API || !isAuthenticated) return;
@@ -81,6 +84,47 @@ const MyCoursesListPage = () => {
 
   const myCourses = filteredCourses;
 
+  const handleViewCourse = async (course) => {
+    if (!course?.id) {
+      setCourseError('Unable to open course. Missing course id.');
+      return;
+    }
+
+    setLoadingCourseId(course.id);
+    setCourseError('');
+    try {
+      const chaptersResponse = await apiService.get(API_ENDPOINTS.CHAPTERS.BY_COURSE(course.id));
+      const chaptersPayload = chaptersResponse?.payload || chaptersResponse?.data || chaptersResponse;
+      const chapters = Array.isArray(chaptersPayload) ? chaptersPayload : chaptersPayload?.chapters || [];
+      const firstChapterId = chapters[0]?.id || chapters[0]?._id;
+
+      let lessons = [];
+      if (firstChapterId) {
+        const lessonsResponse = await apiService.get(API_ENDPOINTS.LESSONS.BY_CHAPTER(firstChapterId));
+        const lessonsPayload = lessonsResponse?.payload || lessonsResponse?.data || lessonsResponse;
+        lessons = Array.isArray(lessonsPayload) ? lessonsPayload : lessonsPayload?.lessons || [];
+      }
+
+      sessionStorage.setItem(`oc_course_chapters_${course.id}`, JSON.stringify(chapters));
+      if (firstChapterId) {
+        sessionStorage.setItem(`oc_chapter_lessons_${firstChapterId}`, JSON.stringify(lessons));
+      }
+
+      navigate(`/course/${course.id}/learn`, {
+        state: {
+          course,
+          chapters,
+          lessons,
+          chapterId: firstChapterId
+        }
+      });
+    } catch (error) {
+      setCourseError('Failed to load course content. Please try again.');
+    } finally {
+      setLoadingCourseId('');
+    }
+  };
+
   return (
     <div className="dashboard__main">
       <header className="dashboard__topbar">
@@ -142,6 +186,9 @@ const MyCoursesListPage = () => {
           {!loadingEnrollments && enrolledCourses.length > 0 && myCourses.length === 0 && (
             <div className="mycourses__loading">No courses match this filter.</div>
           )}
+          {courseError && (
+            <div className="mycourses__loading">{courseError}</div>
+          )}
           {myCourses.map((course, index) => {
             const progressValue = course.progress ?? 80;
             return (
@@ -165,9 +212,10 @@ const MyCoursesListPage = () => {
                   <button
                     className="mycourses__cta"
                     type="button"
-                    onClick={() => navigate(`/course/${course.id}/learn`)}
+                    onClick={() => handleViewCourse(course)}
+                    disabled={loadingCourseId === course.id}
                   >
-                    View Course
+                    {loadingCourseId === course.id ? 'Loading...' : 'View Course'}
                   </button>
                 </div>
               </div>

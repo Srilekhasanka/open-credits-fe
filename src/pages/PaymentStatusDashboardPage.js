@@ -6,7 +6,7 @@ import companyLogo from '../assets/company-logo.png';
 import '../components/DashboardLayout.css';
 
 const PaymentStatusDashboardPage = () => {
-  const { isAuthenticated, user, cartItems } = useAuth();
+  const { isAuthenticated, user, cartItems, clearCart } = useAuth();
   const navigate = useNavigate();
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -14,6 +14,15 @@ const PaymentStatusDashboardPage = () => {
     const timer = setTimeout(() => setIsSuccess(true), 2500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    const timer = setTimeout(() => {
+      clearCart();
+      navigate('/my-courses');
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, [isSuccess, clearCart, navigate]);
 
   if (!isAuthenticated) {
     return (

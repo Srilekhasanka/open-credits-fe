@@ -32,6 +32,18 @@ export const API_ENDPOINTS = {
   PAYMENT: {
     CREATE_ORDER: `${API_BASE_URL}/payment/create-order`,
     VERIFY_PAYMENT: `${API_BASE_URL}/payment/verify`,
+    INTENT: `${API_BASE_URL}/payments/intent`,
+  },
+  PROGRESS: {
+    LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
+    UPDATE_LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
+  },
+  CHAPTERS: {
+    BY_COURSE: (courseId) => `${API_BASE_URL}/chapters/course/${courseId}`,
+  },
+  LESSONS: {
+    BY_CHAPTER: (chapterId) => `${API_BASE_URL}/lessons/chapter/${chapterId}`,
+    STREAM: (lessonId) => `${API_BASE_URL}/lessons/${lessonId}/stream`,
   },
 };
 
@@ -59,3 +71,5 @@ export const APP_CONSTANTS = {
   SESSION_TIMEOUT: 3600000, // 1 hour in milliseconds
   PASSWORD_MIN_LENGTH: 8,
 };
+
+export const STRIPE_PUBLISHABLE_KEY = 'pk_test_51Sln0kErzX6mrLC5FbCPrFjMHcx3h9N9X6igcopKQeHpmLBpGqhGNNDYscvfHmjVBqNhQqvQEhS14V5UjCbyGsuU008K9gZgY8';

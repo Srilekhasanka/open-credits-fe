@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import apiService from '../services/apiService';
+import authService from '../services/authService';
+import { API_ENDPOINTS } from '../config/constants';
+import Hls from 'hls.js';
 
 const CourseLearningPage = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { enrolledCourses, user } = useAuth();
   
   const [selectedLesson, setSelectedLesson] = useState(0);
@@ -20,9 +25,304 @@ const CourseLearningPage = () => {
   const [quizScore, setQuizScore] = useState(null);
   const [showResults, setShowResults] = useState(false);
   
+  const storedChapters = sessionStorage.getItem(`oc_course_chapters_${courseId}`);
+  const initialChapters = location.state?.chapters || (storedChapters ? JSON.parse(storedChapters) : []);
+  const initialLessons = location.state?.lessons || [];
+  const initialChapterId = location.state?.chapterId || initialLessons?.[0]?.chapter_id;
+  const storedLessons = initialChapterId
+    ? sessionStorage.getItem(`oc_chapter_lessons_${initialChapterId}`)
+    : null;
+  const initialLessonsFromStorage = storedLessons ? JSON.parse(storedLessons) : [];
+
+  const [chapters, setChapters] = useState(initialChapters);
+  const [lessonsByChapter, setLessonsByChapter] = useState(() => {
+    if (initialChapterId && Array.isArray(initialLessons) && initialLessons.length > 0) {
+      return { [initialChapterId]: initialLessons };
+    }
+    if (initialChapterId && Array.isArray(initialLessonsFromStorage) && initialLessonsFromStorage.length > 0) {
+      return { [initialChapterId]: initialLessonsFromStorage };
+    }
+    return {};
+  });
+  const [loadingLessonsId, setLoadingLessonsId] = useState('');
+  const [courseError, setCourseError] = useState('');
+  const [lessonProgress, setLessonProgress] = useState({});
+  const [lessonProgressFetched, setLessonProgressFetched] = useState({});
+  const [streamUrl, setStreamUrl] = useState('');
+  const [isStreamLoading, setIsStreamLoading] = useState(false);
+  const [lessonDurations, setLessonDurations] = useState({});
+  const lastProgressSentRef = useRef(0);
+  const lastPositionRef = useRef(0);
+  const isUpdatingProgressRef = useRef(false);
+  const videoRef = useRef(null);
+  const hlsRef = useRef(null);
+
   // Find the course
-  const course = enrolledCourses.find(c => c.id === parseInt(courseId));
-  
+  const course = enrolledCourses.find((c) => String(c.id ?? c.course_id ?? c._id) === String(courseId));
+
+  const formatTitle = (title) => {
+    if (!title) return '';
+    return title
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const getCachedLessonProgress = (lessonId) => {
+    if (!lessonId || !courseId) return undefined;
+    const raw = localStorage.getItem(`oc_lesson_progress_${courseId}`);
+    if (!raw) return undefined;
+    try {
+      const parsed = JSON.parse(raw);
+      const value = parsed?.[lessonId];
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric : undefined;
+    } catch (error) {
+      return undefined;
+    }
+  };
+
+  const setCachedLessonProgress = (lessonId, value) => {
+    if (!lessonId || !courseId) return;
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return;
+    const key = `oc_lesson_progress_${courseId}`;
+    try {
+      const raw = localStorage.getItem(key);
+      const parsed = raw ? JSON.parse(raw) : {};
+      const next = { ...parsed, [lessonId]: Math.round(numeric) };
+      localStorage.setItem(key, JSON.stringify(next));
+    } catch (error) {
+      // Ignore cache writes that fail (storage full, invalid JSON, etc).
+    }
+  };
+
+  useEffect(() => {
+    const fetchChapters = async () => {
+      if (!courseId || chapters.length > 0) return;
+      setCourseError('');
+      try {
+        const response = await apiService.get(API_ENDPOINTS.CHAPTERS.BY_COURSE(courseId));
+        const payload = response?.payload || response?.data || response;
+        const fetchedChapters = Array.isArray(payload) ? payload : payload?.chapters || [];
+        setChapters(fetchedChapters);
+        sessionStorage.setItem(`oc_course_chapters_${courseId}`, JSON.stringify(fetchedChapters));
+      } catch (error) {
+        setCourseError('Unable to load chapters.');
+      }
+    };
+
+    fetchChapters();
+  }, [courseId, chapters.length]);
+
+  const fetchLessonsForChapter = async (chapterId) => {
+    if (!chapterId || lessonsByChapter[chapterId] || loadingLessonsId === chapterId) return;
+    setLoadingLessonsId(chapterId);
+    setCourseError('');
+    try {
+      const response = await apiService.get(API_ENDPOINTS.LESSONS.BY_CHAPTER(chapterId));
+      const payload = response?.payload || response?.data || response;
+      const fetchedLessons = Array.isArray(payload) ? payload : payload?.lessons || [];
+      setLessonsByChapter((prev) => ({ ...prev, [chapterId]: fetchedLessons }));
+      sessionStorage.setItem(`oc_chapter_lessons_${chapterId}`, JSON.stringify(fetchedLessons));
+    } catch (error) {
+      setCourseError('Unable to load lessons.');
+    } finally {
+      setLoadingLessonsId('');
+    }
+  };
+
+  useEffect(() => {
+    const activeChapterId = chapters[selectedModule]?.id;
+    if (activeChapterId) {
+      fetchLessonsForChapter(activeChapterId);
+    }
+  }, [chapters, selectedModule]);
+
+  const courseContent = useMemo(() => ({
+    modules: chapters.map((chapter) => ({
+      id: chapter.id,
+      title: formatTitle(chapter.title || chapter.name || 'Module'),
+      duration: chapter.estimated_duration || '',
+      lessons: (lessonsByChapter[chapter.id] || []).map((lesson) => ({
+        ...lesson,
+        title: formatTitle(lesson.title),
+        duration: lesson.estimated_duration || ''
+      }))
+    }))
+  }), [chapters, lessonsByChapter]);
+
+  useEffect(() => {
+    if (courseContent.modules.length === 0) return;
+    if (selectedModule >= courseContent.modules.length) {
+      setSelectedModule(0);
+      setSelectedLesson(0);
+      return;
+    }
+    const lessonCount = courseContent.modules[selectedModule]?.lessons.length || 0;
+    if (lessonCount > 0 && selectedLesson >= lessonCount) {
+      setSelectedLesson(0);
+    }
+  }, [courseContent.modules, selectedModule, selectedLesson]);
+
+  const currentLesson = courseContent.modules[selectedModule]?.lessons[selectedLesson];
+  const totalLessons = courseContent.modules.reduce((acc, module) => acc + module.lessons.length, 0);
+  const currentLessonNumber = courseContent.modules
+    .slice(0, selectedModule)
+    .reduce((acc, module) => acc + module.lessons.length, 0) + selectedLesson + 1;
+
+  useEffect(() => {
+    const lessonId = currentLesson?.id;
+    const shouldStream = currentLesson?.type === 'video' && lessonId;
+    if (!shouldStream) {
+      if (streamUrl) {
+        URL.revokeObjectURL(streamUrl);
+        setStreamUrl('');
+      }
+      return;
+    }
+
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const fetchStream = async () => {
+      setIsStreamLoading(true);
+      try {
+        const token = authService.getAccessToken();
+        const response = await fetch(API_ENDPOINTS.LESSONS.STREAM(lessonId), {
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+          signal: controller.signal
+        });
+
+        if (!response.ok) {
+          throw new Error('Stream request failed');
+        }
+        const contentType = response.headers.get('content-type') || '';
+
+        if (contentType.includes('application/json')) {
+          const data = await response.json();
+          const payload = data?.payload ?? data?.data ?? data ?? {};
+          const url = payload.manifest_url || payload.stream_url || payload.url || payload.link;
+          if (!url) {
+            throw new Error('Stream URL missing');
+          }
+          if (!isMounted) return;
+          if (streamUrl) {
+            URL.revokeObjectURL(streamUrl);
+          }
+          setStreamUrl(url);
+          return;
+        }
+
+        const blob = await response.blob();
+        if (!isMounted) return;
+        const objectUrl = URL.createObjectURL(blob);
+        if (streamUrl && streamUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(streamUrl);
+        }
+        setStreamUrl(objectUrl);
+      } catch (error) {
+        if (isMounted) {
+          setStreamUrl('');
+        }
+      } finally {
+        if (isMounted) {
+          setIsStreamLoading(false);
+        }
+      }
+    };
+
+    fetchStream();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [currentLesson?.id, currentLesson?.type]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const video = videoRef.current;
+    if (!video || !streamUrl) return;
+
+    const isHls = streamUrl.includes('.m3u8');
+    const canPlayHls = video.canPlayType('application/vnd.apple.mpegurl');
+
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
+    if (isHls && !canPlayHls && Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => {});
+      });
+      hlsRef.current = hls;
+    } else {
+      video.src = streamUrl;
+      video.play().catch(() => {});
+    }
+
+    return () => {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+    };
+  }, [streamUrl, isPlaying]);
+
+  const normalizeProgressValue = (response) => {
+    const payload = response?.payload ?? response?.data ?? response ?? {};
+    const rawValue =
+      payload.progress ??
+      payload.percentage ??
+      payload.progress_percent ??
+      payload.completed_percentage ??
+      payload.completedPercent ??
+      0;
+    const numeric = Number(rawValue);
+    return Number.isFinite(numeric) ? numeric : 0;
+  };
+
+  useEffect(() => {
+    const lessonId = currentLesson?.id;
+    if (!lessonId || lessonProgressFetched[lessonId]) return;
+
+    const cachedProgress = getCachedLessonProgress(lessonId);
+    if (cachedProgress !== undefined && lessonProgress[lessonId] === undefined) {
+      setLessonProgress((prev) => ({ ...prev, [lessonId]: cachedProgress }));
+    }
+
+    const fetchLessonProgress = async () => {
+      try {
+        const response = await apiService.get(API_ENDPOINTS.PROGRESS.LESSON(lessonId));
+        const progressValue = normalizeProgressValue(response);
+        const resolvedProgress = Math.max(progressValue, cachedProgress ?? 0);
+        setLessonProgress((prev) => ({ ...prev, [lessonId]: resolvedProgress }));
+        if (resolvedProgress > 0) {
+          setCachedLessonProgress(lessonId, resolvedProgress);
+        }
+      } catch (error) {
+        if (cachedProgress !== undefined) {
+          setLessonProgress((prev) => ({ ...prev, [lessonId]: cachedProgress }));
+        } else {
+          setLessonProgress((prev) => ({ ...prev, [lessonId]: 0 }));
+        }
+      } finally {
+        setLessonProgressFetched((prev) => ({ ...prev, [lessonId]: true }));
+      }
+    };
+
+    fetchLessonProgress();
+  }, [currentLesson, lessonProgress, lessonProgressFetched, courseId]);
+
+  useEffect(() => {
+    lastProgressSentRef.current = 0;
+    lastPositionRef.current = 0;
+  }, [currentLesson?.id]);
+
   if (!course) {
     return (
       <div style={{ padding: '120px 20px', textAlign: 'center', minHeight: '70vh' }}>
@@ -41,48 +341,6 @@ const CourseLearningPage = () => {
       </div>
     );
   }
-
-  // Mock course content - will be replaced with backend data
-  const courseContent = {
-    modules: [
-      {
-        title: 'Module 1: Getting Started',
-        duration: '45 min',
-        lessons: [
-          { title: 'Introduction to the Course', duration: '5:30', type: 'video', completed: false },
-          { title: 'Course Overview and Objectives', duration: '8:15', type: 'video', completed: false },
-          { title: 'Setting Up Your Environment', duration: '12:00', type: 'video', completed: false },
-          { title: 'Module 1 Quiz', duration: '10 min', type: 'quiz', completed: false }
-        ]
-      },
-      {
-        title: 'Module 2: Core Concepts',
-        duration: '1h 20min',
-        lessons: [
-          { title: 'Understanding the Fundamentals', duration: '15:30', type: 'video', completed: false },
-          { title: 'Key Principles and Best Practices', duration: '18:45', type: 'video', completed: false },
-          { title: 'Hands-on Exercise 1', duration: '20:00', type: 'assignment', completed: false },
-          { title: 'Case Study Analysis', duration: '12:30', type: 'video', completed: false },
-          { title: 'Module 2 Assessment', duration: '15 min', type: 'quiz', completed: false }
-        ]
-      },
-      {
-        title: 'Module 3: Advanced Topics',
-        duration: '1h 45min',
-        lessons: [
-          { title: 'Advanced Techniques', duration: '22:00', type: 'video', completed: false },
-          { title: 'Real-world Applications', duration: '25:30', type: 'video', completed: false },
-          { title: 'Project Work', duration: '30:00', type: 'assignment', completed: false },
-          { title: 'Expert Interview', duration: '15:00', type: 'video', completed: false },
-          { title: 'Final Assessment', duration: '20 min', type: 'quiz', completed: false }
-        ]
-      }
-    ]
-  };
-
-  const currentLesson = courseContent.modules[selectedModule]?.lessons[selectedLesson];
-  const totalLessons = courseContent.modules.reduce((acc, module) => acc + module.lessons.length, 0);
-  const currentLessonNumber = courseContent.modules.slice(0, selectedModule).reduce((acc, module) => acc + module.lessons.length, 0) + selectedLesson + 1;
 
   const handleNextLesson = () => {
     const currentModuleLessons = courseContent.modules[selectedModule].lessons.length;
@@ -107,6 +365,99 @@ const CourseLearningPage = () => {
 
   const handlePlayVideo = () => {
     setIsPlaying(true);
+  };
+
+  const parseDurationSeconds = (value) => {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    if (typeof value === 'string') {
+      if (value.includes(':')) {
+        const parts = value.split(':').map((part) => Number(part));
+        if (parts.some((part) => Number.isNaN(part))) return null;
+        if (parts.length === 3) {
+          return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        }
+        if (parts.length === 2) {
+          return parts[0] * 60 + parts[1];
+        }
+      }
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric : null;
+    }
+    return null;
+  };
+
+  const formatDuration = (value) => {
+    const seconds = parseDurationSeconds(value);
+    if (!seconds) return null;
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${String(secs).padStart(2, '0')}`;
+  };
+
+  const handleMetadataLoaded = (event) => {
+    const lessonId = currentLesson?.id;
+    if (!lessonId) return;
+    const duration = event.target.duration;
+    if (!Number.isFinite(duration)) return;
+    setLessonDurations((prev) => ({ ...prev, [lessonId]: duration }));
+  };
+
+  const sendLessonProgress = async ({ lessonId, positionSeconds, percent, completed }) => {
+    if (!lessonId) return;
+    if (isUpdatingProgressRef.current) return;
+    isUpdatingProgressRef.current = true;
+    try {
+      await apiService.put(API_ENDPOINTS.PROGRESS.UPDATE_LESSON(lessonId), {
+        last_position_seconds: Math.round(positionSeconds),
+        progress_percent: Math.min(100, Math.max(0, Math.round(percent))),
+        completed: Boolean(completed)
+      });
+    } catch (error) {
+      // No-op: avoid blocking playback on progress update failures.
+    } finally {
+      isUpdatingProgressRef.current = false;
+    }
+  };
+
+  const handleVideoProgress = (event) => {
+    const lessonId = currentLesson?.id;
+    if (!lessonId) return;
+    const currentTime = event.target.currentTime || 0;
+    const duration = event.target.duration || 0;
+    if (!duration) return;
+
+    const now = Date.now();
+    const percent = (currentTime / duration) * 100;
+
+    if (now - lastProgressSentRef.current < 8000) {
+      lastPositionRef.current = currentTime;
+      return;
+    }
+
+    lastProgressSentRef.current = now;
+    lastPositionRef.current = currentTime;
+    setLessonProgress((prev) => ({ ...prev, [lessonId]: Math.round(percent) }));
+    setCachedLessonProgress(lessonId, percent);
+    sendLessonProgress({
+      lessonId,
+      positionSeconds: currentTime,
+      percent,
+      completed: percent >= 98
+    });
+  };
+
+  const handleVideoEnded = (event) => {
+    const lessonId = currentLesson?.id;
+    if (!lessonId) return;
+    const duration = event.target.duration || lastPositionRef.current || 0;
+    setLessonProgress((prev) => ({ ...prev, [lessonId]: 100 }));
+    setCachedLessonProgress(lessonId, 100);
+    sendLessonProgress({
+      lessonId,
+      positionSeconds: duration,
+      percent: 100,
+      completed: true
+    });
   };
 
   // Mock quiz questions - will be replaced with backend data
@@ -281,6 +632,17 @@ const CourseLearningPage = () => {
           }}>
             Progress: {course.progress}%
           </div>
+          {currentLesson?.id && lessonProgress[currentLesson.id] !== undefined && (
+            <div style={{
+              backgroundColor: '#2d2f31',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              fontSize: '13px',
+              color: '#ccc'
+            }}>
+              Lesson: {lessonProgress[currentLesson.id]}%
+            </div>
+          )}
           <button style={{
             padding: '8px 20px',
             backgroundColor: '#ff6b35',
@@ -320,6 +682,11 @@ const CourseLearningPage = () => {
         {/* Video Player Section */}
         <div style={{ flex: 1, backgroundColor: '#000' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+            {courseError && (
+              <div style={{ color: '#ff8c5a', marginBottom: '12px', fontSize: '13px' }}>
+                {courseError}
+              </div>
+            )}
             {/* Video Player */}
             <div style={{
               position: 'relative',
@@ -327,20 +694,21 @@ const CourseLearningPage = () => {
               paddingBottom: '56.25%',
               backgroundColor: '#000'
             }}>
-              {isPlaying && currentLesson?.type === 'video' ? (
-                <iframe
+              {isPlaying && currentLesson?.type === 'video' && (streamUrl || currentLesson?.source_url) ? (
+                <video
+                  ref={videoRef}
                   style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100%',
-                    border: 'none'
+                    height: '100%'
                   }}
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                  title="Course Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+                  controls
+                  autoPlay
+                  onTimeUpdate={handleVideoProgress}
+                  onEnded={handleVideoEnded}
+                  onLoadedMetadata={handleMetadataLoaded}
                 />
               ) : isQuizActive && currentLesson?.type === 'quiz' ? (
                 <div style={{
@@ -557,11 +925,15 @@ const CourseLearningPage = () => {
                   <div style={{ fontSize: '64px', marginBottom: '20px' }}>
                     {currentLesson?.type === 'video' ? '▶️' : currentLesson?.type === 'quiz' ? '📝' : '📄'}
                   </div>
-                  <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>{currentLesson?.title}</h2>
+                  <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>{formatTitle(currentLesson?.title)}</h2>
                   <p style={{ fontSize: '16px', color: '#ccc' }}>
-                    {currentLesson?.type === 'video' ? `Video Duration: ${currentLesson?.duration}` : 
-                     currentLesson?.type === 'quiz' ? `Time Limit: ${currentLesson?.duration}` :
-                     `Estimated Time: ${currentLesson?.duration}`}
+                    {currentLesson?.type === 'video'
+                      ? `Video Duration: ${formatDuration(
+                          lessonDurations[currentLesson?.id] ?? currentLesson?.estimated_duration
+                        ) || 'N/A'}`
+                      : currentLesson?.type === 'quiz'
+                        ? `Time Limit: ${currentLesson?.duration}`
+                        : `Estimated Time: ${currentLesson?.duration}`}
                   </p>
                   {currentLesson?.type === 'quiz' && quizAttempts > 0 && (
                     <p style={{ fontSize: '14px', color: '#ccc', marginTop: '10px' }}>
@@ -579,13 +951,22 @@ const CourseLearningPage = () => {
                       borderRadius: '8px',
                       fontSize: '16px',
                       fontWeight: '600',
-                      cursor: 'pointer'
+                      cursor: isStreamLoading ? 'not-allowed' : 'pointer',
+                      opacity: isStreamLoading ? 0.7 : 1
                     }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = '#ff5722'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = '#ff6b35'}
+                    disabled={isStreamLoading && currentLesson?.type === 'video'}
+                    onMouseEnter={(e) => {
+                      if (!isStreamLoading) e.target.style.backgroundColor = '#ff5722';
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isStreamLoading) e.target.style.backgroundColor = '#ff6b35';
+                    }}
                   >
-                    {currentLesson?.type === 'video' ? '▶ Play Video' :
-                     currentLesson?.type === 'quiz' ? 'Start Quiz' : 'Start Assignment'}
+                    {currentLesson?.type === 'video'
+                      ? isStreamLoading ? 'Loading video...' : '▶ Play Video'
+                      : currentLesson?.type === 'quiz'
+                        ? 'Start Quiz'
+                        : 'Start Assignment'}
                   </button>
                 </div>
               )}
@@ -759,13 +1140,20 @@ const CourseLearningPage = () => {
             
             {courseContent.modules.map((module, moduleIdx) => (
               <div key={moduleIdx} style={{ marginBottom: '15px' }}>
-                <div style={{
-                  padding: '12px',
-                  backgroundColor: '#2d2f31',
-                  borderRadius: '6px',
-                  marginBottom: '8px',
-                  cursor: 'pointer'
-                }}>
+                <div
+                  style={{
+                    padding: '12px',
+                    backgroundColor: '#2d2f31',
+                    borderRadius: '6px',
+                    marginBottom: '8px',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => {
+                    setSelectedModule(moduleIdx);
+                    setSelectedLesson(0);
+                    setIsPlaying(false);
+                  }}
+                >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>{module.title}</div>
@@ -777,48 +1165,57 @@ const CourseLearningPage = () => {
                   </div>
                 </div>
                 
-                {module.lessons.map((lesson, lessonIdx) => (
-                  <div
-                    key={lessonIdx}
-                    onClick={() => {
-                      setSelectedModule(moduleIdx);
-                      setIsPlaying(false);
-                      setSelectedLesson(lessonIdx);
-                    }}
-                    style={{
-                      padding: '12px 12px 12px 24px',
-                      backgroundColor: selectedModule === moduleIdx && selectedLesson === lessonIdx ? '#3e4143' : 'transparent',
-                      borderLeft: selectedModule === moduleIdx && selectedLesson === lessonIdx ? '3px solid #ff6b35' : '3px solid transparent',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '2px'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!(selectedModule === moduleIdx && selectedLesson === lessonIdx)) {
-                        e.currentTarget.style.backgroundColor = '#2d2f31';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!(selectedModule === moduleIdx && selectedLesson === lessonIdx)) {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                      }
-                    }}
-                  >
-                    <div style={{ flex: 1 }}>
-                      <div style={{ color: 'white', fontSize: '13px', marginBottom: '4px' }}>
-                        {lesson.completed ? '✓ ' : ''}{lesson.title}
-                      </div>
-                      <div style={{ color: '#ccc', fontSize: '11px' }}>
-                        {lesson.type === 'video' ? '▶' : lesson.type === 'quiz' ? '📝' : '📄'} {lesson.duration}
-                      </div>
-                    </div>
-                    {lesson.completed && (
-                      <span style={{ color: '#4caf50', fontSize: '16px' }}>✓</span>
-                    )}
+                {loadingLessonsId === module.id && (
+                  <div style={{ color: '#ccc', fontSize: '12px', padding: '8px 0 8px 8px' }}>
+                    Loading lessons...
                   </div>
-                ))}
+                )}
+                {module.lessons.map((lesson, lessonIdx) => {
+                  const progressValue = lessonProgress[lesson.id];
+                  const isCompleted = progressValue >= 98 || lesson.completed;
+                  return (
+                    <div
+                      key={lesson.id || lessonIdx}
+                      onClick={() => {
+                        setSelectedModule(moduleIdx);
+                        setIsPlaying(false);
+                        setSelectedLesson(lessonIdx);
+                      }}
+                      style={{
+                        padding: '12px 12px 12px 24px',
+                        backgroundColor: selectedModule === moduleIdx && selectedLesson === lessonIdx ? '#3e4143' : 'transparent',
+                        borderLeft: selectedModule === moduleIdx && selectedLesson === lessonIdx ? '3px solid #ff6b35' : '3px solid transparent',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '2px'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!(selectedModule === moduleIdx && selectedLesson === lessonIdx)) {
+                          e.currentTarget.style.backgroundColor = '#2d2f31';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!(selectedModule === moduleIdx && selectedLesson === lessonIdx)) {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                        }
+                      }}
+                    >
+                      <div style={{ flex: 1 }}>
+                        <div style={{ color: 'white', fontSize: '13px', marginBottom: '4px' }}>
+                          {isCompleted ? '✓ ' : ''}{lesson.title}
+                        </div>
+                        <div style={{ color: '#ccc', fontSize: '11px' }}>
+                          {lesson.type === 'video' ? '▶' : lesson.type === 'quiz' ? '📝' : '📄'} {lesson.duration}
+                        </div>
+                      </div>
+                      {isCompleted && (
+                        <span style={{ color: '#4caf50', fontSize: '16px' }}>✓</span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>

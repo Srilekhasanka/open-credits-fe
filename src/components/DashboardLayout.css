@@ -1219,6 +1219,12 @@
   bottom: 0;
 }
 
+.cart__error {
+  margin-top: 12px;
+  color: #d32f2f;
+  font-size: 12px;
+}
+
 .cart__summary-left strong {
   font-size: 0.8rem;
 }
@@ -1369,6 +1375,16 @@
   font-size: 0.7rem;
   font-weight: 600;
   width: 160px;
+}
+
+.checkout__stripe {
+  margin-bottom: 16px;
+}
+
+.checkout__error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin: 12px 0;
 }
 
 .checkout__summary {

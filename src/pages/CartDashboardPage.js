@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const CartDashboardPage = () => {
   const { isAuthenticated, user, cartItems, removeFromCart } = useAuth();
   const navigate = useNavigate();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState('');
 
   if (!isAuthenticated) {
     return (
@@ -24,29 +28,35 @@ const CartDashboardPage = () => {
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
 
-  const fallbackItems = [
-    {
-      id: 'acc-210',
-      name: 'ACC 210: Managerial Accounting',
-      description: 'Learn core managerial accounting concepts, interpret financial statements.',
-      price: 850
-    },
-    {
-      id: 'bus-230',
-      name: 'BUS 230: Project Management',
-      description: 'Learn core managerial accounting concepts, interpret financial statements.',
-      price: 850
-    },
-    {
-      id: 'bus-310',
-      name: 'BUS 310: Entrepreneurship',
-      description: 'Learn core managerial accounting concepts, interpret financial statements.',
-      price: 850
-    }
-  ];
-
-  const items = cartItems.length > 0 ? cartItems : fallbackItems;
+  const items = cartItems;
   const total = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const primaryCourseId = items[0]?.course_id ?? items[0]?.id ?? items[0]?._id;
+
+  const handleCheckout = async () => {
+    if (!primaryCourseId) {
+      setCheckoutError('Unable to start checkout. Please select a course.');
+      return;
+    }
+
+    setIsCheckingOut(true);
+    setCheckoutError('');
+    try {
+      const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, {
+        course_id: primaryCourseId
+      });
+      const paymentIntent = intentResponse?.payload;
+      if (!paymentIntent?.client_secret) {
+        setCheckoutError('Checkout failed. Payment intent missing.');
+        return;
+      }
+      sessionStorage.setItem('oc_payment_intent', JSON.stringify(paymentIntent));
+      navigate('/payment', { state: { paymentIntent } });
+    } catch (error) {
+      setCheckoutError('Checkout failed. Please try again.');
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <div className="dashboard__main">
@@ -77,27 +87,31 @@ const CartDashboardPage = () => {
       <section className="cart">
         <h2>My Cart</h2>
         <div className="cart__list">
-          {items.map((item) => {
-            const title = item.name && item.code ? `${item.code}: ${item.name}` : item.name;
-            return (
-              <div key={item.id} className="cart__item">
-                <div className="cart__item-icon">ACC</div>
-                <div className="cart__item-content">
-                  <div className="cart__item-title">{title}</div>
-                  <div className="cart__item-desc">{item.description}</div>
-                <button
-                  className="cart__remove"
-                  type="button"
-                  onClick={() => removeFromCart(item.id)}
-                >
-                  Remove
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div className="cart__price">${item.price}</div>
-            </div>
-            );
-          })}
+          {items.length === 0 ? (
+            <div className="cart__empty">Your cart is empty.</div>
+          ) : (
+            items.map((item) => {
+              const title = item.name && item.code ? `${item.code}: ${item.name}` : item.name;
+              return (
+                <div key={item.id} className="cart__item">
+                  <div className="cart__item-icon">ACC</div>
+                  <div className="cart__item-content">
+                    <div className="cart__item-title">{title}</div>
+                    <div className="cart__item-desc">{item.description}</div>
+                    <button
+                      className="cart__remove"
+                      type="button"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      Remove
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div className="cart__price">${item.price}</div>
+                </div>
+              );
+            })
+          )}
         </div>
 
         <div className="cart__summary">
@@ -108,10 +122,16 @@ const CartDashboardPage = () => {
             <div className="cart__total">${total}</div>
             <div className="cart__note">Add 2 more courses to save with bundles</div>
           </div>
-          <button className="cart__checkout" type="button" onClick={() => navigate('/payment')}>
-            Checkout
+          <button
+            className="cart__checkout"
+            type="button"
+            onClick={handleCheckout}
+            disabled={isCheckingOut || items.length === 0}
+          >
+            {isCheckingOut ? 'Processing...' : 'Checkout'}
           </button>
         </div>
+        {checkoutError && <div className="cart__error">{checkoutError}</div>}
       </section>
     </div>
   );

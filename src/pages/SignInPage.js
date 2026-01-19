@@ -9,6 +9,7 @@ const SignInPage = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -25,11 +26,14 @@ const SignInPage = () => {
       });
 
       // Update context with user data
-      login({
-        email: response.payload.user.email,
-        userId: response.payload.user.userId,
-        role: response.payload.user.role
-      });
+      login(
+        {
+          email: response.payload.user.email,
+          userId: response.payload.user.userId,
+          role: response.payload.user.role
+        },
+        { remember: rememberMe }
+      );
 
       navigate('/dashboard');
     } catch (err) {
@@ -144,7 +148,11 @@ const SignInPage = () => {
             fontSize: '14px'
           }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
               <span>Remember me</span>
             </label>
             <button 

@@ -36,10 +36,14 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (userData) => {
+  const login = (userData, options = {}) => {
     setIsAuthenticated(true);
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    if (options.remember) {
+      localStorage.setItem('user', JSON.stringify(userData));
+    } else {
+      localStorage.removeItem('user');
+    }
   };
 
   const logout = () => {
@@ -93,6 +97,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  };
+
   return (
     <AuthContext.Provider value={{
       isAuthenticated,
@@ -105,7 +114,8 @@ export const AuthProvider = ({ children }) => {
       setEnrolledCoursesData,
       cartItems,
       addToCart,
-      removeFromCart
+      removeFromCart,
+      clearCart
     }}>
       {children}
     </AuthContext.Provider>
