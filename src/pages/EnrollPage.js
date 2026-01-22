@@ -164,7 +164,7 @@ const EnrollPage = () => {
               </div>
               <div className="savings-field">
                 <label>Number of Courses</label>
-                <div className="savings-input">
+                <div className="savings-input savings-input--select">
                   <select>
                     <option>1 (1 course = 3 Credits)</option>
                     <option>2 (2 courses = 6 Credits)</option>
@@ -179,25 +179,6 @@ const EnrollPage = () => {
                   <button type="button">International Student</button>
                 </div>
               </div>
-              <div className="savings-breakdown">
-                <h3>Breakdown</h3>
-                <div className="savings-row">
-                  <span>Estimated cost per course (3 credits):</span>
-                  <span>$1400</span>
-                </div>
-                <div className="savings-row">
-                  <span>Estimated cost of living (per semester):</span>
-                  <span>$1400</span>
-                </div>
-                <div className="savings-row">
-                  <span>What you pay Open Credits per course (3 credits):</span>
-                  <span>$750</span>
-                </div>
-                <div className="savings-row is-total">
-                  <span>You save:</span>
-                  <span>$1400</span>
-                </div>
-              </div>
             </div>
             <div className="savings-right">
               <div className="savings-pill">
@@ -209,6 +190,25 @@ const EnrollPage = () => {
                 <div>You Pay</div>
                 <strong>$2,000</strong>
                 <span>with Open Credits (Tax included)</span>
+              </div>
+            </div>
+            <div className="savings-breakdown">
+              <h3>Breakdown</h3>
+              <div className="savings-row">
+                <span>Estimated cost per course (3 credits):</span>
+                <span>$1400</span>
+              </div>
+              <div className="savings-row">
+                <span>Estimated cost of living (per semester):</span>
+                <span>$1400</span>
+              </div>
+              <div className="savings-row">
+                <span>What you pay Open Credits per course (3 credits):</span>
+                <span>$750</span>
+              </div>
+              <div className="savings-row is-total">
+                <span>You save:</span>
+                <span>$1400</span>
               </div>
             </div>
             <div className="savings-bundles">

@@ -1,26 +1,27 @@
 .enroll-page {
   background: #fff;
-  padding: 56px 0 80px;
+  padding: 48px 0 72px;
   color: #1f1f1f;
 }
 
 .enroll-container {
-  max-width: 1100px;
+  max-width: 980px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .enroll-page h1 {
-  font-size: 26px;
-  margin: 0 0 12px;
+  font-size: 22px;
+  margin: 0 0 10px;
+  font-weight: 600;
 }
 
 .enroll-note {
-  font-size: 12px;
+  font-size: 11px;
   color: #333;
-  line-height: 1.6;
-  max-width: 720px;
-  margin: 0 0 32px;
+  line-height: 1.55;
+  max-width: 860px;
+  margin: 0 0 28px;
 }
 
 .enroll-note a {
@@ -32,28 +33,29 @@
 .enroll-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 18px;
 }
 
 .enroll-card {
   border: 1px solid #f1d8cc;
   border-radius: 18px;
-  padding: 20px;
+  padding: 18px 18px 20px;
   background: #fff;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-height: 420px;
-  box-shadow: 0 6px 16px rgba(12, 12, 12, 0.06);
+  gap: 10px;
+  min-height: 380px;
+  box-shadow: 0 10px 20px rgba(12, 12, 12, 0.06);
 }
 
 .enroll-card h2 {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0;
+  line-height: 1.4;
 }
 
 .enroll-desc {
-  font-size: 11px;
+  font-size: 10.5px;
   color: #6b6b6b;
   margin: 0;
 }
@@ -62,21 +64,21 @@
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .enroll-price-main {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
 }
 
 .enroll-price-sub {
-  font-size: 11px;
+  font-size: 10px;
   color: #7a7a7a;
 }
 
 .enroll-illustration {
-  height: 140px;
+  height: 120px;
   border-radius: 14px;
   background: #f9f1ec;
   display: flex;
@@ -90,8 +92,8 @@
 .enroll-illustration::after {
   content: '';
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   opacity: 0.55;
 }
@@ -109,8 +111,8 @@
 }
 
 .enroll-illustration svg {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   stroke: currentColor;
   stroke-width: 2.5;
   fill: none;
@@ -137,7 +139,7 @@
   padding: 0;
   display: grid;
   gap: 8px;
-  font-size: 11px;
+  font-size: 10.5px;
   color: #4b4b4b;
 }
 
@@ -148,8 +150,8 @@
 }
 
 .enroll-check {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #37b36b;
   display: inline-block;
@@ -160,7 +162,7 @@
 .enroll-check::after {
   content: '';
   position: absolute;
-  left: 4px;
+  left: 3px;
   top: 3px;
   width: 6px;
   height: 3px;
@@ -172,12 +174,12 @@
 .enroll-cta {
   margin-top: auto;
   align-self: stretch;
-  padding: 9px 18px;
+  padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid #ff6b2c;
   background: #fff;
   color: #ff6b2c;
-  font-size: 11px;
+  font-size: 10.5px;
   cursor: pointer;
   font-weight: 600;
 }
@@ -203,14 +205,15 @@
 }
 
 .savings-section {
-  margin-top: 44px;
+  margin-top: 40px;
 }
 
 .savings-section h2 {
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 600;
-  text-align: center;
-  margin: 0 0 20px;
+  text-align: left;
+  margin: 0 0 18px;
+  max-width: 100%;
   color: #1f1f1f;
 }
 
@@ -220,20 +223,23 @@
 
 .savings-card {
   background: #fff;
-  border-radius: 18px;
-  padding: 20px 22px 24px;
-  box-shadow: 0 10px 22px rgba(12, 12, 12, 0.08);
+  border-radius: 16px;
+  padding: 28px 32px 24px 18px;
+  box-shadow: 0 8px 18px rgba(12, 12, 12, 0.12);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 210px;
-  gap: 20px;
-  max-width: 680px;
-  margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  gap: 22px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
 }
 
 .savings-left {
   display: grid;
-  gap: 14px;
-  max-width: 380px;
+  gap: 10px;
+  max-width: 100%;
+  padding-top: 6px;
+  padding-left: 12px;
 }
 
 .savings-field label {
@@ -241,43 +247,69 @@
   font-size: 10px;
   font-weight: 600;
   margin-bottom: 4px;
+  padding-left: 10px;
   color: #1f1f1f;
+}
+
+.savings-field + .savings-field {
+  padding-top: 10px;
+}
+
+.savings-field:first-child {
+  padding-top: 12px;
 }
 
 .savings-input {
   position: relative;
+  width: 340px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  background: #fff;
+  padding-right: 10px;
 }
 
 .savings-input input,
 .savings-input select {
   width: 100%;
-  max-width: 260px;
-  padding: 7px 28px 7px 12px;
+  padding: 6px 8px 6px 12px;
   border-radius: 12px;
-  border: 1px solid #e4e4e4;
-  font-size: 10px;
-  background: #fff;
+  border: none;
+  font-size: 9.5px;
+  background: transparent;
   color: #1f1f1f;
   outline: none;
+  box-sizing: border-box;
 }
 
 .savings-input select {
   appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, #888 50%),
-    linear-gradient(135deg, #888 50%, transparent 50%);
-  background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
-  background-size: 5px 5px, 5px 5px;
+  background: transparent;
+  padding-right: 40px;
+}
+
+.savings-input--select::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5L6 7.5L10 4.5' stroke='%23888888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
 }
 
 .savings-icon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
+  margin-left: auto;
   width: 12px;
   height: 12px;
   color: #8c8c8c;
+  pointer-events: none;
 }
 
 .savings-icon svg {
@@ -292,21 +324,22 @@
 .savings-toggle {
   display: flex;
   gap: 10px;
-  max-width: 300px;
+  max-width: 320px;
+  margin-bottom: 6px;
 }
 
 .savings-toggle button {
-  padding: 6px 12px;
-  font-size: 9.5px;
+  padding: 5px 14px;
+  font-size: 9px;
   border-radius: 14px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #cbd6ff;
   background: #fff;
   cursor: pointer;
-  color: #4a4a4a;
+  color: #2f6bff;
 }
 
 .savings-toggle .is-active {
-  border-color: #9bb7ff;
+  border-color: #2f6bff;
   color: #2f6bff;
   background: #eef3ff;
 }
@@ -314,21 +347,38 @@
 .savings-breakdown h3,
 .savings-bundles h3 {
   font-size: 10px;
-  margin: 6px 0 6px;
+  margin: 8px 0 6px;
   color: #1f1f1f;
 }
 
 .savings-breakdown {
-  padding-top: 6px;
-  max-width: 380px;
+  padding-top: 14px;
+  padding-left: 12px;
+  max-width: 100%;
+  grid-column: 1 / -1;
+}
+
+.savings-breakdown .savings-row {
+  grid-template-columns: 1fr 170px;
 }
 
 .savings-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 9.5px;
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  column-gap: 12px;
+  font-size: 9px;
   color: #5d5d5d;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.savings-row span:first-child {
+  font-size: 11px;
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+.savings-row span:last-child {
+  text-align: center;
 }
 
 .savings-row.is-total {
@@ -338,18 +388,22 @@
 
 .savings-right {
   display: grid;
-  gap: 12px;
+  gap: 18px;
   align-content: start;
+  padding-top: 8px;
+  justify-self: start;
+  width: 170px;
 }
 
 .savings-pill {
   border: 1px solid #ee6a2e;
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 10px 10px;
   text-align: center;
-  font-size: 9.5px;
+  font-size: 9px;
   color: #ee6a2e;
   background: #fff;
+  width: 170px;
 }
 
 .savings-pill div {
@@ -358,7 +412,7 @@
 
 .savings-pill strong {
   display: block;
-  font-size: 16px;
+  font-size: 15px;
   color: #1f1f1f;
   margin: 4px 0;
 }
@@ -380,13 +434,14 @@
 
 .savings-bundles {
   grid-column: 1 / -1;
-  margin-top: 6px;
+  margin-top: 10px;
+  padding-left: 12px;
 }
 
 .savings-bundle-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .savings-bundle {
@@ -394,24 +449,24 @@
   border-radius: 12px;
   padding: 12px 10px;
   text-align: center;
-  font-size: 9.5px;
+  font-size: 9px;
   color: #6b6b6b;
 }
 
 .bundle-label {
   color: #ff6b2c;
-  font-size: 9.5px;
+  font-size: 9px;
   margin-bottom: 6px;
 }
 
 .bundle-price {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #ff6b2c;
 }
 
 .bundle-note {
-  font-size: 8.5px;
+  font-size: 8px;
   color: #7a7a7a;
   margin-top: 4px;
 }
