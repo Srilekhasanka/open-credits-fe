@@ -27,7 +27,8 @@ const partnershipFeatureCards = [
     description:
       'Open Credits enables schools and districts to offer college-level learning opportunities that are self-paced, affordable, and accessible to all learners. Unlike high-cost test-based programs, our open-access approach supports equity while helping students build momentum toward college success.',
     image: k12Image,
-    imageAlt: 'K-12 classroom learning'
+    imageAlt: 'K-12 classroom learning',
+    href: '/partnerships/k-12'
   },
   {
     title: 'Higher Education Partnerships',
@@ -35,7 +36,8 @@ const partnershipFeatureCards = [
     description:
       'Partner with Open Credits to expand degree pathways through flexible, self-paced courses designed for transfer. Our model supports institutions with a scalable, cost-effective solution that helps students stay on track, complete prerequisites faster, and persist through key academic milestones.',
     image: higherEdImage,
-    imageAlt: 'Higher education classroom'
+    imageAlt: 'Higher education classroom',
+    href: '/partnerships/higher-education'
   },
   {
     title: 'Community Partnerships',
@@ -43,7 +45,8 @@ const partnershipFeatureCards = [
     description:
       'Open Credits partners with nonprofits, workforce boards, and community organizations to deliver affordable pathways into higher education. Together, we help learners earn transferable college credit, reduce cost barriers, and progress toward degrees and career goals.',
     image: communityImage,
-    imageAlt: 'Community partnership'
+    imageAlt: 'Community partnership',
+    href: '/partnerships/community'
   }
 ];
 

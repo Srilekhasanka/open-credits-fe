@@ -10,6 +10,9 @@ import HomePage from './pages/HomePage';
 import CoursesPage from './pages/CoursesPage';
 import HowItWorksPage from './pages/HowItWorksPage';
 import CorporatePartnershipsPage from './pages/CorporatePartnershipsPage';
+import K12PartnershipsPage from './pages/K12PartnershipsPage';
+import HigherEducationPartnershipsPage from './pages/HigherEducationPartnershipsPage';
+import CommunityPartnershipsPage from './pages/CommunityPartnershipsPage';
 import FindMyCollegePage from './pages/FindMyCollegePage';
 import ShopPage from './pages/ShopPage';
 import FinancingPage from './pages/FinancingPage';
@@ -47,6 +50,9 @@ function AppContent() {
             <Route path="/my-courses" element={<MyCoursesListPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/partnerships/corporate" element={<CorporatePartnershipsPage />} />
+            <Route path="/partnerships/k-12" element={<K12PartnershipsPage />} />
+            <Route path="/partnerships/higher-education" element={<HigherEducationPartnershipsPage />} />
+            <Route path="/partnerships/community" element={<CommunityPartnershipsPage />} />
             <Route path="/find-my-college" element={<FindMyCollegePage />} />
             <Route path="/shop" element={<CartDashboardPage />} />
             <Route path="/financing" element={<FinancingPage />} />
@@ -70,6 +76,9 @@ function AppContent() {
           <Route path="/my-courses" element={<MyCoursesListPage />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/partnerships/corporate" element={<CorporatePartnershipsPage />} />
+          <Route path="/partnerships/k-12" element={<K12PartnershipsPage />} />
+          <Route path="/partnerships/higher-education" element={<HigherEducationPartnershipsPage />} />
+          <Route path="/partnerships/community" element={<CommunityPartnershipsPage />} />
           <Route path="/find-my-college" element={<FindMyCollegePage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/financing" element={<FinancingPage />} />
