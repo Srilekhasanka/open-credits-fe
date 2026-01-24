@@ -1,0 +1,190 @@
+.enroll-pricing-section {
+  padding: 70px 0 90px;
+  background: #fff;
+}
+
+.enroll-pricing-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.enroll-pricing-container h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.enroll-pricing-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.enroll-pricing-note a {
+  color: #ff6633;
+  margin-left: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.enroll-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.enroll-pricing-card {
+  border: 1px solid #f1e3dc;
+  border-radius: 16px;
+  padding: 22px 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+}
+
+.enroll-pricing-visual {
+  height: 120px;
+  border-radius: 14px;
+  background: #f7f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enroll-pricing-card:nth-child(2) .enroll-pricing-visual {
+  background: #fff2e4;
+}
+
+.enroll-pricing-card:nth-child(3) .enroll-pricing-visual {
+  background: #e7f7ff;
+}
+
+.enroll-pricing-visual svg {
+  width: 84px;
+  height: 84px;
+  fill: none;
+  stroke: #7a5af8;
+  stroke-width: 4;
+}
+
+.enroll-pricing-card:nth-child(2) .enroll-pricing-visual svg {
+  stroke: #ff9d4d;
+}
+
+.enroll-pricing-card:nth-child(3) .enroll-pricing-visual svg {
+  stroke: #2da8ff;
+}
+
+.enroll-pricing-card h3 {
+  font-size: 14px;
+  color: #222;
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.enroll-pricing-desc {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.enroll-pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: #222;
+  font-weight: 700;
+}
+
+.enroll-price-main {
+  font-size: 22px;
+}
+
+.enroll-price-sub {
+  font-size: 12px;
+  color: #777;
+}
+
+.enroll-pricing-list {
+  list-style: none;
+  margin: 8px 0 10px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.enroll-pricing-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.enroll-pricing-list li::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2fbf71;
+  display: inline-block;
+  position: relative;
+}
+
+.enroll-pricing-list li::before {
+  box-shadow: inset 0 0 0 2px #2fbf71;
+}
+
+.enroll-pricing-list li::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.enroll-pricing-cta {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.enroll-pricing-cta--outline {
+  border: 1px solid #ffb397;
+  background: #fff;
+  color: #ff6633;
+}
+
+.enroll-pricing-cta--outline:hover {
+  background: #fff5f0;
+}
+
+.enroll-pricing-cta--solid {
+  border: none;
+  background: #ff6633;
+  color: #fff;
+}
+
+.enroll-pricing-cta--solid:hover {
+  background: #e55522;
+}
+
+@media (max-width: 900px) {
+  .enroll-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}

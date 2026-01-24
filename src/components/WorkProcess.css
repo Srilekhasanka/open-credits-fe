@@ -32,11 +32,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 50px;
+  text-align: right;
 }
 
 .process-header h2 {
   font-size: 32px;
   color: #333;
+  margin-left: auto;
+  margin-right: 768px;
 }
 
 .process-header .highlight {
@@ -64,103 +67,47 @@
   margin-bottom: 40px;
 }
 
-.process-visual-new {
+.process-visual {
+  width: 100%;
   position: relative;
-  width: 100%;
-  height: 420px;
-  margin-bottom: 40px;
 }
 
-.work-curve {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
+.process-visual img {
+  width: 86%;
+  max-width: 900px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  pointer-events: none;
 }
 
-.work-step {
+.process-overlay {
   position: absolute;
   display: block;
-  max-width: 220px;
   z-index: 2;
 }
 
-.step-number {
-  font-size: 140px;
-  font-weight: 800;
-  color: rgba(255, 102, 51, 0.08);
-  position: absolute;
-  right: -30px;
-  top: -60px;
-  z-index: -1;
-  line-height: 1;
-  font-family: 'Arial Black', sans-serif;
+.overlay-courses {
+  left: 18%;
+  top: 58%;
+  width: 200px;
+  height: 36px;
 }
 
-.work-icon {
-  font-size: 18px;
-  background: #FF6633;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(255, 102, 51, 0.3);
-  margin-bottom: 12px;
+.overlay-universities {
+  left: 44%;
+  top: 78%;
+  width: 260px;
+  height: 36px;
 }
 
-.work-content h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 10px;
-  line-height: 1.3;
+.overlay-pricing {
+  left: 74%;
+  top: 49%;
+  width: 180px;
+  height: 36px;
 }
 
-.work-content p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #666;
-  margin: 0;
-}
-
-/* Step 1 - Bottom Left */
-.work-step-1 {
-  left: 0%;
-  bottom: 30px;
-}
-
-.work-step-1 .step-number {
-  left: -10px;
-  right: auto;
-  top: -50px;
-}
-
-/* Step 2 - Center Middle */
-.work-step-2 {
-  left: 38%;
-  bottom: 100px;
-  transform: translateX(-50%);
-}
-
-.work-step-2 .step-number {
-  right: -50px;
-  top: -50px;
-}
-
-/* Step 3 - Top Right */
-.work-step-3 {
-  right: 5%;
-  top: 20px;
-}
-
-.work-step-3 .step-number {
-  right: -30px;
-  top: -50px;
-}
 
 /* School Acceptance Section */
 .school-acceptance {
@@ -283,36 +230,8 @@
     text-align: center;
   }
   
-  .process-visual-new {
-    height: auto;
-    min-height: 900px;
-  }
-  
-  .work-curve {
-    display: none;
-  }
-  
-  .work-step {
-    position: relative !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    margin: 0 auto 60px;
-    max-width: 100%;
-    text-align: center;
-  }
-  
-  .step-number {
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%);
-    font-size: 100px;
-  }
-  
-  .work-icon {
-    margin: 0 auto 12px;
+  .process-visual {
+    margin-bottom: 20px;
   }
   
   .school-acceptance {

@@ -1,23 +1,36 @@
 import React from 'react';
 import './WhyOpenCredits.css';
-import { FaDollarSign, FaExchangeAlt, FaLaptop } from 'react-icons/fa';
+import { FaBook, FaBolt, FaDollarSign, FaExchangeAlt } from 'react-icons/fa';
 
 const WhyOpenCredits = () => {
   const features = [
     {
       icon: <FaDollarSign />,
       title: 'Affordable Tuition Cost',
-      description: 'Our courses are priced at $180 per credit hour, which is substantially less than what most US universities cost for similar courses.'
+      description: 'Save significantly compared to traditional college courses, without sacrificing quality or credibility.',
+      linkLabel: 'Calculate pricing',
+      linkHref: '#pricing'
     },
     {
       icon: <FaExchangeAlt />,
-      title: 'Transferable Credits',
-      description: 'All of our courses transfer to 40+ major universities so you can finish your degree at the school of your choice.'
+      title: 'Transferable College Credits',
+      description: 'Courses recommended by nationally recognized credit evaluators at 1000+ colleges.',
+      linkLabel: 'View Courses',
+      linkHref: '/courses'
     },
     {
-      icon: <FaLaptop />,
+      icon: <FaBook />,
       title: 'Self-Paced Learning',
-      description: 'Take a single course or get all 60 credits at your own pace.'
+      description: 'Learn anytime, anywhere with no start or end dates.',
+      linkLabel: 'View accepted colleges',
+      linkHref: '#accepted-colleges'
+    },
+    {
+      icon: <FaBolt />,
+      title: 'Graduate Faster',
+      description: 'Earn transferable credits on your schedule and reduce time to graduation.',
+      linkLabel: 'Schedule Call',
+      linkHref: '/get-started'
     }
   ];
 
@@ -32,7 +45,9 @@ const WhyOpenCredits = () => {
               <div className="feature-icon">{feature.icon}</div>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
-              <a href="#learn-more" className="learn-more">Learn more →</a>
+              <a href={feature.linkHref} className="learn-more">
+                {feature.linkLabel} <span className="learn-more__arrow">→</span>
+              </a>
             </div>
           ))}
         </div>

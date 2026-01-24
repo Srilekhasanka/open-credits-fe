@@ -1,6 +1,6 @@
 .hero {
-  padding: 80px 0;
-  background: linear-gradient(to bottom, #fff 0%, #fff9f7 100%);
+  padding: 90px 0;
+  background: radial-gradient(circle at 70% 30%, #fff2eb 0%, #ffffff 55%);
 }
 
 .hero-container {
@@ -14,8 +14,8 @@
 }
 
 .hero-content h1 {
-  font-size: 48px;
-  line-height: 1.2;
+  font-size: 46px;
+  line-height: 1.15;
   margin-bottom: 20px;
   color: #333;
 }
@@ -29,50 +29,64 @@
   line-height: 1.6;
   color: #666;
   margin-bottom: 30px;
+  max-width: 520px;
 }
 
 .hero-actions {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
-.btn-secondary {
-  padding: 12px 30px;
+.btn-chat {
+  padding: 10px 22px;
   background: white;
   color: #FF6633;
-  border: 2px solid #FF6633;
-  border-radius: 5px;
-  font-size: 16px;
+  border: 1px solid #FF6633;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
 }
 
-.btn-secondary:hover {
-  background: #FF6633;
-  color: white;
+.btn-chat:hover {
+  background: #fff5f0;
+}
+
+.hero-actions .btn-primary {
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 .hero-image {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.image-placeholder {
-  width: 400px;
-  height: 400px;
-  background: linear-gradient(135deg, #FF6633 0%, #FF8855 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 20px 40px rgba(255, 102, 51, 0.3);
+.image-frame {
+  width: 520px;
+  max-width: 100%;
+  background: transparent;
+  border-radius: 0;
+  position: relative;
+  overflow: visible;
+  box-shadow: none;
+  z-index: 1;
 }
 
-.study-group-icon {
-  font-size: 120px;
-  filter: brightness(1.2);
+.image-frame img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
 }
 
 @media (max-width: 968px) {
@@ -89,8 +103,7 @@
     justify-content: center;
   }
   
-  .image-placeholder {
-    width: 300px;
-    height: 300px;
+  .image-frame {
+    width: 320px;
   }
 }

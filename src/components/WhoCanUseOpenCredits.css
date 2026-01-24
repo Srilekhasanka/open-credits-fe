@@ -1,0 +1,39 @@
+.who-section {
+  padding: 70px 0 40px;
+  background: #fff;
+}
+
+.who-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.who-container h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.who-container .highlight {
+  color: #FF6633;
+}
+
+.who-image {
+  width: 100%;
+}
+
+.who-image img {
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .who-container h2 {
+    font-size: 28px;
+    text-align: left;
+  }
+}

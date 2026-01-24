@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import companyLogo from '../assets/company-logo.png';
 import './Header.css';
 
 const Header = () => {
@@ -18,16 +19,15 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <span className="logo-icon">⚬⚬</span>
+          <img src={companyLogo} alt="Open Credits" className="logo-image" />
           <span className="logo-text">Open Credits</span>
         </Link>
         
         <nav className="nav">
-          <Link to="/">Home</Link>
           <Link to="/courses">Courses</Link>
           <Link to="/find-my-college">Find My College</Link>
-          <Link to="/shop">Shop</Link>
-          <Link to="/financing">Financing</Link>
+          <Link to="/enroll">Enroll</Link>
+          <Link to="/how-it-works">Partnership</Link>
           <Link to="/resources">Resources</Link>
         </nav>
 
@@ -180,8 +180,8 @@ const Header = () => {
             </div>
           ) : (
             <>
-              <button className="btn-signin" onClick={() => navigate('/signin')}>Sign In</button>
-              <button className="btn-primary" onClick={() => navigate('/get-started')}>Get Started</button>
+              <button className="btn-outline" onClick={() => navigate('/get-started')}>Book Call</button>
+              <button className="btn-primary" onClick={() => navigate('/signin')}>Sign In</button>
             </>
           )}
         </div>

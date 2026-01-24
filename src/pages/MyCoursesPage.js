@@ -1,281 +1,191 @@
-import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext';
+import '../components/DashboardLayout.css';
 
 const MyCoursesPage = () => {
-  const { isAuthenticated, enrolledCourses } = useAuth();
+  const { isAuthenticated, user, enrolledCourses, cartItems } = useAuth();
   const navigate = useNavigate();
+
+  const [courseFilter, setCourseFilter] = useState('all');
+
+  const filteredCourses = useMemo(() => {
+    if (courseFilter === 'completed') {
+      return enrolledCourses.filter((course) => course.status === 'Completed');
+    }
+    if (courseFilter === 'unfinished') {
+      return enrolledCourses.filter((course) => course.status !== 'Completed');
+    }
+    return enrolledCourses;
+  }, [enrolledCourses, courseFilter]);
 
   if (!isAuthenticated) {
     return (
-      <div className="page-content" style={{ padding: '120px 20px', textAlign: 'center', minHeight: '70vh' }}>
-        <h1 style={{ marginBottom: '20px' }}>Please sign in to view your courses</h1>
-        <button 
-          onClick={() => navigate('/signin')}
-          style={{
-            padding: '14px 32px',
-            backgroundColor: '#ff6b35',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            fontSize: '16px',
-            fontWeight: '600',
-            cursor: 'pointer'
-          }}
-        >
-          Sign In
-        </button>
+      <div className="dashboard__auth-cta">
+        <div className="dashboard__auth-card">
+          <h1>Please sign in to view your dashboard</h1>
+          <p>Access your courses, progress, and highlights.</p>
+          <button onClick={() => navigate('/signin')}>Sign In</button>
+        </div>
       </div>
     );
   }
 
-  // Get completion statistics
-  const completedCourses = enrolledCourses.filter(c => c.status === 'Completed').length;
-  const inProgressCourses = enrolledCourses.filter(c => c.status === 'In Progress').length;
-  const totalProgress = enrolledCourses.length > 0 
-    ? Math.round(enrolledCourses.reduce((acc, c) => acc + c.progress, 0) / enrolledCourses.length)
-    : 0;
+  const displayName = user?.email ? user.email.split('@')[0] : 'Student';
+  const displayInitial = displayName.charAt(0).toUpperCase();
+
+  const continueCourses = enrolledCourses.slice(0, 3);
+  const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
 
   return (
-    <div className="page-content" style={{ backgroundColor: '#f9f9f9', minHeight: '100vh', paddingTop: '80px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
-        {/* Header */}
-        <div style={{ marginBottom: '40px' }}>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: '#333' }}>My Courses</h1>
-          <p style={{ fontSize: '1.1rem', color: '#666' }}>
-            Track your learning progress and continue where you left off
-          </p>
+    <div className="dashboard__main">
+      <header className="dashboard__topbar">
+        <div className="dashboard__welcome">
+          <h1>
+            Welcome back, <span>{formattedName}!</span>
+          </h1>
         </div>
-
-        {/* Stats Cards */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-          gap: '20px',
-          marginBottom: '40px'
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '25px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-          }}>
-            <div style={{ fontSize: '2rem', fontWeight: '700', color: '#ff6b35', marginBottom: '8px' }}>
-              {enrolledCourses.length}
-            </div>
-            <div style={{ fontSize: '14px', color: '#666' }}>Total Enrolled</div>
+        <div className="dashboard__topbar-actions">
+          <div className="dashboard__search">
+            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
+            <FiSearch />
           </div>
-
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '25px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-          }}>
-            <div style={{ fontSize: '2rem', fontWeight: '700', color: '#4CAF50', marginBottom: '8px' }}>
-              {completedCourses}
-            </div>
-            <div style={{ fontSize: '14px', color: '#666' }}>Completed</div>
-          </div>
-
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '25px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-          }}>
-            <div style={{ fontSize: '2rem', fontWeight: '700', color: '#2196F3', marginBottom: '8px' }}>
-              {inProgressCourses}
-            </div>
-            <div style={{ fontSize: '14px', color: '#666' }}>In Progress</div>
-          </div>
-
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '25px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-          }}>
-            <div style={{ fontSize: '2rem', fontWeight: '700', color: '#9c27b0', marginBottom: '8px' }}>
-              {totalProgress}%
-            </div>
-            <div style={{ fontSize: '14px', color: '#666' }}>Avg. Progress</div>
-          </div>
-        </div>
-
-        {/* Empty State or Courses List */}
-        {enrolledCourses.length === 0 ? (
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '60px 30px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-            textAlign: 'center',
-            marginTop: '40px'
-          }}>
-            <div style={{ fontSize: '64px', marginBottom: '20px' }}>📚</div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#333' }}>No Courses Yet</h2>
-            <p style={{ fontSize: '1rem', color: '#666', marginBottom: '25px' }}>
-              Start your learning journey by enrolling in a course
-            </p>
-            <button
-              onClick={() => navigate('/courses')}
-              style={{
-                padding: '14px 32px',
-                backgroundColor: '#ff6b35',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '16px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#ff5722'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = '#ff6b35'}
-            >
-              Browse Courses
-            </button>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {enrolledCourses.map(course => (
-            <div key={course.id} style={{
-              backgroundColor: 'white',
-              borderRadius: '12px',
-              padding: '30px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.12)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ 
-                    display: 'inline-block',
-                    padding: '4px 12px',
-                    backgroundColor: course.status === 'Completed' ? '#e8f5e9' : '#fff3e0',
-                    color: course.status === 'Completed' ? '#4CAF50' : '#ff9800',
-                    borderRadius: '20px',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    marginBottom: '12px'
-                  }}>
-                    {course.status}
-                  </div>
-                  <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', color: '#333' }}>
-                    {course.code}: {course.name}
-                  </h3>
-                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>
-                    👨‍🏫 {course.instructor}
-                  </div>
-                  <div style={{ fontSize: '14px', color: '#999' }}>
-                    📅 Enrolled: {course.enrolledDate}
-                  </div>
-                </div>
-                
-                <button 
-                  onClick={() => navigate(`/course/${course.id}/learn`)}
-                  style={{
-                  padding: '12px 28px',
-                  backgroundColor: '#ff6b35',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#ff5722'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#ff6b35'}>
-                  {course.status === 'Completed' ? 'View Certificate' : 'Continue Learning'}
-                </button>
-              </div>
-
-              {/* Progress Bar */}
-              <div style={{ marginBottom: '15px' }}>
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  marginBottom: '8px',
-                  fontSize: '14px',
-                  color: '#666'
-                }}>
-                  <span>Progress</span>
-                  <span style={{ fontWeight: '600', color: '#333' }}>{course.progress}%</span>
-                </div>
-                <div style={{
-                  width: '100%',
-                  height: '8px',
-                  backgroundColor: '#f0f0f0',
-                  borderRadius: '4px',
-                  overflow: 'hidden'
-                }}>
-                  <div style={{
-                    width: `${course.progress}%`,
-                    height: '100%',
-                    backgroundColor: course.status === 'Completed' ? '#4CAF50' : '#ff6b35',
-                    transition: 'width 0.3s'
-                  }}></div>
-                </div>
-              </div>
-
-              {/* Next Lesson */}
-              <div style={{
-                padding: '15px',
-                backgroundColor: '#f9f9f9',
-                borderRadius: '8px',
-                fontSize: '14px',
-                color: '#666'
-              }}>
-                <strong style={{ color: '#333' }}>Next:</strong> {course.nextLesson}
-              </div>
-            </div>
-          ))}
-          </div>
-        )}
-
-        {/* Browse More Courses */}
-        <div style={{
-          textAlign: 'center',
-          marginTop: '50px',
-          padding: '40px',
-          backgroundColor: 'white',
-          borderRadius: '12px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-        }}>
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#333' }}>
-            Want to learn more?
-          </h3>
-          <p style={{ color: '#666', marginBottom: '25px' }}>
-            Explore our catalog of 100+ courses
-          </p>
-          <button 
-            onClick={() => navigate('/courses')}
-            style={{
-              padding: '14px 32px',
-              backgroundColor: '#ff6b35',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#ff5722'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#ff6b35'}
-          >
-            Browse All Courses
+          <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
+            <FiShoppingCart />
+            {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
+          </button>
+          <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
+            <FiBell />
+          </button>
+          <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
+            {displayInitial}
           </button>
         </div>
+      </header>
+
+      <div className="dashboard__layout">
+        <div className="dashboard__content">
+          <section className="dashboard__banner">
+            <div>
+              <h2>Enjoying Open Credits?</h2>
+              <p>Refer it to your friends, family and more to win iPad, Mac Books, iPhones, and more.</p>
+            </div>
+            <button type="button" onClick={() => navigate('/resources')}>Refer Now</button>
+          </section>
+
+            <section className="dashboard__section">
+              <div className="dashboard__section-title">Continue course</div>
+              <div className="dashboard__card-grid">
+                {continueCourses.length === 0 && (
+                  <div className="mycourses__loading">No enrolled courses yet.</div>
+                )}
+                {continueCourses.map((course) => {
+                  const progressValue = course.progress ?? 0;
+                  return (
+                    <div key={course.id} className="dashboard__mini-card">
+                      <div className="dashboard__mini-header">
+                        <div className="dashboard__mini-dot" />
+                        <h3>{course.code}: {course.name}</h3>
+                      </div>
+                      <span>{progressValue}% complete</span>
+                      <div className="dashboard__mini-progress">
+                        <div style={{ width: `${progressValue}%` }} />
+                      </div>
+                      <button
+                        className="dashboard__mini-action"
+                        type="button"
+                        onClick={() => navigate(`/course/${course.id}/learn`, { state: { resume: true } })}
+                      >
+                        Continue
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="dashboard__section">
+              <div className="dashboard__section-header dashboard__section-header--stack">
+                <div className="dashboard__section-title">My Courses</div>
+                <div className="dashboard__filters">
+                  <button
+                    className="dashboard__filter-btn dashboard__filter-btn--sort"
+                    type="button"
+                  >
+                    Sort by
+                    <span aria-hidden="true" className="dashboard__sort-arrow">↑</span>
+                  </button>
+                  <button
+                    className={`dashboard__filter-btn ${courseFilter === 'completed' ? 'is-active' : ''}`}
+                    type="button"
+                    onClick={() => setCourseFilter('completed')}
+                  >
+                    Completed Courses
+                  </button>
+                  <button
+                    className={`dashboard__filter-btn ${courseFilter === 'unfinished' ? 'is-active' : ''}`}
+                    type="button"
+                    onClick={() => setCourseFilter('unfinished')}
+                  >
+                    Unfinished Courses
+                  </button>
+                </div>
+              </div>
+              <div className="dashboard__course-grid">
+                {filteredCourses.length === 0 && (
+                  <div className="mycourses__loading">No courses match this filter.</div>
+                )}
+                {filteredCourses.map((course) => {
+                  const progressValue = course.progress ?? 0;
+                  return (
+                    <div key={course.id} className="dashboard__course-card">
+                      <div className="dashboard__course-icon">{course.code?.split(' ')[0] || 'OC'}</div>
+                      <div>
+                        <h3>{course.code}: {course.name}</h3>
+                        <p>{course.description || 'Track your coursework, assignments, and weekly milestones.'}</p>
+                      </div>
+                      <div className="dashboard__progress">
+                        <span>{progressValue}% complete</span>
+                        <span>{progressValue}%</span>
+                      </div>
+                      <div className="dashboard__progress-bar">
+                        <div style={{ width: `${progressValue}%` }} />
+                      </div>
+                      <button
+                        className="dashboard__course-action"
+                        type="button"
+                        onClick={() => navigate(`/course/${course.id}/learn`, { state: { resume: true } })}
+                      >
+                        View Course
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+        </div>
+
+        <aside className="dashboard__profile">
+          <div className="dashboard__profile-card">
+            <button className="dashboard__profile-link-inline" type="button" onClick={() => navigate('/my-account')}>
+              view profile
+            </button>
+            <div className="dashboard__profile-avatar">{displayInitial}</div>
+            <h3>{formattedName}</h3>
+            <span>@{displayName}</span>
+          </div>
+
+          <div className="dashboard__highlights">
+            <h4>Highlights</h4>
+            <div className="dashboard__highlight-item">
+              <span>You have completed a course</span>
+            </div>
+            <div className="dashboard__highlight-item">
+              <span>You have an incomplete Quiz</span>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext();
 
@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   // Load user and enrolled courses from localStorage on mount
   useEffect(() => {
@@ -28,20 +29,31 @@ export const AuthProvider = ({ children }) => {
     if (storedCourses) {
       setEnrolledCourses(JSON.parse(storedCourses));
     }
+
+    const storedCart = localStorage.getItem('cartItems');
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+    }
   }, []);
 
-  const login = (userData) => {
+  const login = (userData, options = {}) => {
     setIsAuthenticated(true);
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    if (options.remember) {
+      localStorage.setItem('user', JSON.stringify(userData));
+    } else {
+      localStorage.removeItem('user');
+    }
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);
     setEnrolledCourses([]);
+    setCartItems([]);
     localStorage.removeItem('user');
     localStorage.removeItem('enrolledCourses');
+    localStorage.removeItem('cartItems');
   };
 
   const register = (userData) => {
@@ -64,8 +76,47 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('enrolledCourses', JSON.stringify(updatedCourses));
   };
 
+  const setEnrolledCoursesData = useCallback((courses) => {
+    setEnrolledCourses(courses);
+    localStorage.setItem('enrolledCourses', JSON.stringify(courses));
+  }, []);
+
+  const addToCart = (course) => {
+    const exists = cartItems.some((item) => item.id === course.id);
+    if (exists) return false;
+
+    const updatedCart = [...cartItems, course];
+    setCartItems(updatedCart);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+    return true;
+  };
+
+  const removeFromCart = (courseId) => {
+    const updatedCart = cartItems.filter((item) => item.id !== courseId);
+    setCartItems(updatedCart);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, register, enrolledCourses, enrollCourse }}>
+    <AuthContext.Provider value={{
+      isAuthenticated,
+      user,
+      login,
+      logout,
+      register,
+      enrolledCourses,
+      enrollCourse,
+      setEnrolledCoursesData,
+      cartItems,
+      addToCart,
+      removeFromCart,
+      clearCart
+    }}>
       {children}
     </AuthContext.Provider>
   );
