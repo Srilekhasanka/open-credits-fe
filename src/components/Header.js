@@ -94,7 +94,7 @@ const Header = () => {
                     <button
                       onClick={() => {
                         setShowDropdown(false);
-                        navigate('/profile');
+                        navigate('/my-account');
                       }}
                       style={{
                         width: '100%',

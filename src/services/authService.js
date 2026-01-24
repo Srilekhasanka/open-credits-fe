@@ -17,6 +17,9 @@ class AuthService {
    */
   async signup(userData) {
     try {
+      const firstName = userData.firstName ?? userData.first_name;
+      const lastName = userData.lastName ?? userData.last_name;
+
       const response = await fetch(API_ENDPOINTS.AUTH.SIGNUP, {
         method: HTTP_METHODS.POST,
         headers: {
@@ -25,8 +28,8 @@ class AuthService {
         body: JSON.stringify({
           email: userData.email,
           password: userData.password,
-          ...(userData.firstName && { first_name: userData.firstName }),
-          ...(userData.lastName && {last_name: userData.lastName}),
+          ...(firstName && { first_name: firstName }),
+          ...(lastName && { last_name: lastName }),
         }),
       });
 
@@ -100,6 +103,166 @@ class AuthService {
       return data;
     } catch (error) {
       console.error('Sign in error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Send forgot password email
+   * @param {string} email - User email
+   * @returns {Promise<Object>} Response data
+   */
+  async forgotPassword(email) {
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, {
+        method: HTTP_METHODS.POST,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Forgot password request failed');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Forgot password error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Verify OTP for password reset
+   * @param {string} email - User email
+   * @param {string} otp - 6 digit OTP
+   * @returns {Promise<Object>} Response data
+   */
+  async verifyOtp(email, otp) {
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.VERIFY_OTP, {
+        method: HTTP_METHODS.POST,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'OTP verification failed');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Verify OTP error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetch current user profile
+   * @returns {Promise<Object>} Response data
+   */
+  async getProfile() {
+    try {
+      const token = this.getAccessToken();
+
+      if (!token) {
+        throw new Error('No access token available');
+      }
+
+      const response = await fetch(API_ENDPOINTS.AUTH.PROFILE, {
+        method: HTTP_METHODS.GET,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to fetch profile');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Get profile error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update user profile
+   * @param {Object} payload
+   * @returns {Promise<Object>} Response data
+   */
+  async updateProfile(payload) {
+    try {
+      const token = this.getAccessToken();
+
+      if (!token) {
+        throw new Error('No access token available');
+      }
+
+      const response = await fetch(API_ENDPOINTS.AUTH.PROFILE, {
+        method: HTTP_METHODS.PUT,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to update profile');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Update profile error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Reset password using verified OTP token
+   * @param {Object} payload
+   * @param {string} payload.email
+   * @param {string} payload.resetToken
+   * @param {string} payload.password
+   * @returns {Promise<Object>} Response data
+   */
+  async resetPassword({ email, resetToken, newPassword, confirmPassword }) {
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.RESET_PASSWORD, {
+        method: HTTP_METHODS.POST,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          reset_token: resetToken,
+          new_password: newPassword,
+          confirm_password: confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Password reset failed');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Reset password error:', error);
       throw error;
     }
   }

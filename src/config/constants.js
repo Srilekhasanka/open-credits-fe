@@ -14,6 +14,8 @@ export const API_ENDPOINTS = {
     
     FORGOT_PASSWORD: `${API_BASE_URL}/auth/forgot-password`,
     RESET_PASSWORD: `${API_BASE_URL}/auth/reset-password`,
+    VERIFY_OTP: `${API_BASE_URL}/auth/verify-otp`,
+    PROFILE: `${API_BASE_URL}/auth/profile`,
   },
   COURSES: {
     LIST: `${API_BASE_URL}/courses`,
@@ -26,7 +28,7 @@ export const API_ENDPOINTS = {
   },
   USER: {
     PROFILE: `${API_BASE_URL}/user/profile`,
-    UPDATE_PROFILE: `${API_BASE_URL}/user/profile/update`,
+    UPDATE_PROFILE: `${API_BASE_URL}/user/profile`,
     MY_COURSES: `${API_BASE_URL}/user/my-courses`,
   },
   PAYMENT: {
