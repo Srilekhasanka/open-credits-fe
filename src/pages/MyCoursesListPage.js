@@ -4,7 +4,7 @@ import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import enrollmentService from '../services/enrollmentService';
 import apiService from '../services/apiService';
-import { API_ENDPOINTS, USE_MOCK_API } from '../config/constants';
+import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const MyCoursesListPage = () => {
@@ -16,7 +16,7 @@ const MyCoursesListPage = () => {
   const [courseError, setCourseError] = useState('');
 
   useEffect(() => {
-    if (USE_MOCK_API || !isAuthenticated) return;
+    if (!isAuthenticated) return;
     let isMounted = true;
 
     const fetchEnrollments = async () => {
