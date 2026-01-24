@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import whyLearnerImage from '../assets/whylearner.png';
+import dollarIcon from '../assets/dollar.png';
+import menusIcon from '../assets/menus.png';
+import partnershipIcon from '../assets/partnership.png';
+import questionMarkIcon from '../assets/questionmark.png';
 import forStudentImage from '../assets/forstudent.png';
 import forTeachersImage from '../assets/forteachers.png';
 import orangeStudentImage from '../assets/orangestudent.png';
@@ -8,6 +11,29 @@ import k12Image from '../assets/K-12_main.png';
 import WorkProcess from '../components/WorkProcess';
 import './K12PartnershipsPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
+
+const learnerCards = [
+  {
+    title: 'Affordable',
+    copy: 'We keep learning accessible. Open Credits helps students get ahead on college-level coursework without the financial burden of traditional college tuition or expensive testing programs.',
+    icon: dollarIcon
+  },
+  {
+    title: 'Flexible and self-paced',
+    copy: 'Students can learn on their schedule, from almost any device. This flexibility supports different learning speeds, school schedules, and individual needs.',
+    icon: partnershipIcon
+  },
+  {
+    title: 'Competency-based learning',
+    copy: 'Courses are designed around mastery. Learners demonstrate understanding throughout the course, building deeper comprehension and confidence.',
+    icon: menusIcon
+  },
+  {
+    title: 'Supportive learning experience',
+    copy: 'Help with Credit support and documentation every step of the way.',
+    icon: questionMarkIcon
+  }
+];
 
 const K12PartnershipsPage = () => (
   <section className="k12-page">
@@ -45,10 +71,17 @@ const K12PartnershipsPage = () => (
             credit, and make progress toward long term goals.
           </p>
         </div>
-        <div className="k12-why-image">
-          <img src={whyLearnerImage} alt="Why learners love Open Credits" />
+        <div className="k12-why-grid">
+          {learnerCards.map((card) => (
+            <article key={card.title} className="k12-why-card">
+              <span className="k12-why-icon" aria-hidden="true">
+                <img src={card.icon} alt="" />
+              </span>
+              <h3>{card.title}</h3>
+              <p>{card.copy}</p>
+            </article>
+          ))}
         </div>
-        <div className="k12-why-grid" />
       </div>
     </section>
 

@@ -14,7 +14,7 @@
 
 .k12-hero {
   border-radius: 18px;
-  border: 2px solid #1f6fff;
+  border: none;
   padding: 8px;
   margin: 0 auto 22px;
   max-width: 760px;
@@ -69,13 +69,13 @@
 }
 
 .k12-why {
-  padding: 50px 0 20px;
+  padding: 70px 0 20px;
 }
 
 .k12-why-header {
   text-align: left;
-  max-width: 720px;
-  margin: 0 auto 18px;
+  max-width: 100%;
+  margin: 0 0 18px;
 }
 
 .k12-why-header h2 {
@@ -120,21 +120,44 @@
 .k12-why-card {
   border: 1px solid #f0f0f0;
   border-radius: 12px;
-  padding: 16px 18px;
+  padding: 22px 24px;
   background: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  text-align: left;
 }
 
 .k12-why-card h3 {
-  margin: 10px 0 6px;
-  font-size: 12px;
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f1f1f;
 }
 
 .k12-why-card p {
   margin: 0;
-  font-size: 10px;
+  font-size: 10.5px;
   color: #666;
   line-height: 1.6;
+}
+
+.k12-why-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #ff6b2c;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.k12-why-icon img {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .k12-partners {
@@ -143,7 +166,8 @@
 
 .k12-partners h2 {
   font-size: 20px;
-  margin: 0 0 22px;
+  margin: 0 0 45px;
+  text-align: left;
 }
 
 .k12-partners h2 span {
@@ -158,21 +182,35 @@
   margin-bottom: 26px;
 }
 
+.k12-partners-row:first-of-type .k12-partners-copy {
+  padding-top: 18px;
+}
+
+.k12-partners-row:last-of-type .k12-partners-copy {
+  padding-top: 28px;
+}
+
 .k12-partners-copy h3 {
   font-size: 14px;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: #1f1f1f;
+  text-align: left;
 }
 
 .k12-partners-copy p {
-  font-size: 10px;
+  font-size: 10.5px;
   color: #666;
-  line-height: 1.6;
-  margin: 0 0 10px;
+  line-height: 1.7;
+  margin: 0 0 55px;
+  text-align: left;
 }
 
 .k12-partners-list h4 {
   font-size: 10px;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
+  color: #1f1f1f;
+  text-align: left;
 }
 
 .k12-partners-list ul {
@@ -181,6 +219,7 @@
   font-size: 9.5px;
   color: #5a5a5a;
   line-height: 1.6;
+  text-align: left;
 }
 
 .k12-partners-image img {
@@ -188,6 +227,14 @@
   border-radius: 8px;
   display: block;
   object-fit: cover;
+}
+
+.k12-partners-row:first-of-type .k12-partners-image {
+  margin-top: -14px;
+}
+
+.k12-partners-row:last-of-type .k12-partners-image {
+  margin-top: -10px;
 }
 
 .k12-orange {
