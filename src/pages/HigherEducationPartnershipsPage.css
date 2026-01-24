@@ -14,7 +14,7 @@
 
 .higheredu-hero {
   border-radius: 18px;
-  border: 2px solid #1f6fff;
+  border: none;
   padding: 8px;
   margin: 0 auto 22px;
   max-width: 760px;
@@ -30,6 +30,7 @@
 .higheredu-container h1 {
   font-size: 26px;
   margin: 0 0 16px;
+  text-align: center;
 }
 
 .higheredu-container h1 span {
@@ -42,6 +43,7 @@
   color: #666;
   max-width: 640px;
   margin: 0 auto 30px;
+  text-align: center;
 }
 
 .higheredu-actions {
@@ -74,13 +76,15 @@
 
 .higheredu-why-header {
   text-align: left;
-  max-width: 720px;
-  margin: 0 auto 18px;
+  max-width: 100%;
+  margin: 0 0 18px;
 }
 
 .higheredu-why-header h2 {
   font-size: 20px;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+  font-weight: 700;
+  color: #1f1f1f;
 }
 
 .higheredu-why-header h2 span {
@@ -88,15 +92,23 @@
 }
 
 .higheredu-why-header p {
-  font-size: 11px;
+  font-size: 10px;
   color: #666;
   line-height: 1.6;
   margin: 0 0 6px;
+  text-align: left;
+}
+
+.higheredu-why-header p:last-of-type {
+  margin-bottom: 0;
 }
 
 .higheredu-why-lead {
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   color: #1f1f1f;
+  margin-bottom: 8px;
+  text-align: left;
 }
 
 .higheredu-why-image {
@@ -108,6 +120,57 @@
 .higheredu-why-image img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+.higheredu-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+}
+
+.higheredu-why-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 22px 24px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+
+.higheredu-why-card h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f1f1f;
+  text-align: left;
+}
+
+.higheredu-why-card p {
+  margin: 0;
+  font-size: 10.5px;
+  color: #666;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.higheredu-why-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #ff6b2c;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.higheredu-why-icon img {
+  width: 14px;
+  height: 14px;
   display: block;
 }
 
@@ -123,24 +186,32 @@
 }
 
 .higheredu-built__copy h2 {
-  font-size: 18px;
-  margin: 0 0 14px;
+  font-size: 22px;
+  margin: 0 0 28px;
+  font-weight: 700;
+  color: #1f1f1f;
+  text-align: left;
 }
 
 .higheredu-built__item {
-  margin-bottom: 18px;
+  margin-bottom: 28px;
+  text-align: left;
 }
 
 .higheredu-built__item h3 {
-  font-size: 11px;
+  font-size: 12px;
   margin: 0 0 6px;
+  font-weight: 700;
+  color: #1f1f1f;
 }
 
 .higheredu-built__item p {
-  font-size: 10px;
+  font-size: 10.5px;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
+  max-width: 360px;
+  text-align: left;
 }
 
 .higheredu-built__image {
