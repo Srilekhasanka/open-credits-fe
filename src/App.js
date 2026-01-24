@@ -31,6 +31,7 @@ import MyAccountDashboardPage from './pages/MyAccountDashboardPage';
 import PaymentPage from './pages/PaymentPage';
 import CourseLearningPage from './pages/CourseLearningPage';
 import EnrollPage from './pages/EnrollPage';
+import ChatbotWidget from './components/ChatbotWidget';
 
 function AppContent() {
   const location = useLocation();
@@ -94,6 +95,7 @@ function AppContent() {
         </Routes>
       )}
       {!isAuthenticated && !isLearningPage && <Footer />}
+      <ChatbotWidget />
     </div>
   );
 }
