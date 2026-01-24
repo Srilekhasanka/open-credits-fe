@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
@@ -15,6 +15,7 @@ const GetStartedPage = () => {
     password: '',
     confirmPassword: ''
   });
+  const [showPasswords, setShowPasswords] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -27,13 +28,27 @@ const GetStartedPage = () => {
   const [error, setError] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [snackbar, setSnackbar] = useState({ open: false, text: '' });
+  const snackbarTimer = useRef(null);
   const passwordsMatch = formData.password && formData.confirmPassword && formData.password === formData.confirmPassword;
+
+  const showSnackbar = (text) => {
+    if (snackbarTimer.current) {
+      clearTimeout(snackbarTimer.current);
+    }
+    setSnackbar({ open: true, text });
+    snackbarTimer.current = setTimeout(() => {
+      setSnackbar({ open: false, text: '' });
+    }, 3000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!passwordsMatch) {
-      setError('Passwords do not match!');
+      const errText = 'Passwords do not match!';
+      setError(errText);
+      showSnackbar(errText);
       return;
     }
 
@@ -45,18 +60,21 @@ const GetStartedPage = () => {
       const response = await authService.signup({
         email: formData.email,
         password: formData.password,
-        firstName: formData.firstName,
-        lastName: formData.lastName
+        first_name: formData.firstName,
+        last_name: formData.lastName
       });
 
       setSuccessMessage(response.message || 'Signup successful!');
+      showSnackbar(response.message || 'Signup successful!');
       setShowSuccess(true);
       authService.clearAuthData();
       setTimeout(() => {
         navigate('/signin');
       }, 10000);
     } catch (err) {
-      setError(err.message || 'Signup failed. Please try again.');
+      const errText = err.message || 'Signup failed. Please try again.';
+      setError(errText);
+      showSnackbar(errText);
     } finally {
       setLoading(false);
     }
@@ -147,18 +165,7 @@ const GetStartedPage = () => {
           flexDirection: 'column', 
           gap: '20px' 
         }}>
-          {error && (
-            <div style={{
-              padding: '12px',
-              backgroundColor: '#ffebee',
-              color: '#c62828',
-              borderRadius: '8px',
-              fontSize: '14px',
-              border: '1px solid #ef5350'
-            }}>
-              {error}
-            </div>
-          )}
+          {error}
           <div className="form-row-grid">
             <div>
               <label style={{ 
@@ -258,7 +265,7 @@ const GetStartedPage = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPasswords ? 'text' : 'password'}
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -288,7 +295,7 @@ const GetStartedPage = () => {
             </label>
             <div style={{ position: 'relative' }}>
               <input
-                type="password"
+                type={showPasswords ? 'text' : 'password'}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -297,7 +304,7 @@ const GetStartedPage = () => {
                 style={{
                   width: '100%',
                   padding: '12px 16px',
-                  paddingRight: '45px',
+                  paddingRight: '64px',
                   fontSize: '16px',
                   border: `2px solid ${passwordsMatch ? '#4CAF50' : '#e0e0e0'}`,
                   borderRadius: '8px',
@@ -310,17 +317,40 @@ const GetStartedPage = () => {
                   if (!passwordsMatch) e.target.style.borderColor = '#e0e0e0';
                 }}
               />
-              {passwordsMatch && (
-                <span style={{
+              <button
+                type="button"
+                onClick={() => setShowPasswords((prev) => !prev)}
+                aria-label={showPasswords ? 'Hide password' : 'Show password'}
+                style={{
                   position: 'absolute',
-                  right: '15px',
+                  right: '12px',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  color: '#4CAF50',
-                  fontSize: '20px',
-                  fontWeight: 'bold'
-                }}>✓</span>
-              )}
+                  border: 'none',
+                  background: 'none',
+                  color: '#666',
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                {showPasswords ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style={{ display: 'block' }}>
+                    <path
+                      fill="currentColor"
+                      d="M12 5c5 0 8.9 3.3 11 7-2.1 3.7-6 7-11 7S3.1 15.7 1 12c2.1-3.7 6-7 11-7zm0 2C8.6 7 5.7 9 3.7 12c2 3 4.9 5 8.3 5s6.3-2 8.3-5c-2-3-4.9-5-8.3-5zm0 2.5A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm0 1.7a.8.8 0 1 0 .8.8.8.8 0 0 0-.8-.8z"
+                    />
+                  </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style={{ display: 'block' }}>
+                    <path
+                      fill="currentColor"
+                      d="M2.1 3.5L3.5 2.1 21.9 20.5 20.5 21.9 16.7 18.1C15.2 18.7 13.6 19 12 19 7 19 3.1 15.7 1 12c.7-1.2 1.6-2.3 2.7-3.2L2.1 3.5zm5.1 5.1L8.7 10c-.4.5-.7 1.2-.7 2 0 2.2 1.8 4 4 4 .8 0 1.5-.2 2-.7l1.4 1.4c-1 .8-2.2 1.3-3.4 1.3-3.3 0-6-2.7-6-6 0-1.2.4-2.4 1.3-3.4zm4.5-.6c.1 0 .2 0 .3 0 3.3 0 6 2.7 6 6 0 .1 0 .2 0 .3l-2.1-2.1V12c0-2.2-1.8-4-4-4h-.2L11.7 8zm.3-4c5 0 8.9 3.3 11 7-1 1.8-2.4 3.4-4.1 4.6l-1.5-1.5c1.5-1 2.8-2.3 3.6-3.7C18.9 8 15.4 5 12 5c-.9 0-1.7.2-2.5.5L7.8 3.8C9 3.3 10.5 3 12 3z"
+                    />
+                  </svg>
+                )}
+              </button>
             </div>
           </div>
 
@@ -375,6 +405,47 @@ const GetStartedPage = () => {
           </a>
         </p>
       </div>
+
+      {snackbar.open && (
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            position: 'fixed',
+            left: '50%',
+            bottom: '24px',
+            transform: 'translateX(-50%)',
+            backgroundColor: '#000',
+            color: 'white',
+            padding: '12px 16px',
+            borderRadius: '10px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            minWidth: '280px',
+            maxWidth: '90vw',
+            zIndex: 9999
+          }}
+        >
+          <span style={{ flex: 1, fontSize: '14px' }}>{snackbar.text}</span>
+          <button
+            type="button"
+            onClick={() => setSnackbar({ open: false, text: '' })}
+            style={{
+              border: 'none',
+              background: 'transparent',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '16px',
+              lineHeight: 1
+            }}
+            aria-label="Dismiss notification"
+          >
+            ×
+          </button>
+        </div>
+      )}
     </div>
   );
 };

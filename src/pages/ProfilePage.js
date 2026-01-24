@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import authService from '../services/authService';
 import '../App.css';
 
 const ProfilePage = () => {
   const { user } = useAuth();
+  const [profile, setProfile] = useState(user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadProfile = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await authService.getProfile();
+        const payload = response.payload || {};
+        const userPayload = payload.user || payload;
+        const mappedProfile = {
+          email: userPayload.email || user?.email || '',
+          firstName: userPayload.first_name || userPayload.firstName || user?.firstName || '',
+          lastName: userPayload.last_name || userPayload.lastName || user?.lastName || ''
+        };
+
+        if (isMounted) {
+          setProfile(mappedProfile);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message || 'Unable to load profile.');
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadProfile();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
 
   if (!user) {
     return (
@@ -12,6 +53,24 @@ const ProfilePage = () => {
       </div>
     );
   }
+
+  if (loading && !profile) {
+    return (
+      <div className="page-content" style={{ padding: '120px 20px', textAlign: 'center' }}>
+        <h1>Loading profile...</h1>
+      </div>
+    );
+  }
+
+  if (error && !profile) {
+    return (
+      <div className="page-content" style={{ padding: '120px 20px', textAlign: 'center' }}>
+        <h1>{error}</h1>
+      </div>
+    );
+  }
+
+  const displayProfile = profile || user;
 
   return (
     <div className="page-content" style={{ backgroundColor: '#f9f9f9', minHeight: '100vh', paddingTop: '80px' }}>
@@ -33,13 +92,13 @@ const ProfilePage = () => {
             textTransform: 'uppercase',
             boxShadow: '0 4px 12px rgba(255, 107, 53, 0.3)'
           }}>
-            {user.email?.charAt(0).toUpperCase()}
+            {displayProfile.email?.charAt(0).toUpperCase()}
           </div>
           <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: '#333' }}>
-            {user.firstName} {user.lastName}
+            {displayProfile.firstName} {displayProfile.lastName}
           </h1>
           <p style={{ fontSize: '1.1rem', color: '#666' }}>
-            {user.email}
+            {displayProfile.email}
           </p>
         </div>
 
@@ -75,7 +134,7 @@ const ProfilePage = () => {
                 fontSize: '16px',
                 color: '#333'
               }}>
-                {user.firstName || 'Not provided'}
+                {displayProfile.firstName || 'Not provided'}
               </div>
             </div>
 
@@ -99,7 +158,7 @@ const ProfilePage = () => {
                 fontSize: '16px',
                 color: '#333'
               }}>
-                {user.lastName || 'Not provided'}
+                {displayProfile.lastName || 'Not provided'}
               </div>
             </div>
 
@@ -123,7 +182,7 @@ const ProfilePage = () => {
                 fontSize: '16px',
                 color: '#333'
               }}>
-                {user.email}
+                {displayProfile.email}
               </div>
             </div>
 
