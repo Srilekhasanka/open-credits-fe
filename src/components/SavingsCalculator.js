@@ -25,112 +25,108 @@ const SavingsCalculator = () => {
   const perCourseSavings = Math.max(perCourseSchoolCost - openCreditsCostPerCourse, 0);
 
   return (
-    <section className="savings-section" id="pricing">
-      <div className="savings-container">
-        <h2 className="savings-title">
-          Calculate how much you save with <span className="highlight">Open Credits</span>
-        </h2>
-        <div className="savings-card">
-          <div className="savings-grid">
-            <div className="savings-form">
-              <div className="field-group">
-                <label htmlFor="university-search">Pick your University</label>
-                <div className="search-input">
-                  <input id="university-search" type="text" placeholder="Search your college" />
-                  <span className="search-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" focusable="false">
-                      <circle cx="11" cy="11" r="6"></circle>
-                      <path d="M16 16l4 4"></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-
-              <div className="field-group">
-                <label htmlFor="course-count">Number of Courses</label>
-                <select
-                  id="course-count"
-                  value={courseCount}
-                  onChange={(event) => setCourseCount(Number(event.target.value))}
-                >
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map((count) => (
-                    <option key={count} value={count}>
-                      {count} {count === 1 ? 'course' : 'courses'} - {count * 3} Credits
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="field-group">
-                <label>Student Type</label>
-                <div className="student-tabs">
-                  <button
-                    type="button"
-                    className={`student-tab ${activeTab === TAB_US ? 'active' : ''}`}
-                    onClick={() => setActiveTab(TAB_US)}
-                  >
-                    US Local/ Military
-                  </button>
-                  <button
-                    type="button"
-                    className={`student-tab ${activeTab === TAB_INTL ? 'active' : ''}`}
-                    onClick={() => setActiveTab(TAB_INTL)}
-                  >
-                    International Student
-                  </button>
-                </div>
-              </div>
-
-              <div className="breakdown">
-                <h3>Breakdown</h3>
-                <div className="breakdown-row">
-                  <span>Estimated cost per course (3 credits):</span>
-                  <strong>{formatCurrency(perCourseSchoolCost)}</strong>
-                </div>
-                <div className="breakdown-row">
-                  <span>Estimated cost of living (per semester):</span>
-                  <strong>{formatCurrency(LIVING_COST)}</strong>
-                </div>
-                <div className="breakdown-row">
-                  <span>What you pay Open Credits per course (3 credits):</span>
-                  <strong>{formatCurrency(openCreditsCostPerCourse)}</strong>
-                </div>
-                <div className="breakdown-row highlight">
-                  <span>You save:</span>
-                  <strong>{formatCurrency(perCourseSavings)}</strong>
-                </div>
-              </div>
-            </div>
-
-            <div className="savings-summary">
-              <div className="summary-card summary-outline">
-                <span>You Pay</span>
-                <strong>{formatCurrency(totals.estimated)}</strong>
-                <small>without Open Credits</small>
-              </div>
-              <div className="summary-card summary-solid">
-                <span>You Pay</span>
-                <strong>{formatCurrency(totals.openCredits)}</strong>
-                <small>with Open Credits (Tax included)</small>
-              </div>
+    <section className="savings-section savings-calculator" id="pricing">
+      <h2>
+        Calculate how much you save with <span>Open Credits</span>
+      </h2>
+      <div className="savings-card">
+        <div className="savings-left">
+          <div className="savings-field">
+            <label htmlFor="university-search">Pick your University</label>
+            <div className="savings-input">
+              <input id="university-search" type="text" placeholder="Search your college" />
+              <span className="savings-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="9" cy="9" r="6" />
+                  <line x1="13.5" y1="13.5" x2="18" y2="18" />
+                </svg>
+              </span>
             </div>
           </div>
-
-          <div className="bundle-section">
-            <h3>Also See - Bundle Savings</h3>
-            <div className="bundle-grid">
-              {[
-                { label: '6 Course Bundle', value: 2000 },
-                { label: '12 Course Bundle', value: 2000 },
-                { label: '24 Course Bundle', value: 2000 }
-              ].map((bundle) => (
-                <div key={bundle.label} className="bundle-card">
-                  <span>{bundle.label}</span>
-                  <strong>{formatCurrency(bundle.value)}</strong>
-                  <small>Save upto $11,000</small>
-                </div>
-              ))}
+          <div className="savings-field">
+            <label htmlFor="course-count">Number of Courses</label>
+            <div className="savings-input savings-input--select">
+              <select
+                id="course-count"
+                value={courseCount}
+                onChange={(event) => setCourseCount(Number(event.target.value))}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((count) => (
+                  <option key={count} value={count}>
+                    {count} {count === 1 ? 'course' : 'courses'} - {count * 3} Credits
+                  </option>
+                ))}
+              </select>
             </div>
+          </div>
+          <div className="savings-field">
+            <label>Student Type</label>
+            <div className="savings-toggle">
+              <button
+                type="button"
+                className={activeTab === TAB_US ? 'is-active' : ''}
+                onClick={() => setActiveTab(TAB_US)}
+              >
+                U.S Local/ Military
+              </button>
+              <button
+                type="button"
+                className={activeTab === TAB_INTL ? 'is-active' : ''}
+                onClick={() => setActiveTab(TAB_INTL)}
+              >
+                International Student
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="savings-right">
+          <div className="savings-pill">
+            <div>You Pay</div>
+            <strong>{formatCurrency(totals.estimated)}</strong>
+            <span>without Open Credits</span>
+          </div>
+          <div className="savings-pill is-accent">
+            <div>You Pay</div>
+            <strong>{formatCurrency(totals.openCredits)}</strong>
+            <span>with Open Credits (Tax included)</span>
+          </div>
+        </div>
+
+        <div className="savings-breakdown">
+          <h3>Breakdown</h3>
+          <div className="savings-row">
+            <span>Estimated cost per course (3 credits):</span>
+            <span>{formatCurrency(perCourseSchoolCost)}</span>
+          </div>
+          <div className="savings-row">
+            <span>Estimated cost of living (per semester):</span>
+            <span>{formatCurrency(LIVING_COST)}</span>
+          </div>
+          <div className="savings-row">
+            <span>What you pay Open Credits per course (3 credits):</span>
+            <span>{formatCurrency(openCreditsCostPerCourse)}</span>
+          </div>
+          <div className="savings-row is-total">
+            <span>You save:</span>
+            <span>{formatCurrency(perCourseSavings)}</span>
+          </div>
+        </div>
+
+        <div className="savings-bundles">
+          <h3>Also See - Bundle Savings</h3>
+          <div className="savings-bundle-grid">
+            {[
+              { label: '6 Course Bundle', value: 2000 },
+              { label: '12 Course Bundle', value: 2000 },
+              { label: '24 Course Bundle', value: 2000 }
+            ].map((bundle) => (
+              <div key={bundle.label} className="savings-bundle">
+                <div className="bundle-label">{bundle.label}</div>
+                <div className="bundle-price">{formatCurrency(bundle.value)}</div>
+                <div className="bundle-note">Save upto $11,000</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

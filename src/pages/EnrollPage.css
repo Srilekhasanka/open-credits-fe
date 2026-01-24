@@ -208,6 +208,10 @@
   margin-top: 40px;
 }
 
+.enroll-page .savings-section.savings-calculator {
+  padding: 0;
+}
+
 .savings-section h2 {
   font-size: 22px;
   font-weight: 600;
