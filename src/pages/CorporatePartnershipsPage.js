@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import corporateImage from '../assets/corporate_main.png';
-import whyCompaniesImage from '../assets/whycompanies.png';
+import dollarIcon from '../assets/dollar.png';
+import menusIcon from '../assets/menus.png';
+import partnershipIcon from '../assets/partnership.png';
+import questionMarkIcon from '../assets/questionmark.png';
 import builtImage from '../assets/built.png';
 import orangeBanner from '../assets/orange.png';
-import whyEmpImage from '../assets/whyemp.png';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
 import './CorporatePartnershipsPage.css';
@@ -13,22 +16,22 @@ const whyCards = [
   {
     title: 'Recruit and retain talent',
     copy: 'Become an employer of choice with a benefit that supports career mobility and employee loyalty.',
-    icon: 'S'
+    icon: dollarIcon
   },
   {
     title: 'Flexible partnership options',
     copy: 'Reimbursable, subscription, or enterprise. We design a plan that fits your goals and your budget.',
-    icon: 'F'
+    icon: partnershipIcon
   },
   {
     title: 'Purposeful learning paths',
     copy: 'Employees follow personalized learning paths aligned with business outcomes and individual career goals.',
-    icon: 'P'
+    icon: menusIcon
   },
   {
     title: 'Guaranteed Support',
     copy: 'Help with Credit support and documentation every step of the way.',
-    icon: 'G'
+    icon: questionMarkIcon
   }
 ];
 
@@ -36,22 +39,22 @@ const whyEmployerCards = [
   {
     title: 'High quality learning at a low cost',
     copy: 'High quality learning at a fraction of traditional tuition costs, so employers can offer meaningful education benefits without inflating budgets.',
-    icon: 'S'
+    icon: dollarIcon
   },
   {
     title: 'Transferable learning pathways',
     copy: 'Employees can build progress toward degree completion while also gaining practical skills.',
-    icon: 'T'
+    icon: partnershipIcon
   },
   {
     title: 'Built for trust and readiness',
     copy: 'We take learner privacy and platform security seriously, with standards built for enterprise partnerships.',
-    icon: 'B'
+    icon: menusIcon
   },
   {
     title: 'Guaranteed Support',
     copy: 'Help with Credit support and documentation every step of the way.',
-    icon: 'G'
+    icon: questionMarkIcon
   }
 ];
 
@@ -94,6 +97,9 @@ const CorporatePartnershipsPage = () => (
         <div className="corporate-why-grid">
           {whyCards.map((card) => (
             <article key={card.title} className="corporate-why-card">
+              <span className="corporate-why-icon" aria-hidden="true">
+                <img src={card.icon} alt="" />
+              </span>
               <h3>{card.title}</h3>
               <p>{card.copy}</p>
             </article>
@@ -137,6 +143,9 @@ const CorporatePartnershipsPage = () => (
     <section className="corporate-orange">
       <div className="corporate-container">
         <div className="corporate-orange__card">
+          <Link to="/courses" className="corporate-orange__cta" aria-label="View courses">
+            View courses
+          </Link>
           <img src={orangeBanner} alt="Employee testimonial banner" />
         </div>
       </div>
@@ -154,10 +163,17 @@ const CorporatePartnershipsPage = () => (
             credit, and make progress toward long term goals while staying employed full time.
           </p>
         </div>
-        <div className="corporate-why-image">
-          <img src={whyEmpImage} alt="Why employers choose Open Credits" />
+        <div className="corporate-why-grid">
+          {whyEmployerCards.map((card) => (
+            <article key={card.title} className="corporate-why-card">
+              <span className="corporate-why-icon" aria-hidden="true">
+                <img src={card.icon} alt="" />
+              </span>
+              <h3>{card.title}</h3>
+              <p>{card.copy}</p>
+            </article>
+          ))}
         </div>
-        <div className="corporate-why-grid" />
       </div>
     </section>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import higherEduImage from '../assets/higheredu_main.png';
 import whyCompaniesHigherImage from '../assets/whycompanies_higher.png';
 import builtHigherImage from '../assets/built_higher.png';
@@ -92,6 +93,9 @@ const HigherEducationPartnershipsPage = () => (
     <section className="higheredu-orange">
       <div className="higheredu-container">
         <div className="higheredu-orange__card">
+          <Link to="/courses" className="higheredu-orange__cta" aria-label="View courses">
+            View courses
+          </Link>
           <img src={orangeHigherImage} alt="Everyone loves Open Credits" />
         </div>
       </div>

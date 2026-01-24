@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import communityImage from '../assets/community_image.png';
 import communityWhyImage from '../assets/community_why.png';
 import orangeCommunityImage from '../assets/orange_community.png';
@@ -52,6 +53,9 @@ const CommunityPartnershipsPage = () => (
     <section className="community-orange">
       <div className="community-container">
         <div className="community-orange__card">
+          <Link to="/courses" className="community-orange__cta" aria-label="View courses">
+            View courses
+          </Link>
           <img src={orangeCommunityImage} alt="Employees love Open Credits" />
         </div>
       </div>

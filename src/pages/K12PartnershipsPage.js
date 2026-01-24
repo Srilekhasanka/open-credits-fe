@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import whyLearnerImage from '../assets/whylearner.png';
 import forStudentImage from '../assets/forstudent.png';
 import forTeachersImage from '../assets/forteachers.png';
@@ -107,6 +108,9 @@ const K12PartnershipsPage = () => (
     <section className="k12-orange">
       <div className="k12-container">
         <div className="k12-orange__card">
+          <Link to="/courses" className="k12-orange__cta" aria-label="View courses">
+            View courses
+          </Link>
           <img src={orangeStudentImage} alt="Students and teachers love it" />
         </div>
       </div>
