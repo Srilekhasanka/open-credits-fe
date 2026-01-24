@@ -1,8 +1,6 @@
 // API Base URL
-export const API_BASE_URL = 'https://gnh3rb7x-2994.inc1.devtunnels.ms/oc-be/api/v1';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://gnh3rb7x-2994.inc1.devtunnels.ms/oc-be/api/v1';
 
-// Toggle mock mode when backend is unavailable
-export const USE_MOCK_API = false;
 
 // API Endpoints
 export const API_ENDPOINTS = {
@@ -78,3 +76,4 @@ export const APP_CONSTANTS = {
 };
 
 export const STRIPE_PUBLISHABLE_KEY = 'pk_test_51Sln0kErzX6mrLC5FbCPrFjMHcx3h9N9X6igcopKQeHpmLBpGqhGNNDYscvfHmjVBqNhQqvQEhS14V5UjCbyGsuU008K9gZgY8';
+
