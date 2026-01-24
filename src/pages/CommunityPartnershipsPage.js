@@ -1,11 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import communityImage from '../assets/community_image.png';
-import communityWhyImage from '../assets/community_why.png';
+import dollarIcon from '../assets/dollar.png';
+import menusIcon from '../assets/menus.png';
+import partnershipIcon from '../assets/partnership.png';
+import questionMarkIcon from '../assets/questionmark.png';
 import orangeCommunityImage from '../assets/orange_community.png';
 import WorkProcess from '../components/WorkProcess';
 import './CommunityPartnershipsPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
+
+const communityCards = [
+  {
+    title: 'Expand access and opportunity',
+    copy: 'Open Credits helps learners keep moving forward with affordable, flexible courses that fit work and life schedules.',
+    icon: dollarIcon
+  },
+  {
+    title: 'Support meaningful outcomes',
+    copy: 'Partners can offer pathways that lead to credit, credentials, and measurable progress toward degrees or careers.',
+    icon: partnershipIcon
+  },
+  {
+    title: 'Designed for community impact',
+    copy: 'Our model helps organizations reduce cost barriers while supporting learners with structured, high-quality coursework.',
+    icon: menusIcon
+  },
+  {
+    title: 'Guaranteed Support',
+    copy: 'Help with Credit support and documentation every step of the way.',
+    icon: questionMarkIcon
+  }
+];
 
 const CommunityPartnershipsPage = () => (
   <section className="community-page">
@@ -44,8 +70,16 @@ const CommunityPartnershipsPage = () => (
             outcomes, and create meaningful impact.
           </p>
         </div>
-        <div className="community-why-image">
-          <img src={communityWhyImage} alt="Why companies choose Open Credits" />
+        <div className="community-why-grid">
+          {communityCards.map((card) => (
+            <article key={card.title} className="community-why-card">
+              <span className="community-why-icon" aria-hidden="true">
+                <img src={card.icon} alt="" />
+              </span>
+              <h3>{card.title}</h3>
+              <p>{card.copy}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
