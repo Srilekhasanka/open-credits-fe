@@ -36,6 +36,9 @@ export const API_ENDPOINTS = {
     VERIFY_PAYMENT: `${API_BASE_URL}/payment/verify`,
     INTENT: `${API_BASE_URL}/payments/intent`,
   },
+  CHAT: {
+    SEND: `${API_BASE_URL}/chat/`,
+  },
   PROGRESS: {
     LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
     UPDATE_LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
