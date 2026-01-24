@@ -395,6 +395,24 @@
   background: var(--dashboard-accent);
 }
 
+.dashboard__mini-action {
+  align-self: flex-end;
+  border: none;
+  background: var(--dashboard-accent);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard__mini-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(255, 107, 53, 0.25);
+}
+
 .dashboard__section-header {
   display: flex;
   justify-content: space-between;

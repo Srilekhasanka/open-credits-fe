@@ -18,6 +18,8 @@ const CourseLearningPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isPlaying, setIsPlaying] = useState(false);
   const [isProgressMenuOpen, setIsProgressMenuOpen] = useState(false);
+  const [autoPlayCountdown, setAutoPlayCountdown] = useState(null);
+  const [autoPlayTarget, setAutoPlayTarget] = useState(null);
   
   // Quiz states
   const [isQuizActive, setIsQuizActive] = useState(false);
@@ -31,6 +33,24 @@ const CourseLearningPage = () => {
   const initialChapters = location.state?.chapters || (storedChapters ? JSON.parse(storedChapters) : []);
   const initialLessons = location.state?.lessons || [];
   const initialChapterId = location.state?.chapterId || initialLessons?.[0]?.chapter_id;
+  const hasCachedProgress = useMemo(() => {
+    if (!courseId) return false;
+    const raw = localStorage.getItem(`oc_lesson_progress_${courseId}`);
+    if (!raw) return false;
+    try {
+      const parsed = JSON.parse(raw);
+      return Boolean(parsed && Object.keys(parsed).length > 0);
+    } catch (error) {
+      return false;
+    }
+  }, [courseId]);
+
+  const hasCachedLastCompleted = useMemo(() => {
+    if (!courseId) return false;
+    return Boolean(localStorage.getItem(`oc_last_completed_${courseId}`));
+  }, [courseId]);
+
+  const shouldResume = Boolean(location.state?.resume || hasCachedProgress || hasCachedLastCompleted);
   const storedLessons = initialChapterId
     ? sessionStorage.getItem(`oc_chapter_lessons_${initialChapterId}`)
     : null;
@@ -50,15 +70,33 @@ const CourseLearningPage = () => {
   const [courseError, setCourseError] = useState('');
   const [lessonProgress, setLessonProgress] = useState({});
   const [lessonProgressFetched, setLessonProgressFetched] = useState({});
+  const [lessonCompleted, setLessonCompleted] = useState({});
+  const [resumeApplied, setResumeApplied] = useState(false);
+  const [resumeLessonsReady, setResumeLessonsReady] = useState(false);
+  const [resumeProgressReady, setResumeProgressReady] = useState(false);
   const [streamUrl, setStreamUrl] = useState('');
   const [isStreamLoading, setIsStreamLoading] = useState(false);
   const [lessonDurations, setLessonDurations] = useState({});
   const lastProgressSentRef = useRef(0);
   const lastPositionRef = useRef(0);
   const isUpdatingProgressRef = useRef(false);
+  const autoPlayTimeoutRef = useRef(null);
+  const autoPlayIntervalRef = useRef(null);
+  const resumePrefetchRef = useRef(false);
+  const resumeProgressRef = useRef({});
+  const resumeCompletedRef = useRef({});
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
   const progressMenuRef = useRef(null);
+
+  useEffect(() => {
+    resumePrefetchRef.current = false;
+    resumeProgressRef.current = {};
+    resumeCompletedRef.current = {};
+    setResumeApplied(false);
+    setResumeLessonsReady(false);
+    setResumeProgressReady(false);
+  }, [courseId]);
 
   // Find the course
   const course = enrolledCourses.find((c) => String(c.id ?? c.course_id ?? c._id) === String(courseId));
@@ -94,6 +132,34 @@ const CourseLearningPage = () => {
       const parsed = raw ? JSON.parse(raw) : {};
       const next = { ...parsed, [lessonId]: Math.round(numeric) };
       localStorage.setItem(key, JSON.stringify(next));
+    } catch (error) {
+      // Ignore cache writes that fail (storage full, invalid JSON, etc).
+    }
+  };
+
+  const getCachedLastCompleted = () => {
+    if (!courseId) return null;
+    const raw = localStorage.getItem(`oc_last_completed_${courseId}`);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      const moduleIndex = Number(parsed?.moduleIndex);
+      const lessonIndex = Number(parsed?.lessonIndex);
+      if (!Number.isInteger(moduleIndex) || !Number.isInteger(lessonIndex)) return null;
+      return { moduleIndex, lessonIndex };
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const setCachedLastCompleted = (moduleIndex, lessonIndex) => {
+    if (!courseId) return;
+    if (!Number.isInteger(moduleIndex) || !Number.isInteger(lessonIndex)) return;
+    try {
+      localStorage.setItem(
+        `oc_last_completed_${courseId}`,
+        JSON.stringify({ moduleIndex, lessonIndex, updatedAt: Date.now() })
+      );
     } catch (error) {
       // Ignore cache writes that fail (storage full, invalid JSON, etc).
     }
@@ -141,6 +207,67 @@ const CourseLearningPage = () => {
     }
   }, [chapters, selectedModule]);
 
+  useEffect(() => {
+    if (!shouldResume || chapters.length === 0) return;
+    if (resumePrefetchRef.current) return;
+    resumePrefetchRef.current = true;
+
+    let isMounted = true;
+
+    const fetchAllLessonsForResume = async () => {
+      const updates = {};
+
+      await Promise.all(
+        chapters.map(async (chapter) => {
+          const chapterId = chapter?.id;
+          if (!chapterId) return;
+          if (lessonsByChapter[chapterId]) return;
+
+          const cached = sessionStorage.getItem(`oc_chapter_lessons_${chapterId}`);
+          if (cached) {
+            try {
+              const parsed = JSON.parse(cached);
+              if (Array.isArray(parsed)) {
+                updates[chapterId] = parsed;
+                return;
+              }
+            } catch (error) {
+              // Ignore bad cache; fall through to fetch.
+            }
+          }
+
+          try {
+            const response = await apiService.get(API_ENDPOINTS.LESSONS.BY_CHAPTER(chapterId));
+            const payload = response?.payload || response?.data || response;
+            const fetchedLessons = Array.isArray(payload) ? payload : payload?.lessons || [];
+            updates[chapterId] = fetchedLessons;
+            sessionStorage.setItem(`oc_chapter_lessons_${chapterId}`, JSON.stringify(fetchedLessons));
+          } catch (error) {
+            // Ignore individual chapter failures.
+          }
+        })
+      );
+
+      if (!isMounted) return;
+      if (Object.keys(updates).length > 0) {
+        setLessonsByChapter((prev) => ({ ...prev, ...updates }));
+      }
+      setResumeLessonsReady(true);
+    };
+
+    fetchAllLessonsForResume();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [shouldResume, chapters]);
+
+  useEffect(() => {
+    if (!shouldResume) {
+      setResumeLessonsReady(true);
+    }
+  }, [shouldResume]);
+
   const courseContent = useMemo(() => ({
     modules: chapters.map((chapter) => ({
       id: chapter.id,
@@ -155,6 +282,97 @@ const CourseLearningPage = () => {
   }), [chapters, lessonsByChapter]);
 
   useEffect(() => {
+    if (!shouldResume || !resumeLessonsReady) return;
+    let isMounted = true;
+
+    const fetchAllLessonProgressForResume = async () => {
+      const progressUpdates = {};
+      const completedUpdates = {};
+
+      const lessons = courseContent.modules.flatMap((module) => module.lessons || []);
+      if (lessons.length === 0) {
+        setResumeProgressReady(true);
+        return;
+      }
+
+      await Promise.all(
+        lessons.map(async (lesson) => {
+          const lessonId = lesson?.id;
+          if (!lessonId) return;
+          const existingProgress = lessonProgress[lessonId];
+          const existingCompleted = lessonCompleted[lessonId];
+          if (existingCompleted || (Number.isFinite(existingProgress) && existingProgress >= 98)) return;
+
+          const cachedProgress = getCachedLessonProgress(lessonId);
+          try {
+            const response = await apiService.get(API_ENDPOINTS.PROGRESS.LESSON(lessonId));
+            const progressValue = normalizeProgressValue(response);
+            const completedValue = normalizeCompletedValue(response);
+            const resolvedProgress = Math.max(progressValue, cachedProgress ?? 0, completedValue ? 100 : 0);
+            progressUpdates[lessonId] = resolvedProgress;
+            if (resolvedProgress > 0) {
+              setCachedLessonProgress(lessonId, resolvedProgress);
+            }
+            if (completedValue || resolvedProgress >= 98) {
+              completedUpdates[lessonId] = true;
+            }
+          } catch (error) {
+            if (cachedProgress !== undefined) {
+              progressUpdates[lessonId] = cachedProgress;
+              if (cachedProgress >= 98) {
+                completedUpdates[lessonId] = true;
+              }
+            }
+          }
+        })
+      );
+
+      if (!isMounted) return;
+      if (Object.keys(progressUpdates).length > 0) {
+        resumeProgressRef.current = { ...resumeProgressRef.current, ...progressUpdates };
+        setLessonProgress((prev) => ({ ...prev, ...progressUpdates }));
+      }
+      if (Object.keys(completedUpdates).length > 0) {
+        resumeCompletedRef.current = { ...resumeCompletedRef.current, ...completedUpdates };
+        setLessonCompleted((prev) => ({ ...prev, ...completedUpdates }));
+      }
+      setResumeProgressReady(true);
+    };
+
+    fetchAllLessonProgressForResume();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [shouldResume, resumeLessonsReady, courseContent.modules, lessonProgress, lessonCompleted]);
+
+  useEffect(() => {
+    if (courseContent.modules.length === 0) return;
+    const progressUpdates = {};
+    const completedUpdates = {};
+
+    courseContent.modules.forEach((module) => {
+      module.lessons.forEach((lesson) => {
+        if (!lesson?.id) return;
+        if (lessonProgress[lesson.id] !== undefined) return;
+        const cachedProgress = getCachedLessonProgress(lesson.id);
+        if (cachedProgress === undefined) return;
+        progressUpdates[lesson.id] = cachedProgress;
+        if (cachedProgress >= 98) {
+          completedUpdates[lesson.id] = true;
+        }
+      });
+    });
+
+    if (Object.keys(progressUpdates).length > 0) {
+      setLessonProgress((prev) => ({ ...prev, ...progressUpdates }));
+    }
+    if (Object.keys(completedUpdates).length > 0) {
+      setLessonCompleted((prev) => ({ ...prev, ...completedUpdates }));
+    }
+  }, [courseContent.modules, lessonProgress, lessonCompleted]);
+
+  useEffect(() => {
     if (courseContent.modules.length === 0) return;
     if (selectedModule >= courseContent.modules.length) {
       setSelectedModule(0);
@@ -166,6 +384,60 @@ const CourseLearningPage = () => {
       setSelectedLesson(0);
     }
   }, [courseContent.modules, selectedModule, selectedLesson]);
+
+  useEffect(() => {
+    if (!shouldResume || resumeApplied || !resumeLessonsReady || !resumeProgressReady) return;
+    if (courseContent.modules.length === 0) return;
+
+    let foundModuleIndex = null;
+    let foundLessonIndex = null;
+    const mergedProgress = { ...resumeProgressRef.current, ...lessonProgress };
+    const mergedCompleted = { ...resumeCompletedRef.current, ...lessonCompleted };
+
+    courseContent.modules.some((module, moduleIdx) => {
+      return module.lessons.some((lesson, lessonIdx) => {
+        const cachedProgress = getCachedLessonProgress(lesson.id) ?? 0;
+        const trackedProgress = mergedProgress[lesson.id];
+        const effectiveProgress = Math.max(
+          cachedProgress,
+          Number.isFinite(trackedProgress) ? trackedProgress : 0
+        );
+        const isDone =
+          effectiveProgress >= 98 ||
+          mergedCompleted[lesson.id] ||
+          lesson.completed;
+        if (!isDone) {
+          foundModuleIndex = moduleIdx;
+          foundLessonIndex = lessonIdx;
+          return true;
+        }
+        return false;
+      });
+    });
+
+    if (foundModuleIndex !== null && foundLessonIndex !== null) {
+      const lastCompleted = getCachedLastCompleted();
+      if (lastCompleted) {
+        const nextFromLast = getNextLessonPositionFrom(lastCompleted.moduleIndex, lastCompleted.lessonIndex);
+        const foundIndex = getLinearLessonIndex(foundModuleIndex, foundLessonIndex);
+        const nextIndex = nextFromLast
+          ? getLinearLessonIndex(nextFromLast.moduleIndex, nextFromLast.lessonIndex)
+          : null;
+        if (nextFromLast && nextIndex !== null && foundIndex !== null && nextIndex > foundIndex) {
+          foundModuleIndex = nextFromLast.moduleIndex;
+          foundLessonIndex = nextFromLast.lessonIndex;
+        }
+      }
+    }
+
+    if (foundModuleIndex !== null && foundLessonIndex !== null) {
+      setSelectedModule(foundModuleIndex);
+      setSelectedLesson(foundLessonIndex);
+      setOpenModuleIndex(foundModuleIndex);
+    }
+
+    setResumeApplied(true);
+  }, [shouldResume, resumeApplied, courseContent.modules, lessonCompleted, lessonProgress]);
 
   const currentLesson = courseContent.modules[selectedModule]?.lessons[selectedLesson];
   const totalLessons = courseContent.modules.reduce((acc, module) => acc + module.lessons.length, 0);
@@ -181,6 +453,110 @@ const CourseLearningPage = () => {
   const currentLessonNumber = courseContent.modules
     .slice(0, selectedModule)
     .reduce((acc, module) => acc + module.lessons.length, 0) + selectedLesson + 1;
+  const AUTO_PLAY_DELAY_SECONDS = 10;
+
+  const isLessonComplete = (lessonId, lessonCompletedFlag, lessonCompletedValue) => {
+    const cachedProgress = getCachedLessonProgress(lessonId) ?? 0;
+    const trackedProgress = lessonProgress[lessonId];
+    const effectiveProgress = Math.max(
+      cachedProgress,
+      Number.isFinite(trackedProgress) ? trackedProgress : 0
+    );
+    return (
+      effectiveProgress >= 98 ||
+      lessonCompletedFlag ||
+      lessonCompletedValue
+    );
+  };
+
+  const isChapterComplete = (chapterIndex) => {
+    const module = courseContent.modules[chapterIndex];
+    if (!module || module.lessons.length === 0) return false;
+    return module.lessons.every((lesson) =>
+      isLessonComplete(lesson.id, lessonCompleted[lesson.id], lesson.completed)
+    );
+  };
+
+  const isChapterLocked = (chapterIndex) => {
+    if (chapterIndex <= 0) return false;
+    return !isChapterComplete(0);
+  };
+
+  const clearAutoPlayTimers = () => {
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    if (autoPlayIntervalRef.current) {
+      clearInterval(autoPlayIntervalRef.current);
+      autoPlayIntervalRef.current = null;
+    }
+  };
+
+  const clearAutoPlay = () => {
+    clearAutoPlayTimers();
+    setAutoPlayCountdown(null);
+    setAutoPlayTarget(null);
+  };
+
+  const getNextLessonPosition = () => {
+    const currentModuleLessons = courseContent.modules[selectedModule]?.lessons.length || 0;
+    if (selectedLesson < currentModuleLessons - 1) {
+      return { moduleIndex: selectedModule, lessonIndex: selectedLesson + 1 };
+    }
+    if (selectedModule < courseContent.modules.length - 1) {
+      return { moduleIndex: selectedModule + 1, lessonIndex: 0 };
+    }
+    return null;
+  };
+
+  const getLinearLessonIndex = (moduleIndex, lessonIndex) => {
+    if (moduleIndex === null || lessonIndex === null) return null;
+    let offset = 0;
+    for (let i = 0; i < courseContent.modules.length; i += 1) {
+      if (i === moduleIndex) return offset + lessonIndex;
+      offset += courseContent.modules[i].lessons.length;
+    }
+    return null;
+  };
+
+  const getNextLessonPositionFrom = (moduleIndex, lessonIndex) => {
+    const currentModuleLessons = courseContent.modules[moduleIndex]?.lessons.length || 0;
+    if (lessonIndex < currentModuleLessons - 1) {
+      return { moduleIndex, lessonIndex: lessonIndex + 1 };
+    }
+    if (moduleIndex < courseContent.modules.length - 1) {
+      return { moduleIndex: moduleIndex + 1, lessonIndex: 0 };
+    }
+    return null;
+  };
+
+  const scheduleAutoPlayNext = () => {
+    const nextPosition = getNextLessonPosition();
+    if (!nextPosition) return;
+    const nextLesson = courseContent.modules[nextPosition.moduleIndex]?.lessons[nextPosition.lessonIndex];
+    if (!nextLesson) return;
+
+    clearAutoPlay();
+    setAutoPlayTarget({ ...nextPosition, lesson: nextLesson });
+    setAutoPlayCountdown(AUTO_PLAY_DELAY_SECONDS);
+
+    autoPlayIntervalRef.current = setInterval(() => {
+      setAutoPlayCountdown((prev) => {
+        if (prev === null) return null;
+        if (prev <= 1) return 0;
+        return prev - 1;
+      });
+    }, 1000);
+
+    autoPlayTimeoutRef.current = setTimeout(() => {
+      setSelectedModule(nextPosition.moduleIndex);
+      setSelectedLesson(nextPosition.lessonIndex);
+      setOpenModuleIndex(nextPosition.moduleIndex);
+      setIsPlaying(nextLesson.type === 'video');
+      clearAutoPlay();
+    }, AUTO_PLAY_DELAY_SECONDS * 1000);
+  };
 
   useEffect(() => {
     const lessonId = currentLesson?.id;
@@ -301,15 +677,30 @@ const CourseLearningPage = () => {
 
   const normalizeProgressValue = (response) => {
     const payload = response?.payload ?? response?.data ?? response ?? {};
+    const progressPayload = payload.progress ?? payload?.data?.progress ?? payload;
     const rawValue =
-      payload.progress ??
-      payload.percentage ??
+      progressPayload?.progress_percent ??
+      progressPayload?.completed_percentage ??
+      progressPayload?.percentage ??
       payload.progress_percent ??
       payload.completed_percentage ??
       payload.completedPercent ??
+      progressPayload ??
       0;
     const numeric = Number(rawValue);
     return Number.isFinite(numeric) ? numeric : 0;
+  };
+
+  const normalizeCompletedValue = (response) => {
+    const payload = response?.payload ?? response?.data ?? response ?? {};
+    const progressPayload = payload.progress ?? payload?.data?.progress ?? payload;
+    const rawValue =
+      progressPayload?.completed ??
+      payload.completed ??
+      payload.is_completed ??
+      payload.isCompleted ??
+      false;
+    return Boolean(rawValue);
   };
 
   useEffect(() => {
@@ -325,10 +716,14 @@ const CourseLearningPage = () => {
       try {
         const response = await apiService.get(API_ENDPOINTS.PROGRESS.LESSON(lessonId));
         const progressValue = normalizeProgressValue(response);
-        const resolvedProgress = Math.max(progressValue, cachedProgress ?? 0);
+        const completedValue = normalizeCompletedValue(response);
+        const resolvedProgress = Math.max(progressValue, cachedProgress ?? 0, completedValue ? 100 : 0);
         setLessonProgress((prev) => ({ ...prev, [lessonId]: resolvedProgress }));
         if (resolvedProgress > 0) {
           setCachedLessonProgress(lessonId, resolvedProgress);
+        }
+        if (completedValue) {
+          setLessonCompleted((prev) => ({ ...prev, [lessonId]: true }));
         }
       } catch (error) {
         if (cachedProgress !== undefined) {
@@ -348,6 +743,12 @@ const CourseLearningPage = () => {
     lastProgressSentRef.current = 0;
     lastPositionRef.current = 0;
   }, [currentLesson?.id]);
+
+  useEffect(() => {
+    return () => {
+      clearAutoPlayTimers();
+    };
+  }, []);
 
   if (!course) {
     return (
@@ -369,6 +770,7 @@ const CourseLearningPage = () => {
   }
 
   const handleNextLesson = () => {
+    clearAutoPlay();
     const currentModuleLessons = courseContent.modules[selectedModule].lessons.length;
     if (selectedLesson < currentModuleLessons - 1) {
       setSelectedLesson(selectedLesson + 1);
@@ -380,6 +782,7 @@ const CourseLearningPage = () => {
   };
 
   const handlePrevLesson = () => {
+    clearAutoPlay();
     if (selectedLesson > 0) {
       setSelectedLesson(selectedLesson - 1);
     } else if (selectedModule > 0) {
@@ -390,6 +793,7 @@ const CourseLearningPage = () => {
   };
 
   const handlePlayVideo = () => {
+    clearAutoPlay();
     setIsPlaying(true);
   };
 
@@ -464,6 +868,10 @@ const CourseLearningPage = () => {
     lastPositionRef.current = currentTime;
     setLessonProgress((prev) => ({ ...prev, [lessonId]: Math.round(percent) }));
     setCachedLessonProgress(lessonId, percent);
+    if (percent >= 98) {
+      setLessonCompleted((prev) => ({ ...prev, [lessonId]: true }));
+      setCachedLastCompleted(selectedModule, selectedLesson);
+    }
     sendLessonProgress({
       lessonId,
       positionSeconds: currentTime,
@@ -478,12 +886,15 @@ const CourseLearningPage = () => {
     const duration = event.target.duration || lastPositionRef.current || 0;
     setLessonProgress((prev) => ({ ...prev, [lessonId]: 100 }));
     setCachedLessonProgress(lessonId, 100);
+    setLessonCompleted((prev) => ({ ...prev, [lessonId]: true }));
+    setCachedLastCompleted(selectedModule, selectedLesson);
     sendLessonProgress({
       lessonId,
       positionSeconds: duration,
       percent: 100,
       completed: true
     });
+    scheduleAutoPlayNext();
   };
 
   // Mock quiz questions - will be replaced with backend data
@@ -1033,6 +1444,85 @@ const CourseLearningPage = () => {
                   </button>
                 </div>
               )}
+              {autoPlayCountdown !== null && autoPlayTarget?.lesson && (
+                <div style={{
+                  position: 'absolute',
+                  right: '20px',
+                  bottom: '20px',
+                  backgroundColor: 'rgba(20, 21, 23, 0.92)',
+                  border: '1px solid #2d2f31',
+                  borderRadius: '10px',
+                  padding: '14px 16px',
+                  color: 'white',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  maxWidth: '280px',
+                  boxShadow: '0 10px 24px rgba(0,0,0,0.4)'
+                }}>
+                  <div style={{ fontSize: '12px', color: '#9aa0a6', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+                    Auto play next lesson
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 600 }}>
+                    {autoPlayTarget.lesson.title}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#ccc' }}>
+                    <span>Starting in {autoPlayCountdown}s</span>
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '22px',
+                      height: '22px',
+                      borderRadius: '50%',
+                      backgroundColor: '#ff6b35',
+                      color: 'white',
+                      fontSize: '12px',
+                      fontWeight: 700
+                    }}>
+                      ▶
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      onClick={() => {
+                        clearAutoPlay();
+                        setSelectedModule(autoPlayTarget.moduleIndex);
+                        setSelectedLesson(autoPlayTarget.lessonIndex);
+                        setOpenModuleIndex(autoPlayTarget.moduleIndex);
+                        setIsPlaying(autoPlayTarget.lesson.type === 'video');
+                      }}
+                      style={{
+                        padding: '6px 10px',
+                        backgroundColor: '#ff6b35',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                        fontWeight: 600
+                      }}
+                    >
+                      Play now
+                    </button>
+                    <button
+                      onClick={clearAutoPlay}
+                      style={{
+                        padding: '6px 10px',
+                        backgroundColor: '#2d2f31',
+                        color: 'white',
+                        border: '1px solid #3e4143',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                        fontWeight: 600
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Navigation Buttons */}
@@ -1209,9 +1699,12 @@ const CourseLearningPage = () => {
                     backgroundColor: '#2d2f31',
                     borderRadius: '6px',
                     marginBottom: '8px',
-                    cursor: 'pointer'
+                    cursor: isChapterLocked(moduleIdx) ? 'not-allowed' : 'pointer',
+                    opacity: isChapterLocked(moduleIdx) ? 0.6 : 1
                   }}
                   onClick={() => {
+                    if (isChapterLocked(moduleIdx)) return;
+                    clearAutoPlay();
                     setOpenModuleIndex((prev) => (prev === moduleIdx ? -1 : moduleIdx));
                     if (openModuleIndex !== moduleIdx) {
                       setSelectedModule(moduleIdx);
@@ -1240,11 +1733,13 @@ const CourseLearningPage = () => {
                     )}
                     {module.lessons.map((lesson, lessonIdx) => {
                   const progressValue = lessonProgress[lesson.id];
-                  const isCompleted = progressValue >= 98 || lesson.completed;
+                  const isCompleted = lessonCompleted[lesson.id] || progressValue >= 98 || lesson.completed;
                   return (
                     <div
                       key={lesson.id || lessonIdx}
                       onClick={() => {
+                        if (isChapterLocked(moduleIdx)) return;
+                        clearAutoPlay();
                         setSelectedModule(moduleIdx);
                         setIsPlaying(false);
                         setSelectedLesson(lessonIdx);
@@ -1253,7 +1748,7 @@ const CourseLearningPage = () => {
                         padding: '12px 12px 12px 24px',
                         backgroundColor: selectedModule === moduleIdx && selectedLesson === lessonIdx ? '#3e4143' : 'transparent',
                         borderLeft: selectedModule === moduleIdx && selectedLesson === lessonIdx ? '3px solid #ff6b35' : '3px solid transparent',
-                        cursor: 'pointer',
+                        cursor: isChapterLocked(moduleIdx) ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
@@ -1286,7 +1781,7 @@ const CourseLearningPage = () => {
                           marginTop: '2px',
                           flexShrink: 0
                         }}>
-                          {isCompleted ? '?' : ''}
+                          {isCompleted ? '✓' : ''}
                         </div>
                         <div>
                           <div style={{ color: 'white', fontSize: '13px', marginBottom: '4px' }}>

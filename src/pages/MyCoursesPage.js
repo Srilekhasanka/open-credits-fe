@@ -92,6 +92,13 @@ const MyCoursesPage = () => {
                       <div className="dashboard__mini-progress">
                         <div style={{ width: `${progressValue}%` }} />
                       </div>
+                      <button
+                        className="dashboard__mini-action"
+                        type="button"
+                        onClick={() => navigate(`/course/${course.id}/learn`, { state: { resume: true } })}
+                      >
+                        Continue
+                      </button>
                     </div>
                   );
                 })}
@@ -148,7 +155,7 @@ const MyCoursesPage = () => {
                       <button
                         className="dashboard__course-action"
                         type="button"
-                        onClick={() => navigate(`/course/${course.id}/learn`)}
+                        onClick={() => navigate(`/course/${course.id}/learn`, { state: { resume: true } })}
                       >
                         View Course
                       </button>

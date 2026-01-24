@@ -121,6 +121,7 @@ const MyCoursesListPage = () => {
       navigate(`/course/${course.id}/learn`, {
         state: {
           course,
+          resume: true,
           chapters,
           lessons,
           chapterId: firstChapterId
