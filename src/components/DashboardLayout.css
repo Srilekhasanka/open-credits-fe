@@ -113,10 +113,13 @@
   align-items: center;
   gap: 20px;
   margin-bottom: 18px;
-  background: transparent;
+  background: var(--dashboard-bg);
   border-radius: 0;
-  padding: 6px 4px;
-  box-shadow: none;
+  padding: 10px 4px;
+  box-shadow: 0 6px 16px rgba(26, 32, 44, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .dashboard__welcome h1 {

@@ -1,24 +1,92 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import enrollmentService from '../services/enrollmentService';
 import '../components/DashboardLayout.css';
 
 const MyCoursesPage = () => {
-  const { isAuthenticated, user, enrolledCourses, cartItems } = useAuth();
+  const { isAuthenticated, user, enrolledCourses, cartItems, setEnrolledCoursesData } = useAuth();
   const navigate = useNavigate();
 
   const [courseFilter, setCourseFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loadingEnrollments, setLoadingEnrollments] = useState(false);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    let isMounted = true;
+
+    const fetchEnrollments = async () => {
+      setLoadingEnrollments(true);
+      try {
+        const payload = await enrollmentService.getEnrolledCourses();
+        const enrollments = payload?.enrollments || [];
+        const mapped = enrollments.map((item) => {
+          const rawName = item.course?.name || '';
+          const [codePart, ...nameParts] = rawName.split(':');
+          const hasCode = rawName.includes(':');
+          const rawProgress =
+            item.progress ??
+            item.progress_percent ??
+            item.completed_percentage ??
+            item.course_progress ??
+            item.course?.progress ??
+            0;
+          const numericProgress = Number(rawProgress);
+          return {
+            id: item.course?.id || item.course_id || item.id,
+            code: hasCode ? codePart.trim() : '',
+            name: hasCode ? nameParts.join(':').trim() : rawName,
+            description: item.course?.description || '',
+            progress: Number.isFinite(numericProgress) ? numericProgress : 0,
+            status: item.status || item.course?.status || 'In Progress'
+          };
+        });
+
+        if (isMounted) {
+          setEnrolledCoursesData(mapped);
+        }
+      } catch (error) {
+        // Keep fallback data when API is unavailable.
+      } finally {
+        if (isMounted) {
+          setLoadingEnrollments(false);
+        }
+      }
+    };
+
+    fetchEnrollments();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated, setEnrolledCoursesData]);
 
   const filteredCourses = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    const searchable = query
+      ? enrolledCourses.filter((course) => {
+          const haystack = [
+            course.code,
+            course.name,
+            course.description,
+            course.status
+          ]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+          return haystack.includes(query);
+        })
+      : enrolledCourses;
     if (courseFilter === 'completed') {
-      return enrolledCourses.filter((course) => course.status === 'Completed');
+      return searchable.filter((course) => course.status === 'Completed');
     }
     if (courseFilter === 'unfinished') {
-      return enrolledCourses.filter((course) => course.status !== 'Completed');
+      return searchable.filter((course) => course.status !== 'Completed');
     }
-    return enrolledCourses;
-  }, [enrolledCourses, courseFilter]);
+    return searchable;
+  }, [enrolledCourses, courseFilter, searchTerm]);
 
   if (!isAuthenticated) {
     return (
@@ -48,7 +116,13 @@ const MyCoursesPage = () => {
         </div>
         <div className="dashboard__topbar-actions">
           <div className="dashboard__search">
-            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
+            <input
+              type="text"
+              placeholder="Search Courses"
+              aria-label="Search courses"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <FiSearch />
           </div>
           <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
@@ -77,7 +151,10 @@ const MyCoursesPage = () => {
             <section className="dashboard__section">
               <div className="dashboard__section-title">Continue course</div>
               <div className="dashboard__card-grid">
-                {continueCourses.length === 0 && (
+                {loadingEnrollments && enrolledCourses.length === 0 && (
+                  <div className="mycourses__loading">Loading enrolled courses...</div>
+                )}
+                {!loadingEnrollments && continueCourses.length === 0 && (
                   <div className="mycourses__loading">No enrolled courses yet.</div>
                 )}
                 {continueCourses.map((course) => {
@@ -110,13 +187,6 @@ const MyCoursesPage = () => {
                 <div className="dashboard__section-title">My Courses</div>
                 <div className="dashboard__filters">
                   <button
-                    className="dashboard__filter-btn dashboard__filter-btn--sort"
-                    type="button"
-                  >
-                    Sort by
-                    <span aria-hidden="true" className="dashboard__sort-arrow">↑</span>
-                  </button>
-                  <button
                     className={`dashboard__filter-btn ${courseFilter === 'completed' ? 'is-active' : ''}`}
                     type="button"
                     onClick={() => setCourseFilter('completed')}
@@ -133,7 +203,10 @@ const MyCoursesPage = () => {
                 </div>
               </div>
               <div className="dashboard__course-grid">
-                {filteredCourses.length === 0 && (
+                {loadingEnrollments && enrolledCourses.length === 0 && (
+                  <div className="mycourses__loading">Loading enrolled courses...</div>
+                )}
+                {!loadingEnrollments && filteredCourses.length === 0 && (
                   <div className="mycourses__loading">No courses match this filter.</div>
                 )}
                 {filteredCourses.map((course) => {
@@ -192,3 +265,4 @@ const MyCoursesPage = () => {
 };
 
 export default MyCoursesPage;
+

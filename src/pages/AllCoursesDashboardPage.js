@@ -10,6 +10,7 @@ const AllCoursesDashboardPage = () => {
   const navigate = useNavigate();
 
   const [toastMessage, setToastMessage] = useState('');
+  const [priceSort, setPriceSort] = useState('asc');
 
   useEffect(() => {
     if (!toastMessage) return;
@@ -33,13 +34,21 @@ const AllCoursesDashboardPage = () => {
           const [codePart, ...nameParts] = rawName.split(':');
           const hasCode = rawName.includes(':');
           const normalizedPrice = Number(String(course.price ?? course.cost ?? 0).replace(/[^0-9.]/g, ''));
+          const seatDisplay =
+            course?.seats?.display ||
+            (course?.seats?.enrolled != null && course?.seats?.total != null
+              ? `${course.seats.enrolled}/${course.seats.total}`
+              : '') ||
+            course.seats_display ||
+            course.seatsDisplay ||
+            '';
           return {
             id: course.id ?? course.course_id ?? course._id ?? course.slug ?? course.code ?? rawName,
             code: hasCode ? codePart.trim() : '',
             name: hasCode ? nameParts.join(':').trim() : rawName,
             description: course.description || course.desc || '',
             price: Number.isNaN(normalizedPrice) ? 0 : normalizedPrice,
-            seats: '22/50 seats left'
+            seats: seatDisplay ? `${seatDisplay} seats left` : 'Seats unavailable'
           };
         });
 
@@ -81,6 +90,12 @@ const AllCoursesDashboardPage = () => {
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
+  const sortedCourses = [...courses].sort((a, b) => {
+    if (priceSort === 'asc') {
+      return (a.price ?? 0) - (b.price ?? 0);
+    }
+    return (b.price ?? 0) - (a.price ?? 0);
+  });
 
   return (
     <div className="dashboard__main">
@@ -110,11 +125,17 @@ const AllCoursesDashboardPage = () => {
 
       <section className="allcourses">
         <div className="allcourses__title-row">
-          <h2>My Courses</h2>
+          <h2>All Courses</h2>
           <div className="allcourses__filters">
-            <button className="mycourses__filter mycourses__filter--sort" type="button">
-              Sort by
-              <span aria-hidden="true" className="mycourses__sort-arrow">↑</span>
+            <button
+              className="mycourses__filter mycourses__filter--sort"
+              type="button"
+              onClick={() => setPriceSort((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
+            >
+              Sort by price
+              <span aria-hidden="true" className="mycourses__sort-arrow">
+                {priceSort === 'asc' ? ' ↑' : ' ↓'}
+              </span>
             </button>
           </div>
         </div>
@@ -126,7 +147,7 @@ const AllCoursesDashboardPage = () => {
           {!loadingCourses && courses.length === 0 && (
             <div className="mycourses__loading">No courses found.</div>
           )}
-          {courses.map((course) => (
+          {sortedCourses.map((course) => (
             <div key={course.id} className="allcourses__card">
               <div className="mycourses__card-top">
                 <div className="mycourses__course-icon">ACC</div>
@@ -135,7 +156,7 @@ const AllCoursesDashboardPage = () => {
                 </button>
               </div>
               <div className="mycourses__card-body">
-                <h3>{course.code}: {course.name}</h3>
+                <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
                 <p>{course.description}</p>
               </div>
               <div className="mycourses__card-divider" />
@@ -165,3 +186,4 @@ const AllCoursesDashboardPage = () => {
 };
 
 export default AllCoursesDashboardPage;
+

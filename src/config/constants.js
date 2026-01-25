@@ -37,6 +37,9 @@ export const API_ENDPOINTS = {
   CHAT: {
     SEND: `${API_BASE_URL}/chat/`,
   },
+  REFERRALS: {
+    ME: `${API_BASE_URL}/referrals/me`,
+  },
   PROGRESS: {
     LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
     UPDATE_LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,

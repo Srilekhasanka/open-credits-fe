@@ -2,6 +2,10 @@
   width: 100%;
   overflow-x: hidden;
 }
+
+.App.app--with-header {
+  padding-top: 84px;
+}
 *,
 *::before,
 *::after {
