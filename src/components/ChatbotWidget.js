@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { FiArrowUpRight } from 'react-icons/fi';
 import zeniLogo from '../assets/zeni.png';
 import { API_ENDPOINTS, HTTP_METHODS } from '../config/constants';
 import authService from '../services/authService';
@@ -17,6 +18,18 @@ const ChatbotWidget = () => {
   const [input, setInput] = useState('');
   const [replyIndex, setReplyIndex] = useState(0);
   const [sending, setSending] = useState(false);
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, open]);
+
+  useEffect(() => {
+    if (!open) return;
+    inputRef.current?.focus();
+  }, [open, messages, sending]);
 
   const resetChat = () => {
     setMessages([{ id: 'welcome', from: 'bot', text: "Hi, I'm Zeni. How can I help?" }]);
@@ -95,9 +108,11 @@ const ChatbotWidget = () => {
                 {msg.text}
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
           <div className="chatbot__input">
             <input
+              ref={inputRef}
               type="text"
               placeholder="Type your question..."
               value={input}
@@ -109,8 +124,8 @@ const ChatbotWidget = () => {
               }}
               disabled={sending}
             />
-            <button type="button" onClick={handleSend} disabled={sending}>
-              {sending ? '...' : 'Send'}
+            <button type="button" onClick={handleSend} disabled={sending} aria-label="Send message">
+              {sending ? '...' : <FiArrowUpRight aria-hidden="true" />}
             </button>
           </div>
         </div>
