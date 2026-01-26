@@ -1,24 +1,48 @@
-﻿import React from 'react';
-import partneredImage from '../assets/partnereduni.png';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './PartnerUniversities.css';
+import { universities } from '../data/universities';
 
 const PartnerUniversities = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredUniversities = universities.filter((uni) =>
+    uni.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="partner-universities">
       <div className="universities-container">
         <h2>
           Partnered <span className="highlight">Universities</span>
         </h2>
-        <div className="partnered-search">
-          <input type="text" placeholder="Search your college" aria-label="Search your college" />
-          <span className="partnered-search-icon" aria-hidden="true" />
-        </div>
         <div className="partnered-image-wrap">
-          <img
-            className="partnered-image"
-            src={partneredImage}
-            alt="Partnered universities"
-          />
+          <div className="partnered-search">
+            <input
+              type="text"
+              placeholder="Search your college"
+              aria-label="Search your college"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+            <span className="partnered-search-icon" aria-hidden="true" />
+          </div>
+          <div className="partnered-grid">
+            {filteredUniversities.map((university) => (
+              <Link
+                key={university.slug}
+                className="partnered-card"
+                to={`/universities/${university.slug}`}
+                aria-label={`View ${university.name}`}
+              >
+                {university.logo ? (
+                  <img src={university.logo} alt={university.name} />
+                ) : (
+                  <span style={{ color: university.color }}>{university.name}</span>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
         <div className="partnered-footer">
           <span>Can't find your University?</span>
