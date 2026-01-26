@@ -31,6 +31,7 @@ import MyAccountDashboardPage from './pages/MyAccountDashboardPage';
 import PaymentPage from './pages/PaymentPage';
 import CourseLearningPage from './pages/CourseLearningPage';
 import EnrollPage from './pages/EnrollPage';
+import UniversityDetailPage from './pages/UniversityDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
 
 function AppContent() {
@@ -67,6 +68,7 @@ function AppContent() {
             <Route path="/payment" element={<CheckoutDashboardPage />} />
             <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
             <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
+            <Route path="/universities/:slug" element={<UniversityDetailPage />} />
           </Routes>
         </DashboardLayout>
       ) : (
@@ -93,6 +95,7 @@ function AppContent() {
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
           <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
+          <Route path="/universities/:slug" element={<UniversityDetailPage />} />
         </Routes>
       )}
       {showPublicHeader && <Footer />}

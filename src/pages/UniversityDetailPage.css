@@ -1,0 +1,675 @@
+.university-page {
+  background: #fff;
+  padding: 70px 20px;
+}
+
+.university-card {
+  max-width: 1040px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.university-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.university-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f1f1f;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.university-name {
+  color: #1c3d7a;
+}
+
+.university-name.is-njcu {
+  color: #0e5b2f;
+}
+
+.university-name.is-njit {
+  color: #cc1f1f;
+}
+
+.university-name.is-ohio {
+  color: #b51f1f;
+}
+
+.university-name.is-suny {
+  color: #0b3d91;
+}
+
+.university-name.is-sdsu {
+  color: #b1182b;
+}
+
+.university-name.is-mvnu {
+  color: #0b4f6c;
+}
+
+.university-name.is-franklin {
+  color: #0f1a2f;
+}
+
+.university-name.is-cmu {
+  color: #6a0030;
+}
+
+.university-divider {
+  color: #ff6b2c;
+  font-weight: 700;
+}
+
+.university-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.university-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ffd1bf;
+  color: #ff6b2c;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.university-chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35b26f;
+  display: inline-block;
+}
+
+.university-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: 34px;
+  align-items: center;
+}
+
+.university-copy p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #333;
+  margin: 0 0 16px;
+  max-width: 460px;
+}
+
+.university-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.university-badges span {
+  border: 1px solid #9fc0ff;
+  background: #f4f8ff;
+  color: #1e4fb8;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.university-cta {
+  background: #0a2f74;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.university-page .university-card.indiana-tech .university-cta {
+  background: #1b1b1b;
+}
+
+.university-page .university-card.njcu .university-cta {
+  background: #0e5b2f;
+}
+
+.university-page .university-card.njit .university-cta {
+  background: #cc1f1f;
+}
+
+.university-page .university-card.ohio .university-cta {
+  background: #9c1b1b;
+}
+
+.university-page .university-card.suny .university-cta {
+  background: #0b3d91;
+}
+
+.university-page .university-card.sdsu .university-cta {
+  background: #b1182b;
+}
+
+.university-page .university-card.mvnu .university-cta {
+  background: #0b4f6c;
+}
+
+.university-page .university-card.franklin .university-cta {
+  background: #0f1a2f;
+}
+
+.university-page .university-card.cmu .university-cta {
+  background: #6a0030;
+}
+
+.university-hero {
+  width: 100%;
+}
+
+.university-hero img {
+  width: 100%;
+  border-radius: 18px;
+  display: block;
+}
+
+.university-hero-placeholder {
+  height: 240px;
+  border-radius: 16px;
+  background: #f3f4f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  font-size: 14px;
+  color: #5a6b85;
+  font-weight: 600;
+}
+
+.university-why {
+  padding: 50px 0 100px;
+}
+
+.university-why-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+  gap: 30px;
+  align-items: center;
+}
+
+.university-why-copy h2 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  color: #1f1f1f;
+}
+
+.university-why-copy p {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.university-why-logo {
+  background: #ffba1a;
+  border-radius: 12px;
+  padding: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.university-why-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.university-why.is-indiana-tech .university-why-logo {
+  background: #1f1c1d;
+  padding: 0;
+}
+
+.university-why.is-indiana-tech .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-njcu .university-why-logo {
+  background: #0e5b2f;
+  padding: 0;
+}
+
+.university-why.is-njcu .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-njit .university-why-logo {
+  background: #fff;
+  padding: 0;
+}
+
+.university-why.is-njit .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-ohio .university-why-logo {
+  background: #fff;
+  padding: 0;
+}
+
+.university-why.is-ohio .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-suny .university-why-logo {
+  background: #0b3d91;
+  padding: 0;
+}
+
+.university-why.is-suny .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-sdsu .university-why-logo {
+  background: #fff;
+  padding: 0;
+}
+
+.university-why.is-sdsu .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-mvnu .university-why-logo {
+  background: #fff;
+  padding: 0;
+}
+
+.university-why.is-mvnu .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-franklin .university-why-logo {
+  background: #0f1a2f;
+  padding: 0;
+}
+
+.university-why.is-franklin .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-why.is-cmu .university-why-logo {
+  background: #6a0030;
+  padding: 0;
+}
+
+.university-why.is-cmu .university-why-logo img {
+  border-radius: 12px;
+}
+
+.university-savings .savings-section.savings-calculator {
+  max-width: 1040px;
+  margin: 6px auto 0;
+  padding: 0;
+}
+
+.university-savings .savings-card {
+  overflow: visible;
+  padding: 20px 24px 18px 14px;
+  gap: 16px;
+}
+
+.university-savings .savings-bundles {
+  padding-bottom: 6px;
+  margin-top: 4px;
+}
+
+.university-savings .savings-section.savings-calculator h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.university-savings .savings-section.savings-calculator .savings-left {
+  gap: 8px;
+  padding-top: 2px;
+  padding-left: 8px;
+}
+
+.university-savings .savings-section.savings-calculator .savings-breakdown {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.university-savings .savings-section.savings-calculator .savings-bundle {
+  padding: 10px 8px;
+}
+
+.university-savings .savings-section.savings-calculator .bundle-note {
+  font-size: 7.5px;
+}
+
+.university-work .work-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.university-work .process-header {
+  justify-content: flex-start;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.university-work .process-header h2 {
+  margin: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.university-work .work-process {
+  padding: 60px 0 10px;
+}
+
+.university-work .process-content {
+  margin-bottom: 0;
+}
+
+.university-work .process-visual img {
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+}
+
+.university-courses {
+  padding: 50px 0 70px;
+}
+
+.university-courses-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.university-courses-inner h2 {
+  font-size: 22px;
+  margin: 0 0 6px;
+  color: #1f1f1f;
+}
+
+.university-courses-inner h2 span {
+  color: #ff6b2c;
+}
+
+.university-courses-inner p {
+  font-size: 12px;
+  color: #555;
+  margin: 0 0 14px;
+}
+
+.university-courses-search {
+  position: relative;
+  max-width: 640px;
+  margin-bottom: 18px;
+}
+
+.university-courses-search input {
+  width: 100%;
+  height: 34px;
+  border-radius: 18px;
+  border: 1px solid #e2e2e2;
+  padding: 0 34px 0 14px;
+  font-size: 12px;
+  color: #444;
+  background: #fff;
+}
+
+.university-courses-search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #9a9a9a;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.university-courses-search-icon::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 2px;
+  background: #9a9a9a;
+  right: -5px;
+  bottom: -3px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+.university-courses-card {
+  border: 1px solid #eef0f3;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(12, 12, 12, 0.06);
+  overflow: hidden;
+}
+
+.university-courses-card-head {
+  padding: 16px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  border-bottom: 1px solid #0b2a5c;
+  background: #0a2f74;
+  color: #fff;
+}
+
+.university-courses-card-head h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.university-courses-card-head p {
+  margin: 0;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.university-courses-totals {
+  display: flex;
+  gap: 10px;
+}
+
+.university-courses-totals div {
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #e6e9f0;
+  text-align: center;
+  min-width: 90px;
+}
+
+.university-courses-totals span {
+  display: block;
+  font-size: 9px;
+  color: #666;
+}
+
+.university-courses-totals strong {
+  font-size: 12px;
+  color: #12a150;
+  font-weight: 700;
+}
+
+.university-courses-totals .total-university strong {
+  color: #ff6b2c;
+}
+
+.university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses-table {
+  padding: 0 8px 10px;
+}
+
+.university-courses-row {
+  display: grid;
+  grid-template-columns: 28px 2fr 70px 2fr 70px 80px;
+  gap: 10px;
+  padding: 10px 10px;
+  border-bottom: 1px solid #f2f2f2;
+  align-items: center;
+  font-size: 11px;
+  color: #3f3f3f;
+}
+
+.university-courses-row.is-header {
+  font-weight: 600;
+  color: #111;
+  background: #f8f6f4;
+}
+
+.university-courses.is-indiana-tech .university-courses-card-head {
+  background: #1f1c1d;
+  border-bottom-color: #1f1c1d;
+}
+
+.university-courses.is-indiana-tech .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-indiana-tech .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-njcu .university-courses-card-head {
+  background: #0e5b2f;
+  border-bottom-color: #0e5b2f;
+}
+
+.university-courses.is-njit .university-courses-card-head {
+  background: #c00000;
+  border-bottom-color: #c00000;
+}
+
+.university-courses.is-njit .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-njit .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-sdsu .university-courses-card-head {
+  background: #d21837;
+  border-bottom-color: #d21837;
+}
+
+.university-courses.is-sdsu .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-sdsu .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-mvnu .university-courses-card-head {
+  background: #0b2f6b;
+  border-bottom-color: #0b2f6b;
+}
+
+.university-courses.is-mvnu .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-mvnu .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-franklin .university-courses-card-head {
+  background: #0f1a2f;
+  border-bottom-color: #0f1a2f;
+}
+
+.university-courses.is-franklin .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-franklin .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-cmu .university-courses-card-head {
+  background: #6a0030;
+  border-bottom-color: #6a0030;
+}
+
+.university-courses.is-cmu .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-cmu .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-ohio .university-courses-card-head {
+  background: #9b1c1c;
+  border-bottom-color: #9b1c1c;
+}
+
+.university-courses.is-ohio .university-courses-totals .total-university strong {
+  color: #ff4c3a;
+}
+
+.university-courses.is-ohio .university-courses-totals .total-open strong {
+  color: #12a150;
+}
+
+.university-courses.is-ohio .university-courses-table {
+  border: none;
+  border-radius: 0;
+  padding: 0 8px 10px;
+}
+
+.university-courses-row:last-child {
+  border-bottom: none;
+}
+
+.cart-icon {
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .university-courses-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .university-courses-row {
+    grid-template-columns: 26px 1fr 50px 1fr 50px 70px;
+  }
+}
+
+@media (max-width: 900px) {
+  .university-body {
+    grid-template-columns: 1fr;
+  }
+
+  .university-hero-placeholder {
+    height: 200px;
+  }
+
+}
