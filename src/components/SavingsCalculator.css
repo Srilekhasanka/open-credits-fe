@@ -59,7 +59,8 @@
 
 .savings-section.savings-calculator .savings-input {
   position: relative;
-  width: 340px;
+  width: 420px;
+  max-width: 100%;
   display: flex;
   align-items: center;
   border: 1px solid #e6e6e6;
@@ -69,7 +70,8 @@
 }
 
 .savings-section.savings-calculator .savings-input input,
-.savings-section.savings-calculator .savings-input select {
+.savings-section.savings-calculator .savings-input select,
+.savings-section.savings-calculator .savings-select-button {
   width: 100%;
   padding: 6px 8px 6px 12px;
   border-radius: 12px;
@@ -79,12 +81,49 @@
   color: #1f1f1f;
   outline: none;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .savings-section.savings-calculator .savings-input select {
   appearance: none;
   background: transparent;
   padding-right: 40px;
+}
+
+.savings-section.savings-calculator .savings-select-button {
+  cursor: pointer;
+}
+
+.savings-section.savings-calculator .savings-select-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
+
+.savings-section.savings-calculator .savings-select-option {
+  width: 100%;
+  text-align: left;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  font-size: 9.5px;
+  color: #1f1f1f;
+  cursor: pointer;
+}
+
+.savings-section.savings-calculator .savings-select-option:hover,
+.savings-section.savings-calculator [aria-selected='true'] .savings-select-option {
+  background: #1f66d1;
+  color: #fff;
 }
 
 .savings-section.savings-calculator .savings-input--select::after {

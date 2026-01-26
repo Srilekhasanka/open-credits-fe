@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './SavingsCalculator.css';
 
 const TAB_US = 'us';
@@ -9,6 +9,21 @@ const SavingsCalculator = () => {
   const [activeTab, setActiveTab] = useState(TAB_US);
   const [courseCount, setCourseCount] = useState(3);
   const [schoolCost, setSchoolCost] = useState(413);
+  const courseSelectRef = useRef(null);
+  const courseDropdownRef = useRef(null);
+  const [isCourseOpen, setIsCourseOpen] = useState(false);
+  const courseOptions = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  useEffect(() => {
+    if (!isCourseOpen) return;
+    const handleOutsideClick = (event) => {
+      if (!courseDropdownRef.current?.contains(event.target)) {
+        setIsCourseOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [isCourseOpen]);
 
   const openCreditsCostPerCourse = activeTab === TAB_US ? 250 : 275;
 
@@ -45,18 +60,40 @@ const SavingsCalculator = () => {
           </div>
           <div className="savings-field">
             <label htmlFor="course-count">Number of Courses</label>
-            <div className="savings-input savings-input--select">
-              <select
+            <div className="savings-input savings-input--select" ref={courseDropdownRef}>
+              <button
                 id="course-count"
-                value={courseCount}
-                onChange={(event) => setCourseCount(Number(event.target.value))}
+                ref={courseSelectRef}
+                type="button"
+                className="savings-select-button"
+                aria-haspopup="listbox"
+                aria-expanded={isCourseOpen}
+                onClick={() => setIsCourseOpen((prev) => !prev)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Escape') setIsCourseOpen(false);
+                  if (event.key === 'ArrowDown') setIsCourseOpen(true);
+                }}
               >
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((count) => (
-                  <option key={count} value={count}>
-                    {count} {count === 1 ? 'course' : 'courses'} - {count * 3} Credits
-                  </option>
-                ))}
-              </select>
+                {courseCount} {courseCount === 1 ? 'course' : 'courses'} - {courseCount * 3} Credits
+              </button>
+              {isCourseOpen && (
+                <ul className="savings-select-menu" role="listbox" aria-labelledby="course-count">
+                  {courseOptions.map((count) => (
+                    <li key={count} role="option" aria-selected={count === courseCount}>
+                      <button
+                        type="button"
+                        className="savings-select-option"
+                        onClick={() => {
+                          setCourseCount(count);
+                          setIsCourseOpen(false);
+                        }}
+                      >
+                        {count} {count === 1 ? 'course' : 'courses'} - {count * 3} Credits
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
           <div className="savings-field">

@@ -56,6 +56,10 @@ export const API_ENDPOINTS = {
     BY_CHAPTER: (chapterId) => `${API_BASE_URL}/lessons/chapter/${chapterId}`,
     STREAM: (lessonId) => `${API_BASE_URL}/lessons/${lessonId}/stream`,
   },
+  NOTES: {
+    BY_LESSON: (lessonId) => `${API_BASE_URL}/notes/lesson/${lessonId}`,
+    UPDATE: (noteId) => `${API_BASE_URL}/notes/${noteId}`,
+  },
 };
 
 // HTTP Methods
