@@ -37,6 +37,11 @@ export const API_ENDPOINTS = {
   CHAT: {
     SEND: `${API_BASE_URL}/chat/`,
   },
+  BOOKMARKS: {
+    LIST: `${API_BASE_URL}/bookmarks`,
+    ADD: `${API_BASE_URL}/bookmarks`,
+    REMOVE: (courseId) => `${API_BASE_URL}/bookmarks/${courseId}`,
+  },
   REFERRALS: {
     ME: `${API_BASE_URL}/referrals/me`,
   },

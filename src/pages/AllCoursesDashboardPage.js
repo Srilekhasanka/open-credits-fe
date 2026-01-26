@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
-import courseService from '../services/courseService';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS } from '../config/constants';
+import bookmarkAddIcon from '../assets/bookmark_add.png';
 import '../components/DashboardLayout.css';
 
 const AllCoursesDashboardPage = () => {
@@ -11,6 +13,8 @@ const AllCoursesDashboardPage = () => {
 
   const [toastMessage, setToastMessage] = useState('');
   const [priceSort, setPriceSort] = useState('asc');
+  const [bookmarkedIds, setBookmarkedIds] = useState(new Set());
+  const [loadingBookmarks, setLoadingBookmarks] = useState(false);
 
   useEffect(() => {
     if (!toastMessage) return;
@@ -22,12 +26,49 @@ const AllCoursesDashboardPage = () => {
   const [loadingCourses, setLoadingCourses] = useState(false);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
+    let isMounted = true;
+
+    const fetchBookmarks = async () => {
+      setLoadingBookmarks(true);
+      try {
+        const response = await apiService.get(API_ENDPOINTS.BOOKMARKS.LIST);
+        const payload = response?.payload || response?.data || response;
+        const items = Array.isArray(payload)
+          ? payload
+          : payload?.bookmarks || payload?.data || payload?.payload || [];
+        const ids = items
+          .map((item) => item.course_id || item.courseId || item.course?.id || item.id)
+          .filter(Boolean);
+        if (isMounted) {
+          setBookmarkedIds(new Set(ids));
+        }
+      } catch (error) {
+        if (isMounted) {
+          setBookmarkedIds(new Set());
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingBookmarks(false);
+        }
+      }
+    };
+
+    fetchBookmarks();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated]);
+
+  useEffect(() => {
     let isMounted = true;
 
     const fetchCourses = async () => {
       setLoadingCourses(true);
       try {
-        const payload = await courseService.getCourses({ is_active: true, page: 0, limit: 50 });
+        const response = await apiService.get(API_ENDPOINTS.COURSES.LIST);
+        const payload = response?.payload || response?.data || response;
         const items = Array.isArray(payload) ? payload : payload?.courses || payload?.data || [];
         const normalized = items.map((course) => {
           const rawName = course.name || course.title || '';
@@ -97,6 +138,31 @@ const AllCoursesDashboardPage = () => {
     return (b.price ?? 0) - (a.price ?? 0);
   });
 
+  const toggleBookmark = async (courseId) => {
+    if (!courseId || loadingBookmarks) return;
+    const isBookmarked = bookmarkedIds.has(courseId);
+    try {
+      if (isBookmarked) {
+        await apiService.delete(API_ENDPOINTS.BOOKMARKS.REMOVE(courseId));
+      } else {
+        await apiService.post(API_ENDPOINTS.BOOKMARKS.ADD, { course_id: courseId });
+      }
+      setBookmarkedIds((prev) => {
+        const next = new Set(prev);
+        if (isBookmarked) {
+          next.delete(courseId);
+          setToastMessage('Bookmark removed');
+        } else {
+          next.add(courseId);
+          setToastMessage('Bookmarked');
+        }
+        return next;
+      });
+    } catch (error) {
+      setToastMessage('Bookmark update failed');
+    }
+  };
+
   return (
     <div className="dashboard__main">
       <header className="dashboard__topbar">
@@ -151,8 +217,14 @@ const AllCoursesDashboardPage = () => {
             <div key={course.id} className="allcourses__card">
               <div className="mycourses__card-top">
                 <div className="mycourses__course-icon">ACC</div>
-                <button className="mycourses__bookmark" type="button" aria-label="Bookmark">
-                  <span />
+                <button
+                  className={`mycourses__bookmark ${bookmarkedIds.has(course.id) ? 'is-active' : ''}`}
+                  type="button"
+                  aria-label="Bookmark"
+                  aria-pressed={bookmarkedIds.has(course.id)}
+                  onClick={() => toggleBookmark(course.id)}
+                >
+                  <img src={bookmarkAddIcon} alt="" aria-hidden="true" />
                 </button>
               </div>
               <div className="mycourses__card-body">

@@ -287,32 +287,15 @@
   position: relative;
   background: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.course-bookmark::after {
-  content: "";
-  position: absolute;
-  left: 7px;
-  top: 5px;
-  width: 8px;
-  height: 10px;
-  border: 2px solid #b5b5b5;
-  border-bottom: none;
-  border-radius: 2px 2px 0 0;
-  box-sizing: border-box;
-}
-
-.course-bookmark::before {
-  content: "";
-  position: absolute;
-  left: 7px;
-  top: 11px;
-  width: 8px;
-  height: 6px;
-  border-left: 2px solid #b5b5b5;
-  border-right: 2px solid #b5b5b5;
-  border-bottom: 2px solid #b5b5b5;
-  border-radius: 0 0 2px 2px;
+.course-bookmark img {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .course-card h3 {

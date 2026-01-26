@@ -15,6 +15,7 @@ import financeIcon from '../assets/Finance.png';
 import generalIcon from '../assets/General.png';
 import economyIcon from '../assets/Economy.png';
 import mathIcon from '../assets/Math.png';
+import bookmarkAddIcon from '../assets/bookmark_add.png';
 
 const CoursesPage = () => {
   const navigate = useNavigate();
@@ -269,7 +270,9 @@ const CoursesPage = () => {
                       <span>OC</span>
                     )}
                   </div>
-                  <div className="course-bookmark" aria-hidden="true" />
+                  <div className="course-bookmark" aria-hidden="true">
+                    <img src={bookmarkAddIcon} alt="" />
+                  </div>
                 </div>
 
                 <h3>
