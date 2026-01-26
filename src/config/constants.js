@@ -37,6 +37,14 @@ export const API_ENDPOINTS = {
   CHAT: {
     SEND: `${API_BASE_URL}/chat/`,
   },
+  BOOKMARKS: {
+    LIST: `${API_BASE_URL}/bookmarks`,
+    ADD: `${API_BASE_URL}/bookmarks`,
+    REMOVE: (courseId) => `${API_BASE_URL}/bookmarks/${courseId}`,
+  },
+  REFERRALS: {
+    ME: `${API_BASE_URL}/referrals/me`,
+  },
   PROGRESS: {
     LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
     UPDATE_LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
@@ -47,6 +55,10 @@ export const API_ENDPOINTS = {
   LESSONS: {
     BY_CHAPTER: (chapterId) => `${API_BASE_URL}/lessons/chapter/${chapterId}`,
     STREAM: (lessonId) => `${API_BASE_URL}/lessons/${lessonId}/stream`,
+  },
+  NOTES: {
+    BY_LESSON: (lessonId) => `${API_BASE_URL}/notes/lesson/${lessonId}`,
+    UPDATE: (noteId) => `${API_BASE_URL}/notes/${noteId}`,
   },
 };
 

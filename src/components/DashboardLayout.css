@@ -113,10 +113,13 @@
   align-items: center;
   gap: 20px;
   margin-bottom: 18px;
-  background: transparent;
+  background: var(--dashboard-bg);
   border-radius: 0;
-  padding: 6px 4px;
-  box-shadow: none;
+  padding: 10px 4px;
+  box-shadow: 0 6px 16px rgba(26, 32, 44, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .dashboard__welcome h1 {
@@ -733,30 +736,23 @@
   display: grid;
   place-items: center;
   cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.mycourses__bookmark span {
-  width: 7px;
-  height: 9px;
-  border: 1px solid #a4adbb;
-  border-radius: 2px;
-  position: relative;
-  background: transparent;
+.mycourses__bookmark img {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
-.mycourses__bookmark span::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -1px;
-  width: 5px;
-  height: 4px;
-  background: #ffffff;
-  border-left: 1px solid #a4adbb;
-  border-right: 1px solid #a4adbb;
-  border-bottom: 1px solid #a4adbb;
-  transform: translateX(-50%);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
+.mycourses__bookmark.is-active {
+  border-color: #ff6b35;
+  background: #fff1ea;
+}
+
+.mycourses__bookmark.is-active img {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(95%) saturate(1924%)
+    hue-rotate(343deg) brightness(102%) contrast(101%);
 }
 
 .mycourses__card-body h3 {

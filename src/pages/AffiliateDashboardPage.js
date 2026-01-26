@@ -1,23 +1,103 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart, FiCopy } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const AffiliateDashboardPage = () => {
   const { isAuthenticated, user, cartItems } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('links');
+  const [referralData, setReferralData] = useState(null);
+  const [loadingReferral, setLoadingReferral] = useState(false);
+  const [referralError, setReferralError] = useState('');
+  const [copyMessage, setCopyMessage] = useState('');
 
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
 
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    let isMounted = true;
+
+    const fetchReferral = async () => {
+      setLoadingReferral(true);
+      setReferralError('');
+      try {
+        const response = await apiService.get(API_ENDPOINTS.REFERRALS.ME);
+        const payload = response?.payload || response?.data || response;
+        if (isMounted) {
+          setReferralData(payload);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setReferralError('Unable to load referral details.');
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingReferral(false);
+        }
+      }
+    };
+
+    fetchReferral();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!copyMessage) return;
+    const timer = setTimeout(() => setCopyMessage(''), 1800);
+    return () => clearTimeout(timer);
+  }, [copyMessage]);
+
+  const referralCode =
+    referralData?.code ||
+    referralData?.referral_code ||
+    referralData?.referralCode ||
+    '';
+  const referralLink =
+    referralData?.link ||
+    referralData?.referral_link ||
+    referralData?.referralLink ||
+    (referralCode ? `https://www.opencredits.org/?ref=${referralCode}` : 'https://www.opencredits.org/');
+
+  const handleCopy = async (value, label = 'Copied') => {
+    if (!value || value === '—' || value === 'Loading...') {
+      setCopyMessage('Nothing to copy');
+      return;
+    }
+
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = value;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setCopyMessage(label);
+    } catch (error) {
+      setCopyMessage('Copy failed');
+    }
+  };
+
   const affiliateStats = [
-    { label: 'Total Commissions Owed', value: '$0.00' },
-    { label: 'Total Commissions Paid', value: '$0.00' },
-    { label: 'Total Commissions Earned', value: '$0.00' },
-    { label: 'Payout', value: '$0.00' }
+    { label: 'Total Commissions Owed', value: referralData?.commissions_owed ?? '$0.00' },
+    { label: 'Total Commissions Paid', value: referralData?.commissions_paid ?? '$0.00' },
+    { label: 'Total Commissions Earned', value: referralData?.commissions_earned ?? '$0.00' },
+    { label: 'Payout', value: referralData?.payout ?? '$0.00' }
   ];
 
   const rows = [
@@ -75,7 +155,7 @@ const AffiliateDashboardPage = () => {
       <section className="affiliate">
         <div className="affiliate__header">
           <h2>Affiliate Information</h2>
-          <p>Your affiliate commission: 20.00% of sales price</p>
+          <p>Your affiliate commission: {referralData?.commission ?? '20.00%'} of sales price</p>
         </div>
 
         <div className="affiliate__stats">
@@ -86,6 +166,7 @@ const AffiliateDashboardPage = () => {
             </div>
           ))}
         </div>
+        {referralError && <div className="mycourses__loading">{referralError}</div>}
 
         <div className="affiliate__tabs">
           <button
@@ -116,8 +197,12 @@ const AffiliateDashboardPage = () => {
             <div className="affiliate__section">
               <h3>Homepage Link</h3>
               <div className="affiliate__link-row">
-                <input type="text" value="https://www.opencredits.org/?ref=b70734" readOnly />
-                <button type="button" aria-label="Copy homepage link">
+                <input type="text" value={loadingReferral ? 'Loading...' : referralLink} readOnly />
+                <button
+                  type="button"
+                  aria-label="Copy homepage link"
+                  onClick={() => handleCopy(referralLink, 'Homepage link copied')}
+                >
                   <FiCopy />
                 </button>
               </div>
@@ -180,8 +265,12 @@ const AffiliateDashboardPage = () => {
               <div className="affiliate__field">
                 <label>Affiliate Code</label>
                 <div className="affiliate__field-row">
-                  <input type="text" value="b70734" readOnly />
-                  <button type="button" aria-label="Copy affiliate code">
+                  <input type="text" value={loadingReferral ? 'Loading...' : (referralCode || '—')} readOnly />
+                  <button
+                    type="button"
+                    aria-label="Copy affiliate code"
+                    onClick={() => handleCopy(referralCode, 'Referral code copied')}
+                  >
                     <FiCopy />
                   </button>
                 </div>
@@ -204,6 +293,7 @@ const AffiliateDashboardPage = () => {
           </div>
         )}
       </section>
+      {copyMessage && <div className="dashboard__toast">{copyMessage}</div>}
     </div>
   );
 };

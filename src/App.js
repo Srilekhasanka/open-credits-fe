@@ -37,10 +37,11 @@ function AppContent() {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
   const isLearningPage = location.pathname.includes('/course/') && location.pathname.includes('/learn');
+  const showPublicHeader = !isAuthenticated && !isLearningPage;
 
   return (
-    <div className="App">
-      {!isAuthenticated && !isLearningPage && <Header />}
+    <div className={`App ${showPublicHeader ? 'app--with-header' : ''}`}>
+      {showPublicHeader && <Header />}
       {isAuthenticated ? (
         <DashboardLayout>
           <Routes>
@@ -94,7 +95,7 @@ function AppContent() {
           <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
         </Routes>
       )}
-      {!isAuthenticated && !isLearningPage && <Footer />}
+      {showPublicHeader && <Footer />}
       <ChatbotWidget />
     </div>
   );

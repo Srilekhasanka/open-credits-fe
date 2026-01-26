@@ -15,11 +15,15 @@ const CourseLearningPage = () => {
   const [selectedLesson, setSelectedLesson] = useState(0);
   const [selectedModule, setSelectedModule] = useState(0);
   const [openModuleIndex, setOpenModuleIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('notes');
   const [isPlaying, setIsPlaying] = useState(false);
   const [isProgressMenuOpen, setIsProgressMenuOpen] = useState(false);
   const [autoPlayCountdown, setAutoPlayCountdown] = useState(null);
   const [autoPlayTarget, setAutoPlayTarget] = useState(null);
+  const [noteText, setNoteText] = useState('');
+  const [noteId, setNoteId] = useState(null);
+  const [noteStatus, setNoteStatus] = useState('');
+  const [noteError, setNoteError] = useState('');
   
   // Quiz states
   const [isQuizActive, setIsQuizActive] = useState(false);
@@ -455,6 +459,67 @@ const CourseLearningPage = () => {
     .reduce((acc, module) => acc + module.lessons.length, 0) + selectedLesson + 1;
   const AUTO_PLAY_DELAY_SECONDS = 10;
 
+  useEffect(() => {
+    let isMounted = true;
+    const lessonId = currentLesson?.id;
+
+    const loadNotes = async () => {
+      if (!lessonId) {
+        setNoteText('');
+        setNoteId(null);
+        setNoteError('');
+        setNoteStatus('');
+        return;
+      }
+
+      setNoteStatus('loading');
+      setNoteError('');
+
+      try {
+        const response = await apiService.get(API_ENDPOINTS.NOTES.BY_LESSON(lessonId));
+        if (!isMounted) return;
+        const note = resolveNoteFromResponse(response);
+        setNoteText(note?.note_text ?? note?.noteText ?? '');
+        setNoteId(note?.id ?? note?.note_id ?? note?._id ?? null);
+      } catch (error) {
+        if (!isMounted) return;
+        setNoteText('');
+        setNoteId(null);
+        setNoteError('Unable to load notes.');
+      } finally {
+        if (isMounted) {
+          setNoteStatus('');
+        }
+      }
+    };
+
+    loadNotes();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentLesson?.id]);
+
+  const handleSaveNote = async () => {
+    const lessonId = currentLesson?.id;
+    if (!lessonId || noteStatus === 'saving') return;
+    setNoteStatus('saving');
+    setNoteError('');
+    try {
+      const payload = { note_text: noteText };
+      const response = noteId
+        ? await apiService.put(API_ENDPOINTS.NOTES.UPDATE(noteId), payload)
+        : await apiService.post(API_ENDPOINTS.NOTES.BY_LESSON(lessonId), payload);
+      const savedNote = resolveNoteFromResponse(response);
+      setNoteId(savedNote?.id ?? savedNote?.note_id ?? savedNote?._id ?? noteId ?? null);
+      setNoteStatus('saved');
+      setTimeout(() => setNoteStatus(''), 2000);
+    } catch (error) {
+      setNoteStatus('');
+      setNoteError('Unable to save notes.');
+    }
+  };
+
   const isLessonComplete = (lessonId, lessonCompletedFlag, lessonCompletedValue) => {
     const cachedProgress = getCachedLessonProgress(lessonId) ?? 0;
     const trackedProgress = lessonProgress[lessonId];
@@ -497,6 +562,19 @@ const CourseLearningPage = () => {
     clearAutoPlayTimers();
     setAutoPlayCountdown(null);
     setAutoPlayTarget(null);
+  };
+
+  const resolveNoteFromResponse = (response) => {
+    const payload = response?.payload || response?.data || response;
+    const candidateArray = Array.isArray(payload)
+      ? payload
+      : payload?.notes || payload?.data || payload?.payload || [];
+    if (Array.isArray(candidateArray) && candidateArray.length > 0) {
+      return candidateArray[0];
+    }
+    if (payload?.note) return payload.note;
+    if (payload?.note_text || payload?.noteText) return payload;
+    return null;
   };
 
   const getNextLessonPosition = () => {
@@ -800,7 +878,9 @@ const CourseLearningPage = () => {
   const parseDurationSeconds = (value) => {
     if (typeof value === 'number' && Number.isFinite(value)) return value;
     if (typeof value === 'string') {
-      if (value.includes(':')) {
+      const trimmed = value.trim();
+      const lowered = trimmed.toLowerCase();
+      if (trimmed.includes(':')) {
         const parts = value.split(':').map((part) => Number(part));
         if (parts.some((part) => Number.isNaN(part))) return null;
         if (parts.length === 3) {
@@ -810,7 +890,17 @@ const CourseLearningPage = () => {
           return parts[0] * 60 + parts[1];
         }
       }
-      const numeric = Number(value);
+      const hoursMatch = lowered.match(/(\d+)\s*h/);
+      const minsMatch = lowered.match(/(\d+)\s*m(in)?/);
+      const secsMatch = lowered.match(/(\d+)\s*s(ec)?/);
+      if (hoursMatch || minsMatch || secsMatch) {
+        const hours = hoursMatch ? Number(hoursMatch[1]) : 0;
+        const mins = minsMatch ? Number(minsMatch[1]) : 0;
+        const secs = secsMatch ? Number(secsMatch[1]) : 0;
+        if ([hours, mins, secs].some((part) => Number.isNaN(part))) return null;
+        return hours * 3600 + mins * 60 + secs;
+      }
+      const numeric = Number(trimmed);
       return Number.isFinite(numeric) ? numeric : null;
     }
     return null;
@@ -822,6 +912,15 @@ const CourseLearningPage = () => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${String(secs).padStart(2, '0')}`;
+  };
+
+  const getDurationLabel = (lesson) => {
+    if (!lesson) return '';
+    const raw = lessonDurations[lesson.id] ?? lesson.duration ?? lesson.estimated_duration ?? '';
+    const formatted = formatDuration(raw);
+    if (formatted) return formatted;
+    if (typeof raw === 'string') return raw;
+    return '';
   };
 
   const handleMetadataLoaded = (event) => {
@@ -1403,7 +1502,9 @@ const CourseLearningPage = () => {
                   <p style={{ fontSize: '16px', color: '#ccc' }}>
                     {currentLesson?.type === 'video'
                       ? `Video Duration: ${formatDuration(
-                          lessonDurations[currentLesson?.id] ?? currentLesson?.estimated_duration
+                          lessonDurations[currentLesson?.id] ??
+                          currentLesson?.estimated_duration ??
+                          currentLesson?.duration
                         ) || 'N/A'}`
                       : currentLesson?.type === 'quiz'
                         ? `Time Limit: ${currentLesson?.duration}`
@@ -1571,7 +1672,7 @@ const CourseLearningPage = () => {
                 gap: '10px',
                 padding: '0 20px'
               }}>
-                {['overview', 'resources', 'notes'].map(tab => (
+                {['notes'].map(tab => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -1594,61 +1695,16 @@ const CourseLearningPage = () => {
 
               {/* Tab Content */}
               <div style={{ padding: '20px', color: 'white' }}>
-                {activeTab === 'overview' && (
-                  <div>
-                    <h3 style={{ marginBottom: '15px', fontSize: '18px' }}>About this lesson</h3>
-                    <p style={{ color: '#ccc', lineHeight: '1.6', marginBottom: '20px' }}>
-                      This lesson covers the fundamental concepts and provides you with the knowledge needed
-                      to understand {currentLesson?.title.toLowerCase()}. You'll learn key principles and see
-                      practical examples that you can apply in real-world scenarios.
-                    </p>
-                    <h4 style={{ marginBottom: '10px', fontSize: '16px' }}>Learning Objectives:</h4>
-                    <ul style={{ color: '#ccc', lineHeight: '1.8', paddingLeft: '20px' }}>
-                      <li>Understand the core concepts and terminology</li>
-                      <li>Apply best practices in practical situations</li>
-                      <li>Develop problem-solving skills in this area</li>
-                      <li>Prepare for the module assessment</li>
-                    </ul>
-                  </div>
-                )}
-                {activeTab === 'resources' && (
-                  <div>
-                    <h3 style={{ marginBottom: '15px', fontSize: '18px' }}>Downloadable Resources</h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      {['Lecture Slides (PDF)', 'Code Examples', 'Practice Exercises', 'Additional Reading'].map((resource, idx) => (
-                        <div key={idx} style={{
-                          padding: '15px',
-                          backgroundColor: '#2d2f31',
-                          borderRadius: '6px',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
-                        }}>
-                          <div>
-                            <div style={{ fontSize: '14px', fontWeight: '600' }}>📎 {resource}</div>
-                            <div style={{ fontSize: '12px', color: '#ccc' }}>2.5 MB</div>
-                          </div>
-                          <button style={{
-                            padding: '8px 16px',
-                            backgroundColor: '#ff6b35',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '4px',
-                            fontSize: '12px',
-                            cursor: 'pointer'
-                          }}>
-                            Download
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 {activeTab === 'notes' && (
                   <div>
                     <h3 style={{ marginBottom: '15px', fontSize: '18px' }}>My Notes</h3>
                     <textarea
                       placeholder="Take notes while learning..."
+                      value={noteText}
+                      onChange={(e) => setNoteText(e.target.value)}
+                      data-grammarly="false"
+                      data-enable-grammarly="false"
+                      spellCheck={false}
                       style={{
                         width: '100%',
                         minHeight: '200px',
@@ -1661,18 +1717,33 @@ const CourseLearningPage = () => {
                         resize: 'vertical'
                       }}
                     />
-                    <button style={{
-                      marginTop: '10px',
-                      padding: '10px 20px',
-                      backgroundColor: '#ff6b35',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      fontSize: '14px',
-                      cursor: 'pointer'
-                    }}>
-                      Save Notes
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '10px' }}>
+                      <button
+                        onClick={handleSaveNote}
+                        disabled={!currentLesson?.id || noteStatus === 'saving'}
+                        style={{
+                          padding: '10px 20px',
+                          backgroundColor: '#ff6b35',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '4px',
+                          fontSize: '14px',
+                          cursor: noteStatus === 'saving' || !currentLesson?.id ? 'not-allowed' : 'pointer',
+                          opacity: noteStatus === 'saving' || !currentLesson?.id ? 0.7 : 1
+                        }}
+                      >
+                        {noteStatus === 'saving' ? 'Saving...' : 'Save Notes'}
+                      </button>
+                      {noteStatus === 'saved' && (
+                        <span style={{ color: '#9c7dff', fontSize: '13px' }}>Saved</span>
+                      )}
+                      {noteStatus === 'loading' && (
+                        <span style={{ color: '#ccc', fontSize: '13px' }}>Loading...</span>
+                      )}
+                      {noteError && (
+                        <span style={{ color: '#ff6b35', fontSize: '13px' }}>{noteError}</span>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
@@ -1717,7 +1788,7 @@ const CourseLearningPage = () => {
                     <div>
                       <div style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>{module.title}</div>
                       <div style={{ color: '#ccc', fontSize: '12px' }}>
-                        {module.lessons.length} lessons ? {module.duration}
+                        {module.lessons.length} lessons ? {formatDuration(module.duration) || module.duration}
                       </div>
                     </div>
                     <span style={{ color: '#ccc' }}>{openModuleIndex === moduleIdx ? '⌃' : '⌄'}</span>
@@ -1788,7 +1859,7 @@ const CourseLearningPage = () => {
                             {lesson.title}
                           </div>
                           <div style={{ color: '#ccc', fontSize: '11px' }}>
-                            {lesson.type === 'video' ? '?' : lesson.type === 'quiz' ? '??' : '??'} {lesson.duration}
+                            {lesson.type === 'video' ? 'Video' : lesson.type === 'quiz' ? 'Quiz' : 'Lesson'} {getDurationLabel(lesson)}
                           </div>
                         </div>
                       </div>
