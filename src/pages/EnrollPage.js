@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './EnrollPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
 
@@ -15,7 +16,8 @@ const pricingCards = [
     ],
     cta: 'Enroll Now',
     variant: 'primary',
-    icon: 'person'
+    icon: 'person',
+    href: '/courses'
   },
   {
     title: 'Single Course - One time Pay (International Students)',
@@ -29,26 +31,25 @@ const pricingCards = [
     ],
     cta: 'Enroll Now',
     variant: 'primary',
-    icon: 'globe'
+    icon: 'globe',
+    href: '/courses'
   },
   {
     title: 'University specific Pricing and bundle discounts (Custom Plan)',
     description: 'Custom Courses, bundles and university specific pricing',
     price: '',
     priceSuffix: '',
-    features: [
-      'Custom Plan for you',
-      'No time restrictions',
-      'Loan approval Letter'
-    ],
+    features: ['Custom Plan for you', 'No time restrictions', 'Loan approval Letter'],
     cta: 'Calculate Now',
     variant: 'accent',
-    icon: 'building'
+    icon: 'building',
+    href: '/pricing'
   }
 ];
 
-
 const EnrollPage = () => {
+  const navigate = useNavigate();
+
   const mailSubject =
     'Letter of Utilisation of Education Loan Funds for Undergraduate Academic Program';
   const mailBody =
@@ -82,6 +83,11 @@ const EnrollPage = () => {
   const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=Connect@opencredits.org&su=${encodeURIComponent(
     mailSubject
   )}&body=${encodeURIComponent(mailBody)}`;
+
+  const handleCtaClick = (href) => {
+    if (!href) return;
+    navigate(href);
+  };
 
   return (
     <section className="enroll-page">
@@ -138,7 +144,11 @@ const EnrollPage = () => {
                   </li>
                 ))}
               </ul>
-              <button type="button" className={`enroll-cta enroll-cta--${card.variant}`}>
+              <button
+                type="button"
+                className={`enroll-cta enroll-cta--${card.variant}`}
+                onClick={() => handleCtaClick(card.href)}
+              >
                 {card.cta}
               </button>
             </article>

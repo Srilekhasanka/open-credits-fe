@@ -29,17 +29,16 @@
 
 .process-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 50px;
-  text-align: right;
+  text-align: left;
 }
 
 .process-header h2 {
   font-size: 32px;
   color: #333;
-  margin-left: auto;
-  margin-right: 768px;
+  margin: 0;
 }
 
 .process-header .highlight {
@@ -70,15 +69,42 @@
 .process-visual {
   width: 100%;
   position: relative;
+  min-height: 520px;
 }
 
-.process-visual img {
-  width: 86%;
-  max-width: 900px;
+.process-curve {
+  width: 95%;
+  max-width: 1050px;
   height: auto;
   display: block;
   margin: 0 auto;
   pointer-events: none;
+}
+
+.process-icon {
+  position: absolute;
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  z-index: 3;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 10px 14px rgba(255, 102, 51, 0.18));
+}
+
+.icon-pickcourse {
+  left: 12%;
+  top: 78%;
+}
+
+.icon-collegecredit {
+  left: 46%;
+  top: 47%;
+}
+
+.icon-transfercredit {
+  left: 88%;
+  top: 2%;
 }
 
 .process-overlay {
@@ -87,25 +113,97 @@
   z-index: 2;
 }
 
-.overlay-courses {
-  left: 18%;
+.process-step {
+  position: absolute;
+  max-width: 300px;
+  z-index: 4;
+  color: #1f2937;
+}
+
+.process-step h3 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.process-step p {
+  margin: 0 0 14px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #2f3a4a;
+}
+
+.process-step-link {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.process-step-link::after {
+  content: " \2192";
+}
+
+.process-step-number {
+  position: absolute;
+  right: -40px;
+  top: -34px;
+  font-size: 110px;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 0.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.step-1 {
+  left: 6%;
+  top: 39%;
+}
+
+.step-2 {
+  left: 37%;
   top: 58%;
-  width: 200px;
-  height: 36px;
+}
+
+.step-2 .process-step-number {
+  right: -44px;
+  top: -34px;
+}
+
+.step-3 {
+  left: 74%;
+  top: 20%;
+  max-width: 310px;
+}
+
+.step-3 .process-step-number {
+  right: -72px;
+  top: -54px;
+  font-size: 122px;
+  color: rgba(17, 24, 39, 0.06);
+}
+
+.overlay-courses {
+  left: 6%;
+  top: 61%;
+  width: 190px;
+  height: 42px;
 }
 
 .overlay-universities {
-  left: 44%;
-  top: 78%;
+  left: 37%;
+  top: 92%;
   width: 260px;
-  height: 36px;
+  height: 42px;
 }
 
 .overlay-pricing {
-  left: 74%;
-  top: 49%;
-  width: 180px;
-  height: 36px;
+  left: 69%;
+  top: 48%;
+  width: 170px;
+  height: 42px;
 }
 
 
