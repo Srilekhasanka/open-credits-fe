@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 import corporateImage from '../assets/corporate.png';
 import k12Image from '../assets/K-12.png';
 import higherEdImage from '../assets/higher.png';
 import communityImage from '../assets/community.png';
-import paceLogo from '../assets/pace.png';
-import sdsuLogo from '../assets/sdsu.png';
-import stonyLogo from '../assets/stony.png';
-import ubLogo from '../assets/ub.png';
 import '../App.css';
 import './HowItWorksPage.css';
+import { universities as universityData } from '../data/universities';
 
 const partnershipFeatureCards = [
   {
@@ -53,28 +51,14 @@ const partnershipFeatureCards = [
 const HowItWorksPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const partnerColleges = [
-    { name: 'PACE University', logo: paceLogo, color: '#003366' },
-    { name: 'University at Buffalo', logo: ubLogo, color: '#0047bb' },
-    { name: 'Stony Brook University', logo: stonyLogo, color: '#7a1f2b' },
-    { name: 'NJCU', color: '#0f5aa5' },
-    { name: 'NJIT', color: '#d32f2f' },
-    { name: 'San Diego State University', logo: sdsuLogo, color: '#a6192e' },
-    { name: 'SUNY', color: '#0b3d91' },
-    { name: 'The Ohio State University', color: '#bb0000' },
-    { name: 'MVNU', color: '#006f4c' },
-    { name: 'Franklin University', color: '#0f1a2f' },
-    { name: 'Central Michigan University', color: '#6a0030' },
-    { name: 'Penn State', color: '#1e407c' },
-    { name: 'Crestpoint University', color: '#4a4a4a' },
-    { name: 'Indiana Tech', color: '#b43c2e' },
-    { name: 'EC-Council University', color: '#c41e3a' },
-    { name: 'Gracelyn University', color: '#3b2f6f' }
-  ];
+  const filteredColleges = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) {
+      return universityData;
+    }
 
-  const filteredColleges = partnerColleges.filter((college) =>
-    college.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    return universityData.filter((college) => college.name.toLowerCase().includes(query));
+  }, [searchQuery]);
 
   return (
     <div className="partnership-page">
@@ -140,19 +124,28 @@ const HowItWorksPage = () => {
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
-              <span className="partner-colleges-icon" aria-hidden="true">🔍</span>
+              <FaSearch className="partner-colleges-icon" aria-hidden="true" />
             </div>
 
             <div className="partner-colleges-grid">
-              {filteredColleges.map((college) => (
-                <div key={college.name} className="partner-college-card">
-                  {college.logo ? (
-                    <img src={college.logo} alt={college.name} />
-                  ) : (
-                    <span style={{ color: college.color }}>{college.name}</span>
-                  )}
-                </div>
-              ))}
+              {filteredColleges.map((college) => {
+                const content = college.logo ? (
+                  <img src={college.logo} alt={college.name} />
+                ) : (
+                  <span style={{ color: college.color }}>{college.name}</span>
+                );
+
+                return (
+                  <Link
+                    key={college.slug}
+                    className="partner-college-card"
+                    to={`/universities/${college.slug}`}
+                    aria-label={`View ${college.name}`}
+                  >
+                    {content}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

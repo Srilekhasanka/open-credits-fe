@@ -1,4 +1,5 @@
-﻿import React from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import ubLogo from '../assets/ub.png';
 import stonyLogo from '../assets/stony.png';
 import sdsuLogo from '../assets/sdsu.png';
@@ -7,10 +8,14 @@ import './FeaturedUniversities.css';
 
 const FeaturedUniversities = () => {
   const universities = [
-    { name: 'University at Buffalo', logo: ubLogo },
-    { name: 'Stony Brook University', logo: stonyLogo },
-    { name: 'San Diego State University', logo: sdsuLogo },
-    { name: 'Pace University', logo: paceLogo }
+    { name: 'University at Buffalo', logo: ubLogo, slug: 'university-at-buffalo' },
+    { name: 'Stony Brook University', logo: stonyLogo, slug: 'stony-brook-university' },
+    {
+      name: 'San Diego State University',
+      logo: sdsuLogo,
+      slug: 'san-diego-state-university'
+    },
+    { name: 'Pace University', logo: paceLogo, slug: 'pace-university' }
   ];
 
   return (
@@ -25,13 +30,13 @@ const FeaturedUniversities = () => {
         </p>
         <div className="featured-grid">
           {universities.map((university) => (
-            <div className="featured-card" key={university.name}>
+            <div className="featured-card" key={university.slug}>
               <div className="featured-logo">
                 <img src={university.logo} alt={university.name} />
               </div>
-              <button type="button" className="featured-button">
+              <Link className="featured-button" to={`/universities/${university.slug}`}>
                 Learn More
-              </button>
+              </Link>
             </div>
           ))}
         </div>

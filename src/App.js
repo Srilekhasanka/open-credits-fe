@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './context/AuthContext';
@@ -31,8 +31,20 @@ import MyAccountDashboardPage from './pages/MyAccountDashboardPage';
 import PaymentPage from './pages/PaymentPage';
 import CourseLearningPage from './pages/CourseLearningPage';
 import EnrollPage from './pages/EnrollPage';
+import PricingPage from './pages/PricingPage';
+import AboutPage from './pages/AboutPage';
 import UniversityDetailPage from './pages/UniversityDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+}
 
 function AppContent() {
   const location = useLocation();
@@ -65,6 +77,8 @@ function AppContent() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/my-account" element={<MyAccountDashboardPage />} />
             <Route path="/enroll" element={<EnrollPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/payment" element={<CheckoutDashboardPage />} />
             <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
             <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
@@ -92,6 +106,8 @@ function AppContent() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/my-account" element={<MyAccountDashboardPage />} />
           <Route path="/enroll" element={<EnrollPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
           <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
@@ -108,6 +124,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <AppContent />
       </Router>
     </AuthProvider>
