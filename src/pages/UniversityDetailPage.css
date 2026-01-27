@@ -360,9 +360,9 @@
 }
 
 .university-work .work-container {
-  max-width: 1040px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 20px;
 }
 
 .university-work .process-header {
@@ -378,17 +378,17 @@
 }
 
 .university-work .work-process {
-  padding: 60px 0 10px;
+  padding: 60px 0 40px;
 }
 
 .university-work .process-content {
   margin-bottom: 0;
 }
 
-.university-work .process-visual img {
-  width: 100%;
-  max-width: 900px;
-  margin: 0;
+.university-work .process-visual .process-curve {
+  width: 95%;
+  max-width: 1050px;
+  margin: 0 auto;
 }
 
 .university-courses {
