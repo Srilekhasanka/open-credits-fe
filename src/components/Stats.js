@@ -1,11 +1,15 @@
 import React from 'react';
 import './Stats.css';
+import emojiPeople from '../assets/emoji_people.png';
+import locationCity from '../assets/location_city.png';
+import groups2 from '../assets/groups_2.png';
+import apartment from '../assets/apartment.png';
 
 const trustedStats = [
-  { label: 'Advisors', value: '100+' },
-  { label: 'Colleges', value: '1500+' },
-  { label: 'Students', value: '100k+' },
-  { label: 'High Schools', value: '250+' }
+  { label: 'Advisors', value: '100+', icon: emojiPeople },
+  { label: 'Colleges', value: '1500+', icon: locationCity },
+  { label: 'Students', value: '100k+', icon: groups2 },
+  { label: 'High Schools', value: '250+', icon: apartment }
 ];
 
 const Stats = () => {
@@ -18,7 +22,7 @@ const Stats = () => {
         <div className="stats-grid">
           {trustedStats.map((item) => (
             <div key={item.label} className="stats-item">
-              <div className="stats-icon" aria-hidden="true" />
+              <img className="stats-icon" src={item.icon} alt="" aria-hidden="true" />
               <div className="stats-value">{item.value}</div>
               <div className="stats-label">{item.label}</div>
             </div>

@@ -4,7 +4,7 @@
 }
 
 .who-container {
-  max-width: 1200px;
+  max-width: 1512px;
   margin: 0 auto;
   padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
@@ -31,9 +31,82 @@
   margin: 0 auto;
 }
 
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.who-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #f1f1f1;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  width: 386.46px;
+  height: 548px;
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-position: center 32px;
+  background-size: 300.05px 388.37px;
+  padding-top: 420px;
+}
+
+.who-card__footer {
+  padding: 12px 20px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  column-gap: 16px;
+}
+
+.who-card__label {
+  text-align: left;
+  color: #111827;
+  font-weight: 600;
+  display: grid;
+  gap: 4px;
+  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.who-card__label span:first-child {
+  font-size: 23.43px;
+  line-height: 31.2px;
+}
+
+.who-card__label span:last-child {
+  font-size: 23.43px;
+  line-height: 31.2px;
+  font-weight: 500;
+}
+
+.who-card__link {
+  margin-top: 6px;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 15.16px;
+  line-height: 21.7px;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}
+
+.who-card__link:hover {
+  color: #1f2bd6;
+}
+
 @media (max-width: 768px) {
   .who-container h2 {
     font-size: 28px;
     text-align: left;
+  }
+
+  .who-grid {
+    grid-template-columns: 1fr;
   }
 }

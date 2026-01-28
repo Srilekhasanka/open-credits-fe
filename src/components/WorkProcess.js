@@ -26,43 +26,43 @@ const WorkProcess = () => {
               <div className="process-step-number" aria-hidden="true">1</div>
               <h3>Pick Your Courses</h3>
               <p>
-                Start one or more courses
+                Choose from flexible, self-paced
                 <br/>
-                covering lower or upper division
+                online courses that fit your goals,
                 <br/>
-                requirements. Great for completing
+                schedule, and university
                 <br/>
-                your degree.
+                requirements.
               </p>
-              <a className="process-step-link" href="/courses">View Equivalent Courses</a>
+              <a className="process-step-link" href="/courses">View Courses</a>
             </div>
 
             <div className="process-step step-2">
               <div className="process-step-number" aria-hidden="true">2</div>
               <h3>Earn College Credits</h3>
               <p>
-                Start one or more courses
+                Complete the course and receive
                 <br/>
-                covering lower or upper division
+                credit recommendations you can
                 <br/>
-                requirements. Great for completing
+                submit to your school, helping you
                 <br/>
-                your degree.
+                save time and reduce tuition costs.
               </p>
-              <a className="process-step-link" href="/find-my-college">View Sample transcript</a>
+              <a className="process-step-link" href="/find-my-college">View Accepted Universities</a>
             </div>
 
             <div className="process-step step-3">
               <div className="process-step-number" aria-hidden="true">3</div>
               <h3>Transfer your Credit</h3>
               <p>
-                Start one or more courses
+                Bring your completed coursework
                 <br/>
-                covering lower or upper division
+                with you. We help you understand
                 <br/>
-                requirements. Great for completing
+                what transfers and how to apply
                 <br/>
-                your degree.
+                credits toward your degree.
               </p>
               <a className="process-step-link" href="#pricing">View Pricing</a>
             </div>

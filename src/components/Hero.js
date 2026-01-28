@@ -17,14 +17,14 @@ const Hero = () => {
       <div className="hero-container">
         <div className="hero-content">
           <h1>
-            Earn Affordable,<br />
+            <span className="hero-no-break">Earn Affordable,</span><br />
             <span className="highlight">Transferable College</span><br />
             Credits - 100% Online
           </h1>
           <p>
-            We offer self-paced, accredited online courses recommended for
-            college credit. Save money, finish faster, and build a pathway toward
-            your degree.
+            Flexible, accredited online courses designed to{' '}
+            <span className="hero-no-break">transfer. Lower your costs,</span> gain college credit,
+            and move forward with confidence.
           </p>
           {!isAuthenticated && (
             <div className="hero-actions">

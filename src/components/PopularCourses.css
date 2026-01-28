@@ -1,10 +1,10 @@
-﻿.popular-courses {
-  padding: 60px 0 70px;
-  background: #fff6f1;
+.popular-courses {
+  padding: 80px 0 70px;
+  background: #fff;
 }
 
 .courses-container {
-  max-width: 1080px;
+  max-width: 1512px;
   margin: 0 auto;
   padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
@@ -17,28 +17,37 @@
 }
 
 .courses-header h2 {
-  font-size: 26px;
+  font-size: 36px;
+  line-height: 44px;
   font-weight: 700;
-  color: #1f1f1f;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .courses-header .highlight {
-  color: #ff6633;
+  color: #ED6C2C;
 }
 
 .btn-view-all {
-  padding: 7px 14px;
-  background: #ff6b2c;
+  min-width: 191px;
+  height: 56px;
+  padding: 16px 32px;
+  background: #ED6C2C;
   color: #fff;
   border: none;
   border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
 .btn-view-all:hover {
-  background: #f25d1f;
+  background: #d65f25;
 }
 
 .courses-grid {
@@ -54,6 +63,10 @@
   border: 1px solid #f0f0f0;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 388px;
+  height: 554px;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .course-card:hover {
@@ -62,13 +75,42 @@
 }
 
 .course-icon {
-  width: 50px;
-  height: 50px;
+  width: 78px;
+  height: 78px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 14px;
+}
+
+.course-icon img {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  display: block;
+}
+
+.course-bookmark {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.course-bookmark img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
 }
 
 .course-card h3 {

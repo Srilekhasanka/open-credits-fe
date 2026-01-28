@@ -2,6 +2,10 @@
 import { useNavigate } from 'react-router-dom';
 import './PopularCourses.css';
 import { FaClock, FaBook } from 'react-icons/fa';
+import computerIcon from '../assets/Computer.png';
+import businessIcon from '../assets/Business.png';
+import literatureIcon from '../assets/Literature.png';
+import bookmarkAddIcon from '../assets/bookmark_add.png';
 
 const PopularCourses = () => {
   const navigate = useNavigate();
@@ -9,11 +13,12 @@ const PopularCourses = () => {
     {
       id: 1,
       title: 'CS 101 Software Engineering',
-      description: 'Learn the fundamentals of software development and programming.',
+      description: 'Become a software engineering expertise with our comprehensive course!',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
-      color: '#8B5CF6'
+      color: '#8B5CF6',
+      icon: computerIcon
     },
     {
       id: 2,
@@ -22,7 +27,8 @@ const PopularCourses = () => {
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
-      color: '#C084FC'
+      color: '#C084FC',
+      icon: literatureIcon
     },
     {
       id: 3,
@@ -31,7 +37,8 @@ const PopularCourses = () => {
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
-      color: '#FFA500'
+      color: '#FFA500',
+      icon: businessIcon
     },
     {
       id: 4,
@@ -40,7 +47,8 @@ const PopularCourses = () => {
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
-      color: '#8B5CF6'
+      color: '#8B5CF6',
+      icon: computerIcon
     },
     {
       id: 5,
@@ -49,7 +57,8 @@ const PopularCourses = () => {
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
-      color: '#C084FC'
+      color: '#C084FC',
+      icon: literatureIcon
     },
     {
       id: 6,
@@ -58,7 +67,8 @@ const PopularCourses = () => {
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
-      color: '#FFA500'
+      color: '#FFA500',
+      icon: businessIcon
     }
   ];
 
@@ -73,8 +83,15 @@ const PopularCourses = () => {
         <div className="courses-grid">
           {courses.map((course) => (
             <div key={course.id} className="course-card">
+              <button className="course-bookmark" type="button" aria-label="Bookmark course">
+                <img src={bookmarkAddIcon} alt="" aria-hidden="true" />
+              </button>
               <div className="course-icon" style={{ background: course.color }}>
-                <FaBook size={28} color="white" />
+                {course.icon ? (
+                  <img src={course.icon} alt="" aria-hidden="true" />
+                ) : (
+                  <FaBook size={28} color="white" />
+                )}
               </div>
 
               <h3>{course.title}</h3>

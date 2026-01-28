@@ -1,8 +1,9 @@
 .work-process {
-  padding: 60px 0 40px;
+  padding: 72px 0 56px;
   background: #fff;
   position: relative;
   overflow: hidden;
+  min-height: 854px;
 }
 
 /* Left gradient blur effect */
@@ -20,7 +21,7 @@
 }
 
 .work-container {
-  max-width: 1200px;
+  max-width: 1512px;
   margin: 0 auto;
   padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
   position: relative;
@@ -31,8 +32,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 38px;
   text-align: left;
+  padding-left: 0;
 }
 
 .process-header h2 {
@@ -63,23 +65,25 @@
 
 .process-content {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 
 .process-visual {
-  width: 100%;
+  width: 1222px;
   position: relative;
-  min-height: 520px;
+  min-height: 532px;
+  margin: 0 auto;
+  margin-top: -25px;
 }
 
 .process-curve {
-  width: 95%;
-  max-width: 1050px;
+  width: 100%;
+  max-width: 1222px;
   height: auto;
   display: block;
   margin: 0 auto;
   pointer-events: none;
-  transform: translateX(-10px);
+  transform: none;
 }
 
 .process-icon {
@@ -159,13 +163,13 @@
 }
 
 .step-1 {
-  left: 6%;
-  top: 39%;
+  left: 0%;
+  top: 220px;
 }
 
 .step-2 {
-  left: 37%;
-  top: 58%;
+  left: 35%;
+  top: 360px;
 }
 
 .step-2 .process-step-number {
@@ -174,8 +178,8 @@
 }
 
 .step-3 {
-  left: 74%;
-  top: 20%;
+  left: 976px;
+  top: 90px;
   max-width: 310px;
 }
 

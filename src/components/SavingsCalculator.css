@@ -1,5 +1,5 @@
 .savings-section.savings-calculator {
-  margin: 126px auto 0;
+  margin: 10px auto 0;
   max-width: 1512px;
   width: 100%;
   min-height: 1259px;
@@ -12,7 +12,7 @@
   line-height: 44px;
   font-weight: 700;
   text-align: left;
-  margin: 0 0 20px;
+  margin: 0 0 55px;
   color: #111827;
   width: 825px;
   height: 44px;
@@ -39,16 +39,19 @@
   display: grid;
   gap: 18px;
   max-width: 589px;
+  width: 100%;
+  justify-self: start;
   padding-top: 4px;
 }
 
 .savings-section.savings-calculator .savings-field label {
   display: block;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #111827;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .savings-input {
@@ -71,8 +74,8 @@
   padding: 0 40px 0 0;
   border-radius: 24px;
   border: none;
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 28px;
   background: transparent;
   color: #111827;
   outline: none;
@@ -81,7 +84,7 @@
 }
 
 .savings-section.savings-calculator .savings-input input::placeholder {
-  color: #9ca3af;
+  color: #d1d5db;
 }
 
 .savings-section.savings-calculator .savings-select-button {
@@ -182,41 +185,51 @@
 
 .savings-section.savings-calculator .savings-breakdown h3,
 .savings-section.savings-calculator .savings-bundles h3 {
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0 0 10px;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 0 0 12px;
   color: #111827;
   font-weight: 700;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .savings-breakdown {
   padding-top: 4px;
-  max-width: 100%;
+  max-width: none;
+  width: 100%;
   grid-column: 1 / -1;
+  justify-self: stretch;
 }
 
 .savings-section.savings-calculator .savings-breakdown .savings-row {
-  grid-template-columns: 1fr 150px;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  width: 100%;
 }
 
 .savings-section.savings-calculator .savings-row {
   display: grid;
-  grid-template-columns: 1fr 140px;
+  grid-template-columns: minmax(0, 1fr) max-content;
   column-gap: 16px;
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 28px;
   color: #4b5563;
   margin-bottom: 6px;
   align-items: center;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  width: 100%;
 }
 
 .savings-section.savings-calculator .savings-row span:first-child {
   color: #374151;
+  font-weight: 400;
 }
 
 .savings-section.savings-calculator .savings-row span:last-child {
   text-align: right;
-  font-weight: 600;
+  justify-self: end;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
   color: #1f2937;
 }
 
@@ -279,7 +292,11 @@
 
 .savings-section.savings-calculator .savings-bundles {
   grid-column: 1 / -1;
+  max-width: none;
+  width: 100%;
   margin-top: 6px;
+  padding-left: 0;
+  justify-self: stretch;
 }
 
 .savings-section.savings-calculator .savings-bundle-grid {
@@ -293,33 +310,35 @@
   border-radius: 12px;
   padding: 18px 12px 16px;
   text-align: center;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 18px;
+  line-height: 28px;
   color: #6b7280;
   background: #fff;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .bundle-label {
-  color: #ff6b2c;
-  font-size: 11px;
-  line-height: 16px;
+  color: #ed6c2c;
+  font-size: 18px;
+  line-height: 28px;
   margin-bottom: 8px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .savings-section.savings-calculator .bundle-price {
-  font-size: 22px;
-  line-height: 28px;
+  font-size: 36px;
+  line-height: 55px;
   font-weight: 700;
-  color: #ff6b2c;
+  color: #ed6c2c;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .bundle-note {
-  font-size: 11px;
-  line-height: 16px;
-  color: #ff6b2c;
+  font-size: 18px;
+  line-height: 28px;
+  color: #ed6c2c;
   margin-top: 6px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (max-width: 1280px) {
@@ -363,6 +382,12 @@
 
   .savings-section.savings-calculator .savings-row,
   .savings-section.savings-calculator .savings-breakdown .savings-row {
-    grid-template-columns: 1fr 120px;
+    grid-template-columns: minmax(0, 1fr) max-content;
+  }
+
+  .savings-section.savings-calculator .savings-breakdown {
+    grid-column: 1 / -1;
+    max-width: none;
+    justify-self: start;
   }
 }
