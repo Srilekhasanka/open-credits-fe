@@ -204,7 +204,7 @@
   }
 }
 
-.savings-section {
+.enroll-page .savings-section {
   margin-top: 90px;
 }
 
@@ -212,7 +212,7 @@
   padding: 0;
 }
 
-.savings-section h2 {
+.enroll-page .savings-section h2 {
   font-size: 22px;
   font-weight: 600;
   text-align: left;
@@ -221,11 +221,11 @@
   color: #1f1f1f;
 }
 
-.savings-section h2 span {
+.enroll-page .savings-section h2 span {
   color: #ff6b2c;
 }
 
-.savings-card {
+.enroll-page .savings-card {
   background: #fff;
   border-radius: 16px;
   padding: 28px 32px 24px 18px;
@@ -258,3 +258,4 @@
 .savings-field + .savings-field {
   padding-top: 10px;
 }
+

@@ -79,6 +79,7 @@
   display: block;
   margin: 0 auto;
   pointer-events: none;
+  transform: translateX(-10px);
 }
 
 .process-icon {
@@ -93,17 +94,17 @@
 }
 
 .icon-pickcourse {
-  left: 12%;
-  top: 78%;
+  left: 4%;
+  top: 85%;
 }
 
 .icon-collegecredit {
-  left: 46%;
-  top: 47%;
+  left: 44%;
+  top: 52%;
 }
 
 .icon-transfercredit {
-  left: 88%;
+  left: 90%;
   top: 2%;
 }
 
@@ -179,8 +180,8 @@
 }
 
 .step-3 .process-step-number {
-  right: -72px;
-  top: -54px;
+  right: -20px;
+  top: -40px;
   font-size: 122px;
   color: rgba(17, 24, 39, 0.06);
 }

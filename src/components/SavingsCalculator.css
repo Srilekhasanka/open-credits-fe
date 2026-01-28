@@ -1,93 +1,87 @@
 .savings-section.savings-calculator {
-  margin: 40px auto 0;
-  max-width: 980px;
-  padding: 0 20px;
+  margin: 126px auto 0;
+  max-width: 1512px;
   width: 100%;
+  min-height: 1259px;
+  padding: 0 124.84px 0 151px;
   box-sizing: border-box;
 }
 
 .savings-section.savings-calculator h2 {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 700;
   text-align: left;
-  margin: 0 0 18px;
+  margin: 0 0 20px;
+  color: #111827;
+  width: 825px;
+  height: 44px;
   max-width: 100%;
-  color: #1f1f1f;
 }
 
 .savings-section.savings-calculator h2 span {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .savings-section.savings-calculator .savings-card {
   background: #fff;
-  border-radius: 16px;
-  padding: 28px 32px 24px 18px;
-  box-shadow: 0 8px 18px rgba(12, 12, 12, 0.12);
+  border-radius: 30px;
+  padding: 40px 44px 36px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 170px;
-  gap: 22px;
+  grid-template-columns: minmax(0, 1fr) 379px;
+  column-gap: 44px;
+  row-gap: 28px;
   width: 100%;
-  max-width: 100%;
-  margin: 0;
 }
 
 .savings-section.savings-calculator .savings-left {
   display: grid;
-  gap: 10px;
-  max-width: 100%;
-  padding-top: 6px;
-  padding-left: 12px;
+  gap: 18px;
+  max-width: 589px;
+  padding-top: 4px;
 }
 
 .savings-section.savings-calculator .savings-field label {
   display: block;
-  font-size: 10px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  padding-left: 10px;
-  color: #1f1f1f;
-}
-
-.savings-section.savings-calculator .savings-field + .savings-field {
-  padding-top: 10px;
-}
-
-.savings-section.savings-calculator .savings-field:first-child {
-  padding-top: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111827;
 }
 
 .savings-section.savings-calculator .savings-input {
   position: relative;
-  width: 420px;
-  max-width: 100%;
+  width: 100%;
+  min-height: 48px;
   display: flex;
   align-items: center;
-  border: 1px solid #e6e6e6;
-  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
   background: #fff;
-  padding-right: 10px;
+  padding: 0 14px 0 16px;
 }
 
 .savings-section.savings-calculator .savings-input input,
 .savings-section.savings-calculator .savings-input select,
 .savings-section.savings-calculator .savings-select-button {
   width: 100%;
-  padding: 6px 8px 6px 12px;
-  border-radius: 12px;
+  height: 48px;
+  padding: 0 40px 0 0;
+  border-radius: 24px;
   border: none;
-  font-size: 9.5px;
+  font-size: 13px;
+  line-height: 20px;
   background: transparent;
-  color: #1f1f1f;
+  color: #111827;
   outline: none;
   box-sizing: border-box;
   text-align: left;
 }
 
-.savings-section.savings-calculator .savings-input select {
-  appearance: none;
-  background: transparent;
-  padding-right: 40px;
+.savings-section.savings-calculator .savings-input input::placeholder {
+  color: #9ca3af;
 }
 
 .savings-section.savings-calculator .savings-select-button {
@@ -96,62 +90,63 @@
 
 .savings-section.savings-calculator .savings-select-menu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 0;
   width: 100%;
   margin: 0;
-  padding: 6px 0;
+  padding: 8px 0;
   list-style: none;
   background: #fff;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-  z-index: 10;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+  z-index: 20;
 }
 
 .savings-section.savings-calculator .savings-select-option {
   width: 100%;
   text-align: left;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border: none;
   background: transparent;
-  font-size: 9.5px;
-  color: #1f1f1f;
+  font-size: 13px;
+  line-height: 20px;
+  color: #111827;
   cursor: pointer;
 }
 
 .savings-section.savings-calculator .savings-select-option:hover,
 .savings-section.savings-calculator [aria-selected='true'] .savings-select-option {
-  background: #1f66d1;
+  background: #0a2f74;
   color: #fff;
 }
 
 .savings-section.savings-calculator .savings-input--select::after {
   content: '';
   position: absolute;
-  right: 14px;
+  right: 18px;
   top: 50%;
   width: 12px;
   height: 12px;
   transform: translateY(-50%);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5L6 7.5L10 4.5' stroke='%23888888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5L6 7.5L10 4.5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
 }
 
 .savings-section.savings-calculator .savings-icon {
-  position: static;
-  margin-left: auto;
-  width: 12px;
-  height: 12px;
-  color: #8c8c8c;
+  position: absolute;
+  right: 18px;
+  width: 16px;
+  height: 16px;
+  color: #9ca3af;
   pointer-events: none;
 }
 
 .savings-section.savings-calculator .savings-icon svg {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   stroke: currentColor;
   stroke-width: 2;
   fill: none;
@@ -161,18 +156,22 @@
 .savings-section.savings-calculator .savings-toggle {
   display: flex;
   gap: 10px;
-  max-width: 320px;
-  margin-bottom: 6px;
+  flex-wrap: nowrap;
 }
 
 .savings-section.savings-calculator .savings-toggle button {
-  padding: 5px 14px;
-  font-size: 9px;
-  border-radius: 14px;
-  border: 1px solid #cbd6ff;
+  width: 214px;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 999px;
+  border: 1px solid #9fc0ff;
+  color: #000000;
   background: #fff;
+  font-weight: 400;
   cursor: pointer;
-  color: #2f6bff;
+  white-space: nowrap;
 }
 
 .savings-section.savings-calculator .savings-toggle .is-active {
@@ -183,43 +182,45 @@
 
 .savings-section.savings-calculator .savings-breakdown h3,
 .savings-section.savings-calculator .savings-bundles h3 {
-  font-size: 10px;
-  margin: 8px 0 6px;
-  color: #1f1f1f;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 0 10px;
+  color: #111827;
+  font-weight: 700;
 }
 
 .savings-section.savings-calculator .savings-breakdown {
-  padding-top: 14px;
-  padding-left: 12px;
+  padding-top: 4px;
   max-width: 100%;
   grid-column: 1 / -1;
 }
 
 .savings-section.savings-calculator .savings-breakdown .savings-row {
-  grid-template-columns: 1fr 170px;
+  grid-template-columns: 1fr 150px;
 }
 
 .savings-section.savings-calculator .savings-row {
   display: grid;
-  grid-template-columns: 1fr 160px;
-  column-gap: 12px;
-  font-size: 9px;
-  color: #5d5d5d;
+  grid-template-columns: 1fr 140px;
+  column-gap: 16px;
+  font-size: 13px;
+  line-height: 20px;
+  color: #4b5563;
   margin-bottom: 6px;
+  align-items: center;
 }
 
 .savings-section.savings-calculator .savings-row span:first-child {
-  font-size: 11px;
-  color: #2c2c2c;
-  line-height: 1.6;
+  color: #374151;
 }
 
 .savings-section.savings-calculator .savings-row span:last-child {
-  text-align: center;
+  text-align: right;
+  font-weight: 600;
+  color: #1f2937;
 }
 
-.savings-section.savings-calculator .savings-row.is-total {
-  font-weight: 600;
+.savings-section.savings-calculator .savings-row.is-total span:last-child {
   color: #ff6b2c;
 }
 
@@ -227,43 +228,50 @@
   display: grid;
   gap: 18px;
   align-content: start;
-  padding-top: 8px;
-  justify-self: start;
-  width: 170px;
+  justify-self: end;
+  width: 379px;
 }
 
 .savings-section.savings-calculator .savings-pill {
-  border: 1px solid #ee6a2e;
-  border-radius: 12px;
-  padding: 10px 10px;
+  border: 1px solid #ed6c2c;
+  border-radius: 29px;
+  padding: 18px 24px;
   text-align: center;
-  font-size: 9px;
-  color: #ee6a2e;
+  font-size: 12px;
+  line-height: 18px;
+  color: #ed6c2c;
   background: #fff;
-  width: 170px;
+  min-height: 177px;
+  display: grid;
+  align-content: center;
+  gap: 6px;
 }
 
 .savings-section.savings-calculator .savings-pill div {
   font-weight: 600;
+  color: inherit;
 }
 
 .savings-section.savings-calculator .savings-pill strong {
   display: block;
-  font-size: 15px;
-  color: #1f1f1f;
-  margin: 4px 0;
+  font-size: 28px;
+  line-height: 36px;
+  color: #111827;
+  margin: 2px 0 4px;
+}
+
+.savings-section.savings-calculator .savings-pill span {
+  color: inherit;
+  font-weight: 600;
 }
 
 .savings-section.savings-calculator .savings-pill.is-accent {
-  background: #ee6a2e;
+  background: #ed6c2c;
   color: #fff;
-  border-color: #ee6a2e;
+  border-color: #ed6c2c;
 }
 
-.savings-section.savings-calculator .savings-pill.is-accent strong {
-  color: #fff;
-}
-
+.savings-section.savings-calculator .savings-pill.is-accent strong,
 .savings-section.savings-calculator .savings-pill.is-accent div,
 .savings-section.savings-calculator .savings-pill.is-accent span {
   color: #fff;
@@ -271,46 +279,73 @@
 
 .savings-section.savings-calculator .savings-bundles {
   grid-column: 1 / -1;
-  margin-top: 10px;
-  padding-left: 12px;
+  margin-top: 6px;
 }
 
 .savings-section.savings-calculator .savings-bundle-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 
 .savings-section.savings-calculator .savings-bundle {
-  border: 1px solid #f1d8cc;
+  border: 1px solid #f1c7b0;
   border-radius: 12px;
-  padding: 12px 10px;
+  padding: 18px 12px 16px;
   text-align: center;
-  font-size: 9px;
-  color: #6b6b6b;
+  font-size: 12px;
+  line-height: 18px;
+  color: #6b7280;
+  background: #fff;
 }
 
 .savings-section.savings-calculator .bundle-label {
   color: #ff6b2c;
-  font-size: 9px;
-  margin-bottom: 6px;
+  font-size: 11px;
+  line-height: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .savings-section.savings-calculator .bundle-price {
-  font-size: 12.5px;
+  font-size: 22px;
+  line-height: 28px;
   font-weight: 700;
   color: #ff6b2c;
 }
 
 .savings-section.savings-calculator .bundle-note {
-  font-size: 8px;
-  color: #7a7a7a;
-  margin-top: 4px;
+  font-size: 11px;
+  line-height: 16px;
+  color: #ff6b2c;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+@media (max-width: 1280px) {
+  .savings-section.savings-calculator {
+    max-width: 1100px;
+    padding: 0 20px;
+  }
+
+  .savings-section.savings-calculator .savings-card {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    column-gap: 32px;
+  }
+
+  .savings-section.savings-calculator .savings-right {
+    width: 340px;
+  }
 }
 
 @media (max-width: 980px) {
   .savings-section.savings-calculator .savings-card {
     grid-template-columns: 1fr;
+    padding: 32px 28px;
+  }
+
+  .savings-section.savings-calculator .savings-left {
+    max-width: none;
   }
 
   .savings-section.savings-calculator .savings-right {
@@ -319,15 +354,11 @@
   }
 
   .savings-section.savings-calculator .savings-pill {
-    width: 100%;
+    min-height: 0;
   }
 
   .savings-section.savings-calculator .savings-bundle-grid {
     grid-template-columns: 1fr;
-  }
-
-  .savings-section.savings-calculator .savings-input {
-    width: 100%;
   }
 
   .savings-section.savings-calculator .savings-row,

@@ -1,10 +1,10 @@
-.App {
+﻿.App {
   width: 100%;
   overflow-x: hidden;
 }
 
 .App.app--with-header {
-  padding-top: 84px;
+  padding-top: 111px;
 }
 *,
 *::before,
@@ -186,4 +186,6 @@ img, svg, video {
     bottom: 16px;
   }
 }
+
+
 

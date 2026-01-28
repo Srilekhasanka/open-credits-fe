@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 import companyLogo from '../assets/company-logo.png';
-import { FaFacebookF, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
@@ -44,65 +44,77 @@ const Footer = () => {
               >
                 <FaLinkedinIn />
               </a>
+              <a
+                href="https://www.instagram.com/opencredits/"
+                aria-label="Instagram"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaInstagram />
+              </a>
             </div>
           </div>
         </div>
 
         <div className="footer-main">
           <div className="footer-hero">
-            <h2>Transferable College Credits - 100% Online</h2>
+            <h2>Transferable College
+              <br/> Credits - 100% Online</h2>
             <Link className="footer-cta" to="/enroll">
               Enroll Now
             </Link>
+          </div>
+
+          <div className="footer-links">
             <div className="footer-contact">
               <h4>Contact us</h4>
               <p>+1 (669) 369-9668</p>
               <p>contact@opencredits.org</p>
               <p>Menlo Park, California</p>
             </div>
+
+            <nav className="footer-column" aria-label="Footer links group 1">
+              <ul>
+                <li>
+                  <Link to="/resources">Request Transcript</Link>
+                </li>
+                <li>
+                  <Link to="/resources">Accreditation</Link>
+                </li>
+                <li>
+                  <Link to="/resources">Support</Link>
+                </li>
+              </ul>
+            </nav>
+
+            <nav className="footer-column" aria-label="Footer links group 2">
+              <ul>
+                <li>
+                  <Link to="/pricing">Pricing</Link>
+                </li>
+                <li>
+                  <Link to="/resources">Resources</Link>
+                </li>
+                <li>
+                  <Link to="/about">About</Link>
+                </li>
+              </ul>
+            </nav>
+
+            <nav className="footer-column" aria-label="Footer links group 3">
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/courses">Courses</Link>
+                </li>
+                <li>
+                  <Link to="/find-my-college">Find My College</Link>
+                </li>
+              </ul>
+            </nav>
           </div>
-
-          <nav className="footer-column" aria-label="Footer links group 1">
-            <ul>
-              <li>
-                <Link to="/resources">Request Transcript</Link>
-              </li>
-              <li>
-                <Link to="/resources">Accreditation</Link>
-              </li>
-              <li>
-                <Link to="/resources">Support</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <nav className="footer-column" aria-label="Footer links group 2">
-            <ul>
-              <li>
-                <Link to="/pricing">Pricing</Link>
-              </li>
-              <li>
-                <Link to="/resources">Resources</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <nav className="footer-column" aria-label="Footer links group 3">
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/courses">Courses</Link>
-              </li>
-              <li>
-                <Link to="/find-my-college">Find My College</Link>
-              </li>
-            </ul>
-          </nav>
         </div>
 
         <div className="footer-bottom">

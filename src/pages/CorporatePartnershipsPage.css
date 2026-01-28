@@ -259,11 +259,11 @@
   background: #fff2ec;
 }
 
-.savings-section {
+.corporate-page .savings-section {
   margin: 44px 0;
 }
 
-.savings-section h2 {
+.corporate-page .savings-section h2 {
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -271,11 +271,11 @@
   color: #1f1f1f;
 }
 
-.savings-section h2 span {
+.corporate-page .savings-section h2 span {
   color: #ff6b2c;
 }
 
-.savings-card {
+.corporate-page .savings-card {
   background: #fff;
   border-radius: 18px;
   padding: 20px 22px 24px;
@@ -510,3 +510,4 @@
     padding-left: 0;
   }
 }
+

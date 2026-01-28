@@ -97,6 +97,12 @@ const SavingsCalculator = () => {
             </div>
           </div>
           <div className="savings-field">
+            <label htmlFor="scholarship-amount">Scholarship amount</label>
+            <div className="savings-input">
+              <input id="scholarship-amount" type="text" placeholder="enter amount here" />
+            </div>
+          </div>
+          <div className="savings-field">
             <label>Student Type</label>
             <div className="savings-toggle">
               <button
