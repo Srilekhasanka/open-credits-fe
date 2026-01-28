@@ -15,7 +15,7 @@
 .header-container {
   max-width: 1512px;
   margin: 0 auto;
-  padding: 28px 124.84px 27px 151px;
+  padding: 28px var(--layout-pad-right) 27px var(--layout-pad-left);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -115,7 +115,7 @@
   .header-container {
   max-width: 1512px;
   margin: 0 auto;
-  padding: 28px 124.84px 27px 151px;
+  padding: 20px var(--layout-pad-right) 20px var(--layout-pad-left);
   display: flex;
   align-items: center;
   justify-content: space-between;

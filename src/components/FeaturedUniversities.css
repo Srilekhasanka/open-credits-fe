@@ -6,7 +6,7 @@
 .featured-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .featured-container h2 {

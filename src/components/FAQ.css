@@ -6,7 +6,7 @@
 .faq-container {
   max-width: 1512px;
   margin: 0 auto;
-  padding: 0 124.84px 0 151px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
   display: grid;
   grid-template-columns: minmax(0, 751px) minmax(0, 403px);
   justify-content: space-between;
@@ -203,7 +203,6 @@
 
 @media (max-width: 1520px) {
   .faq-container {
-    padding: 0 32px;
     grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
   }
 }
@@ -225,10 +224,6 @@
 @media (max-width: 640px) {
   .faq {
     padding: 72px 0 80px;
-  }
-
-  .faq-container {
-    padding: 0 18px;
   }
 
   .faq-content h2 {

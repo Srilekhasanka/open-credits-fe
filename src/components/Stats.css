@@ -6,7 +6,7 @@
 .stats-container {
   max-width: 1224px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;

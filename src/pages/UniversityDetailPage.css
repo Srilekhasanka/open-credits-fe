@@ -6,8 +6,8 @@
 .university-card {
   max-width: 1512px;
   margin: 0 auto;
-  padding-left: 151px;
-  padding-right: 124.84px;
+  padding-left: var(--layout-pad-left);
+  padding-right: var(--layout-pad-right);
   background: #fff;
 }
 
@@ -110,7 +110,8 @@
 }
 
 .university-copy p {
-  width: 575px;
+  width: 100%;
+  max-width: 575px;
   min-height: 0;
   font-size: 20px;
   line-height: 32px;
@@ -204,7 +205,7 @@
 .university-hero img {
   width: 100%;
   max-width: 540px;
-  height: 430px;
+  height: auto;
   border-radius: 30px;
   display: block;
   object-fit: cover;
@@ -236,7 +237,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
   gap: 64px;
   align-items: center;
-  padding: 0 124.84px 0 151px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .university-why-copy h2 {
@@ -357,7 +358,7 @@
 .university-savings .savings-section.savings-calculator {
   max-width: 1512px;
   margin: 24px auto 0;
-  padding: 0 124.84px 0 151px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .university-savings {
@@ -370,9 +371,9 @@
 
 .university-work .work-container {
   max-width: 1512px;
-  width: 1512px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .university-work .process-header {
@@ -433,7 +434,7 @@
 .university-courses-inner {
   max-width: 1512px;
   margin: 0 auto;
-  padding: 0 124.84px 0 151px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .university-courses-inner h2 {
@@ -782,11 +783,9 @@
 
 @media (max-width: 900px) {
   .university-body {
-  display: grid;
-  grid-template-columns: 575px 601px;
-  gap: 159px;
-  align-items: center;
-}
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 
   .university-hero-placeholder {
     height: 200px;

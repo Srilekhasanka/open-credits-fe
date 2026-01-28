@@ -6,6 +6,12 @@
 .App.app--with-header {
   padding-top: 111px;
 }
+
+:root {
+  --layout-max: 1512px;
+  --layout-pad-left: 151px;
+  --layout-pad-right: 124.84px;
+}
 *,
 *::before,
 *::after {
@@ -184,6 +190,20 @@ img, svg, video {
   .chatbot {
     right: 16px;
     bottom: 16px;
+  }
+}
+
+@media (max-width: 980px) {
+  :root {
+    --layout-pad-left: 24px;
+    --layout-pad-right: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --layout-pad-left: 18px;
+    --layout-pad-right: 18px;
   }
 }
 

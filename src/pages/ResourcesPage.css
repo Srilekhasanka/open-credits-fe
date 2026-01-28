@@ -7,7 +7,7 @@
 .resources-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px 80px;
+  padding: 40px var(--layout-pad-right) 80px var(--layout-pad-left);
 }
 
 .resources-header h1 {

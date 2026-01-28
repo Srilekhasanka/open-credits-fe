@@ -7,7 +7,7 @@
 .find-college-container {
   max-width: 1271px;
   margin: 0 auto;
-  padding: 110px 140px 70px;
+  padding: 110px var(--layout-pad-right) 70px var(--layout-pad-left);
 }
 
 .find-college-header h1 {
