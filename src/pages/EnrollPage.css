@@ -176,9 +176,9 @@
   align-self: stretch;
   padding: 8px 16px;
   border-radius: 8px;
-  border: 1px solid #ff6b2c;
+  border: 1px solid #ED6C2C;
   background: #fff;
-  color: #ff6b2c;
+  color: #ED6C2C;
   font-size: 10.5px;
   cursor: pointer;
   font-weight: 600;
@@ -222,7 +222,7 @@
 }
 
 .enroll-page .savings-section h2 span {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .enroll-page .savings-card {

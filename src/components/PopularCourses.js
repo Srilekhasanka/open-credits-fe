@@ -12,61 +12,73 @@ const PopularCourses = () => {
   const courses = [
     {
       id: 1,
-      title: 'CS 101 Software Engineering',
-      description: 'Become a software engineering expertise with our comprehensive course!',
+      title: 'CS 301 Software\nEngineering',
+      description: 'Become a software engineering\nexpertise with our comprehensive\ncourse!',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
+      seats: '22/50 seats filled',
+      tags: ['Computer Science'],
       color: '#8B5CF6',
       icon: computerIcon
     },
     {
       id: 2,
-      title: 'Philosophy 200 Principles of Philosophy',
-      description: 'Explore the fundamental questions and ideas that shape philosophical thought.',
+      title: 'Philosophy 200 Principles\nof Philosophy',
+      description: 'Covers foundational principles,\nfostering critical',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
+      seats: '22/50 seats filled',
+      tags: ['Gen Eds', 'Most Popular'],
       color: '#C084FC',
       icon: literatureIcon
     },
     {
       id: 3,
-      title: 'MAR 101 Principles of Marketing',
-      description: 'Understand marketing strategies and consumer behavior.',
+      title: 'MAR 102 Principles of Marketing',
+      description: 'This course provides a profound\nunderstanding of ',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
+      seats: '22/50 seats filled',
+      tags: ['Gen Eds', 'Business'],
       color: '#FFA500',
       icon: businessIcon
     },
     {
       id: 4,
-      title: 'CS 101 Software Engineering',
-      description: 'Learn the fundamentals of software development and programming.',
+      title: 'CS 301 Software\nEngineering',
+      description: 'Become a software engineering\nexpertise with our comprehensive\ncourse!',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
+      seats: '22/50 seats filled',
+      tags: ['Computer Science'],
       color: '#8B5CF6',
       icon: computerIcon
     },
     {
       id: 5,
-      title: 'Philosophy 200 Principles of Philosophy',
-      description: 'Explore the fundamental questions and ideas that shape philosophical thought.',
+      title: 'Philosophy 200 Principles\nof Philosophy',
+      description: 'Covers foundational principles,\nfostering critical',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
+      seats: '22/50 seats filled',
+      tags: ['Gen Eds', 'Most Popular'],
       color: '#C084FC',
       icon: literatureIcon
     },
     {
       id: 6,
       title: 'MAR 101 Principles of Marketing',
-      description: 'Understand marketing strategies and consumer behavior.',
+      description: 'This course provides a profound\nunderstanding of',
       duration: '4-6 weeks',
       credits: '3 credits',
       price: '$399',
+      seats: '22/50 seats filled',
+      tags: ['Gen Eds', 'Business'],
       color: '#FFA500',
       icon: businessIcon
     }
@@ -86,7 +98,7 @@ const PopularCourses = () => {
               <button className="course-bookmark" type="button" aria-label="Bookmark course">
                 <img src={bookmarkAddIcon} alt="" aria-hidden="true" />
               </button>
-              <div className="course-icon" style={{ background: course.color }}>
+              <div className="course-icon">
                 {course.icon ? (
                   <img src={course.icon} alt="" aria-hidden="true" />
                 ) : (
@@ -97,19 +109,21 @@ const PopularCourses = () => {
               <h3>{course.title}</h3>
               <p>{course.description}</p>
 
-              <div className="course-meta">
-                <div className="meta-item">
-                  <FaClock size={14} />
-                  <span>{course.duration}</span>
+              {course.tags?.length ? (
+                <div className="course-tags">
+                  {course.tags.map((tag) => (
+                    <span key={`${course.id}-${tag}`} className="course-tag">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                <div className="meta-item">
-                  <FaBook size={14} />
-                  <span>{course.credits}</span>
-                </div>
-              </div>
+              ) : null}
 
               <div className="course-footer">
-                <span className="course-price">{course.price}</span>
+                <div className="course-price-group">
+                  <span className="course-price">{course.price}</span>
+                  <span className="course-seats">{course.seats}</span>
+                </div>
                 <button className="btn-enroll" onClick={() => navigate('/enroll')}>
                   Enroll Now
                 </button>

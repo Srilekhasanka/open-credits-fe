@@ -2,12 +2,42 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import companyLogo from '../assets/company-logo.png';
+import keyboardArrowRight from '../assets/keyboard_arrow_right.png';
 import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showCoursesDropdown, setShowCoursesDropdown] = useState(false);
+  const [activeCourseCategory, setActiveCourseCategory] = useState('Psychology');
+
+  const courseCategories = [
+    'Maths',
+    'Science',
+    'Computer Science',
+    'Business',
+    'Finance',
+    'Economics',
+    'Psychology',
+    'Health',
+    'Literature',
+    'Free/Life Skill'
+  ];
+
+  const coursePreviews = {
+    Psychology: [
+      'PSY 111: Research Methods in Psychology',
+      'PSY 112: Psychology of Diversity',
+      'PSY 120: Educational Psychology',
+      'PSY 180: Abnormal Psychology',
+      'PSY 300: Psychology of Personality',
+      'PSY 310: Advanced Social Psychology',
+      'Bachelors in Healthcare management & Psychology',
+      'PSY 110: Introduction to Psychology',
+      'Philosophy 200: Principles of Philosophy'
+    ]
+  };
 
   const handleLogout = () => {
     logout();
@@ -24,7 +54,76 @@ const Header = () => {
         </Link>
         
         <nav className="nav">
-          <Link to="/courses">Courses</Link>
+          <div className="nav-item">
+            <button
+              className="nav-button"
+              type="button"
+              onClick={() => setShowCoursesDropdown((prev) => !prev)}
+              aria-haspopup="true"
+              aria-expanded={showCoursesDropdown}
+            >
+              Courses{' '}
+              <img
+                className="nav-caret"
+                src={keyboardArrowRight}
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            {showCoursesDropdown && (
+              <>
+                <div
+                  className="nav-backdrop"
+                  onClick={() => setShowCoursesDropdown(false)}
+                />
+                <div className="courses-dropdown" role="menu">
+                  <div className="courses-dropdown-grid">
+                    <div className="courses-dropdown-left">
+                      {courseCategories.map((category) => (
+                        <button
+                          key={category}
+                          type="button"
+                          className={`courses-category ${activeCourseCategory === category ? 'is-active' : ''}`}
+                          onClick={() => setActiveCourseCategory(category)}
+                        >
+                          <span>{category}</span>
+                          <img
+                            className="courses-category-caret"
+                            src={keyboardArrowRight}
+                            alt=""
+                            aria-hidden="true"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                    <div className="courses-dropdown-right">
+                      <div className="courses-dropdown-header">
+                        <h4>{activeCourseCategory}</h4>
+                        <button
+                          className="courses-explore"
+                          type="button"
+                          onClick={() => {
+                            setShowCoursesDropdown(false);
+                            navigate('/courses');
+                          }}
+                        >
+                          Explore All
+                        </button>
+                      </div>
+                      <ul className="courses-preview-list">
+                        {(coursePreviews[activeCourseCategory] || []).map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                        {!coursePreviews[activeCourseCategory] && (
+                          <li>Explore all courses in this subject.</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
           <Link to="/find-my-college">Find My College</Link>
           <Link to="/enroll">Enroll</Link>
           <Link to="/how-it-works">Partnership</Link>

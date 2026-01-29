@@ -67,6 +67,8 @@
   height: 554px;
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .course-card:hover {
@@ -74,29 +76,30 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
 }
 
-.course-icon {
-  width: 78px;
-  height: 78px;
+.popular-courses .course-icon {
+  width: 78px !important;
+  height: 78px !important;
+  background: transparent;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 28px;
 }
 
-.course-icon img {
-  width: 78px;
-  height: 78px;
+.popular-courses .course-icon img {
+  width: 92px !important;
+  height: 92px !important;
   object-fit: contain;
   display: block;
 }
 
-.course-bookmark {
+.popular-courses .course-bookmark {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 48px;
-  height: 48px;
+  width: 48.84px;
+  height: 48.84px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   background: #fff;
@@ -114,19 +117,52 @@
 }
 
 .course-card h3 {
-  font-size: 15px;
-  margin-bottom: 8px;
-  color: #2b2b2b;
-  min-height: 40px;
-  line-height: 1.3;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  margin: 90px 0 0;
+  color: #111827;
+  min-height: 64px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  white-space: pre-line;
+}
+
+.popular-courses .course-card h3 {
+  font-size: 24px !important;
+  line-height: 32px !important;
 }
 
 .course-card p {
-  font-size: 12px;
-  line-height: 1.55;
-  color: #6f6f6f;
-  margin-bottom: 14px;
-  min-height: 44px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #6b7280;
+  margin: 0;
+  min-height: 84px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  white-space: pre-line;
+}
+
+.course-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0 18px;
+}
+
+.course-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 30px;
+  border: 1px solid #f3b18f;
+  background: #fff6f1;
+  color: #ed6c2c;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  min-height: 34px;
 }
 
 .course-meta {
@@ -149,22 +185,45 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.course-price-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
 }
 
 .course-price {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ff6633;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 600;
+  color: #ed6c2c;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.course-seats {
+  font-size: 12px;
+  line-height: 16px;
+  color: #9ca3af;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .btn-enroll {
-  padding: 7px 14px;
-  background: #ff6b2c;
+  padding: 16px 32px;
+  background: #ED6C2C;
   color: #fff;
   border: none;
   border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  min-width: 145px;
+  min-height: 56px;
   cursor: pointer;
 }
 

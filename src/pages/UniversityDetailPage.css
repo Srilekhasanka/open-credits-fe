@@ -86,7 +86,7 @@
   align-items: center;
   gap: 10px;
   border: 1px solid #ffd1bf;
-  color: #ff6b2c;
+  color: #ED6C2C;
   font-size: 12px;
   line-height: 24px;
   padding: 5px 20px;
@@ -445,7 +445,7 @@
 }
 
 .university-courses-inner h2 span {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .university-courses-inner p {
@@ -571,7 +571,7 @@
 }
 
 .university-courses-totals .total-university strong {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .university-courses-totals .total-open strong {

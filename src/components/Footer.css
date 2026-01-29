@@ -97,7 +97,7 @@
   width: 145px;
   height: 56px;
   padding: 0 32px;
-  background: #ff6b2c;
+  background: #ED6C2C;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -150,7 +150,7 @@
 }
 
 .footer-column a:hover {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .footer-bottom {

@@ -234,7 +234,7 @@
 }
 
 .savings-section.savings-calculator .savings-row.is-total span:last-child {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .savings-section.savings-calculator .savings-right {
@@ -261,21 +261,30 @@
 }
 
 .savings-section.savings-calculator .savings-pill div {
-  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   color: inherit;
 }
 
 .savings-section.savings-calculator .savings-pill strong {
   display: block;
-  font-size: 28px;
-  line-height: 36px;
-  color: #111827;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-size: 35.36px;
+  line-height: 55px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #000000;
   margin: 2px 0 4px;
 }
 
 .savings-section.savings-calculator .savings-pill span {
   color: inherit;
-  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .savings-pill.is-accent {
@@ -323,6 +332,7 @@
   line-height: 28px;
   margin-bottom: 8px;
   font-weight: 500;
+  text-decoration: underline;
 }
 
 .savings-section.savings-calculator .bundle-price {
