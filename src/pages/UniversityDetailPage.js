@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './UniversityDetailPage.css';
 import WorkProcess from '../components/WorkProcess';
@@ -42,7 +42,7 @@ const UniversityDetailPage = () => {
         <div className="university-header">
           <div className="university-title">
             <span>Open Credits</span>
-            <span className="university-divider">×</span>
+            <span className="university-divider">&times;</span>
             <strong className={`university-name ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''}`}>
               {isNjcu
                 ? 'New Jersey City University'
@@ -77,11 +77,29 @@ const UniversityDetailPage = () => {
           <div className="university-copy">
             <p>
               {isPace
-                ? 'Pace University is known for career-focused programs in New York and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 Pace-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for Pace’s credit review so you can move closer to graduation with confidence.'
+                ? (
+                <>
+                  Pace University is known for career-focused programs with
+                  <br />
+                  strong industry connections in business, technology,
+                  <br />
+                  healthcare, and the arts.
+                  <br />
+                    Open Credits offers a faster way to complete transferable
+                  <br />
+                  college credits online. Choose from CMU-aligned courses
+                  <br />
+                  mapped to general education and electives, complete them
+                  <br />
+                  at your own pace, and submit your transcript for Pace's
+                  <br />
+                  credit review to move closer to graduation with confidence.
+                </>
+              )
                 : isIndianaTech
-                  ? 'Indiana Tech is known for flexible, career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 Indiana Tech-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for Indiana Tech’s credit review so you can move closer to graduation with confidence.'
+                  ? 'Indiana Tech is known for flexible, career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 Indiana Tech-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for Indiana Techâ€™s credit review so you can move closer to graduation with confidence.'
                   : isNjcu
-                    ? 'NJCU is known for career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 NJCU-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for NJCU’s credit review so you can move closer to graduation with confidence.'
+                    ? 'NJCU is known for career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 NJCU-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for NJCUâ€™s credit review so you can move closer to graduation with confidence.'
                     : `${university.name} offers career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from flexible courses built for general education and electives, complete them at your pace, and submit your transcript for credit review so you can move closer to graduation with confidence.`}
             </p>
             <div className="university-badges">
@@ -115,9 +133,6 @@ const UniversityDetailPage = () => {
                 {isIndianaTech ? 'Why Join Indiana Tech?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : 'Why Join Pace University?'}
               </h2>
               <p>
-                Career-Focused, Hands-On Learning with Personalized Mentorship &amp; Support
-              </p>
-              <p>
                 {isIndianaTech
                   ? 'Indiana Tech is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
                   : isNjcu
@@ -136,29 +151,44 @@ const UniversityDetailPage = () => {
                                 ? 'Franklin University is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
                                 : isCmu
                                   ? 'CMU is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
-                                  : 'Pace University is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'}
+                                  : (
+                                    <>
+                                      Pace University offers career-focused education rooted in
+                                      <br />
+                                      real-world experience, with strong access to internships,
+                                      employer partnerships, and industry networks in New York
+                                      <br/> City.
+                                      Its programs are designed for flexibility and career mobility,
+                                      making Pace an ideal choice for transfer students, working
+                                      professionals, and those seeking strong outcomes 
+                                      <br/>in business,
+                                      healthcare, law, and technology.
+                                    </>
+                                  )}
               </p>
-              <p>
-                {isIndianaTech
-                  ? 'Indiana Tech is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                  : isNjcu
-                    ? 'NJCU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                    : isNjit
-                      ? 'NJIT is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                      : isOhioState
-                        ? 'Ohio State University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                        : isSuny
-                          ? 'SUNY is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                          : isSdsu
-                            ? 'SDSU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                            : isMvnu
-                              ? 'MVNU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                              : isFranklin
-                                ? 'Franklin University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                                : isCmu
-                                  ? 'CMU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
-                                  : 'Pace University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'}
-              </p>
+              {!isPace && (
+                <p>
+                  {isIndianaTech
+                    ? 'Indiana Tech is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                    : isNjcu
+                      ? 'NJCU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                      : isNjit
+                        ? 'NJIT is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                        : isOhioState
+                          ? 'Ohio State University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                          : isSuny
+                            ? 'SUNY is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                            : isSdsu
+                              ? 'SDSU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                              : isMvnu
+                                ? 'MVNU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                                : isFranklin
+                                  ? 'Franklin University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                                  : isCmu
+                                    ? 'CMU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                                    : 'Pace University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'}
+                </p>
+              )}
             </div>
             <div className="university-why-logo">
               <img
@@ -178,8 +208,7 @@ const UniversityDetailPage = () => {
             Find your <span>Courses</span>
           </h2>
           <p>
-            Match Open Credits courses to {isNjcu ? 'NJCU' : university.name} equivalents. Select courses to estimate total
-            transferable credits.
+            Match Open Credits courses to {isNjcu ? 'NJCU' : university.name} equivalents. Select courses to estimate total transferable credits.
           </p>
           <div className="university-courses-search">
             <input type="text" placeholder="Search your courses" />
@@ -218,7 +247,7 @@ const UniversityDetailPage = () => {
                   <span>3</span>
                   <span>Course Title Course Title Course Title</span>
                   <span>3</span>
-                  <span className="cart-icon">🛒</span>
+                  <span className="cart-icon">ðŸ›’</span>
                 </div>
               ))}
             </div>
@@ -232,3 +261,4 @@ const UniversityDetailPage = () => {
 };
 
 export default UniversityDetailPage;
+

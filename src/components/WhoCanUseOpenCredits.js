@@ -1,6 +1,14 @@
 import React from 'react';
 import './WhoCanUseOpenCredits.css';
-import toWhomImage from '../assets/towhom.png';
+import highschoolGirl from '../assets/Highschoolgirl.png';
+import universityBoy from '../assets/Universityboy.png';
+import adultUncle from '../assets/Adultuncle.png';
+
+const cards = [
+  { img: highschoolGirl, title: 'High School', subtitle: 'Students', href: '/get-started' },
+  { img: universityBoy, title: 'University', subtitle: 'Students', href: '/get-started' },
+  { img: adultUncle, title: 'Adult', subtitle: 'Learners', href: '/get-started' }
+];
 
 const WhoCanUseOpenCredits = () => {
   return (
@@ -9,8 +17,24 @@ const WhoCanUseOpenCredits = () => {
         <h2>
           Who can use <span className="highlight">Open Credits</span>?
         </h2>
-        <div className="who-image">
-          <img src={toWhomImage} alt="Who can use Open Credits" />
+        <div className="who-grid">
+          {cards.map((card) => (
+            <article
+              className="who-card"
+              key={`${card.title}-${card.subtitle}`}
+              style={{ backgroundImage: `url(${card.img})` }}
+            >
+              <div className="who-card__footer">
+                <div className="who-card__label">
+                  <span>{card.title}</span>
+                  <span>{card.subtitle}</span>
+                </div>
+                <a className="who-card__link" href={card.href}>
+                  Learn more <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

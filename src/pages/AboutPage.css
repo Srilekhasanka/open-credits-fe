@@ -6,7 +6,7 @@
 .about-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 56px;
@@ -58,7 +58,7 @@
   }
 
   .about-container {
-    padding: 0 20px;
+    padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
   }
 
   .about-content h1 {

@@ -1,15 +1,22 @@
 .school-acceptance {
-  padding: 60px 0;
+  padding: 60px var(--layout-pad-right) 0 var(--layout-pad-left);
   background: #fff;
+  margin-bottom: 0;
+}
+
+.acceptance-wrapper {
+  max-width: 1512px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  align-items: stretch;
 }
 
 .acceptance-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 801px;
+  min-height: 382px;
   padding: 36px 44px;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 28px;
+  display: flex;
   align-items: center;
   background: #fff;
   border-radius: 14px;
@@ -22,17 +29,33 @@
 }
 
 .acceptance-content h2 {
-  font-size: 22px;
+  font-size: 30px;
+  line-height: 38px;
   margin-bottom: 12px;
-  color: #333;
+  color: #000000;
   font-weight: 700;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  white-space: nowrap;
 }
 
 .acceptance-content p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #666;
+  font-size: 18px;
+  line-height: 28px;
+  color: #000000;
   margin-bottom: 22px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.acceptance-intro {
+  white-space: nowrap;
+}
+
+.acceptance-midline {
+  white-space: nowrap;
+}
+
+.acceptance-line {
+  white-space: nowrap;
 }
 
 .acceptance-buttons {
@@ -42,13 +65,20 @@
 }
 
 .school-acceptance .btn-outline {
-  padding: 8px 16px;
+  min-width: 242px;
+  height: 56px;
+  padding: 16px 32px;
   background: #fff;
-  color: #FF6633;
-  border: 1px solid #FF6633;
+  color: #E85D02;
+  border: 1px solid #E85D02;
   border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -59,29 +89,43 @@
 }
 
 .school-acceptance .btn-primary {
-  padding: 8px 16px;
-  background: #FF6633;
+  min-width: 200px;
+  height: 56px;
+  padding: 16px 32px;
+  background: #E85D02;
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .school-acceptance .btn-primary:hover {
-  background: #e55522;
+  background: #cf5300;
 }
 
 .guarantee-badge {
+  width: 411px;
+  min-height: 382px;
   display: flex;
   justify-content: center;
-  align-self: center;
+  align-items: center;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .badge-card {
-  width: 260px;
+  width: 100%;
+  height: 100%;
   background: transparent;
   border-radius: 0;
   padding: 0;
@@ -90,16 +134,27 @@
 
 .badge-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  border-radius: 8px;
+  border-radius: 0;
+  object-fit: contain;
 }
 
 @media (max-width: 968px) {
+  .acceptance-wrapper {
+    flex-direction: column;
+  }
+
   .acceptance-container {
-    grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 0;
     text-align: center;
     padding: 30px 20px;
+  }
+
+  .guarantee-badge {
+    width: 100%;
+    min-height: 0;
   }
   
   .acceptance-buttons {

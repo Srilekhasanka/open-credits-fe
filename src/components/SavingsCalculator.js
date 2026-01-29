@@ -7,7 +7,7 @@ const LIVING_COST = 1400;
 
 const SavingsCalculator = () => {
   const [activeTab, setActiveTab] = useState(TAB_US);
-  const [courseCount, setCourseCount] = useState(3);
+  const [courseCount, setCourseCount] = useState(null);
   const [schoolCost, setSchoolCost] = useState(413);
   const courseSelectRef = useRef(null);
   const courseDropdownRef = useRef(null);
@@ -28,8 +28,9 @@ const SavingsCalculator = () => {
   const openCreditsCostPerCourse = activeTab === TAB_US ? 250 : 275;
 
   const totals = useMemo(() => {
-    const estimated = Math.round(courseCount * schoolCost);
-    const openCredits = Math.round(courseCount * openCreditsCostPerCourse);
+    const safeCount = courseCount ?? 0;
+    const estimated = Math.round(safeCount * schoolCost);
+    const openCredits = Math.round(safeCount * openCreditsCostPerCourse);
     const savings = Math.max(estimated - openCredits, 0);
 
     return { estimated, openCredits, savings };
@@ -74,7 +75,9 @@ const SavingsCalculator = () => {
                   if (event.key === 'ArrowDown') setIsCourseOpen(true);
                 }}
               >
-                {courseCount} {courseCount === 1 ? 'course' : 'courses'} - {courseCount * 3} Credits
+                {courseCount === null
+                  ? 'Select number of courses'
+                  : `${courseCount} ${courseCount === 1 ? 'course' : 'courses'} - ${courseCount * 3} Credits`}
               </button>
               {isCourseOpen && (
                 <ul className="savings-select-menu" role="listbox" aria-labelledby="course-count">
@@ -94,6 +97,12 @@ const SavingsCalculator = () => {
                   ))}
                 </ul>
               )}
+            </div>
+          </div>
+          <div className="savings-field">
+            <label htmlFor="scholarship-amount">Scholarship amount</label>
+            <div className="savings-input">
+              <input id="scholarship-amount" type="text" placeholder="Enter amount here" />
             </div>
           </div>
           <div className="savings-field">

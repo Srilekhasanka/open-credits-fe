@@ -8,14 +8,34 @@ import './FeaturedUniversities.css';
 
 const FeaturedUniversities = () => {
   const universities = [
-    { name: 'University at Buffalo', logo: ubLogo, slug: 'university-at-buffalo' },
-    { name: 'Stony Brook University', logo: stonyLogo, slug: 'stony-brook-university' },
+    {
+      name: 'University at Buffalo',
+      logo: ubLogo,
+      slug: 'university-at-buffalo',
+      logoWidth: 158,
+      logoHeight: 122
+    },
+    {
+      name: 'Stony Brook University',
+      logo: stonyLogo,
+      slug: 'stony-brook-university',
+      logoWidth: 234,
+      logoHeight: 86
+    },
     {
       name: 'San Diego State University',
       logo: sdsuLogo,
-      slug: 'san-diego-state-university'
+      slug: 'san-diego-state-university',
+      logoWidth: 142,
+      logoHeight: 111
     },
-    { name: 'Pace University', logo: paceLogo, slug: 'pace-university' }
+    {
+      name: 'Pace University',
+      logo: paceLogo,
+      slug: 'pace-university',
+      logoWidth: 161,
+      logoHeight: 71
+    }
   ];
 
   return (
@@ -32,7 +52,14 @@ const FeaturedUniversities = () => {
           {universities.map((university) => (
             <div className="featured-card" key={university.slug}>
               <div className="featured-logo">
-                <img src={university.logo} alt={university.name} />
+                <img
+                  src={university.logo}
+                  alt={university.name}
+                  style={{
+                    width: `${university.logoWidth}px`,
+                    height: `${university.logoHeight}px`
+                  }}
+                />
               </div>
               <Link className="featured-button" to={`/universities/${university.slug}`}>
                 Learn More

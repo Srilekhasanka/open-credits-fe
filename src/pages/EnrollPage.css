@@ -7,7 +7,7 @@
 .enroll-container {
   max-width: 980px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .enroll-page h1 {
@@ -176,9 +176,9 @@
   align-self: stretch;
   padding: 8px 16px;
   border-radius: 8px;
-  border: 1px solid #ff6b2c;
+  border: 1px solid #ED6C2C;
   background: #fff;
-  color: #ff6b2c;
+  color: #ED6C2C;
   font-size: 10.5px;
   cursor: pointer;
   font-weight: 600;
@@ -204,7 +204,7 @@
   }
 }
 
-.savings-section {
+.enroll-page .savings-section {
   margin-top: 90px;
 }
 
@@ -212,7 +212,7 @@
   padding: 0;
 }
 
-.savings-section h2 {
+.enroll-page .savings-section h2 {
   font-size: 22px;
   font-weight: 600;
   text-align: left;
@@ -221,11 +221,11 @@
   color: #1f1f1f;
 }
 
-.savings-section h2 span {
-  color: #ff6b2c;
+.enroll-page .savings-section h2 span {
+  color: #ED6C2C;
 }
 
-.savings-card {
+.enroll-page .savings-card {
   background: #fff;
   border-radius: 16px;
   padding: 28px 32px 24px 18px;
@@ -258,3 +258,4 @@
 .savings-field + .savings-field {
   padding-top: 10px;
 }
+

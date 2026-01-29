@@ -13,7 +13,7 @@ const WhyOpenCredits = () => {
     },
     {
       icon: <FaExchangeAlt />,
-      title: 'Transferable College Credits',
+      title: 'Transferable\u00A0College\nCredits',
       description: 'Courses recommended by nationally recognized credit evaluators at 1000+ colleges.',
       linkLabel: 'View Courses',
       linkHref: '/courses'
@@ -43,7 +43,14 @@ const WhyOpenCredits = () => {
           {features.map((feature, index) => (
             <div key={index} className="feature-card">
               <div className="feature-icon">{feature.icon}</div>
-              <h3>{feature.title}</h3>
+              <h3>
+                {feature.title.split('\n').map((line, index, arr) => (
+                  <React.Fragment key={`${feature.title}-${index}`}>
+                    {line}
+                    {index < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </h3>
               <p>{feature.description}</p>
               <a href={feature.linkHref} className="learn-more">
                 {feature.linkLabel} <span className="learn-more__arrow">→</span>

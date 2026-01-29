@@ -26,8 +26,13 @@ const WorkProcess = () => {
               <div className="process-step-number" aria-hidden="true">1</div>
               <h3>Pick Your Courses</h3>
               <p>
-                Choose from flexible, self-paced online courses that fit your goals,
-                schedule, and university requirements.
+                Choose from flexible, self-paced
+                <br/>
+                online courses that fit your goals,
+                <br/>
+                schedule, and university
+                <br/>
+                requirements.
               </p>
               <a className="process-step-link" href="/courses">View Courses</a>
             </div>
@@ -36,8 +41,13 @@ const WorkProcess = () => {
               <div className="process-step-number" aria-hidden="true">2</div>
               <h3>Earn College Credits</h3>
               <p>
-                Complete the course and receive credit recommendations you can submit
-                to your school, helping you save time and reduce tuition costs.
+                Complete the course and receive
+                <br/>
+                credit recommendations you can
+                <br/>
+                submit to your school, helping you
+                <br/>
+                save time and reduce tuition costs.
               </p>
               <a className="process-step-link" href="/find-my-college">View Accepted Universities</a>
             </div>
@@ -46,8 +56,13 @@ const WorkProcess = () => {
               <div className="process-step-number" aria-hidden="true">3</div>
               <h3>Transfer your Credit</h3>
               <p>
-                Bring your completed coursework with you. We help you understand what
-                transfers and how to apply credits toward your degree.
+                Bring your completed coursework
+                <br/>
+                with you. We help you understand
+                <br/>
+                what transfers and how to apply
+                <br/>
+                credits toward your degree.
               </p>
               <a className="process-step-link" href="#pricing">View Pricing</a>
             </div>

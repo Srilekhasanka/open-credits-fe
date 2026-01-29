@@ -8,7 +8,7 @@
 .corporate-container {
   max-width: 980px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
   text-align: center;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .corporate-container h1 span {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .corporate-container p {
@@ -56,7 +56,7 @@
   padding: 8px 16px;
   border-radius: 6px;
   border: none;
-  background: #ff6b2c;
+  background: #ED6C2C;
   color: #fff;
   font-size: 11px;
   cursor: pointer;
@@ -64,8 +64,8 @@
 
 .corporate-button.is-outline {
   background: #fff;
-  color: #ff6b2c;
-  border: 1px solid #ff6b2c;
+  color: #ED6C2C;
+  border: 1px solid #ED6C2C;
 }
 
 .corporate-why {
@@ -85,7 +85,7 @@
 }
 
 .corporate-why-header h2 span {
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .corporate-why-header p {
@@ -135,7 +135,7 @@
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background: #ff6b2c;
+  background: #ED6C2C;
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -248,7 +248,7 @@
   text-align: center;
   border-radius: 8px;
   background: #fff;
-  color: #ff6b2c;
+  color: #ED6C2C;
   font-size: 11px;
   font-weight: 600;
   text-decoration: none;
@@ -259,11 +259,11 @@
   background: #fff2ec;
 }
 
-.savings-section {
+.corporate-page .savings-section {
   margin: 44px 0;
 }
 
-.savings-section h2 {
+.corporate-page .savings-section h2 {
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -271,11 +271,11 @@
   color: #1f1f1f;
 }
 
-.savings-section h2 span {
-  color: #ff6b2c;
+.corporate-page .savings-section h2 span {
+  color: #ED6C2C;
 }
 
-.savings-card {
+.corporate-page .savings-card {
   background: #fff;
   border-radius: 18px;
   padding: 20px 22px 24px;
@@ -390,7 +390,7 @@
 
 .savings-row.is-total {
   font-weight: 600;
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .savings-right {
@@ -453,7 +453,7 @@
 }
 
 .bundle-label {
-  color: #ff6b2c;
+  color: #ED6C2C;
   font-size: 9.5px;
   margin-bottom: 6px;
 }
@@ -461,7 +461,7 @@
 .bundle-price {
   font-size: 13px;
   font-weight: 700;
-  color: #ff6b2c;
+  color: #ED6C2C;
 }
 
 .bundle-note {
@@ -510,3 +510,4 @@
     padding-left: 0;
   }
 }
+
