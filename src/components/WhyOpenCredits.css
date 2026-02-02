@@ -20,7 +20,7 @@
 }
 
 .why-container .highlight {
-  color: #FF6633;
+  color: #E85002;
 }
 
 .features-grid {
@@ -51,14 +51,20 @@
 .feature-icon {
   width: 92px;
   height: 92px;
-  background: transparent;
-  border-radius: 8px;
+  background: #FFFFFF;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 0 0 18px 0;
-  font-size: 34px;
-  color: #FF6633;
+  font-size: 61px;
+  color: #E85002;
+}
+
+.feature-img-icon {
+  width: 61px;
+  height: 61px;
+  object-fit: contain;
 }
 
 .feature-card h3 {

@@ -1,5 +1,5 @@
 .faq {
-  padding: 88px 0 32px;
+  padding: 56px 0 100px;
   background: #fff;
 }
 
@@ -159,7 +159,7 @@
 
 .btn-chat,
 .btn-advisor {
-  width: 186px;
+  width: 139px;
   height: 56px;
   padding: 0 32px;
   border-radius: 6px;
@@ -223,7 +223,7 @@
 
 @media (max-width: 640px) {
   .faq {
-    padding: 72px 0 80px;
+    padding: 56px 0 80px;
   }
 
   .faq-content h2 {

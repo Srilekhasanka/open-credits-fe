@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import communityImage from '../assets/community_image.png';
-import dollarIcon from '../assets/dollar.png';
-import menusIcon from '../assets/menus.png';
-import partnershipIcon from '../assets/partnership.png';
+import dollarIcon from '../assets/dollar.svg';
+import menusIcon from '../assets/menus.svg';
+import partnershipIcon from '../assets/partnership.svg';
 import questionMarkIcon from '../assets/questionmark.png';
 import orangeCommunityImage from '../assets/orange_community.png';
 import WorkProcess from '../components/WorkProcess';

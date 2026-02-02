@@ -10,13 +10,14 @@
 }
 
 .who-container h2 {
-  font-size: 32px;
+  font-size: 36px;
+  line-height: 44px;
   color: #333;
   margin-bottom: 40px;
 }
 
 .who-container .highlight {
-  color: #FF6633;
+  color: #E85002;
 }
 
 .who-image {
@@ -39,8 +40,8 @@
 }
 
 .who-card {
-  background: #fff;
-  border-radius: 16px;
+  background: #FDFBFE;
+  border-radius: 22px;
   border: 1px solid #f1f1f1;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);

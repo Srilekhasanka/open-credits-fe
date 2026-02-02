@@ -1,63 +1,86 @@
 .enroll-page {
   background: #fff;
-  padding: 48px 0 72px;
-  color: #1f1f1f;
+  padding: 70px 0 90px;
 }
 
 .enroll-container {
-  max-width: 980px;
+  max-width: 1512px;
   margin: 0 auto;
   padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
-.enroll-page h1 {
-  font-size: 22px;
-  margin: 0 0 10px;
-  font-weight: 600;
+.enroll-container h1 {
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .enroll-note {
-  font-size: 11px;
-  color: #333;
-  line-height: 1.55;
-  max-width: 860px;
-  margin: 0 0 28px;
+  font-size: 20px;
+  line-height: 32px;
+  color: #000000;
+  font-weight: 400;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  margin-bottom: 32px;
+  max-width: 760px;
+}
+
+.enroll-note strong {
+  font-weight: 600;
+}
+
+.enroll-note-line {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .enroll-note a {
-  color: #2f6bff;
+  color: #2563eb;
+  margin-left: 6px;
   text-decoration: underline;
-  margin-left: 4px;
+  font-weight: 500;
 }
 
 .enroll-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  margin-bottom: 200px;
 }
 
 .enroll-card {
-  border: 1px solid #f1d8cc;
-  border-radius: 18px;
-  padding: 18px 18px 20px;
+  border: 1px solid #f1e3dc;
+  border-radius: 16px;
+  padding: 22px;
   background: #fff;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 380px;
-  box-shadow: 0 10px 20px rgba(12, 12, 12, 0.06);
+  min-height: 580px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+  width: 100%;
 }
 
 .enroll-card h2 {
-  font-size: 13px;
-  margin: 0;
-  line-height: 1.4;
+  font-size: 24px;
+  line-height: 32px;
+  color: #1f2937;
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  white-space: pre-line;
 }
 
 .enroll-desc {
-  font-size: 10.5px;
-  color: #6b6b6b;
+  font-size: 18px;
+  line-height: 28px;
+  color: #6b7280;
   margin: 0;
+  font-weight: 400;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .enroll-price {
@@ -68,46 +91,30 @@
 }
 
 .enroll-price-main {
-  font-size: 24px;
+  font-size: 48px;
+  line-height: 56px;
   font-weight: 700;
+  color: #1f2937;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .enroll-price-sub {
-  font-size: 10px;
-  color: #7a7a7a;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .enroll-illustration {
   height: 120px;
   border-radius: 14px;
-  background: #f9f1ec;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-}
-
-.enroll-illustration::before,
-.enroll-illustration::after {
-  content: '';
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  opacity: 0.55;
-}
-
-.enroll-illustration::before {
-  top: -50px;
-  right: -40px;
-  background: #f2d0bf;
-}
-
-.enroll-illustration::after {
-  bottom: -50px;
-  left: -50px;
-  background: #d8c9ff;
 }
 
 .enroll-illustration svg {
@@ -135,127 +142,101 @@
 
 .enroll-features {
   list-style: none;
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   padding: 0;
   display: grid;
   gap: 8px;
-  font-size: 10.5px;
-  color: #4b4b4b;
+  font-size: 14px;
+  line-height: 24px;
+  color: #1f2937;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .enroll-features li {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+
+.enroll-features li span:last-child {
+  font-weight: 600;
+}
+
+.enroll-features {
+  order: 1;
+}
+
+.enroll-price {
+  order: 2;
+  margin-top: 8px;
+}
+
+.enroll-cta {
+  order: 3;
 }
 
 .enroll-check {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #37b36b;
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+  background: transparent;
+  background-image: url('../assets/Checkbadge.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   display: inline-block;
   position: relative;
   flex-shrink: 0;
 }
 
-.enroll-check::after {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 3px;
-  width: 6px;
-  height: 3px;
-  border-left: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  transform: rotate(-45deg);
+.enroll-cta {
+  width: 321px;
+  height: 56px;
+  padding: 16px 32px;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: auto;
 }
 
-.enroll-cta {
-  margin-top: auto;
-  align-self: stretch;
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid #ED6C2C;
+.enroll-cta--primary {
+  border: 1px solid #ffb397;
   background: #fff;
-  color: #ED6C2C;
-  font-size: 10.5px;
-  cursor: pointer;
-  font-weight: 600;
+  color: #e85b02;
+}
+
+.enroll-cta--primary:hover {
+  background: #fff5f0;
 }
 
 .enroll-cta--accent {
-  background: #ee6a2e;
+  border: none;
+  background: #ff6633;
   color: #fff;
-  border-color: #ee6a2e;
-}
-
-.enroll-cta:hover {
-  background: #fff2ec;
 }
 
 .enroll-cta--accent:hover {
-  background: #e35f24;
+  background: #e55522;
 }
 
 @media (max-width: 980px) {
   .enroll-grid {
     grid-template-columns: 1fr;
   }
-}
 
-.enroll-page .savings-section {
-  margin-top: 90px;
+  .enroll-cta {
+    width: 100%;
+  }
 }
 
 .enroll-page .savings-section.savings-calculator {
   padding: 0;
 }
-
-.enroll-page .savings-section h2 {
-  font-size: 22px;
-  font-weight: 600;
-  text-align: left;
-  margin: 0 0 18px;
-  max-width: 100%;
-  color: #1f1f1f;
-}
-
-.enroll-page .savings-section h2 span {
-  color: #ED6C2C;
-}
-
-.enroll-page .savings-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 28px 32px 24px 18px;
-  box-shadow: 0 8px 18px rgba(12, 12, 12, 0.12);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 170px;
-  gap: 22px;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-}
-
-.savings-left {
-  display: grid;
-  gap: 10px;
-  max-width: 100%;
-  padding-top: 6px;
-  padding-left: 12px;
-}
-
-.savings-field label {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  padding-left: 10px;
-  color: #1f1f1f;
-}
-
-.savings-field + .savings-field {
-  padding-top: 10px;
-}
-

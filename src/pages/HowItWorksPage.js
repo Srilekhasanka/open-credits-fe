@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
-import corporateImage from '../assets/corporate.png';
-import k12Image from '../assets/K-12.png';
-import higherEdImage from '../assets/higher.png';
-import communityImage from '../assets/community.png';
+import corporateImage from '../assets/corporate.svg';
+import k12Image from '../assets/K-12.svg';
+import higherEdImage from '../assets/higher.svg';
+import communityImage from '../assets/community.svg';
 import '../App.css';
 import './HowItWorksPage.css';
 import { universities as universityData } from '../data/universities';
@@ -13,8 +13,21 @@ const partnershipFeatureCards = [
   {
     title: 'Corporate Partnerships',
     subtitle: 'Upskill your workforce with flexible learning.',
-    description:
-      'Open Credits helps employers offer affordable, transferable college credits that support career growth, internal mobility, and employee engagement. Our self-paced courses are easy to deploy at scale, making education accessible from day one, without the cost or complexity of traditional tuition programs.',
+    description: (
+      <>
+        Open Credits helps employers offer affordable,
+        <br />
+        transferable college credits that support career growth,
+        <br />
+        internal mobility, and employee engagement. Our self-
+        <br />
+        paced courses are easy to deploy at scale, making
+        <br />
+        education accessible from day one, without the cost or
+        <br />
+        complexity of traditional tuition programs.
+      </>
+    ),
     image: corporateImage,
     imageAlt: 'Corporate partnerships meeting',
     href: '/partnerships/corporate'
@@ -22,8 +35,21 @@ const partnershipFeatureCards = [
   {
     title: 'K-12 Education Services',
     subtitle: 'Give students a head start on college.',
-    description:
-      'Open Credits enables schools and districts to offer college-level learning opportunities that are self-paced, affordable, and accessible to all learners. Unlike high-cost test-based programs, our open-access approach supports equity while helping students build momentum toward college success.',
+    description: (
+      <>
+        Open Credits enables schools and districts to offer,
+        <br />
+        college-level learning opportunities that are self-paced,
+        <br />
+        affordable, and accessible to all learners. Unlike high-
+        <br />
+        cost test-based programs, our open-access approach
+        <br />
+        supports equity while helping students build momentum
+        <br />
+        toward college success.
+      </>
+    ),
     image: k12Image,
     imageAlt: 'K-12 classroom learning',
     href: '/partnerships/k-12'
@@ -31,8 +57,21 @@ const partnershipFeatureCards = [
   {
     title: 'Higher Education Partnerships',
     subtitle: 'Increase access and improve student outcomes.',
-    description:
-      'Partner with Open Credits to expand degree pathways through flexible, self-paced courses designed for transfer. Our model supports institutions with a scalable, cost-effective solution that helps students stay on track, complete prerequisites faster, and persist through key academic milestones.',
+    description: (
+      <>
+        Partner with Open Credits to expand degree pathways
+        <br />
+        through flexible, self-paced courses designed for
+        <br />
+        transfer. Our model supports institutions with a scalable,
+        <br />
+        cost-effective solution that helps students stay on track,
+        <br />
+        complete prerequisites faster, and persist through key
+        <br />
+        academic milestones.
+      </>
+    ),
     image: higherEdImage,
     imageAlt: 'Higher education classroom',
     href: '/partnerships/higher-education'
@@ -40,8 +79,21 @@ const partnershipFeatureCards = [
   {
     title: 'Community Partnerships',
     subtitle: 'Create long-term impact locally.',
-    description:
-      'Open Credits partners with nonprofits, workforce boards, and community organizations to deliver affordable pathways into higher education. Together, we help learners earn transferable college credit, reduce cost barriers, and progress toward degrees and career goals.',
+    description: (
+      <>
+        Open Credits partners with nonprofits, workforce 
+        <br />
+        boards, and community organizations to deliver 
+        <br />
+        affordable pathways into higher education. Together, we
+        <br />
+        help learners earn transferable college credit, reduce
+        <br />
+        cost barriers, and progress toward degrees and career
+        <br />
+        goals.
+      </>
+    ),
     image: communityImage,
     imageAlt: 'Community partnership',
     href: '/partnerships/community'
@@ -73,9 +125,9 @@ const HowItWorksPage = () => {
               Partner with <span>Open Credits</span>
             </h1>
             <p>Create access. Build outcomes. Scale impact.</p>
-            <p>
+            <p className="partner-banner__nowrap">
               Open Credits partners with organizations to make affordable, transferable college
-              credits available to more learners, helping people progress faster toward degrees,
+              credits available to more learners, helping people progress<br/> &nbsp; faster toward degrees,
               career advancement, and long-term mobility. Our courses are self-paced, online, and
               designed to fit into real lives.
             </p>
@@ -110,9 +162,11 @@ const HowItWorksPage = () => {
           <div className="partner-colleges-header">
             <h2>Our Partner Colleges</h2>
             <p>
-              Open Credits has sent transcripts to over 1,500 colleges and universities. If your
-              university is with the nationally accredited bodies, or accepts transcripts from a
-              four-year university for credit review.
+              <span className="partner-colleges-nowrap">
+                Open Credits has sent transcripts to over 1,500 colleges and universities. If your
+                university is with the nationally accredited
+              </span>{' '}
+              bodies, or accepts transcripts from a four-year university for credit review.
             </p>
           </div>
 

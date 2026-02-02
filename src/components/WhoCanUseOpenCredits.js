@@ -15,7 +15,7 @@ const WhoCanUseOpenCredits = () => {
     <section className="who-section">
       <div className="who-container">
         <h2>
-          Who can use <span className="highlight">Open Credits</span>?
+          Who can use <span className="highlight">Open Credits?</span>
         </h2>
         <div className="who-grid">
           {cards.map((card) => (

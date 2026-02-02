@@ -29,18 +29,32 @@ const PartnerUniversities = () => {
           </div>
           <div className="partnered-grid">
             {filteredUniversities.map((university) => (
-              <Link
-                key={university.slug}
-                className="partnered-card"
-                to={`/universities/${university.slug}`}
-                aria-label={`View ${university.name}`}
-              >
-                {university.logo ? (
-                  <img src={university.logo} alt={university.name} />
-                ) : (
-                  <span style={{ color: university.color }}>{university.name}</span>
-                )}
-              </Link>
+              university.hasPartnerPage ? (
+                <Link
+                  key={university.slug}
+                  className={`partnered-card${university.fullBleed ? ' full-bleed' : ''}`}
+                  to={`/universities/${university.slug}`}
+                  aria-label={`View ${university.name}`}
+                >
+                  {university.logo ? (
+                    <img src={university.logo} alt={university.name} />
+                  ) : (
+                    <span style={{ color: university.color }}>{university.name}</span>
+                  )}
+                </Link>
+              ) : (
+                <div
+                  key={university.slug}
+                  className={`partnered-card${university.fullBleed ? ' full-bleed' : ''}`}
+                  aria-label={university.name}
+                >
+                  {university.logo ? (
+                    <img src={university.logo} alt={university.name} />
+                  ) : (
+                    <span style={{ color: university.color }}>{university.name}</span>
+                  )}
+                </div>
+              )
             ))}
           </div>
         </div>

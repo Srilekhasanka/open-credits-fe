@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ubLogo from '../assets/ub.png';
-import stonyLogo from '../assets/stony.png';
-import sdsuLogo from '../assets/sdsu.png';
-import paceLogo from '../assets/pace.png';
+import ubLogo from '../assets/ub.svg';
+import stonyLogo from '../assets/stony.svg';
+import sdsuLogo from '../assets/sdsu.svg';
+import paceLogo from '../assets/pace.svg';
 import './FeaturedUniversities.css';
 
 const FeaturedUniversities = () => {

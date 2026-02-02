@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import dollarIcon from '../assets/dollar.png';
-import menusIcon from '../assets/menus.png';
-import partnershipIcon from '../assets/partnership.png';
+import dollarIcon from '../assets/dollar.svg';
+import menusIcon from '../assets/menus.svg';
+import partnershipIcon from '../assets/partnership.svg';
 import questionMarkIcon from '../assets/questionmark.png';
 import forStudentImage from '../assets/forstudent.png';
 import forTeachersImage from '../assets/forteachers.png';

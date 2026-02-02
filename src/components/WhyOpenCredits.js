@@ -1,32 +1,35 @@
 import React from 'react';
 import './WhyOpenCredits.css';
-import { FaBook, FaBolt, FaDollarSign, FaExchangeAlt } from 'react-icons/fa';
+import partnershipIcon from '../assets/partnership.svg';
+import dollarIcon from '../assets/dollar.svg';
+import menusIcon from '../assets/menus.svg';
+import fasterIcon from '../assets/faster.svg';
 
 const WhyOpenCredits = () => {
   const features = [
     {
-      icon: <FaDollarSign />,
+      icon: <img src={dollarIcon} alt="Affordable" className="feature-img-icon" />,
       title: 'Affordable Tuition Cost',
       description: 'Save significantly compared to traditional college courses, without sacrificing quality or credibility.',
       linkLabel: 'Calculate pricing',
       linkHref: '#pricing'
     },
     {
-      icon: <FaExchangeAlt />,
+      icon: <img src={partnershipIcon} alt="Transferable Credits" className="feature-img-icon" />,
       title: 'Transferable\u00A0College\nCredits',
       description: 'Courses recommended by nationally recognized credit evaluators at 1000+ colleges.',
       linkLabel: 'View Courses',
       linkHref: '/courses'
     },
     {
-      icon: <FaBook />,
+      icon: <img src={menusIcon} alt="Self-Paced" className="feature-img-icon" />,
       title: 'Self-Paced Learning',
       description: 'Learn anytime, anywhere with no start or end dates.',
       linkLabel: 'View accepted colleges',
       linkHref: '#accepted-colleges'
     },
     {
-      icon: <FaBolt />,
+      icon: <img src={fasterIcon} alt="Graduate Faster" className="feature-img-icon" />,
       title: 'Graduate Faster',
       description: 'Earn transferable credits on your schedule and reduce time to graduation.',
       linkLabel: 'Schedule Call',
@@ -37,7 +40,7 @@ const WhyOpenCredits = () => {
   return (
     <section className="why-section">
       <div className="why-container">
-        <h2>Why <span className="highlight">Open Credits</span>?</h2>
+        <h2>Why <span className="highlight">Open Credits?</span></h2>
         
         <div className="features-grid">
           {features.map((feature, index) => (

@@ -61,10 +61,12 @@ const EnrollPricingSection = () => {
       <div className="enroll-pricing-container">
         <h2>Enroll now</h2>
         <p className="enroll-pricing-note">
-          NOTE : Education loans or sponsorships can be used to take Open Credits Courses. We
-          provide an official offer letter on request. 
-          <br/> Send us an Email -
-          <a href={mailHref}>Connect@opencredits.org</a>
+          <strong>
+            NOTE : Education loans or sponsorships can be used to take Open Credits Courses. We
+            provide an official offer letter on request.
+            <br /> Send us an Email -
+            <a href={mailHref}>Connect@opencredits.org</a>
+          </strong>
         </p>
 
         <div className="enroll-pricing-grid">
