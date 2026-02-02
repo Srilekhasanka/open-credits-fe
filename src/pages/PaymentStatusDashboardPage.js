@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
-import companyLogo from '../assets/company-logo.png';
+import companyLogo from '../assets/company-logo.svg';
 import '../components/DashboardLayout.css';
 
 const PaymentStatusDashboardPage = () => {

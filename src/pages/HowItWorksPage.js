@@ -152,7 +152,7 @@ const HowItWorksPage = () => {
                 )}
               </div>
               <div className="partnership-feature-image">
-                <img src={card.image} alt={card.imageAlt} />
+                <img src={card.image} alt={card.imageAlt} loading="lazy" />
               </div>
             </article>
           ))}
@@ -184,7 +184,7 @@ const HowItWorksPage = () => {
             <div className="partner-colleges-grid">
               {filteredColleges.map((college) => {
                 const content = college.logo ? (
-                  <img src={college.logo} alt={college.name} />
+                  <img src={college.logo} alt={college.name} loading="lazy" />
                 ) : (
                   <span style={{ color: college.color }}>{college.name}</span>
                 );

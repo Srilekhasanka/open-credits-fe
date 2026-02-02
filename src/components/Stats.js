@@ -1,9 +1,9 @@
 import React from 'react';
 import './Stats.css';
-import emojiPeople from '../assets/emoji_people.png';
-import locationCity from '../assets/location_city.png';
-import groups2 from '../assets/groups_2.png';
-import apartment from '../assets/apartment.png';
+import emojiPeople from '../assets/emoji_people.svg';
+import locationCity from '../assets/location_city.svg';
+import groups2 from '../assets/groups_2.svg';
+import apartment from '../assets/apartment.svg';
 
 const trustedStats = [
   { label: 'Advisors', value: '100+', icon: emojiPeople },
