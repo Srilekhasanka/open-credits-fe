@@ -1,9 +1,9 @@
 import React from 'react';
 import './Testimonials.css';
-import shagunPhoto from '../assets/Shagun.png';
-import meisiPhoto from '../assets/Meisi.png';
-import aditiPhoto from '../assets/Aditi.png';
-import isabellaPhoto from '../assets/Isabella.png';
+import shagunPhoto from '../assets/Shagun.svg';
+import meisiPhoto from '../assets/Meisi.svg';
+import aditiPhoto from '../assets/Aditi.svg';
+import isabellaPhoto from '../assets/Isabella.svg';
 
 const Testimonials = () => {
   const testimonials = [

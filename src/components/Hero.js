@@ -40,7 +40,7 @@ const Hero = () => {
         
         <div className="hero-image">
           <div className="image-frame">
-            <img src={homeStudent} alt="Students studying together" />
+            <img src={homeStudent} alt="Students studying together" loading="lazy" />
           </div>
         </div>
       </div>

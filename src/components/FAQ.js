@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import doYouHaveQuestions from '../assets/doyouhavequestions.png';
+import doYouHaveQuestions from '../assets/doyouhavequestions.svg';
 import whatsappIcon from '../assets/whatsapp.png';
 import './FAQ.css';
 

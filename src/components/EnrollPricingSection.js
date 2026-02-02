@@ -1,10 +1,9 @@
 import React from 'react';
 import './EnrollPricingSection.css';
-import peopleBox from '../assets/peoplebox.png';
-import globeBox from '../assets/globebox.png';
-import buildingBox from '../assets/buildingbox.png';
-import peopleSub1 from '../assets/peoplesub1.png';
-import peopleSub2 from '../assets/peoplesub2.png';
+import peopleBox from '../assets/peoplebox.svg';
+import globeBox from '../assets/globebox.svg';
+import buildingBox from '../assets/buildingbox.svg';
+
 
 const pricingCards = [
   {
@@ -21,8 +20,7 @@ const pricingCards = [
     variant: 'outline',
     icon: (
       <>
-        <img className="enroll-pricing-sub enroll-pricing-sub--left" src={peopleSub2} alt="" aria-hidden="true" />
-        <img className="enroll-pricing-sub enroll-pricing-sub--right" src={peopleSub1} alt="" aria-hidden="true" />
+        
         <img className="enroll-pricing-main" src={peopleBox} alt="" aria-hidden="true" />
       </>
     )

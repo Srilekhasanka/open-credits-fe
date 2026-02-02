@@ -1,9 +1,9 @@
 import React from 'react';
 import './WorkProcess.css';
 import curveImage from '../assets/curvyline.png';
-import pickCourseIcon from '../assets/pickcourse.png';
-import collegeCreditIcon from '../assets/collegecredit.png';
-import transferCreditIcon from '../assets/transfercredit.png';
+import pickCourseIcon from '../assets/pickcourse.svg';
+import collegeCreditIcon from '../assets/collegecredit.svg';
+import transferCreditIcon from '../assets/transfercredit.svg';
 
 const WorkProcess = () => {
   return (
