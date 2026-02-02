@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 import { useAuth } from '../context/AuthContext';
-import homeStudent from '../assets/homestudent.png';
+import homeStudent from '../assets/homestudent.svg';
 
 const Hero = () => {
   const { isAuthenticated } = useAuth();

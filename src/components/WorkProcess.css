@@ -38,13 +38,14 @@
 }
 
 .process-header h2 {
-  font-size: 32px;
+  font-size: 36px;
+  line-height: 44px;
   color: #333;
   margin: 0;
 }
 
 .process-header .highlight {
-  color: #FF6633;
+  color: #E85002;
 }
 
 .btn-enroll {

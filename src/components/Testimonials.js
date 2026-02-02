@@ -62,6 +62,20 @@ const Testimonials = () => {
               </article>
             ))}
           </div>
+          <div className="testimonials-grid" aria-hidden="true">
+            {testimonials.map((item) => (
+              <article key={`dup-${item.id}`} className={`testimonial-card ${item.color}`}>
+                <div className="testimonial-header">
+                  <img className="testimonial-avatar" src={item.photo} alt={item.name} />
+                  <div>
+                    <h3>{item.name}</h3>
+                    <p>{item.school}</p>
+                  </div>
+                </div>
+                <p className="testimonial-text">{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

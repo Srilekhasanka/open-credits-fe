@@ -1,5 +1,5 @@
 .school-acceptance {
-  padding: 60px var(--layout-pad-right) 0 var(--layout-pad-left);
+  padding: 60px 0 0;
   background: #fff;
   margin-bottom: 0;
 }
@@ -7,6 +7,7 @@
 .acceptance-wrapper {
   max-width: 1512px;
   margin: 0 auto;
+  padding: 0 var(--layout-pad-right) 0 calc(var(--layout-pad-left) - 18px);
   display: flex;
   gap: 0;
   align-items: stretch;

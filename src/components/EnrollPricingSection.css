@@ -30,7 +30,7 @@
 .enroll-pricing-note a {
   color: #2563eb;
   margin-left: 6px;
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: 400;
 }
 

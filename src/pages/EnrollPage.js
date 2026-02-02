@@ -5,7 +5,7 @@ import SavingsCalculator from '../components/SavingsCalculator';
 
 const pricingCards = [
   {
-    title: 'Single Course - One time Pay (US Nationals and Military)',
+    title: 'Single Course -\nOne time Pay (US Nationals and Military)',
     description: 'One course, pay only once and get 3 Credits.',
     price: '$250',
     priceSuffix: '/ course',
@@ -20,7 +20,7 @@ const pricingCards = [
     href: '/courses'
   },
   {
-    title: 'Single Course - One time Pay (International Students)',
+    title: 'Single Course -\nOne time Pay (International Students)',
     description: 'One course, pay only once and get 3 Credits.',
     price: '$850',
     priceSuffix: '/ course',
@@ -94,13 +94,19 @@ const EnrollPage = () => {
       <div className="enroll-container">
         <h1>Enroll now</h1>
         <p className="enroll-note">
-          <strong>NOTE :</strong> Education loans or sponsorships can be used to take Open Credits
-          Courses. We provide an official offer letter on request.
+          <span className="enroll-note-line">
+            <strong>
+              NOTE : Education loans or sponsorships can be used to take Open Credits Courses. We
+              provide an official offer letter on request.
+            </strong>
+          </span>
           <br />
-          Send us an Email -
-          <a href={gmailHref} target="_blank" rel="noreferrer">
-            contact@opencredits.org
-          </a>
+          <strong>
+            Send us an Email -
+            <a href={gmailHref} target="_blank" rel="noreferrer">
+              contact@opencredits.org
+            </a>
+          </strong>
         </p>
 
         <div className="enroll-grid">

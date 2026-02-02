@@ -20,8 +20,8 @@
 }
 
 .hero-content h1 {
-  font-size: 46px;
-  line-height: 1.15;
+  font-size: 48px;
+  line-height: 56px;
   margin-bottom: 20px;
   color: #333;
 }
@@ -31,7 +31,7 @@
 }
 
 .hero-content .highlight {
-  color: #FF6633;
+  color: #E85002;
 }
 
 .hero-content p {
@@ -49,19 +49,19 @@
 }
 
 .btn-chat {
-  width: 139px;
-  height: 56px;
-  padding: 0 16px;
+  padding: 16px 32px;
   background: white;
-  color: #FF6633;
-  border: 1px solid #FF6633;
+  color: #E85002;
+  border: 1px solid #E85002;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 
 .btn-chat:hover {

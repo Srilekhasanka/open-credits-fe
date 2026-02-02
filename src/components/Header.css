@@ -41,9 +41,10 @@
 }
 
 .logo-text {
-  color: #E85D02;
+  color: #E85002;
   font-size: 18px;
   font-weight: 800;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .nav {
