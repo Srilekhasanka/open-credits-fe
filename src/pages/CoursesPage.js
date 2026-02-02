@@ -94,6 +94,7 @@ const CoursesPage = () => {
       if (course.subject_area) tags.push(course.subject_area);
     }
 
+    const seats = course.seats || {};
     return {
       id: course.id ?? course.course_id ?? course._id ?? course.slug ?? course.code ?? course.name,
       code: course.code ?? course.course_code ?? '',
@@ -105,7 +106,12 @@ const CoursesPage = () => {
       color: course.color ?? '#ff9800',
       credits: course.credits ?? course.credit_info ?? '',
       subject: course.subject ?? course.subject_area ?? '',
-      auth: course.auth ?? (course.ace_certified ? 'ACE' : course.nccrs_certified ? 'NCCRS' : '')
+      auth: course.auth ?? (course.ace_certified ? 'ACE' : course.nccrs_certified ? 'NCCRS' : ''),
+      seats: {
+        enrolled: seats.enrolled ?? 0,
+        total: seats.total ?? 50,
+        display: seats.display ?? `${seats.enrolled ?? 0}/${seats.total ?? 50}`
+      }
     };
   };
 
@@ -194,21 +200,21 @@ const CoursesPage = () => {
           <div className="filters-left">
             <div className="subject-control">
               <span className="subject-label">Subject</span>
-            <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-              <option value="All">All</option>
-              <option value="Psychology">Psychology</option>
-              <option value="Science">Science</option>
-              <option value="Business">Business</option>
-              <option value="Marketing">Marketing</option>
-              <option value="ComputerScience">ComputerScience</option>
-              <option value="LawAndJustice">LawAndJustice</option>
-              <option value="Health">Health</option>
-              <option value="Finances">Finances</option>
-              <option value="Literature">Literature</option>
-              <option value="General">General</option>
-              <option value="Economics">Economics</option>
-              <option value="Math">Math</option>
-            </select>
+              <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+                <option value="All">All</option>
+                <option value="Psychology">Psychology</option>
+                <option value="Science">Science</option>
+                <option value="Business">Business</option>
+                <option value="Marketing">Marketing</option>
+                <option value="ComputerScience">ComputerScience</option>
+                <option value="LawAndJustice">LawAndJustice</option>
+                <option value="Health">Health</option>
+                <option value="Finances">Finances</option>
+                <option value="Literature">Literature</option>
+                <option value="General">General</option>
+                <option value="Economics">Economics</option>
+                <option value="Math">Math</option>
+              </select>
             </div>
           </div>
           <div className="filters-right">
@@ -289,7 +295,7 @@ const CoursesPage = () => {
                 <div className="course-price-row">
                   <div>
                     <div className="course-price">${course.price}</div>
-                    <div className="course-seats">22/50 seats filled</div>
+                    <div className="course-seats">{course.seats?.display || `${course.seats?.enrolled || 0}/${course.seats?.total || 50}`} seats filled</div>
                   </div>
                   <button className="course-enroll" type="button" onClick={() => handleEnrollClick(course)}>
                     Enroll Now
