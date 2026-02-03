@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import companyLogo from '../assets/company-logo.svg';
-import keyboardArrowRight from '../assets/keyboard_arrow_right.svg';
 import './Header.css';
+
+const companyLogo = '/images/company-logo.svg';
+const keyboardArrowRight = '/images/keyboard_arrow_right.svg';
 
 const Header = () => {
   const navigate = useNavigate();

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import corporateImage from '../assets/corporate_main.svg';
-import dollarIcon from '../assets/dollar.svg';
-import menusIcon from '../assets/menus.svg';
-import partnershipIcon from '../assets/partnership.svg';
-import questionMarkIcon from '../assets/questionmark.png';
-import builtImage from '../assets/built.png';
-import orangeBanner from '../assets/orange.png';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
 import './CorporatePartnershipsPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
+
+const corporateImage = '/images/corporate_main.svg';
+const dollarIcon = '/images/dollar_card.svg';
+const menusIcon = '/images/menus_card.svg';
+const partnershipIcon = '/images/partnership_card.svg';
+const questionMarkIcon = '/images/questionmark.svg';
+const builtImage = '/images/built.svg';
 
 const whyCards = [
   {
@@ -60,23 +60,31 @@ const whyEmployerCards = [
 
 const CorporatePartnershipsPage = () => (
   <section className="corporate-page">
+    <div className="corporate-hero">
+      <img
+        className="corporate-shared-image"
+        src={corporateImage}
+        alt="Corporate partnership meeting"
+      />
+    </div>
     <div className="corporate-container">
-      <div className="corporate-hero">
-        <img src={corporateImage} alt="Corporate partnership meeting" />
+      <div className="corporate-hero__content">
+        <h1>Corporate <span>Partnerships</span></h1>
+        <p className="corporate-hero__lead">
+          <span className="corporate-hero__lead-line">
+            Help employees grow faster without the traditional cost of college. Open Credits is a
+            flexible education benefit that helps teams earn
+          </span>
+          <span className="corporate-hero__lead-center">
+            affordable, transferable college credit and build job ready skills online.
+          </span>
+        </p>
       </div>
-      <h1>
-        Corporate <span>Partnerships</span>
-      </h1>
-      <p>
-        Help employees grow faster without the traditional cost of college. Open Credits is a
-        flexible education benefit that helps teams earn affordable, transferable college credit
-        and build job ready skills online.
-      </p>
       <div className="corporate-actions">
-        <button type="button" className="corporate-button is-outline">
+        <button type="button" className="corporate-button corporate-button--proposal is-outline">
           Get a Partnership Proposal
         </button>
-        <button type="button" className="corporate-button">
+        <button type="button" className="corporate-button corporate-button--talk">
           Talk to us
         </button>
       </div>
@@ -89,9 +97,12 @@ const CorporatePartnershipsPage = () => (
             Why Companies Choose <span>Open Credits?</span>
           </h2>
           <p className="corporate-why-lead">An education benefit employees actually use</p>
-          <p>
-            Open Credits makes it easy for working professionals to build skills, earn college
-            credit, and make progress toward long term goals while staying employed full time.
+          <p className="corporate-why-copy">
+            <span className="corporate-why-copy__line">
+              Open Credits makes it easy for working professionals to build skills, earn college
+              credit, and make progress toward long term goals while
+            </span>
+            <span className="corporate-why-copy__line-end">staying employed full time.</span>
           </p>
         </div>
         <div className="corporate-why-grid">
@@ -135,7 +146,11 @@ const CorporatePartnershipsPage = () => (
           </div>
         </div>
         <div className="corporate-built__image">
-          <img src={builtImage} alt="Working adult learning online" />
+          <img
+            className="corporate-built__media"
+            src={builtImage}
+            alt="Working adult learning online"
+          />
         </div>
       </div>
     </section>
@@ -143,10 +158,20 @@ const CorporatePartnershipsPage = () => (
     <section className="corporate-orange">
       <div className="corporate-container">
         <div className="corporate-orange__card">
+          <div className="corporate-orange__layers" aria-hidden="true">
+            <span className="corporate-orange__layer corporate-orange__layer--1" />
+            <span className="corporate-orange__layer corporate-orange__layer--2" />
+            <span className="corporate-orange__layer corporate-orange__layer--3" />
+            <span className="corporate-orange__layer corporate-orange__layer--4" />
+          </div>
+          <h2 className="corporate-orange__title">
+            Not just a company favorite.
+            <br />
+            Employees love it too.
+          </h2>
           <Link to="/courses" className="corporate-orange__cta" aria-label="View courses">
             View courses
           </Link>
-          <img src={orangeBanner} alt="Employee testimonial banner" />
         </div>
       </div>
     </section>
@@ -158,9 +183,12 @@ const CorporatePartnershipsPage = () => (
             Why Employers Choose <span>Open Credits?</span>
           </h2>
           <p className="corporate-why-lead">An education benefit employees actually use</p>
-          <p>
-            Open Credits makes it easy for working professionals to build skills, earn college
-            credit, and make progress toward long term goals while staying employed full time.
+          <p className="corporate-why-copy">
+            <span className="corporate-why-copy__line">
+              Open Credits makes it easy for working professionals to build skills, earn college
+              credit, and make progress toward long term goals while
+            </span>
+            <span className="corporate-why-copy__line-end">staying employed full time.</span>
           </p>
         </div>
         <div className="corporate-why-grid">

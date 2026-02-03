@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import higherEduImage from '../assets/higheredu_main.png';
-import dollarIcon from '../assets/dollar.svg';
-import menusIcon from '../assets/menus.svg';
-import partnershipIcon from '../assets/partnership.svg';
-import questionMarkIcon from '../assets/questionmark.png';
-import builtHigherImage from '../assets/built_higher.png';
-import orangeHigherImage from '../assets/orange_higher.png';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
 import './HigherEducationPartnershipsPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
+
+const higherEduImage = '/images/higheredu_main.svg';
+const dollarIcon = '/images/dollar_card.svg';
+const menusIcon = '/images/menus_card.svg';
+const partnershipIcon = '/images/partnership_card.svg';
+const questionMarkIcon = '/images/questionmark.svg';
+const builtHigherImage = '/images/built_higher.svg';
+const orangeHigherImage = '/images/orange_higher.png';
 
 const higherEduCards = [
   {
@@ -37,23 +38,25 @@ const higherEduCards = [
 
 const HigherEducationPartnershipsPage = () => (
   <section className="higheredu-page">
+    <div className="higheredu-hero">
+      <img className="higheredu-shared-image" src={higherEduImage} alt="Higher education classroom" />
+    </div>
     <div className="higheredu-container">
-      <div className="higheredu-hero">
-        <img src={higherEduImage} alt="Higher education classroom" />
+      <div className="higheredu-hero__content">
+        <h1>
+          Higher Education <span>Partnerships</span>
+        </h1>
+        <p className="higheredu-hero__lead">
+          Open Credits partners with colleges and universities to help students stay on track, fill
+          credit gaps, and complete general education requirements through affordable, self-paced
+          online courses designed to transfer for credit.
+        </p>
       </div>
-      <h1>
-        Higher Education <span>Partnerships</span>
-      </h1>
-      <p>
-        Open Credits partners with colleges and universities to help students stay on track, fill
-        credit gaps, and complete general education requirements through affordable, self-paced
-        online courses designed to transfer for credit.
-      </p>
       <div className="higheredu-actions">
-        <button type="button" className="higheredu-button is-outline">
+        <button type="button" className="higheredu-button higheredu-button--proposal is-outline">
           Get a Partnership Proposal
         </button>
-        <button type="button" className="higheredu-button">
+        <button type="button" className="higheredu-button higheredu-button--talk">
           Talk to us
         </button>
       </div>
@@ -66,7 +69,7 @@ const HigherEducationPartnershipsPage = () => (
             Why Companies Choose <span>Open Credits?</span>
           </h2>
           <p className="higheredu-why-lead">Before making a commitment</p>
-          <p>
+          <p className="higheredu-why-copy">
             Regionally accredited colleges and universities may connect with our partnerships team
             to review articulation options, transfer workflows, and student success goals.
           </p>
@@ -119,7 +122,11 @@ const HigherEducationPartnershipsPage = () => (
           </div>
         </div>
         <div className="higheredu-built__image">
-          <img src={builtHigherImage} alt="Students in higher education classroom" />
+          <img
+            className="higheredu-built__media"
+            src={builtHigherImage}
+            alt="Students in higher education classroom"
+          />
         </div>
       </div>
     </section>

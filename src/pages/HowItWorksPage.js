@@ -1,13 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
-import corporateImage from '../assets/corporate.svg';
-import k12Image from '../assets/K-12.svg';
-import higherEdImage from '../assets/higher.svg';
-import communityImage from '../assets/community.svg';
 import '../App.css';
 import './HowItWorksPage.css';
 import { universities as universityData } from '../data/universities';
+
+const corporateImage = '/images/corporate.svg';
+const k12Image = '/images/K-12.svg';
+const higherEdImage = '/images/higher.svg';
+const communityImage = '/images/community.svg';
 
 const partnershipFeatureCards = [
   {

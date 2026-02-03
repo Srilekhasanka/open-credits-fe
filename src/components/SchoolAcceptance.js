@@ -1,6 +1,7 @@
 import React from 'react';
 import './SchoolAcceptance.css';
-import graduatedImage from '../assets/graduated.svg';
+
+const graduatedImage = '/images/graduated.svg';
 
 const SchoolAcceptance = () => {
   return (

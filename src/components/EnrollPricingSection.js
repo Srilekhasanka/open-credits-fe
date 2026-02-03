@@ -1,9 +1,9 @@
 import React from 'react';
 import './EnrollPricingSection.css';
-import peopleBox from '../assets/peoplebox.svg';
-import globeBox from '../assets/globebox.svg';
-import buildingBox from '../assets/buildingbox.svg';
 
+const peopleBox = '/images/peoplebox.svg';
+const globeBox = '/images/globebox.svg';
+const buildingBox = '/images/buildingbox.svg';
 
 const pricingCards = [
   {

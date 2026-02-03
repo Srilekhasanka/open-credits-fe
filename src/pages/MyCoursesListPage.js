@@ -5,8 +5,9 @@ import { useAuth } from '../context/AuthContext';
 import enrollmentService from '../services/enrollmentService';
 import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/constants';
-import bookmarkAddIcon from '../assets/bookmark_add.svg';
 import '../components/DashboardLayout.css';
+
+const bookmarkAddIcon = '/images/bookmark_add.svg';
 
 const MyCoursesListPage = () => {
   const { isAuthenticated, user, enrolledCourses, cartItems, setEnrolledCoursesData } = useAuth();

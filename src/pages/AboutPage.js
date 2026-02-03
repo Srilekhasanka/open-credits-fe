@@ -1,9 +1,10 @@
 import React from 'react';
-import aboutUsImage from '../assets/aboutus.png';
 import Stats from '../components/Stats';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import './AboutPage.css';
+
+const aboutUsImage = '/images/aboutus.png';
 
 const AboutPage = () => {
   return (

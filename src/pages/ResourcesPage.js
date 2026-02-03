@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import resourcesHeroImage from '../assets/resourcescenter.png';
-import resourcesCardImage from '../assets/resourcecenters.svg';
 import '../App.css';
 import './ResourcesPage.css';
+
+const resourcesHeroImage = '/images/resourcescenter.png';
+const resourcesCardImage = '/images/resourcecenters.svg';
 
 const ResourcesPage = () => {
   const tabs = ['Seminars', 'Blog', 'Case Studies', 'Events', 'Free Resources'];

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import doYouHaveQuestions from '../assets/doyouhavequestions.svg';
-import whatsappIcon from '../assets/whatsapp.png';
 import './FAQ.css';
+
+const doYouHaveQuestions = '/images/doyouhavequestions.svg';
+const whatsappIcon = '/images/whatsapp.png';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);

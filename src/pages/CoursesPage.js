@@ -4,18 +4,19 @@ import { useAuth } from '../context/AuthContext';
 import courseService from '../services/courseService';
 import '../App.css';
 import './CoursesPage.css';
-import businessIcon from '../assets/Business.svg';
-import computerIcon from '../assets/Computer.svg';
-import healthIcon from '../assets/Health.svg';
-import lawIcon from '../assets/Law.svg';
-import psychologyIcon from '../assets/Psychology.svg';
-import scienceIcon from '../assets/Science.svg';
-import literatureIcon from '../assets/Literature.svg';
-import financeIcon from '../assets/Finance.svg';
-import generalIcon from '../assets/General.svg';
-import economyIcon from '../assets/Economy.svg';
-import mathIcon from '../assets/Math.svg';
-import bookmarkAddIcon from '../assets/bookmark_add.svg';
+
+const businessIcon = '/images/Business.svg';
+const computerIcon = '/images/Computer.svg';
+const healthIcon = '/images/Health.svg';
+const lawIcon = '/images/Law.svg';
+const psychologyIcon = '/images/Psychology.svg';
+const scienceIcon = '/images/Science.svg';
+const literatureIcon = '/images/Literature.svg';
+const financeIcon = '/images/Finance.svg';
+const generalIcon = '/images/General.svg';
+const economyIcon = '/images/Economy.svg';
+const mathIcon = '/images/Math.svg';
+const bookmarkAddIcon = '/images/bookmark_add.svg';
 
 const CoursesPage = () => {
   const navigate = useNavigate();

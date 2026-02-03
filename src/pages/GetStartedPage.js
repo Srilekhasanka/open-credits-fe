@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
 import '../App.css';
-import successTick from '../assets/success-tick.gif';
+
+const successTick = '/images/success-tick.gif';
 
 const GetStartedPage = () => {
   const navigate = useNavigate();

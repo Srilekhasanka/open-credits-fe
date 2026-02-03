@@ -1,8 +1,9 @@
 import React from 'react';
 import './WhoCanUseOpenCredits.css';
-import highschoolGirl from '../assets/Highschoolgirl.svg';
-import universityBoy from '../assets/Universityboy.svg';
-import adultUncle from '../assets/Adultuncle.svg';
+
+const highschoolGirl = '/images/Highschoolgirl.svg';
+const universityBoy = '/images/Universityboy.svg';
+const adultUncle = '/images/Adultuncle.svg';
 
 const cards = [
   { img: highschoolGirl, title: 'High School', subtitle: 'Students', href: '/get-started' },
