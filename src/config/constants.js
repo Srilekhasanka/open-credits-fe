@@ -60,6 +60,13 @@ export const API_ENDPOINTS = {
     BY_LESSON: (lessonId) => `${API_BASE_URL}/notes/lesson/${lessonId}`,
     UPDATE: (noteId) => `${API_BASE_URL}/notes/${noteId}`,
   },
+  UNIVERSITIES: {
+    LIST: `${API_BASE_URL}/universities`,
+    SEARCH: (query) => `${API_BASE_URL}/universities?search=${encodeURIComponent(query)}`,
+  },
+  CALCULATOR: {
+    COURSE: `${API_BASE_URL}/course-calculator`,
+  },
 };
 
 // HTTP Methods

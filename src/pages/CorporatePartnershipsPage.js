@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import corporateImage from '../assets/corporate_main.png';
+import corporateImage from '../assets/corporate_main.svg';
 import dollarIcon from '../assets/dollar.svg';
 import menusIcon from '../assets/menus.svg';
 import partnershipIcon from '../assets/partnership.svg';

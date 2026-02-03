@@ -10,7 +10,6 @@ import SchoolAcceptance from '../components/SchoolAcceptance';
 import PopularCourses from '../components/PopularCourses';
 import PartnerUniversities from '../components/PartnerUniversities';
 import EnrollPricingSection from '../components/EnrollPricingSection';
-import MarketingVideo from '../components/MarketingVideo';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 
@@ -28,7 +27,6 @@ const HomePage = () => {
       <PopularCourses />
       <PartnerUniversities />
       <EnrollPricingSection />
-      <MarketingVideo />
       <Testimonials />
       <FAQ />
     </>

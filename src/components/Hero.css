@@ -15,7 +15,7 @@
 
 .hero-content {
   width: 650px;
-  min-height: 350px;
+  height: 350px;
   max-width: 100%;
 }
 
@@ -81,13 +81,13 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
-  padding-right: 137.08px;
+  padding-right: 0;
   box-sizing: border-box;
 }
 
 .image-frame {
-  width: 523px;
-  height: 412px;
+  width: 480px;
+  height: 378px;
   max-width: 100%;
   background: transparent;
   border-radius: 0;
@@ -95,7 +95,7 @@
   overflow: visible;
   box-shadow: none;
   z-index: 1;
-  transform: translateX(10px);
+  transform: translateX(-10px);
 }
 
 .image-frame img {

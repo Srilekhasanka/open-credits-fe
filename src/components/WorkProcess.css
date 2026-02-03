@@ -70,7 +70,8 @@
 }
 
 .process-visual {
-  width: 1222px;
+  width: 100%;
+  max-width: 1222px;
   position: relative;
   min-height: 532px;
   margin: 0 auto;
@@ -179,16 +180,20 @@
 }
 
 .step-3 {
-  left: 976px;
-  top: 90px;
-  max-width: 310px;
+  left: auto;
+  right: 50px;
+  top: 140px;
+  max-width: 300px;
+}
+
+.step-3 h3 {
+  white-space: nowrap;
+  margin-top: 0;
 }
 
 .step-3 .process-step-number {
-  right: -20px;
-  top: -40px;
-  font-size: 122px;
-  color: rgba(17, 24, 39, 0.06);
+  right: 0;
+  top: -110px;
 }
 
 .overlay-courses {

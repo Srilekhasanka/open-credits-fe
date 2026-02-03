@@ -89,6 +89,11 @@
 
 .savings-section.savings-calculator .savings-select-button {
   cursor: pointer;
+  color: #d1d5db;
+}
+
+.savings-section.savings-calculator .savings-select-button.has-value {
+  color: #111827;
 }
 
 .savings-section.savings-calculator .savings-select-menu {
@@ -154,6 +159,84 @@
   stroke-width: 2;
   fill: none;
   stroke-linecap: round;
+}
+
+.savings-section.savings-calculator .savings-icon svg.spinner {
+  animation: spin 1s linear infinite;
+  stroke: #9ca3af;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 20;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.savings-section.savings-calculator .savings-input--autocomplete {
+  position: relative;
+}
+
+.savings-section.savings-calculator .savings-autocomplete-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+  z-index: 20;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.savings-section.savings-calculator .savings-autocomplete-option {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.savings-section.savings-calculator .savings-autocomplete-option:hover {
+  background: #f3f4f6;
+}
+
+.savings-section.savings-calculator .savings-autocomplete-option .uni-name {
+  font-size: 16px;
+  line-height: 24px;
+  color: #111827;
+  font-weight: 500;
+}
+
+.savings-section.savings-calculator .savings-autocomplete-option .uni-location {
+  font-size: 13px;
+  line-height: 18px;
+  color: #6b7280;
+}
+
+.savings-section.savings-calculator .savings-autocomplete-empty {
+  padding: 16px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 20;
 }
 
 .savings-section.savings-calculator .savings-toggle {
