@@ -2,10 +2,10 @@
 import { useNavigate } from 'react-router-dom';
 import './PopularCourses.css';
 import { FaClock, FaBook } from 'react-icons/fa';
-import computerIcon from '../assets/Computer.svg';
-import businessIcon from '../assets/Business.svg';
-import literatureIcon from '../assets/Literature.svg';
-import bookmarkAddIcon from '../assets/bookmark_add.svg';
+const computerIcon = '/images/Computer.svg';
+const businessIcon = '/images/Business.svg';
+const literatureIcon = '/images/Literature.svg';
+const bookmarkAddIcon = '/images/bookmark_add.svg';
 
 const PopularCourses = () => {
   const navigate = useNavigate();

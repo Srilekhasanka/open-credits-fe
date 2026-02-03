@@ -2,8 +2,9 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiGrid, FiBookOpen, FiUsers, FiBarChart2, FiShoppingCart, FiLogOut, FiChevronRight } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
-import companyLogo from '../assets/company-logo.svg';
 import './DashboardLayout.css';
+
+const companyLogo = '/images/company-logo.svg';
 
 const DashboardLayout = ({ children }) => {
   const { logout } = useAuth();

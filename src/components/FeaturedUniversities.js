@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ubLogo from '../assets/ub.svg';
-import stonyLogo from '../assets/stony.svg';
-import sdsuLogo from '../assets/sdsu.svg';
-import paceLogo from '../assets/pace.svg';
 import './FeaturedUniversities.css';
+
+const ubLogo = '/images/ub.svg';
+const stonyLogo = '/images/stony.svg';
+const sdsuLogo = '/images/sdsu.svg';
+const paceLogo = '/images/pace.svg';
 
 const FeaturedUniversities = () => {
   const universities = [

@@ -12,6 +12,7 @@
   align-items: center;
   column-gap: 291px;
   row-gap: 16px;
+  min-height: 146px;
 }
 
 .stats-title {
@@ -28,9 +29,10 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 117px);
-  gap: 112px;
-  justify-content: space-between;
-  width: 100%;
+  gap: 75px;
+  justify-content: start;
+  width: auto;
+  margin-left: 100px;
 }
 
 .stats-item {
@@ -39,7 +41,7 @@
   text-align: center;
   gap: 8px;
   width: 117px;
-  height: 66px;
+  height: 146px;
 }
 
 .stats-icon {

@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import dollarIcon from '../assets/dollar.svg';
-import menusIcon from '../assets/menus.svg';
-import partnershipIcon from '../assets/partnership.svg';
-import questionMarkIcon from '../assets/questionmark.png';
-import forStudentImage from '../assets/forstudent.png';
-import forTeachersImage from '../assets/forteachers.png';
-import orangeStudentImage from '../assets/orangestudent.png';
-import k12Image from '../assets/K-12_main.png';
 import WorkProcess from '../components/WorkProcess';
 import './K12PartnershipsPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
+
+const dollarIcon = '/images/dollar_card.svg';
+const menusIcon = '/images/menus_card.svg';
+const partnershipIcon = '/images/partnership_card.svg';
+const questionMarkIcon = '/images/questionmark.svg';
+const forStudentImage = '/images/forstudent.svg';
+const forTeachersImage = '/images/forteachers.svg';
+const orangeStudentImage = '/images/orangestudent.png';
+const k12Image = '/images/K-12_main.svg';
 
 const learnerCards = [
   {
@@ -37,23 +38,25 @@ const learnerCards = [
 
 const K12PartnershipsPage = () => (
   <section className="k12-page">
+    <div className="k12-hero">
+      <img className="k12-shared-image" src={k12Image} alt="K-12 classroom learning" />
+    </div>
     <div className="k12-container">
-      <div className="k12-hero">
-        <img src={k12Image} alt="K-12 classroom learning" />
+      <div className="k12-hero__content">
+        <h1>
+          K-12 <span>Partnerships</span>
+        </h1>
+        <p className="k12-hero__lead">
+          Open Credits helps schools and districts expand access to affordable, college-level
+          general education courses. Students can earn transferable credit while still in high
+          school and build momentum toward graduation.
+        </p>
       </div>
-      <h1>
-        K-12 <span>Partnerships</span>
-      </h1>
-      <p>
-        Open Credits helps schools and districts expand access to affordable, college-level general
-        education courses. Students can earn transferable credit while still in high school and
-        build momentum toward graduation.
-      </p>
       <div className="k12-actions">
-        <button type="button" className="k12-button is-outline">
+        <button type="button" className="k12-button k12-button--proposal is-outline">
           Get a Partnership Proposal
         </button>
-        <button type="button" className="k12-button">
+        <button type="button" className="k12-button k12-button--talk">
           Talk to us
         </button>
       </div>
@@ -66,7 +69,7 @@ const K12PartnershipsPage = () => (
             Why Learners Love <span>Open Credits?</span>
           </h2>
           <p className="k12-why-lead">An education benefit that benefits everyone</p>
-          <p>
+          <p className="k12-why-copy">
             Open Credits makes it easy for students and teachers to build skills, earn college
             credit, and make progress toward long term goals.
           </p>

@@ -1,9 +1,10 @@
 import React from 'react';
 import './WhyOpenCredits.css';
-import partnershipIcon from '../assets/partnership.svg';
-import dollarIcon from '../assets/dollar.svg';
-import menusIcon from '../assets/menus.svg';
-import fasterIcon from '../assets/faster.svg';
+
+const partnershipIcon = '/images/partnership.svg';
+const dollarIcon = '/images/dollar.svg';
+const menusIcon = '/images/menus.svg';
+const fasterIcon = '/images/faster.svg';
 
 const WhyOpenCredits = () => {
   const features = [

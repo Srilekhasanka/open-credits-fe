@@ -45,18 +45,17 @@
   border: 1px solid #f1f1f1;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-  width: 386.46px;
-  height: 548px;
   display: flex;
   flex-direction: column;
   background-repeat: no-repeat;
-  background-position: center 32px;
-  background-size: 300.05px 388.37px;
-  padding-top: 420px;
+  background-position: center 20px;
+  background-size: 240px auto;
+  padding-top: 320px;
+  min-height: 460px;
 }
 
 .who-card__footer {
-  padding: 12px 20px 0;
+  padding: 20px 24px 30px;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: start;

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import communityImage from '../assets/community_image.png';
-import dollarIcon from '../assets/dollar.svg';
-import menusIcon from '../assets/menus.svg';
-import partnershipIcon from '../assets/partnership.svg';
-import questionMarkIcon from '../assets/questionmark.png';
-import orangeCommunityImage from '../assets/orange_community.png';
 import WorkProcess from '../components/WorkProcess';
 import './CommunityPartnershipsPage.css';
 import SavingsCalculator from '../components/SavingsCalculator';
+
+const communityImage = '/images/community_image.svg';
+const dollarIcon = '/images/dollar_card.svg';
+const menusIcon = '/images/menus_card.svg';
+const partnershipIcon = '/images/partnership_card.svg';
+const questionMarkIcon = '/images/questionmark.svg';
+const orangeCommunityImage = '/images/orange_community.png';
 
 const communityCards = [
   {
@@ -35,23 +36,25 @@ const communityCards = [
 
 const CommunityPartnershipsPage = () => (
   <section className="community-page">
+    <div className="community-hero">
+      <img className="community-shared-image" src={communityImage} alt="Community partnership" />
+    </div>
     <div className="community-container">
-      <div className="community-hero">
-        <img src={communityImage} alt="Community partnership" />
+      <div className="community-hero__content">
+        <h1>
+          Community <span>Partnerships</span>
+        </h1>
+        <p className="community-hero__lead">
+          Education should not be limited by cost, background, or timing. Open Credits helps
+          learners move forward with affordable, flexible, online courses designed to support
+          college progress and career mobility.
+        </p>
       </div>
-      <h1>
-        Community <span>Partnerships</span>
-      </h1>
-      <p>
-        Education should not be limited by cost, background, or timing. Open Credits helps learners
-        move forward with affordable, flexible, online courses designed to support college progress
-        and career mobility.
-      </p>
       <div className="community-actions">
-        <button type="button" className="community-button is-outline">
+        <button type="button" className="community-button community-button--proposal is-outline">
           Get a Partnership Proposal
         </button>
-        <button type="button" className="community-button">
+        <button type="button" className="community-button community-button--talk">
           Talk to us
         </button>
       </div>
@@ -64,7 +67,7 @@ const CommunityPartnershipsPage = () => (
             Why Companies Choose <span>Open Credits?</span>
           </h2>
           <p className="community-why-lead">Open doors through flexible education pathways</p>
-          <p>
+          <p className="community-why-copy">
             When you partner with Open Credits, you support progress toward life changing goals.
             Our partnerships help organizations and institutions expand access to learning, improve
             outcomes, and create meaningful impact.
