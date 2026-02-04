@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap');
+
 .community-page {
   background: #fff;
   min-height: 100vh;
@@ -52,13 +54,19 @@
 }
 
 .community-hero__content h1 {
-  font-size: 58px;
+  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: 58.09px;
   margin: 0 auto 12px;
-  max-width: 651px;
+  max-width: 689px;
   font-weight: 700;
   line-height: 71px;
   letter-spacing: 0;
+  color: #000000;
   text-transform: none;
+}
+
+.community-hero__content h1 span {
+  color: #E85002;
 }
 
 @media (max-width: 1200px) {
@@ -68,13 +76,13 @@
   }
 }
 
-.community-container h1 {
+.community-container > h1 {
   font-size: 26px;
   margin: 0 0 16px;
 }
 
-.community-container h1 span {
-  color: #ED6C2C;
+.community-container > h1 span {
+  color: #E85002;
 }
 
 .community-container p {
@@ -91,9 +99,18 @@
   min-height: 56px;
   margin: 0 auto;
   text-align: center;
-  font-size: clamp(14px, 1.1vw, 18px);
+  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 28px;
+  letter-spacing: 0;
   color: #000000;
+}
+
+.community-hero__lead-line1 {
+  display: inline-block;
+  white-space: nowrap;
+  transform: translateX(-70px);
 }
 
 .community-actions {
@@ -260,7 +277,7 @@
 }
 
 .community-orange {
-  padding: 24px 0 50px;
+  padding: 100px 0 50px;
 }
 
 .community-orange .community-container {
@@ -270,16 +287,63 @@
 .community-orange__card {
   width: 100%;
   max-width: 1512px;
+  height: 352px;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ff9c4b 0%, #ff7d26 52%, #e85002 100%);
   overflow: hidden;
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
   position: relative;
 }
 
-.community-orange__card img {
-  width: 100%;
-  display: block;
+.community-orange__steps {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.community-orange__step {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -2px;
+  border-radius: 14px 14px 0 0;
+}
+
+.community-orange__step--1 {
+  width: 92%;
+  height: 168px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.community-orange__step--2 {
+  width: 76%;
+  height: 122px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.community-orange__step--3 {
+  width: 60%;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.community-orange__title {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  width: min(744px, calc(100% - 48px));
+  margin: 0;
+  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: 55.22px;
+  font-weight: 700;
+  line-height: 75px;
+  letter-spacing: 0;
+  color: #ffffff;
+  text-align: center;
+  z-index: 2;
 }
 
 .community-orange__cta {
@@ -304,6 +368,7 @@
   justify-content: center;
   text-decoration: none;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
+  z-index: 3;
 }
 
 .community-orange__cta:hover {
@@ -327,7 +392,12 @@
 }
 
 @media (max-width: 720px) {
-  .community-container h1 {
+  .community-hero__content h1 {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .community-container > h1 {
     font-size: 22px;
   }
 
@@ -357,6 +427,12 @@
     line-height: 1.6;
   }
 
+  .community-hero__lead-line1 {
+    display: inline;
+    white-space: normal;
+    transform: none;
+  }
+
   .community-hero {
     border-radius: 14px;
   }
@@ -378,7 +454,32 @@
     min-height: 0;
   }
 
+  .community-orange__card {
+    height: 260px;
+    min-height: 260px;
+  }
+
+  .community-orange__step--1 {
+    height: 124px;
+  }
+
+  .community-orange__step--2 {
+    height: 92px;
+  }
+
+  .community-orange__step--3 {
+    height: 58px;
+  }
+
+  .community-orange__title {
+    top: 42%;
+    font-size: 32px;
+    line-height: 42px;
+    width: calc(100% - 28px);
+  }
+
   .community-orange__cta {
+    top: 80%;
     height: 48px;
     padding: 12px 20px;
     min-width: 140px;

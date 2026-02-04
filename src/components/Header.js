@@ -1,49 +1,110 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import courseService from '../services/courseService';
 import './Header.css';
 
 const companyLogo = '/images/company-logo.svg';
 const keyboardArrowRight = '/images/keyboard_arrow_right.svg';
+
+const buildCourseDropdownData = (payload) => {
+  const rawCategories = Array.isArray(payload)
+    ? payload
+    : payload?.categories || payload?.items || payload?.data || [];
+
+  const normalized = rawCategories
+    .map((category) => {
+      const name = String(
+        category?.category ||
+        category?.name ||
+        category?.category_name ||
+        category?.title ||
+        category?.subject_area ||
+        ''
+      ).trim();
+
+      if (!name) {
+        return null;
+      }
+
+      const courses = Array.isArray(category?.courses) ? category.courses : [];
+      const preview = courses
+        .slice(0, 10)
+        .map((course, index) => {
+          const courseName = String(
+            course?.name ||
+            course?.title ||
+            course?.course_name ||
+            ''
+          ).trim();
+
+          if (!courseName) return null;
+
+          return {
+            id: String(course?.id || course?.course_id || `${name}-${index}`),
+            name: courseName,
+          };
+        })
+        .filter(Boolean);
+
+      return { name, preview };
+    })
+    .filter(Boolean);
+
+  const categories = normalized.map((item) => item.name);
+  const previews = normalized.reduce((acc, item) => {
+    acc[item.name] = item.preview;
+    return acc;
+  }, {});
+
+  return { categories, previews };
+};
 
 const Header = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCoursesDropdown, setShowCoursesDropdown] = useState(false);
-  const [activeCourseCategory, setActiveCourseCategory] = useState('Psychology');
-
-  const courseCategories = [
-    'Maths',
-    'Science',
-    'Computer Science',
-    'Business',
-    'Finance',
-    'Economics',
-    'Psychology',
-    'Health',
-    'Literature',
-    'Free/Life Skill'
-  ];
-
-  const coursePreviews = {
-    Psychology: [
-      'PSY 111: Research Methods in Psychology',
-      'PSY 112: Psychology of Diversity',
-      'PSY 120: Educational Psychology',
-      'PSY 180: Abnormal Psychology',
-      'PSY 300: Psychology of Personality',
-      'PSY 310: Advanced Social Psychology',
-      'Bachelors in Healthcare management & Psychology',
-      'PSY 110: Introduction to Psychology',
-      'Philosophy 200: Principles of Philosophy'
-    ]
-  };
+  const [isLoadingCourseCategories, setIsLoadingCourseCategories] = useState(false);
+  const [activeCourseCategory, setActiveCourseCategory] = useState('');
+  const [courseCategories, setCourseCategories] = useState([]);
+  const [coursePreviews, setCoursePreviews] = useState({});
 
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
     navigate('/');
+  };
+
+  const handleCoursesDropdownToggle = async () => {
+    const isOpening = !showCoursesDropdown;
+    setShowCoursesDropdown(isOpening);
+
+    if (!isOpening) {
+      return;
+    }
+
+    setIsLoadingCourseCategories(true);
+    try {
+      const payload = await courseService.getCourseCategories({
+        is_active: true,
+        include_courses: true,
+        limit_per_category: 10,
+      });
+
+      const { categories, previews } = buildCourseDropdownData(payload);
+      if (categories.length > 0) {
+        setCourseCategories(categories);
+        setCoursePreviews(previews);
+        setActiveCourseCategory((previous) => (
+          categories.includes(previous) ? previous : categories[0]
+        ));
+      }
+    } catch (error) {
+      console.error('Failed to fetch header course categories:', error);
+    } finally {
+      setIsLoadingCourseCategories(false);
+    }
   };
 
   return (
@@ -59,7 +120,7 @@ const Header = () => {
             <button
               className="nav-button"
               type="button"
-              onClick={() => setShowCoursesDropdown((prev) => !prev)}
+              onClick={handleCoursesDropdownToggle}
               aria-haspopup="true"
               aria-expanded={showCoursesDropdown}
             >
@@ -80,6 +141,9 @@ const Header = () => {
                 <div className="courses-dropdown" role="menu">
                   <div className="courses-dropdown-grid">
                     <div className="courses-dropdown-left">
+                      {isLoadingCourseCategories && courseCategories.length === 0 && (
+                        <div className="courses-category-loading">Loading categories...</div>
+                      )}
                       {courseCategories.map((category) => (
                         <button
                           key={category}
@@ -99,24 +163,45 @@ const Header = () => {
                     </div>
                     <div className="courses-dropdown-right">
                       <div className="courses-dropdown-header">
-                        <h4>{activeCourseCategory}</h4>
+                        <h4>{activeCourseCategory || 'Courses'}</h4>
                         <button
                           className="courses-explore"
                           type="button"
                           onClick={() => {
                             setShowCoursesDropdown(false);
-                            navigate('/courses');
+                            const params = new URLSearchParams();
+                            if (activeCourseCategory) {
+                              params.set('subject', activeCourseCategory);
+                            }
+                            navigate(`/courses${params.toString() ? `?${params.toString()}` : ''}`);
                           }}
                         >
                           Explore All
                         </button>
                       </div>
                       <ul className="courses-preview-list">
-                        {(coursePreviews[activeCourseCategory] || []).map((item) => (
-                          <li key={item}>{item}</li>
+                        {isLoadingCourseCategories && <li>Loading courses...</li>}
+                        {!isLoadingCourseCategories && (coursePreviews[activeCourseCategory] || []).map((course) => (
+                          <li key={course.id}>
+                            <button
+                              type="button"
+                              className="courses-preview-link"
+                              onClick={() => {
+                                const params = new URLSearchParams();
+                                params.set('search', course.name);
+                                setShowCoursesDropdown(false);
+                                navigate(`/courses?${params.toString()}`);
+                              }}
+                            >
+                              {course.name}
+                            </button>
+                          </li>
                         ))}
-                        {!coursePreviews[activeCourseCategory] && (
-                          <li>Explore all courses in this subject.</li>
+                        {!isLoadingCourseCategories && !!activeCourseCategory && (coursePreviews[activeCourseCategory] || []).length === 0 && (
+                          <li>No courses found in this category.</li>
+                        )}
+                        {!isLoadingCourseCategories && !activeCourseCategory && (
+                          <li>Select a category to view courses.</li>
                         )}
                       </ul>
                     </div>

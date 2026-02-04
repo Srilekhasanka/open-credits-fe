@@ -9,7 +9,7 @@ const dollarIcon = '/images/dollar_card.svg';
 const menusIcon = '/images/menus_card.svg';
 const partnershipIcon = '/images/partnership_card.svg';
 const questionMarkIcon = '/images/questionmark.svg';
-const orangeCommunityImage = '/images/orange_community.png';
+
 
 const communityCards = [
   {
@@ -45,9 +45,12 @@ const CommunityPartnershipsPage = () => (
           Community <span>Partnerships</span>
         </h1>
         <p className="community-hero__lead">
-          Education should not be limited by cost, background, or timing. Open Credits helps
-          learners move forward with affordable, flexible, online courses designed to support
-          college progress and career mobility.
+          <span className="community-hero__lead-line1">
+            Education should not be limited by cost, background, or timing. Open Credits helps
+            learners move forward with affordable, flexible, online
+          </span>
+          <br />
+          courses designed to support college progress and career mobility.
         </p>
       </div>
       <div className="community-actions">
@@ -90,10 +93,19 @@ const CommunityPartnershipsPage = () => (
     <section className="community-orange">
       <div className="community-container">
         <div className="community-orange__card">
+          <div className="community-orange__steps" aria-hidden="true">
+            <span className="community-orange__step community-orange__step--1" />
+            <span className="community-orange__step community-orange__step--2" />
+            <span className="community-orange__step community-orange__step--3" />
+          </div>
+          <h3 className="community-orange__title">
+            Not just a company favorite.
+            <br />
+            Employees love it too.
+          </h3>
           <Link to="/courses" className="community-orange__cta" aria-label="View courses">
             View courses
           </Link>
-          <img src={orangeCommunityImage} alt="Employees love Open Credits" />
         </div>
       </div>
     </section>

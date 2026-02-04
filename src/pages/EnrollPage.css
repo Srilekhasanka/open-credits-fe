@@ -1,6 +1,6 @@
 .enroll-page {
   background: #fff;
-  padding: 70px 0 90px;
+  padding: 0 0 90px;
 }
 
 .enroll-container {
@@ -219,7 +219,7 @@
 
 .enroll-cta--accent {
   border: none;
-  background: #ff6633;
+  background: #ED6C2C;
   color: #fff;
 }
 

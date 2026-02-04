@@ -20,7 +20,7 @@ const Hero = () => {
           <h1>
             <span className="hero-no-break">Earn Affordable,</span><br />
             <span className="highlight">Transferable College</span><br />
-            Credits - 100% Online
+            <span className="highlight">Credits</span> - 100% Online
           </h1>
           <p>
             Flexible, accredited online courses designed to{' '}

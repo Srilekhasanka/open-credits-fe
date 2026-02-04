@@ -33,11 +33,13 @@
 
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 288px);
   gap: 18px;
+  justify-content: flex-start;
 }
 
 .featured-card {
+  width: 288px;
   border: 1px solid #efefef;
   border-radius: 14px;
   padding: 18px 16px 45px;
@@ -53,22 +55,25 @@
 
 .featured-logo {
   width: 100%;
+  height: 200px;
   min-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  overflow: hidden;
+  flex: 0 0 200px;
+  overflow: visible;
   border-radius: 15px;
   background: #fff;
 }
 
 .featured-logo img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
-  border-radius: 15px;
+  border-radius: 0;
 }
 
 .featured-button {
@@ -76,9 +81,9 @@
   height: 56px;
   padding: 16px 32px;
   border-radius: 6px;
-  border: 1px solid #E85D02;
+  border: 1px solid #ED6C2C;
   background: #fff;
-  color: #E85D02;
+  color: #ED6C2C;
   font-size: 16px;
   line-height: 24px;
   font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
@@ -88,10 +93,13 @@
   margin-top: auto;
   cursor: pointer;
   transition: all 0.3s;
+  text-decoration: none;
 }
 
-.featured-button:hover {
+.featured-button:hover,
+.featured-button:focus {
   background: #fff5f0;
+  text-decoration: none;
 }
 
 @media (max-width: 640px) {
