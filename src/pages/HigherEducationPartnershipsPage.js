@@ -11,7 +11,6 @@ const menusIcon = '/images/menus_card.svg';
 const partnershipIcon = '/images/partnership_card.svg';
 const questionMarkIcon = '/images/questionmark.svg';
 const builtHigherImage = '/images/built_higher.svg';
-const orangeHigherImage = '/images/orange_higher.png';
 
 const higherEduCards = [
   {
@@ -47,9 +46,15 @@ const HigherEducationPartnershipsPage = () => (
           Higher Education <span>Partnerships</span>
         </h1>
         <p className="higheredu-hero__lead">
-          Open Credits partners with colleges and universities to help students stay on track, fill
-          credit gaps, and complete general education requirements through affordable, self-paced
-          online courses designed to transfer for credit.
+          <span className="higheredu-hero__lead-line1">
+            Open Credits partners with colleges and universities to help students stay on track,
+            fill credit gaps, and complete general education
+          </span>
+          <br />
+          <span className="higheredu-hero__lead-line2">
+            requirements through affordable, self-paced online courses designed to transfer for
+            credit.
+          </span>
         </p>
       </div>
       <div className="higheredu-actions">
@@ -134,10 +139,18 @@ const HigherEducationPartnershipsPage = () => (
     <section className="higheredu-orange">
       <div className="higheredu-container">
         <div className="higheredu-orange__card">
+          <div className="higheredu-orange__steps" aria-hidden="true">
+            <span className="higheredu-orange__step higheredu-orange__step--1" />
+            <span className="higheredu-orange__step higheredu-orange__step--2" />
+            <span className="higheredu-orange__step higheredu-orange__step--3" />
+          </div>
+          <h3 className="higheredu-orange__title">
+            <span className="higheredu-orange__title-line">Everyone loves Open Credits,</span>
+            <span className="higheredu-orange__title-line">You&apos;ll love it too!</span>
+          </h3>
           <Link to="/courses" className="higheredu-orange__cta" aria-label="View courses">
             View courses
           </Link>
-          <img src={orangeHigherImage} alt="Everyone loves Open Credits" />
         </div>
       </div>
     </section>

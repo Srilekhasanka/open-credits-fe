@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import courseService from '../services/courseService';
 import '../App.css';
@@ -20,6 +20,7 @@ const bookmarkAddIcon = '/images/bookmark_add.svg';
 
 const CoursesPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [subject, setSubject] = useState('All');
@@ -51,6 +52,14 @@ const CoursesPage = () => {
   ];
 
   const [courses, setCourses] = useState([]);
+
+  const availableSubjects = useMemo(() => {
+    const fromCourses = Array.from(
+      new Set(courses.map((course) => (course.subject || '').trim()).filter(Boolean))
+    ).sort((a, b) => a.localeCompare(b));
+
+    return ['All', ...fromCourses];
+  }, [courses]);
 
   const subjectIcons = {
     business: businessIcon,
@@ -117,6 +126,14 @@ const CoursesPage = () => {
   };
 
   useEffect(() => {
+    const querySearch = (searchParams.get('search') || '').trim();
+    const querySubject = (searchParams.get('subject') || '').trim();
+
+    setSearchQuery(querySearch);
+    setSubject(querySubject || 'All');
+  }, [searchParams]);
+
+  useEffect(() => {
     let isMounted = true;
 
     const fetchCourses = async () => {
@@ -151,12 +168,12 @@ const CoursesPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [searchQuery, subject, retryToken]);
+  }, [retryToken]);
 
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           course.code.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesSubject = subject === 'All' || subject === 'Subject' || course.subject === subject;
+    const matchesSubject = subject === 'All' || course.subject === subject;
     return matchesSearch && matchesSubject;
   });
 
@@ -202,19 +219,11 @@ const CoursesPage = () => {
             <div className="subject-control">
               <span className="subject-label">Subject</span>
               <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-                <option value="All">All</option>
-                <option value="Psychology">Psychology</option>
-                <option value="Science">Science</option>
-                <option value="Business">Business</option>
-                <option value="Marketing">Marketing</option>
-                <option value="ComputerScience">ComputerScience</option>
-                <option value="LawAndJustice">LawAndJustice</option>
-                <option value="Health">Health</option>
-                <option value="Finances">Finances</option>
-                <option value="Literature">Literature</option>
-                <option value="General">General</option>
-                <option value="Economics">Economics</option>
-                <option value="Math">Math</option>
+                {availableSubjects.map((subjectOption) => (
+                  <option key={subjectOption} value={subjectOption}>
+                    {subjectOption}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

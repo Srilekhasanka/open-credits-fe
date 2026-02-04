@@ -60,6 +60,7 @@
   grid-template-columns: 1fr auto;
   align-items: start;
   column-gap: 16px;
+  margin-top: auto;
 }
 
 .who-card__label {

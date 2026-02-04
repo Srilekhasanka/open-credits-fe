@@ -17,6 +17,15 @@ export const API_ENDPOINTS = {
   },
   COURSES: {
     LIST: `${API_BASE_URL}/courses`,
+    CATEGORIES: (params = {}) => {
+      const queryParams = new URLSearchParams({
+        is_active: params.is_active ?? true,
+        include_courses: params.include_courses ?? true,
+        limit_per_category: params.limit_per_category ?? 10,
+      });
+
+      return `${API_BASE_URL}/courses/categories?${queryParams.toString()}`;
+    },
     DETAILS: (id) => `${API_BASE_URL}/courses/${id}`,
     ENROLL: (id) => `${API_BASE_URL}/courses/${id}/enroll`,
     PROGRESS: (id) => `${API_BASE_URL}/courses/${id}/progress`,

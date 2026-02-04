@@ -62,7 +62,7 @@ This creates an optimized production build in the `build` folder.
 
 ## Color Palette
 
-- Primary Orange: `#FF6633`
+- Primary Orange: `#ED6C2C`
 - Dark Text: `#333333`
 - Light Text: `#666666`
 - Background: `#fff9f7`

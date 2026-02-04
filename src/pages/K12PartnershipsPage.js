@@ -10,7 +10,6 @@ const partnershipIcon = '/images/partnership_card.svg';
 const questionMarkIcon = '/images/questionmark.svg';
 const forStudentImage = '/images/forstudent.svg';
 const forTeachersImage = '/images/forteachers.svg';
-const orangeStudentImage = '/images/orangestudent.png';
 const k12Image = '/images/K-12_main.svg';
 
 const learnerCards = [
@@ -47,9 +46,12 @@ const K12PartnershipsPage = () => (
           K-12 <span>Partnerships</span>
         </h1>
         <p className="k12-hero__lead">
-          Open Credits helps schools and districts expand access to affordable, college-level
-          general education courses. Students can earn transferable credit while still in high
-          school and build momentum toward graduation.
+          <span className="k12-hero__lead-line1">
+            Open Credits helps schools and districts expand access to affordable, college-level
+            general education courses. Students can earn transferable
+          </span>
+          <br />
+          credit while still in high school and build momentum toward graduation.
         </p>
       </div>
       <div className="k12-actions">
@@ -98,17 +100,32 @@ const K12PartnershipsPage = () => (
           <div className="k12-partners-copy">
             <h3>For students</h3>
             <p>
-              Open Credits supports college readiness by giving students access to transferable
-              college-level courses during high school. Similar to AP and dual enrollment, students
-              can earn progress toward college credit, but with greater flexibility and
-              affordability.
+              Open Credits supports college readiness by giving students
+              <br />
+              <span className="k12-partners-copy-line--nowrap">
+                access to transferable college-level courses during high school.
+              </span>
+              <br />
+              Similar to AP and dual enrollment, students can earn progress
+              <br />
+              <span className="k12-partners-copy-line--nowrap">
+                toward college credit, but with greater flexibility and affordability.
+              </span>
             </p>
             <div className="k12-partners-list">
               <h4>What makes Open Credits different?</h4>
               <ul>
                 <li>Students learn at their own pace</li>
-                <li>Progress is demonstrated throughout the course, not dependent on one final exam</li>
-                <li>Learners can move quickly through topics they already understand</li>
+                <li>
+                  Progress is demonstrated throughout the course, not
+                  <br />
+                  dependent on one final exam
+                </li>
+                <li>
+                  Learners can move quickly through topics they already
+                  <br />
+                  understand
+                </li>
               </ul>
             </div>
           </div>
@@ -144,10 +161,19 @@ const K12PartnershipsPage = () => (
     <section className="k12-orange">
       <div className="k12-container">
         <div className="k12-orange__card">
+          <div className="k12-orange__steps" aria-hidden="true">
+            <span className="k12-orange__step k12-orange__step--1" />
+            <span className="k12-orange__step k12-orange__step--2" />
+            <span className="k12-orange__step k12-orange__step--3" />
+          </div>
+          <h3 className="k12-orange__title">
+            Not just a students favorite.
+            <br />
+            Teachers love it too.
+          </h3>
           <Link to="/courses" className="k12-orange__cta" aria-label="View courses">
             View courses
           </Link>
-          <img src={orangeStudentImage} alt="Students and teachers love it" />
         </div>
       </div>
     </section>

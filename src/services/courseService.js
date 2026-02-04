@@ -47,6 +47,29 @@ class CourseService {
   }
 
   /**
+   * Get course categories with optional course preview data
+   * @param {Object} params - Query parameters
+   * @param {boolean} [params.is_active=true] - Filter active categories
+   * @param {boolean} [params.include_courses=true] - Include courses per category
+   * @param {number} [params.limit_per_category=10] - Maximum courses per category
+   * @returns {Promise<Object|Array>} Categories payload
+   */
+  async getCourseCategories(params = {}) {
+    try {
+      const response = await apiService.get(API_ENDPOINTS.COURSES.CATEGORIES(params));
+
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to fetch course categories');
+      }
+
+      return response.payload;
+    } catch (error) {
+      console.error('Get course categories error:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Get course details by ID
    * @param {string} courseId - Course ID
    * @returns {Promise<Object>} Course details

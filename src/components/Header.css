@@ -123,6 +123,13 @@
   gap: 6px;
 }
 
+.courses-category-loading {
+  padding: 10px 12px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #6b7280;
+}
+
 .courses-category {
   border: none;
   background: transparent;
@@ -184,7 +191,7 @@
 }
 
 .courses-explore:hover {
-  background: #cf5202;
+  background: #FF4E00;
 }
 
 .courses-preview-list {
@@ -197,6 +204,20 @@
   font-size: 18px;
   line-height: 28px;
   font-weight: 400;
+}
+
+.courses-preview-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.courses-preview-link:hover {
+  color: #E85D02;
 }
 
 .header-actions {
@@ -237,7 +258,7 @@
 }
 
 .btn-primary:hover {
-  background: #cf5202;
+  background: #FF4E00;
 }
 
 @media (max-width: 768px) {

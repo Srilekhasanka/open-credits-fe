@@ -18,12 +18,7 @@ const pricingCards = [
     ],
     cta: 'Enroll Now',
     variant: 'outline',
-    icon: (
-      <>
-        
-        <img className="enroll-pricing-main" src={peopleBox} alt="" aria-hidden="true" />
-      </>
-    )
+    icon: <img className="enroll-pricing-main" src={peopleBox} alt="" aria-hidden="true" />
   },
   {
     title: 'Single Course -\nOne time Pay (International Students)',
@@ -37,7 +32,7 @@ const pricingCards = [
     ],
     cta: 'Enroll Now',
     variant: 'outline',
-    icon: <img src={globeBox} alt="" aria-hidden="true" />
+    icon: <img className="enroll-pricing-main" src={globeBox} alt="" aria-hidden="true" />
   },
   {
     title: 'University specific Pricing\nand bundle discounts\n(Custom Plan)',
@@ -47,7 +42,7 @@ const pricingCards = [
     bullets: ['Custom Plan for you', 'No time restrictions', 'Loan approval Letter'],
     cta: 'Calculate Now',
     variant: 'solid',
-    icon: <img src={buildingBox} alt="" aria-hidden="true" />
+    icon: <img className="enroll-pricing-main" src={buildingBox} alt="" aria-hidden="true" />
   }
 ];
 
@@ -78,12 +73,19 @@ const EnrollPricingSection = () => {
                   <li key={bullet}>{bullet}</li>
                 ))}
               </ul>
-              {card.price && (
-                <div className="enroll-pricing-price">
-                  <span className="enroll-price-main">{card.price}</span>
-                  <span className="enroll-price-sub">{card.priceSuffix}</span>
-                </div>
-              )}
+              <div
+                className={`enroll-pricing-price${
+                  card.price ? '' : ' enroll-pricing-price--placeholder'
+                }`}
+                aria-hidden={card.price ? undefined : 'true'}
+              >
+                {card.price && (
+                  <>
+                    <span className="enroll-price-main">{card.price}</span>
+                    <span className="enroll-price-sub">{card.priceSuffix}</span>
+                  </>
+                )}
+              </div>
               <button
                 type="button"
                 className={`enroll-pricing-cta enroll-pricing-cta--${card.variant}`}
