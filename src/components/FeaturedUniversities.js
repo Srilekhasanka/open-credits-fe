@@ -13,6 +13,7 @@ const FeaturedUniversities = () => {
       name: 'University at Buffalo',
       logo: ubLogo,
       slug: 'university-at-buffalo',
+      isRoutable: false,
       logoWidth: 158,
       logoHeight: 122
     },
@@ -62,9 +63,15 @@ const FeaturedUniversities = () => {
                   }}
                 />
               </div>
-              <Link className="featured-button" to={`/universities/${university.slug}`}>
-                Learn More
-              </Link>
+              {university.isRoutable === false ? (
+                <span className="featured-button is-disabled" aria-disabled="true">
+                  Learn More
+                </span>
+              ) : (
+                <Link className="featured-button" to={`/universities/${university.slug}`}>
+                  Learn More
+                </Link>
+              )}
             </div>
           ))}
         </div>

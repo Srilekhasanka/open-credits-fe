@@ -102,6 +102,16 @@
   text-decoration: none;
 }
 
+.featured-button.is-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.featured-button.is-disabled:hover,
+.featured-button.is-disabled:focus {
+  background: #fff;
+}
+
 @media (max-width: 640px) {
   .featured-grid {
     grid-template-columns: 1fr;

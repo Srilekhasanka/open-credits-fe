@@ -3,7 +3,6 @@
 <rect width="244" height="130" rx="15" fill="white"/>
 <rect x="29" y="10" width="186" height="124" fill="url(#pattern0_651_7710)"/>
 </g>
-<rect x="0.5" y="0.5" width="243" height="129" rx="14.5" stroke="#E9E9E9"/>
 <defs>
 <pattern id="pattern0_651_7710" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_651_7710" transform="scale(0.000740741 0.00111111)"/>

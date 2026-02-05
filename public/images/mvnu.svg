@@ -4,7 +4,6 @@
 <rect x="57" width="131" height="131" fill="white"/>
 <rect x="57" y="8.5166" width="130.874" height="111.713" fill="url(#pattern0_651_7688)"/>
 </g>
-<rect x="0.5" y="0.5" width="243" height="129" rx="14.5" stroke="#E9E9E9"/>
 <defs>
 <pattern id="pattern0_651_7688" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_651_7688" transform="scale(0.00138122 0.00161812)"/>

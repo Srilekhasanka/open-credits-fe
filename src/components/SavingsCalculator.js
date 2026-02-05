@@ -5,8 +5,77 @@ import { API_ENDPOINTS } from '../config/constants';
 const TAB_US = 'us';
 const TAB_INTL = 'intl';
 
+const parseNumber = (value) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const getUniversityName = (university) =>
+  university?.name || university?.university_name || university?.title || '';
+
+const getUniversityState = (university) =>
+  university?.state || university?.state_code || '';
+
+const normalize = (value) => (value || '').trim().toLowerCase();
+
+const getUniversityResults = (response) => {
+  const candidates =
+    response?.payload?.universities ??
+    response?.data?.universities ??
+    response?.payload ??
+    response?.data ??
+    response?.universities ??
+    [];
+
+  if (!Array.isArray(candidates)) {
+    return [];
+  }
+
+  return candidates.filter((university) => getUniversityName(university));
+};
+
+const getUniversityCostPerCredit = (university, activeTab) => {
+  if (!university) {
+    return 0;
+  }
+
+  const averageCostPerCourse = parseNumber(university.averageCostPerCourse);
+  const fromAveragePerCredit = averageCostPerCourse > 0 ? Math.round(averageCostPerCourse / 3) : 0;
+
+  if (activeTab !== TAB_INTL) {
+    return (
+      parseNumber(university.costPerCredit) ||
+      parseNumber(university.cost_per_credit) ||
+      parseNumber(university.university_cost_per_credit) ||
+      parseNumber(university.inStateCostPerCredit) ||
+      parseNumber(university.in_state_cost_per_credit) ||
+      fromAveragePerCredit ||
+      parseNumber(university.outOfStateCostPerCredit) ||
+      parseNumber(university.out_of_state_cost_per_credit)
+    );
+  }
+
+  return (
+    parseNumber(university.costPerCredit) ||
+    parseNumber(university.cost_per_credit) ||
+    parseNumber(university.university_cost_per_credit) ||
+    parseNumber(university.outOfStateCostPerCredit) ||
+    parseNumber(university.out_of_state_cost_per_credit) ||
+    parseNumber(university.inStateCostPerCredit) ||
+    parseNumber(university.in_state_cost_per_credit) ||
+    fromAveragePerCredit
+  );
+};
+
+const getUniversityLivingCost = (university) =>
+  parseNumber(university?.costOfLiving) ||
+  parseNumber(university?.cost_of_living) ||
+  parseNumber(university?.costOfLivingPerSemester) ||
+  parseNumber(university?.cost_of_living_per_semester) ||
+  parseNumber(university?.livingCostPerSemester);
+
 const SavingsCalculator = () => {
-  const [activeTab, setActiveTab] = useState(TAB_US);
+  const [activeTab, setActiveTab] = useState(null);
   const [courseCount, setCourseCount] = useState(null);
   const [costPerCredit, setCostPerCredit] = useState(0);
   const [scholarshipAmount, setScholarshipAmount] = useState(0);
@@ -41,11 +110,13 @@ const SavingsCalculator = () => {
     try {
       const response = await fetch(API_ENDPOINTS.UNIVERSITIES.SEARCH(query));
       const data = await response.json();
-      if (data.success && data.data) {
-        setUniversities(data.data);
-      } else {
+
+      if (data?.success === false) {
         setUniversities([]);
+        return;
       }
+
+      setUniversities(getUniversityResults(data));
     } catch (error) {
       console.error('Error fetching universities:', error);
       setUniversities([]);
@@ -56,7 +127,7 @@ const SavingsCalculator = () => {
 
   // Call course calculator API
   const calculateCosts = useCallback(async () => {
-    if (!courseCount || !costPerCredit) {
+    if (!courseCount || !selectedUniversity || !activeTab) {
       setCalculatorData(null);
       return;
     }
@@ -73,7 +144,7 @@ const SavingsCalculator = () => {
           number_of_courses: courseCount,
           scholarship_amount: scholarshipAmount || 0,
           cost_of_living_per_semester: livingCost || 0,
-          university_cost_per_credit: costPerCredit,
+          university_cost_per_credit: costPerCredit || 0,
         }),
       });
 
@@ -86,7 +157,7 @@ const SavingsCalculator = () => {
     } finally {
       setIsCalculating(false);
     }
-  }, [activeTab, courseCount, scholarshipAmount, livingCost, costPerCredit]);
+  }, [activeTab, courseCount, scholarshipAmount, livingCost, costPerCredit, selectedUniversity]);
 
   // Debounced calculator API call
   useEffect(() => {
@@ -94,7 +165,7 @@ const SavingsCalculator = () => {
       clearTimeout(calcTimeoutRef.current);
     }
 
-    if (courseCount && costPerCredit) {
+    if (courseCount && selectedUniversity && activeTab) {
       calcTimeoutRef.current = setTimeout(() => {
         calculateCosts();
       }, 300);
@@ -107,7 +178,7 @@ const SavingsCalculator = () => {
         clearTimeout(calcTimeoutRef.current);
       }
     };
-  }, [calculateCosts, courseCount, costPerCredit]);
+  }, [calculateCosts, courseCount, selectedUniversity, activeTab]);
 
   // Debounced university search
   useEffect(() => {
@@ -128,30 +199,31 @@ const SavingsCalculator = () => {
     };
   }, [universitySearch, selectedUniversity, fetchUniversities]);
 
+  useEffect(() => {
+    if (selectedUniversity || !universitySearch || universities.length === 0) {
+      return;
+    }
+
+    const searchName = normalize(universitySearch);
+    const exactMatch = universities.find((uni) => normalize(getUniversityName(uni)) === searchName);
+
+    if (!exactMatch) {
+      return;
+    }
+
+    setSelectedUniversity(exactMatch);
+    setCostPerCredit(getUniversityCostPerCredit(exactMatch, activeTab));
+    setLivingCost(getUniversityLivingCost(exactMatch));
+  }, [universities, universitySearch, selectedUniversity, activeTab]);
+
   // Handle university selection
   const handleUniversitySelect = (university) => {
     setSelectedUniversity(university);
-    setUniversitySearch(university.name);
+    setUniversitySearch(getUniversityName(university));
     setIsUniversityOpen(false);
     setUniversities([]);
-
-    // Update cost per credit based on university data
-    if (university.costPerCredit) {
-      setCostPerCredit(university.costPerCredit);
-    } else if (university.averageCostPerCourse) {
-      setCostPerCredit(Math.round(university.averageCostPerCourse / 3));
-    } else if (university.cost_per_credit) {
-      setCostPerCredit(university.cost_per_credit);
-    }
-
-    // Update living cost if available
-    if (university.costOfLiving) {
-      setLivingCost(university.costOfLiving);
-    } else if (university.cost_of_living) {
-      setLivingCost(university.cost_of_living);
-    } else if (university.livingCostPerSemester) {
-      setLivingCost(university.livingCostPerSemester);
-    }
+    setCostPerCredit(getUniversityCostPerCredit(university, activeTab));
+    setLivingCost(getUniversityLivingCost(university));
   };
 
   // Handle university search input change
@@ -187,6 +259,14 @@ const SavingsCalculator = () => {
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [isCourseOpen]);
+
+  useEffect(() => {
+    if (!selectedUniversity) {
+      return;
+    }
+
+    setCostPerCredit(getUniversityCostPerCredit(selectedUniversity, activeTab));
+  }, [selectedUniversity, activeTab]);
 
   const formatCurrency = (value) => `$${(value || 0).toLocaleString('en-US')}`;
 
@@ -238,18 +318,32 @@ const SavingsCalculator = () => {
               </span>
               {isUniversityOpen && universities.length > 0 && (
                 <ul className="savings-autocomplete-menu" role="listbox">
-                  {universities.map((uni) => (
-                    <li key={uni._id || uni.id} role="option">
-                      <button
-                        type="button"
-                        className="savings-autocomplete-option"
-                        onClick={() => handleUniversitySelect(uni)}
-                      >
-                        <span className="uni-name">{uni.name}</span>
-                        {uni.state && <span className="uni-location">{uni.city ? `${uni.city}, ` : ''}{uni.state}</span>}
-                      </button>
-                    </li>
-                  ))}
+                  {universities.map((uni) => {
+                    const uniName = getUniversityName(uni);
+                    const uniState = getUniversityState(uni);
+                    const selectedKey =
+                      selectedUniversity?._id || selectedUniversity?.id || getUniversityName(selectedUniversity);
+                    const optionKey = uni._id || uni.id || uniName;
+                    const isSelected = selectedKey && selectedKey === optionKey;
+
+                    return (
+                      <li key={optionKey} role="option" aria-selected={Boolean(isSelected)}>
+                        <button
+                          type="button"
+                          className="savings-autocomplete-option"
+                          onClick={() => handleUniversitySelect(uni)}
+                        >
+                          <span className="uni-name">{uniName}</span>
+                          {(uni.city || uniState) && (
+                            <span className="uni-location">
+                              {uni.city ? `${uni.city}${uniState ? ', ' : ''}` : ''}
+                              {uniState}
+                            </span>
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
               {isUniversityOpen && universitySearch.length >= 2 && universities.length === 0 && !isLoading && (
