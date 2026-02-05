@@ -4,7 +4,7 @@ import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import './AboutPage.css';
 
-const aboutUsImage = '/images/aboutus.png';
+const aboutUsImage = '/images/aboutus.svg';
 
 const AboutPage = () => {
   return (
