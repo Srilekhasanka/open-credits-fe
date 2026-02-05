@@ -1,7 +1,7 @@
 import React from 'react';
 import './WorkProcess.css';
 
-const curveImage = '/images/curvyline.png';
+const curveImage = '/images/curvyline.gif';
 const pickCourseIcon = '/images/pickcourse.svg';
 const collegeCreditIcon = '/images/collegecredit.svg';
 const transferCreditIcon = '/images/transfercredit.svg';

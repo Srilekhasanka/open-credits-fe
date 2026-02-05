@@ -12,6 +12,7 @@ const UniversityDetailPage = () => {
   const university = universities.find((item) => item.slug === slug);
   const isPace = university?.slug === 'pace-university';
   const isIndianaTech = university?.slug === 'indiana-tech';
+  const isStonyBrook = university?.slug === 'stony-brook-university';
   const isNjcu = university?.slug === 'njcu';
   const isNjit = university?.slug === 'njit';
   const isOhioState = university?.slug === 'the-ohio-state-university';
@@ -20,6 +21,7 @@ const UniversityDetailPage = () => {
   const isMvnu = university?.slug === 'mvnu';
   const isFranklin = university?.slug === 'franklin-university';
   const isCmu = university?.slug === 'central-michigan-university';
+  const isPennState = university?.slug === 'penn-state';
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -38,14 +40,16 @@ const UniversityDetailPage = () => {
 
   return (
     <div className="university-page">
-      <div className={`university-card ${isIndianaTech ? 'indiana-tech' : ''} ${isNjcu ? 'njcu' : ''} ${isNjit ? 'njit' : ''} ${isOhioState ? 'ohio' : ''} ${isSuny ? 'suny' : ''} ${isSdsu ? 'sdsu' : ''} ${isMvnu ? 'mvnu' : ''} ${isFranklin ? 'franklin' : ''} ${isCmu ? 'cmu' : ''}`}>
+      <div className={`university-card ${isPace ? 'pace' : ''} ${isIndianaTech ? 'indiana-tech' : ''} ${isStonyBrook ? 'stony' : ''} ${isNjcu ? 'njcu' : ''} ${isNjit ? 'njit' : ''} ${isOhioState ? 'ohio' : ''} ${isSuny ? 'suny' : ''} ${isSdsu ? 'sdsu' : ''} ${isMvnu ? 'mvnu' : ''} ${isFranklin ? 'franklin' : ''} ${isCmu ? 'cmu' : ''} ${isPennState ? 'penn' : ''}`}>
         <div className="university-header">
           <div className="university-title">
             <span>Open Credits</span>
             <span className="university-divider">&times;</span>
-            <strong className={`university-name ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''}`}>
+            <strong className={`university-name ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''}`}>
               {isNjcu
                 ? 'New Jersey City University'
+                : isStonyBrook
+                  ? 'Stony Brook University'
                 : isNjit
                   ? 'New Jersey Institute of Technology'
                   : isOhioState
@@ -60,6 +64,8 @@ const UniversityDetailPage = () => {
                             ? 'Franklin University'
                             : isCmu
                               ? 'Central Michigan University'
+                              : isPennState
+                                ? 'Penn State'
                               : university.name}
             </strong>
           </div>
@@ -98,6 +104,51 @@ const UniversityDetailPage = () => {
               )
                 : isIndianaTech
                   ? 'Indiana Tech is known for flexible, career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 Indiana Tech-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for Indiana Techâ€™s credit review so you can move closer to graduation with confidence.'
+                  : isStonyBrook
+                    ? (
+                    <>
+                      Stony Brook University is known for top-tier research, STEM excellence, and health sciences.
+                      <br />
+                      <br />
+                      Open Credits supports students in completing transferable general education and elective credits online to stay on track for timely graduation.
+                    </>
+                  )
+                  : isPennState
+                    ? (
+                    <>
+                      Penn State is known for academic rigor, scale, and one of the strongest alumni networks in the world.
+                      <br />
+                      <br />
+                      Open Credits helps students complete transferable credits online, supporting flexible degree planning across Penn State pathways.
+                    </>
+                  )
+                  : isOhioState
+                    ? (
+                    <>
+                      Ohio State University is known for academic breadth, research excellence, and strong employer recognition.
+                      <br />
+                      <br />
+                      Open Credits helps students complete transferable general education and elective credits efficiently before or during their OSU pathway.
+                    </>
+                  )
+                  : isMvnu
+                    ? (
+                    <>
+                      Mount Vernon Nazarene University is known for values-driven education and student-centered learning.
+                      <br />
+                      <br />
+                      Open Credits provides a flexible way to earn transferable general education and elective credits online for credit evaluation.
+                    </>
+                  )
+                  : isFranklin
+                    ? (
+                    <>
+                      Franklin University is known for serving adult learners and transfer students with flexible degree pathways.
+                      <br />
+                      <br />
+                      Open Credits allows students to complete transferable credits online and reduce time and cost to graduation.
+                    </>
+                  )
                   : isNjcu
                     ? 'NJCU is known for career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 NJCU-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for NJCUâ€™s credit review so you can move closer to graduation with confidence.'
                     : `${university.name} offers career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from flexible courses built for general education and electives, complete them at your pace, and submit your transcript for credit review so you can move closer to graduation with confidence.`}
@@ -125,12 +176,12 @@ const UniversityDetailPage = () => {
       <div className="university-work">
         <WorkProcess />
       </div>
-      {(isPace || isIndianaTech || isNjcu || isNjit || isOhioState || isSuny || isSdsu || isMvnu || isFranklin || isCmu) && (
-        <section className={`university-why ${isIndianaTech ? 'is-indiana-tech' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''}`}>
+      {(isPace || isIndianaTech || isNjcu || isNjit || isOhioState || isSuny || isSdsu || isMvnu || isFranklin || isCmu || isPennState) && (
+        <section className={`university-why ${isPace ? 'is-pace' : ''} ${isIndianaTech ? 'is-indiana-tech' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''}`}>
           <div className="university-why-inner">
             <div className="university-why-copy">
               <h2>
-                {isIndianaTech ? 'Why Join Indiana Tech?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : 'Why Join Pace University?'}
+                {isIndianaTech ? 'Why Join Indiana Tech?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : isPennState ? 'Why Join Penn State University?' : 'Why Join Pace University?'}
               </h2>
               <p>
                 {isIndianaTech
@@ -151,6 +202,8 @@ const UniversityDetailPage = () => {
                                 ? 'Franklin University is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
                                 : isCmu
                                   ? 'CMU is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                                  : isPennState
+                                    ? 'Penn State is known for academic rigor, scale, and lifelong value through one of the strongest alumni networks globally. Students gain access to respected programs, extensive research opportunities, and flexible transfer pathways that support both academic and professional success.'
                                   : (
                                     <>
                                       Pace University offers career-focused education rooted in
@@ -166,7 +219,7 @@ const UniversityDetailPage = () => {
                                     </>
                                   )}
               </p>
-              {!isPace && (
+              {!isPace && !isPennState && (
                 <p>
                   {isIndianaTech
                     ? 'Indiana Tech is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
@@ -202,7 +255,7 @@ const UniversityDetailPage = () => {
       <div className="university-savings">
         <SavingsCalculator />
       </div>
-      <section className={`university-courses ${isIndianaTech ? 'is-indiana-tech' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''}`}>
+      <section className={`university-courses ${isIndianaTech ? 'is-indiana-tech' : ''} ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''}`}>
         <div className="university-courses-inner">
           <h2>
             Find your <span>Courses</span>
@@ -217,8 +270,8 @@ const UniversityDetailPage = () => {
           <div className="university-courses-card">
             <div className="university-courses-card-head">
               <div>
-                <h3>{isNjcu ? 'NJCU' : university.name} Course Equivalency &amp; Transfer Guide</h3>
-                <p>Type: Search by "Open Credits", "{isNjcu ? 'NJCU' : university.name}", course number (e.g., MAT 131), or keywords (e.g., "Python").</p>
+                <h3>{isNjcu ? 'NJCU' : isStonyBrook ? 'Stony Brook' : university.name} Course Equivalency &amp; Transfer Guide</h3>
+                <p>Type: Search by "Open Credits", "{isNjcu ? 'NJCU' : isStonyBrook ? 'Stony Brook' : university.name}", course number (e.g., MAT 131), or keywords (e.g., "Python").</p>
               </div>
                 <div className="university-courses-totals">
                   <div className="total-university">
@@ -247,7 +300,7 @@ const UniversityDetailPage = () => {
                   <span>3</span>
                   <span>Course Title Course Title Course Title</span>
                   <span>3</span>
-                  <span className="cart-icon">ðŸ›’</span>
+                  <img className="cart-icon" src="/images/add_shopping_cart.svg" alt="Add to cart" />
                 </div>
               ))}
             </div>

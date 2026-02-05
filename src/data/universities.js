@@ -1,37 +1,40 @@
 const paceLogo = '/images/pace.svg';
-const paceHero = '/images/openxpace.png';
-const paceHeaderLogo = '/images/pacex.png';
-const paceWhyLogo = '/images/whypaceuni.png';
+const paceHero = '/images/openxpace.svg';
+const paceHeaderLogo = '/images/pacex.svg';
+const paceWhyLogo = '/images/whypaceuni.svg';
 const ubLogo = '/images/ub.svg';
 const stonyLogo = '/images/stony.svg';
-const sdsuLogo = '/images/sdsu1.png';
-const sdsuHero = '/images/sdsuuni.png';
-const sdsuWhyLogo = '/images/whysdsu.png';
+const stonyHero = '/images/openxstony.svg';
+const sdsuLogo = '/images/sdsu.svg';
+const sdsuHero = '/images/sdsuuni.svg';
+const sdsuWhyLogo = '/images/whysdsu.svg';
 const indianaTechLogo = '/images/IndianaTech.svg';
-const indianaTechHero = '/images/IndianaTechUni.png';
-const indianaTechWhyLogo = '/images/whyindianatech.png';
+const indianaTechHero = '/images/IndianaTechUni.svg';
+const indianaTechWhyLogo = '/images/whyindianatech.svg';
 const njcuLogo = '/images/njcu.svg';
-const njcuHero = '/images/NJCUUNI.png';
-const njcuWhyLogo = '/images/whynjcu.png';
+const njcuHero = '/images/NJCUUNI.svg';
+const njcuWhyLogo = '/images/whynjcu.svg';
 const njitLogo = '/images/njit.svg';
-const njitHero = '/images/njituni.png';
-const njitWhyLogo = '/images/whynjit.png';
+const njitHero = '/images/njituni.svg';
+const njitWhyLogo = '/images/whynjit.svg';
 const ohioLogo = '/images/ohio.svg';
-const ohioHero = '/images/ohiouni.png';
-const ohioWhyLogo = '/images/whyohio.png';
+const ohioHero = '/images/ohiouni.svg';
+const ohioWhyLogo = '/images/whyohio.svg';
 const sunyLogo = '/images/SUNY.svg';
-const sunyHero = '/images/SUNYUNI.png';
-const sunyWhyLogo = '/images/WHYSUNY.png';
+const sunyHero = '/images/SUNYUNI.svg';
+const sunyWhyLogo = '/images/WHYSUNY.svg';
 const mvnuLogo = '/images/mvnu.svg';
-const mvnuHero = '/images/mvnuuni.png';
-const mvnuWhyLogo = '/images/whymvnu.png';
+const mvnuHero = '/images/mvnuuni.svg';
+const mvnuWhyLogo = '/images/whymvnu.svg';
 const franklinLogo = '/images/franklin.svg';
-const franklinHero = '/images/franklinuni.png';
-const franklinWhyLogo = '/images/whyfranklin.png';
+const franklinHero = '/images/franklinuni.svg';
+const franklinWhyLogo = '/images/whyfranklin.svg';
 const cmuLogo = '/images/cmu.svg';
-const cmuHero = '/images/cmuuni.png';
-const cmuWhyLogo = '/images/whycmu.png';
+const cmuHero = '/images/cmuuni.svg';
+const cmuWhyLogo = '/images/whycmu.svg';
 const pennLogo = '/images/penn.svg';
+const pennHero = '/images/pennuni.svg';
+const pennWhyLogo = '/images/whypenn.svg';
 const crestLogo = '/images/crest.svg';
 const eccLogo = '/images/ecc.svg';
 const gracelynLogo = '/images/gracelyn.svg';
@@ -57,6 +60,7 @@ export const universities = [
     slug: 'stony-brook-university',
     name: 'Stony Brook University',
     logo: stonyLogo,
+    heroImage: stonyHero,
     color: '#7a1f2b',
     hasPartnerPage: true
   },
@@ -147,6 +151,8 @@ export const universities = [
     slug: 'penn-state',
     name: 'Penn State',
     logo: pennLogo,
+    heroImage: pennHero,
+    whyLogo: pennWhyLogo,
     color: '#1e407c',
     hasPartnerPage: true
   },
