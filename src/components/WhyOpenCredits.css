@@ -118,8 +118,34 @@
   }
 }
 
+@media (max-width: 768px) {
+  .feature-card {
+    min-height: 0;
+  }
+
+  .feature-card h3,
+  .feature-card p {
+    min-height: 0;
+  }
+
+  .learn-more {
+    margin-top: 20px;
+  }
+}
+
 @media (max-width: 640px) {
+  .why-container h2 {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 28px;
+  }
+
   .features-grid {
     grid-template-columns: 1fr;
+  }
+
+  .feature-card p {
+    font-size: 16px;
+    line-height: 24px;
   }
 }

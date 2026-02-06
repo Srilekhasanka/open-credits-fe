@@ -939,3 +939,91 @@
   }
 
 }
+
+@media (max-width: 768px) {
+  .university-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .university-title {
+    font-size: 28px;
+    line-height: 36px;
+    flex-wrap: wrap;
+  }
+
+  .university-logo {
+    margin-left: 0;
+  }
+
+  .university-cta {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .university-why {
+    height: auto;
+    padding: 32px 0;
+  }
+
+  .university-why-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .university-why-logo {
+    transform: none;
+    padding: 20px;
+    min-height: 0;
+  }
+
+  .university-why-logo img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .university-courses-card-head {
+    padding: 16px;
+  }
+
+  .university-courses-totals {
+    flex-wrap: wrap;
+  }
+
+  .university-courses-totals div {
+    width: 150px;
+  }
+
+  .university-courses-table {
+    overflow-x: auto;
+  }
+
+  .university-courses-row {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .university-copy p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .university-badges span {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .university-courses-inner h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .university-courses-row {
+    grid-template-columns: 26px 1fr 70px 1fr 70px 60px;
+  }
+}

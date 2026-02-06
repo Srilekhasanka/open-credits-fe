@@ -243,8 +243,32 @@
   }
 }
 
+@media (max-width: 768px) {
+  .course-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .course-card h3 {
+    margin-top: 24px;
+    min-height: 0;
+  }
+
+  .course-card p {
+    min-height: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .courses-grid {
     grid-template-columns: 1fr;
+  }
+
+  .courses-header {
+    align-items: stretch;
+  }
+
+  .btn-view-all {
+    width: 100%;
   }
 }

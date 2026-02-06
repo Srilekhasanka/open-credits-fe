@@ -153,6 +153,27 @@
   }
 }
 
+@media (max-width: 768px) {
+  .find-college-container {
+    padding: 88px var(--layout-pad-right) 50px var(--layout-pad-left);
+  }
+
+  .find-college-header h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .find-college-header p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .find-college-note {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 @media (max-width: 540px) {
   .find-college-panel {
     padding: 24px 18px;
