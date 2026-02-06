@@ -21,7 +21,7 @@
 
 .resources-header p {
   font-size: 18px;
-  line-height: 16px;
+  line-height: 26px;
   color: #6b6b6b;
   max-width: 1200px;
   margin: 0 0 26px;
@@ -165,5 +165,58 @@
 
   .resources-card-image {
     height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .resources-container {
+    padding: 32px var(--layout-pad-right) 60px var(--layout-pad-left);
+  }
+
+  .resources-header h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .resources-tabs {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    justify-content: flex-start;
+  }
+
+  .resources-card {
+    padding: 24px;
+  }
+
+  .resources-card-body {
+    width: auto;
+    height: auto;
+  }
+
+  .resources-card-image {
+    height: 220px;
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .resources-header p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .resources-card-body h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .resources-card-body p {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .resources-card-body button {
+    width: 100%;
   }
 }

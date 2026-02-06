@@ -90,6 +90,10 @@
     line-height: 26px;
   }
 
+  .about-content p:last-of-type {
+    margin-top: 40px;
+  }
+
   .about-image {
     max-height: 320px;
   }

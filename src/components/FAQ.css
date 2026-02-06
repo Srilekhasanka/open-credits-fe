@@ -221,6 +221,32 @@
   }
 }
 
+@media (max-width: 768px) {
+  .faq-question {
+    font-size: 18px;
+    line-height: 26px;
+    padding: 14px 16px;
+  }
+
+  .faq-answer {
+    padding: 0 16px 16px;
+  }
+
+  .faq-answer p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .support-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .support-actions {
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 640px) {
   .faq {
     padding: 56px 0 80px;

@@ -411,6 +411,34 @@
   }
 }
 
+@media (max-width: 768px) {
+  .courses-page {
+    padding: 72px 0 40px;
+  }
+
+  .courses-head h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .courses-search {
+    width: 100%;
+  }
+
+  .courses-page .course-card {
+    min-height: 0;
+  }
+
+  .courses-page .course-card h3 {
+    margin-top: 24px;
+    min-height: 0;
+  }
+
+  .courses-page .course-desc {
+    min-height: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .courses-filters {
     flex-direction: column;
@@ -423,6 +451,10 @@
 
   .courses-grid {
     grid-template-columns: 1fr;
+  }
+
+  .courses-page .course-enroll {
+    width: 100%;
   }
 }
 

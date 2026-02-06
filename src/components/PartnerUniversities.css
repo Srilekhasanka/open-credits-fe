@@ -157,9 +157,24 @@
   background: #f25d1f;
 }
 
+@media (max-width: 768px) {
+  .partnered-image-wrap {
+    height: auto;
+  }
+
+  .partnered-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partnered-card {
+    height: 110px;
+  }
+}
+
 @media (max-width: 640px) {
   .partnered-image-wrap {
     padding: 14px;
+    height: auto;
   }
 
   .partnered-search {
@@ -172,5 +187,9 @@
 
   .partnered-footer {
     flex-direction: column;
+  }
+
+  .partnered-card {
+    height: 100px;
   }
 }

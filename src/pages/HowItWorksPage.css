@@ -286,6 +286,44 @@
   }
 }
 
+@media (max-width: 768px) {
+  .partner-banner__content h1 {
+    font-size: 38px;
+    line-height: 46px;
+  }
+
+  .partner-banner__content .partner-banner__nowrap {
+    white-space: normal;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .partnership-feature-card {
+    min-height: 0;
+  }
+
+  .partnership-feature-image {
+    height: auto;
+  }
+
+  .partner-colleges-header h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .partner-colleges-header p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .partner-banner__content h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
 .partner-colleges-header h2 {
   margin: 0 0 10px;
   font-size: 36px;

@@ -111,3 +111,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .who-card {
+    padding-top: 240px;
+    min-height: 360px;
+    background-size: 200px auto;
+  }
+
+  .who-card__footer {
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+  }
+
+  .who-card__link {
+    justify-self: start;
+  }
+}

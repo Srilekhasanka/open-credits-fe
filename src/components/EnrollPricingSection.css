@@ -218,3 +218,31 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .enroll-pricing-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .enroll-pricing-visual {
+    height: 220px;
+  }
+
+  .enroll-pricing-cta,
+  .enroll-pricing-cta--solid {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .enroll-pricing-container h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .enroll-price-main {
+    font-size: 40px;
+    line-height: 48px;
+  }
+}

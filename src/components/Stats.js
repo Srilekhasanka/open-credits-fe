@@ -13,6 +13,15 @@ const trustedStats = [
   { label: 'High Schools', value: '250+', icon: apartment }
 ];
 
+const renderStatsItems = (keyPrefix = '') =>
+  trustedStats.map((item) => (
+    <div key={`${keyPrefix}${item.label}`} className="stats-item">
+      <img className="stats-icon" src={item.icon} alt="" aria-hidden="true" />
+      <div className="stats-value">{item.value}</div>
+      <div className="stats-label">{item.label}</div>
+    </div>
+  ));
+
 const Stats = () => {
   return (
     <section className="stats" aria-labelledby="trusted-by-title">
@@ -20,14 +29,11 @@ const Stats = () => {
         <div className="stats-title" id="trusted-by-title">
           TRUSTED BY
         </div>
-        <div className="stats-grid">
-          {trustedStats.map((item) => (
-            <div key={item.label} className="stats-item">
-              <img className="stats-icon" src={item.icon} alt="" aria-hidden="true" />
-              <div className="stats-value">{item.value}</div>
-              <div className="stats-label">{item.label}</div>
-            </div>
-          ))}
+        <div className="stats-marquee">
+          <div className="stats-grid">{renderStatsItems()}</div>
+          <div className="stats-grid stats-grid--duplicate" aria-hidden="true">
+            {renderStatsItems('duplicate-')}
+          </div>
         </div>
       </div>
     </section>

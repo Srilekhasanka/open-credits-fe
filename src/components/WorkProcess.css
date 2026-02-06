@@ -352,3 +352,58 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 640px) {
+  .work-process {
+    padding: 48px 0 40px;
+    min-height: auto;
+  }
+
+  .process-content {
+    margin-bottom: 0;
+  }
+
+  .process-visual {
+    position: static;
+    min-height: auto;
+    margin-top: 0;
+  }
+
+  .process-curve,
+  .process-icon,
+  .process-overlay {
+    display: none;
+  }
+
+  .process-step {
+    position: static;
+    max-width: none;
+    margin: 0 0 28px;
+  }
+
+  .process-step h3 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .process-step p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .process-step-number {
+    position: static;
+    display: block;
+    margin: 0 0 6px;
+    font-size: 56px;
+    line-height: 1;
+  }
+
+  .step-3 h3 {
+    white-space: normal;
+  }
+
+  .process-step-link {
+    font-size: 14px;
+  }
+}

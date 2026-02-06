@@ -237,6 +237,30 @@
   }
 }
 
+@media (max-width: 768px) {
+  .enroll-container h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .enroll-note {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .enroll-note-line {
+    white-space: normal;
+  }
+
+  .enroll-grid {
+    margin-bottom: 80px;
+  }
+
+  .enroll-card {
+    min-height: 0;
+  }
+}
+
 .enroll-page .savings-section.savings-calculator {
   padding: 0;
 }

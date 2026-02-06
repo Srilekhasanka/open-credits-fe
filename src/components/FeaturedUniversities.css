@@ -112,8 +112,40 @@
   background: #fff;
 }
 
+@media (max-width: 768px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .featured-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .featured-logo {
+    height: 180px;
+    min-height: 180px;
+    flex: 0 0 180px;
+  }
+}
+
 @media (max-width: 640px) {
   .featured-grid {
     grid-template-columns: 1fr;
+  }
+
+  .featured-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .featured-logo {
+    height: 160px;
+    min-height: 160px;
+    flex: 0 0 160px;
+  }
+
+  .featured-button {
+    width: 100%;
   }
 }

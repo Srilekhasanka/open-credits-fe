@@ -484,3 +484,55 @@
     justify-self: start;
   }
 }
+
+@media (max-width: 768px) {
+  .savings-section.savings-calculator {
+    min-height: auto;
+  }
+
+  .savings-section.savings-calculator h2 {
+    width: auto;
+    height: auto;
+    font-size: 30px;
+    line-height: 38px;
+    margin-bottom: 32px;
+  }
+
+  .savings-section.savings-calculator .savings-card {
+    padding: 24px 20px;
+  }
+
+  .savings-section.savings-calculator .savings-right {
+    grid-template-columns: 1fr;
+  }
+
+  .savings-section.savings-calculator .savings-toggle {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .savings-section.savings-calculator h2 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .savings-section.savings-calculator .savings-field label {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .savings-section.savings-calculator .savings-toggle button {
+    width: 100%;
+  }
+
+  .savings-section.savings-calculator .savings-row {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+
+  .savings-section.savings-calculator .savings-row span:last-child {
+    text-align: left;
+    justify-self: start;
+  }
+}
