@@ -7,7 +7,60 @@ import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
+const businessIcon = '/images/Business.svg';
+const computerIcon = '/images/Computer.svg';
+const healthIcon = '/images/Health.svg';
+const lawIcon = '/images/Law.svg';
+const psychologyIcon = '/images/Psychology.svg';
+const scienceIcon = '/images/Science.svg';
+const literatureIcon = '/images/Literature.svg';
+const financeIcon = '/images/Finance.svg';
+const generalIcon = '/images/General.svg';
+const economyIcon = '/images/Economy.svg';
+const mathIcon = '/images/Math.svg';
 const bookmarkAddIcon = '/images/bookmark_add.svg';
+
+const subjectIcons = {
+  business: businessIcon,
+  'computer science': computerIcon,
+  computerscience: computerIcon,
+  health: healthIcon,
+  healthcare: healthIcon,
+  law: lawIcon,
+  lawandjustice: lawIcon,
+  psychology: psychologyIcon,
+  science: scienceIcon,
+  literature: literatureIcon,
+  finance: financeIcon,
+  finances: financeIcon,
+  general: generalIcon,
+  economics: economyIcon,
+  economy: economyIcon,
+  math: mathIcon
+};
+
+const prefixToSubject = {
+  bus: 'business',
+  acc: 'business',
+  law: 'law',
+  psy: 'psychology',
+  bio: 'science',
+  chem: 'science',
+  math: 'math',
+  cs: 'computer science'
+};
+
+const getSubjectIcon = (course) => {
+  const rawSubject = course.subject || '';
+  const normalized = rawSubject.toLowerCase().replace(/\s+/g, '');
+  const spaced = rawSubject.toLowerCase();
+  if (subjectIcons[normalized] || subjectIcons[spaced]) {
+    return subjectIcons[normalized] || subjectIcons[spaced];
+  }
+  const codePrefix = (course.code || '').split(' ')[0].toLowerCase();
+  const fallbackKey = prefixToSubject[codePrefix];
+  return fallbackKey ? subjectIcons[fallbackKey] : null;
+};
 
 const MyCoursesListPage = () => {
   const { isAuthenticated, user, enrolledCourses, cartItems, setEnrolledCoursesData } = useAuth();
@@ -46,6 +99,12 @@ const MyCoursesListPage = () => {
             name: hasCode ? nameParts.join(':').trim() : rawName,
             description: item.course?.description || '',
             progress: Number.isFinite(numericProgress) ? numericProgress : 0,
+            subject:
+              item.course?.subject ||
+              item.course?.subject_area ||
+              item.course?.category ||
+              item.course?.discipline ||
+              ''
           };
         });
 
@@ -263,10 +322,17 @@ const MyCoursesListPage = () => {
           )}
           {myCourses.map((course, index) => {
             const progressValue = course.progress ?? 0;
+            const iconSrc = getSubjectIcon(course);
             return (
               <div key={`${course.id}-${index}`} className="mycourses__card">
                 <div className="mycourses__card-top">
-                  <div className="mycourses__course-icon">ACC</div>
+                  <div className="mycourses__course-icon">
+                    {iconSrc ? (
+                      <img src={iconSrc} alt="" aria-hidden="true" />
+                    ) : (
+                      course.code?.split(' ')[0] || 'OC'
+                    )}
+                  </div>
                   <button
                     className={`mycourses__bookmark ${bookmarkedIds.has(course.id) ? 'is-active' : ''}`}
                     type="button"

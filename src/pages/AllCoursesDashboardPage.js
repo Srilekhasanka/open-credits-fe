@@ -6,7 +6,60 @@ import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
+const businessIcon = '/images/Business.svg';
+const computerIcon = '/images/Computer.svg';
+const healthIcon = '/images/Health.svg';
+const lawIcon = '/images/Law.svg';
+const psychologyIcon = '/images/Psychology.svg';
+const scienceIcon = '/images/Science.svg';
+const literatureIcon = '/images/Literature.svg';
+const financeIcon = '/images/Finance.svg';
+const generalIcon = '/images/General.svg';
+const economyIcon = '/images/Economy.svg';
+const mathIcon = '/images/Math.svg';
 const bookmarkAddIcon = '/images/bookmark_add.svg';
+
+const subjectIcons = {
+  business: businessIcon,
+  'computer science': computerIcon,
+  computerscience: computerIcon,
+  health: healthIcon,
+  healthcare: healthIcon,
+  law: lawIcon,
+  lawandjustice: lawIcon,
+  psychology: psychologyIcon,
+  science: scienceIcon,
+  literature: literatureIcon,
+  finance: financeIcon,
+  finances: financeIcon,
+  general: generalIcon,
+  economics: economyIcon,
+  economy: economyIcon,
+  math: mathIcon
+};
+
+const prefixToSubject = {
+  bus: 'business',
+  acc: 'business',
+  law: 'law',
+  psy: 'psychology',
+  bio: 'science',
+  chem: 'science',
+  math: 'math',
+  cs: 'computer science'
+};
+
+const getSubjectIcon = (course) => {
+  const rawSubject = course.subject || '';
+  const normalized = rawSubject.toLowerCase().replace(/\s+/g, '');
+  const spaced = rawSubject.toLowerCase();
+  if (subjectIcons[normalized] || subjectIcons[spaced]) {
+    return subjectIcons[normalized] || subjectIcons[spaced];
+  }
+  const codePrefix = (course.code || '').split(' ')[0].toLowerCase();
+  const fallbackKey = prefixToSubject[codePrefix];
+  return fallbackKey ? subjectIcons[fallbackKey] : null;
+};
 
 const AllCoursesDashboardPage = () => {
   const { isAuthenticated, user, addToCart, cartItems } = useAuth();
@@ -90,7 +143,13 @@ const AllCoursesDashboardPage = () => {
             name: hasCode ? nameParts.join(':').trim() : rawName,
             description: course.description || course.desc || '',
             price: Number.isNaN(normalizedPrice) ? 0 : normalizedPrice,
-            seats: seatDisplay ? `${seatDisplay} seats left` : 'Seats unavailable'
+            seats: seatDisplay ? `${seatDisplay} seats left` : 'Seats unavailable',
+            subject:
+              course.subject ||
+              course.subject_area ||
+              course.category ||
+              course.discipline ||
+              ''
           };
         });
 
@@ -214,43 +273,52 @@ const AllCoursesDashboardPage = () => {
           {!loadingCourses && courses.length === 0 && (
             <div className="mycourses__loading">No courses found.</div>
           )}
-          {sortedCourses.map((course) => (
-            <div key={course.id} className="allcourses__card">
-              <div className="mycourses__card-top">
-                <div className="mycourses__course-icon">ACC</div>
-                <button
-                  className={`mycourses__bookmark ${bookmarkedIds.has(course.id) ? 'is-active' : ''}`}
-                  type="button"
-                  aria-label="Bookmark"
-                  aria-pressed={bookmarkedIds.has(course.id)}
-                  onClick={() => toggleBookmark(course.id)}
-                >
-                  <img src={bookmarkAddIcon} alt="" aria-hidden="true" />
-                </button>
-              </div>
-              <div className="mycourses__card-body">
-                <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
-                <p>{course.description}</p>
-              </div>
-              <div className="mycourses__card-divider" />
-              <div className="allcourses__price-row">
-                <div>
-                  <div className="allcourses__price">${course.price}</div>
-                  <div className="allcourses__seats">{course.seats}</div>
+          {sortedCourses.map((course) => {
+            const iconSrc = getSubjectIcon(course);
+            return (
+              <div key={course.id} className="allcourses__card">
+                <div className="mycourses__card-top">
+                  <div className="mycourses__course-icon">
+                    {iconSrc ? (
+                      <img src={iconSrc} alt="" aria-hidden="true" />
+                    ) : (
+                      course.code?.split(' ')[0] || 'OC'
+                    )}
+                  </div>
+                  <button
+                    className={`mycourses__bookmark ${bookmarkedIds.has(course.id) ? 'is-active' : ''}`}
+                    type="button"
+                    aria-label="Bookmark"
+                    aria-pressed={bookmarkedIds.has(course.id)}
+                    onClick={() => toggleBookmark(course.id)}
+                  >
+                    <img src={bookmarkAddIcon} alt="" aria-hidden="true" />
+                  </button>
                 </div>
-                <button
-                  className="allcourses__cta"
-                  type="button"
-                  onClick={() => {
-                    const added = addToCart(course);
-                    setToastMessage(added ? 'Added to cart' : 'Already in cart');
-                  }}
-                >
-                  Add to Cart
-                </button>
+                <div className="mycourses__card-body">
+                  <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
+                  <p>{course.description}</p>
+                </div>
+                <div className="mycourses__card-divider" />
+                <div className="allcourses__price-row">
+                  <div>
+                    <div className="allcourses__price">${course.price}</div>
+                    <div className="allcourses__seats">{course.seats}</div>
+                  </div>
+                  <button
+                    className="allcourses__cta"
+                    type="button"
+                    onClick={() => {
+                      const added = addToCart(course);
+                      setToastMessage(added ? 'Added to cart' : 'Already in cart');
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
       {toastMessage && <div className="dashboard__toast">{toastMessage}</div>}

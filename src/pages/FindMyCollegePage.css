@@ -30,10 +30,13 @@
 }
 
 .find-college-panel {
-  background: #f2f2f2;
-  border-radius: 16px;
-  padding: 44px 48px;
-  margin: 24px 0 40px;
+  background: #e9e9e9;
+  border-radius: 20px;
+  padding: 40px 48px 48px;
+  margin: 24px auto 40px;
+  width: 1210px;
+  max-width: 100%;
+  min-height: 452px;
 }
 
 .find-college-search {
@@ -71,46 +74,47 @@
 
 .find-college-note {
   text-align: center;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 11px;
+  line-height: 18px;
   font-weight: 400;
-  color: #111827;
+  color: #6b6b6b;
   margin: 0 0 22px;
   font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-note a {
   color: #2f6bff;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .find-college-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-  max-width: 1114px;
-  margin: 0 auto;
+  grid-template-columns: repeat(4, 244px);
+  gap: 20px;
+  justify-content: center;
 }
 
 .find-college-card {
   background: #fff;
   border-radius: 15px;
-  min-height: 130px;
+  width: 244px;
+  height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0;
+  padding: 12px;
   box-shadow: none;
-  border: none;
+  border: 1px solid #e5e7eb;
   overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .find-college-card img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 15px;
+  max-width: 100%;
+  max-height: 70px;
+  object-fit: contain;
 }
 
 .find-college-footer {
@@ -148,8 +152,14 @@
 }
 
 @media (max-width: 900px) {
+  .find-college-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 32px 24px 36px;
+  }
+
   .find-college-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 244px);
   }
 }
 
