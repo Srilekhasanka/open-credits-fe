@@ -79,7 +79,7 @@ const FindMyCollegePage = () => {
               return (
                 <Link
                   key={university.slug}
-                  className="find-college-card"
+                  className={`find-college-card${university.fullBleed ? ' full-bleed' : ''}`}
                   to={`/universities/${university.slug}`}
                   aria-label={`View ${university.name}`}
                 >

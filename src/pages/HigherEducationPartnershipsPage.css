@@ -3,7 +3,7 @@
 .higheredu-page {
   background: #fff;
   min-height: 100vh;
-  padding: 40px 0 80px;
+  padding: var(--section-gap) 0 var(--section-gap);
   color: #1f1f1f;
 }
 
@@ -125,7 +125,7 @@
   padding: 16px 32px;
   border-radius: 6px;
   border: none;
-  background: #E85002;
+  background: #ED6C2C;
   color: #fff;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
@@ -148,12 +148,12 @@
 
 .higheredu-button.is-outline {
   background: #fff;
-  color: #E85002;
-  border: 1px solid #E85002;
+  color: #ED6C2C;
+  border: 1px solid #ED6C2C;
 }
 
 .higheredu-why {
-  padding: 70px 0 0;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .higheredu-why .higheredu-container {
@@ -178,7 +178,7 @@
 }
 
 .higheredu-why-header h2 span {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .higheredu-why-header p {
@@ -285,7 +285,7 @@
 }
 
 .higheredu-built {
-  padding: 100px 0 30px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .higheredu-built .higheredu-container {
@@ -349,7 +349,7 @@
 }
 
 .higheredu-orange {
-  padding: 24px 0 50px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .higheredu-orange .higheredu-container {
@@ -362,7 +362,7 @@
   height: 352px;
   margin: 0 auto;
   border-radius: 20px;
-  background: linear-gradient(180deg, #ff9c4b 0%, #ff7d26 52%, #e85002 100%);
+  background: linear-gradient(180deg, #ff9c4b 0%, #ff7d26 52%, #ED6C2C 100%);
   overflow: hidden;
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
   position: relative;
@@ -434,7 +434,7 @@
   text-align: center;
   border-radius: 6px;
   background: #fff;
-  color: #E85002;
+  color: #ED6C2C;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -577,4 +577,5 @@
     line-height: 20px;
   }
 }
+
 

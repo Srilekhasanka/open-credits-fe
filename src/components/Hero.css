@@ -1,5 +1,5 @@
 .hero {
-  padding: 50px 0 20px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: radial-gradient(circle at 70% 30%, #fff2eb 0%, #ffffff 55%);
 }
 
@@ -31,7 +31,7 @@
 }
 
 .hero-content .highlight {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .hero-content p {
@@ -51,8 +51,8 @@
 .btn-chat {
   padding: 16px 32px;
   background: white;
-  color: #E85002;
-  border: 1px solid #E85002;
+  color: #ED6C2C;
+  border: 1px solid #ED6C2C;
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
@@ -110,7 +110,7 @@
 
 @media (max-width: 968px) {
   .hero {
-    padding: 32px 0 20px;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .hero-container {
@@ -188,3 +188,4 @@
     line-height: 36px;
   }
 }
+

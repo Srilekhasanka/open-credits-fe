@@ -3,7 +3,7 @@
 .community-page {
   background: #fff;
   min-height: 100vh;
-  padding: 40px 0 80px;
+  padding: var(--section-gap) 0 var(--section-gap);
   color: #1f1f1f;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .community-hero__content h1 span {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 @media (max-width: 1200px) {
@@ -82,7 +82,7 @@
 }
 
 .community-container > h1 span {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .community-container p {
@@ -128,7 +128,7 @@
   padding: 16px 32px;
   border-radius: 6px;
   border: none;
-  background: #E85002;
+  background: #ED6C2C;
   color: #fff;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
@@ -151,12 +151,12 @@
 
 .community-button.is-outline {
   background: #fff;
-  color: #E85002;
-  border: 1px solid #E85002;
+  color: #ED6C2C;
+  border: 1px solid #ED6C2C;
 }
 
 .community-why {
-  padding: 70px 0 20px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -182,7 +182,7 @@
 }
 
 .community-why-header h2 span {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .community-why-header p {
@@ -277,7 +277,7 @@
 }
 
 .community-orange {
-  padding: 100px 0 50px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .community-orange .community-container {
@@ -290,7 +290,7 @@
   height: 352px;
   margin: 0 auto;
   border-radius: 20px;
-  background: linear-gradient(180deg, #ff9c4b 0%, #ff7d26 52%, #e85002 100%);
+  background: linear-gradient(180deg, #ff9c4b 0%, #ff7d26 52%, #ED6C2C 100%);
   overflow: hidden;
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
   position: relative;
@@ -357,7 +357,7 @@
   text-align: center;
   border-radius: 6px;
   background: #fff;
-  color: #E85002;
+  color: #ED6C2C;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -487,4 +487,5 @@
     line-height: 20px;
   }
 }
+
 

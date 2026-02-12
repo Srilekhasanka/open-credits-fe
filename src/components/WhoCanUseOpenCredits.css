@@ -1,5 +1,5 @@
 .who-section {
-  padding: 70px 0 40px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .who-container .highlight {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .who-image {
@@ -72,14 +72,13 @@
   font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
-.who-card__label span:first-child {
+.who-card__title,
+.who-card__subtitle {
   font-size: 23.43px;
   line-height: 31.2px;
 }
 
-.who-card__label span:last-child {
-  font-size: 23.43px;
-  line-height: 31.2px;
+.who-card__subtitle {
   font-weight: 500;
 }
 
@@ -128,3 +127,4 @@
     justify-self: start;
   }
 }
+

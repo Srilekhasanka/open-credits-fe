@@ -1,5 +1,5 @@
 .testimonials {
-  padding: 80px 0 96px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -164,7 +164,7 @@
 
 @media (max-width: 640px) {
   .testimonials {
-    padding: 64px 0 80px;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .testimonials-container {
@@ -187,3 +187,4 @@
     min-height: 0;
   }
 }
+

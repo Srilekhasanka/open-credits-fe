@@ -27,8 +27,8 @@ const WhoCanUseOpenCredits = () => {
             >
               <div className="who-card__footer">
                 <div className="who-card__label">
-                  <span>{card.title}</span>
-                  <span>{card.subtitle}</span>
+                  <span className="who-card__title">{card.title}</span>
+                  <span className="who-card__subtitle">{card.subtitle}</span>
                 </div>
                 <a className="who-card__link" href={card.href}>
                   Learn more <span aria-hidden="true">→</span>

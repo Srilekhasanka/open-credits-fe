@@ -1,29 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import { STRIPE_PUBLISHABLE_KEY } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const companyLogo = '/images/company-logo.svg';
+const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
 const PaymentStatusDashboardPage = () => {
   const { isAuthenticated, user, cartItems, clearCart } = useAuth();
   const navigate = useNavigate();
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [status, setStatus] = useState('loading'); // 'loading' | 'succeeded' | 'processing' | 'failed'
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsSuccess(true), 2500);
-    return () => clearTimeout(timer);
-  }, []);
+    const clientSecret = searchParams.get('payment_intent_client_secret');
+    if (!clientSecret) {
+      setStatus('failed');
+      setErrorMessage('Missing payment information.');
+      return;
+    }
+
+    const checkStatus = async () => {
+      const stripe = await stripePromise;
+      const { paymentIntent, error } = await stripe.retrievePaymentIntent(clientSecret);
+
+      if (error) {
+        setStatus('failed');
+        setErrorMessage(error.message || 'Unable to verify payment.');
+        return;
+      }
+
+      switch (paymentIntent.status) {
+        case 'succeeded':
+          setStatus('succeeded');
+          sessionStorage.removeItem('oc_payment_intent');
+          clearCart();
+          break;
+        case 'processing':
+          setStatus('processing');
+          break;
+        case 'requires_payment_method':
+          setStatus('failed');
+          setErrorMessage('Payment was declined. Please try again with a different payment method.');
+          break;
+        default:
+          setStatus('failed');
+          setErrorMessage(`Payment status: ${paymentIntent.status}. Please try again.`);
+      }
+    };
+
+    checkStatus();
+  }, [searchParams, clearCart]);
 
   useEffect(() => {
-    if (!isSuccess) return;
-    const timer = setTimeout(() => {
-      clearCart();
-      navigate('/my-courses');
-    }, 12000);
+    if (status !== 'succeeded') return;
+    const timer = setTimeout(() => navigate('/my-courses'), 5000);
     return () => clearTimeout(timer);
-  }, [isSuccess, clearCart, navigate]);
+  }, [status, navigate]);
 
   if (!isAuthenticated) {
     return (
@@ -83,12 +120,31 @@ const PaymentStatusDashboardPage = () => {
             </span>
           </div>
           <div className="payment-status__message">
-            {isSuccess ? 'Payment Successful' : 'Payment loading'}
+            {status === 'loading' && 'Verifying payment...'}
+            {status === 'succeeded' && 'Payment Successful'}
+            {status === 'processing' && 'Payment is processing. We\'ll update you when it completes.'}
+            {status === 'failed' && 'Payment Failed'}
           </div>
-          {isSuccess ? (
-            <div className="payment-status__success" aria-label="Payment successful" />
-          ) : (
+          {status === 'loading' && (
             <div className="payment-status__spinner" aria-label="Payment loading" />
+          )}
+          {status === 'succeeded' && (
+            <>
+              <div className="payment-status__success" aria-label="Payment successful" />
+              <p className="payment-status__redirect">Redirecting to My Courses...</p>
+            </>
+          )}
+          {status === 'processing' && (
+            <div className="payment-status__spinner" aria-label="Payment processing" />
+          )}
+          {status === 'failed' && (
+            <>
+              <div className="payment-status__failed" aria-label="Payment failed" />
+              {errorMessage && <p className="payment-status__error">{errorMessage}</p>}
+              <button className="checkout__pay" type="button" onClick={() => navigate('/shop')}>
+                Try Again
+              </button>
+            </>
           )}
         </div>
       </section>

@@ -1,7 +1,7 @@
 .courses-page {
   background: #fff;
   min-height: 100vh;
-  padding: 90px 0 60px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .courses-wrapper {
@@ -397,7 +397,7 @@
 }
 
 .courses-page .course-enroll:hover {
-  background: #f25d1f;
+  background: #FF4E00;
 }
 
 @media (max-width: 980px) {
@@ -413,7 +413,7 @@
 
 @media (max-width: 768px) {
   .courses-page {
-    padding: 72px 0 40px;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .courses-head h1 {

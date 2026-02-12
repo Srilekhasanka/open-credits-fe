@@ -1,6 +1,6 @@
-﻿.university-page {
+.university-page {
   background: #fff;
-  padding: 56px 0 90px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .university-card {
@@ -328,7 +328,7 @@
 
 .university-why {
   height: 457px;
-  padding: 48px 0;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .university-why-inner {
@@ -495,7 +495,7 @@
 }
 
 .university-savings {
-  margin-top: 120px;
+  margin-top: 0;
 }
 
 .university-savings .savings-card {
@@ -523,8 +523,8 @@
 }
 
 .university-work .work-process {
-  padding: 72px 0 56px;
-  min-height: 854px;
+  padding: var(--section-gap) 0 var(--section-gap);
+  min-height: 0;
 }
 
 .university-work .process-content {
@@ -563,8 +563,8 @@
 }
 
 .university-courses {
-  padding: 0 0 96px;
-  margin-top: -20px;
+  padding: var(--section-gap) 0 var(--section-gap);
+  margin-top: 0;
 }
 
 .university-courses-inner {
@@ -964,7 +964,7 @@
 
   .university-why {
     height: auto;
-    padding: 32px 0;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .university-why-inner {
@@ -1027,3 +1027,5 @@
     grid-template-columns: 26px 1fr 70px 1fr 70px 60px;
   }
 }
+
+

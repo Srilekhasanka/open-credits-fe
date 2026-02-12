@@ -50,7 +50,7 @@
 }
 
 .dashboard__brand-text {
-  color: #e85002;
+  color: #ED6C2C;
   font-weight: 800;
   font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 21.01px;
@@ -58,7 +58,7 @@
 }
 
 .dashboard__brand-text strong {
-  color: #e85002;
+  color: #ED6C2C;
   font-weight: 800;
 }
 
@@ -325,7 +325,7 @@
 .dashboard__banner button {
   border: none;
   background: #ffffff;
-  color: #e85002;
+  color: #ED6C2C;
   font-weight: 600;
   width: 143px;
   height: 56px;
@@ -1557,6 +1557,12 @@
   font-size: 0.7rem;
   font-weight: 600;
   width: 160px;
+  cursor: pointer;
+}
+
+.checkout__pay:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .checkout__stripe {
@@ -1737,6 +1743,44 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.payment-status__failed {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid #e53935;
+  position: relative;
+}
+
+.payment-status__failed::before,
+.payment-status__failed::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 4px;
+  background: #e53935;
+  top: 50%;
+  left: 50%;
+}
+
+.payment-status__failed::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.payment-status__failed::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.payment-status__error {
+  font-size: 0.72rem;
+  color: #e53935;
+  text-align: center;
+}
+
+.payment-status__redirect {
+  font-size: 0.72rem;
+  color: #7a8797;
 }
 
 .account {

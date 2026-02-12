@@ -16,15 +16,15 @@ export const AuthProvider = ({ children }) => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
-  // Load user and enrolled courses from localStorage on mount
+  // Load user and enrolled courses from storage on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       setUser(userData);
       setIsAuthenticated(true);
     }
-    
+
     const storedCourses = localStorage.getItem('enrolledCourses');
     if (storedCourses) {
       setEnrolledCourses(JSON.parse(storedCourses));
@@ -41,7 +41,9 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
     if (options.remember) {
       localStorage.setItem('user', JSON.stringify(userData));
+      sessionStorage.removeItem('user');
     } else {
+      sessionStorage.setItem('user', JSON.stringify(userData));
       localStorage.removeItem('user');
     }
   };
@@ -52,6 +54,7 @@ export const AuthProvider = ({ children }) => {
     setEnrolledCourses([]);
     setCartItems([]);
     localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     localStorage.removeItem('enrolledCourses');
     localStorage.removeItem('cartItems');
   };

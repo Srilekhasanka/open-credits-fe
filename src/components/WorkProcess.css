@@ -1,5 +1,5 @@
 .work-process {
-  padding: 72px 0 56px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
   position: relative;
   overflow: hidden;
@@ -45,7 +45,7 @@
 }
 
 .process-header .highlight {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .btn-enroll {
@@ -355,7 +355,7 @@
 
 @media (max-width: 640px) {
   .work-process {
-    padding: 48px 0 40px;
+    padding: var(--section-gap) 0 var(--section-gap);
     min-height: auto;
   }
 
@@ -407,3 +407,4 @@
     font-size: 14px;
   }
 }
+

@@ -1,6 +1,6 @@
 .stats {
   background: #fff;
-  padding: 24px 0 12px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .stats-container {
@@ -93,7 +93,7 @@
 
 @media (max-width: 768px) {
   .stats {
-    padding: 20px 0 12px;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .stats-title {
@@ -142,3 +142,4 @@
     animation: none;
   }
 }
+

@@ -11,6 +11,7 @@
   --layout-max: 1512px;
   --layout-pad-left: 151px;
   --layout-pad-right: 124.84px;
+  --section-gap: 60px;
 }
 *,
 *::before,

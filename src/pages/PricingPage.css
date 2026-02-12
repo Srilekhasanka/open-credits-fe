@@ -1,6 +1,6 @@
 .pricing-page {
   background: #fff;
-  padding: 48px 0 80px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .pricing-container {

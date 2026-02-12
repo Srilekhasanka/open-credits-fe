@@ -28,8 +28,8 @@ const FeaturedUniversities = () => {
       name: 'San Diego State University',
       logo: sdsuLogo,
       slug: 'san-diego-state-university',
-      logoWidth: 142,
-      logoHeight: 111
+      logoWidth: 110,
+      logoHeight: 86
     },
     {
       name: 'Pace University',

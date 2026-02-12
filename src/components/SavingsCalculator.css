@@ -1,9 +1,9 @@
 .savings-section.savings-calculator {
-  margin: 10px auto 0;
+  margin: 0 auto;
   max-width: 1512px;
   width: 100%;
-  min-height: 1259px;
-  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
+  min-height: auto;
+  padding: var(--section-gap) var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
   box-sizing: border-box;
 }
 
@@ -437,7 +437,7 @@
 @media (max-width: 1280px) {
   .savings-section.savings-calculator {
     max-width: 1100px;
-    padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
+    padding: var(--section-gap) var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
   }
 
   .savings-section.savings-calculator .savings-card {
@@ -536,3 +536,4 @@
     justify-self: start;
   }
 }
+

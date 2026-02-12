@@ -1,5 +1,5 @@
 .faq {
-  padding: 56px 0 100px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -54,7 +54,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 32px;
   font-weight: 700;
   text-align: left;
@@ -167,9 +167,9 @@
   line-height: 24px;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid #e85002;
+  border: 1px solid #ED6C2C;
   background: #fff;
-  color: #e85002;
+  color: #ED6C2C;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -182,7 +182,7 @@
 
 .btn-advisor {
   min-width: 200px;
-  background: #e85002;
+  background: #ED6C2C;
   color: #fff;
 }
 
@@ -249,7 +249,7 @@
 
 @media (max-width: 640px) {
   .faq {
-    padding: 56px 0 80px;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .faq-content h2 {
@@ -263,3 +263,4 @@
     min-width: 0;
   }
 }
+
