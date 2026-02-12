@@ -13,26 +13,39 @@ const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 const StripeCheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isPaymentReady, setIsPaymentReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) return;
+    if (!stripe || !elements || !isPaymentReady) return;
 
     setIsSubmitting(true);
     setErrorMessage('');
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `${window.location.origin}/payment/status`
       },
-      redirect: 'always'
+      redirect: 'if_required'
     });
 
     if (error) {
-      setErrorMessage(error.message || 'Payment failed. Please try again.');
-      setIsSubmitting(false);
+      const secret = error.payment_intent?.client_secret;
+      if (secret) {
+        navigate(`/payment/status?payment_intent_client_secret=${secret}`);
+      } else {
+        setErrorMessage(error.message || 'Payment failed. Please try again.');
+        setIsSubmitting(false);
+      }
+      return;
+    }
+
+    if (paymentIntent) {
+      navigate(`/payment/status?payment_intent_client_secret=${paymentIntent.client_secret}`);
     }
   };
 
@@ -42,11 +55,15 @@ const StripeCheckoutForm = () => {
         <div className="checkout__badge">#</div>
         <h3>Payment details</h3>
       </div>
-      <div className="checkout__stripe">
-        <PaymentElement />
+      <div className="checkout__stripe" style={{ minHeight: isPaymentReady ? 'auto' : '200px' }}>
+        {isLoading && <div className="checkout__error" style={{ color: '#666' }}>Loading payment form...</div>}
+        <PaymentElement
+          onReady={() => { setIsPaymentReady(true); setIsLoading(false); }}
+          onLoadError={(e) => { setErrorMessage(e.error?.message || 'Failed to load payment form.'); setIsLoading(false); }}
+        />
       </div>
       {errorMessage && <div className="checkout__error">{errorMessage}</div>}
-      <button className="checkout__pay" type="submit" disabled={isSubmitting || !stripe}>
+      <button className="checkout__pay" type="submit" disabled={isSubmitting || !stripe || !isPaymentReady}>
         {isSubmitting ? 'Processing...' : 'Pay Now'}
       </button>
     </form>
@@ -88,7 +105,9 @@ const CheckoutDashboardPage = () => {
         sessionStorage.setItem('oc_payment_intent', JSON.stringify(paymentIntent));
         setResolvedIntent(paymentIntent);
       } catch (error) {
-        setIntentError('Unable to start payment. Please try again.');
+        sessionStorage.removeItem('oc_payment_intent');
+        setResolvedIntent(null);
+        setIntentError(error.message || 'Unable to start payment. Please try again.');
       } finally {
         setIsLoadingIntent(false);
       }
@@ -119,6 +138,12 @@ const CheckoutDashboardPage = () => {
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
+
+  const orderTotal = cartItems.reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const creditsApplied = Number(resolvedIntent?.credits_applied || 0);
+  const totalAmount = Number(resolvedIntent?.amount || orderTotal);
+  const discount = orderTotal - totalAmount + creditsApplied;
+  const tax = 0;
 
   return (
     <div className="dashboard__main">
@@ -190,26 +215,34 @@ const CheckoutDashboardPage = () => {
               </div>
               <div className="checkout__summary-row">
                 <span>Order Total</span>
-                <span>1145823</span>
+                <span>${orderTotal.toFixed(2)}</span>
               </div>
-              <div className="checkout__summary-row">
-                <span>Discount</span>
-                <span>%20</span>
-              </div>
+              {discount > 0 && (
+                <div className="checkout__summary-row">
+                  <span>Discount</span>
+                  <span>-${discount.toFixed(2)}</span>
+                </div>
+              )}
+              {creditsApplied > 0 && (
+                <div className="checkout__summary-row">
+                  <span>Credits Applied</span>
+                  <span>-${creditsApplied.toFixed(2)}</span>
+                </div>
+              )}
               <div className="checkout__summary-row">
                 <span>Tax</span>
-                <span>$123.28</span>
+                <span>${tax.toFixed(2)}</span>
               </div>
               <div className="checkout__summary-row">
                 <span>Total</span>
-                <span>$123.28</span>
+                <span>${totalAmount.toFixed(2)}</span>
               </div>
             </div>
 
             <div className="checkout__summary-total">
               <div>
                 <span>Total Amount</span>
-                <strong>$576.32</strong>
+                <strong>${totalAmount.toFixed(2)}</strong>
               </div>
               <div className="checkout__doc" />
             </div>

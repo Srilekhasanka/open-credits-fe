@@ -1,16 +1,16 @@
 .school-acceptance {
-  padding: 60px 0;
-  background: #f9f9f9;
+  padding: var(--section-gap) 0 var(--section-gap);
+  background: #fff;
   margin-bottom: 0;
 }
 
 .acceptance-wrapper {
-  --acceptance-gap-fill: 170px;
+  --acceptance-gap-fill: 150px;
   max-width: none;
   margin: 0;
   padding: 0 0 0 var(--layout-pad-left);
   display: flex;
-  gap: 30px;
+  gap: 0px;
   align-items: center;
 }
 
@@ -24,19 +24,23 @@
   display: flex;
   align-items: center;
   background: #fff;
-  border-radius: 14px;
+  border-radius: 14px 0 0 14px;
   border: 1px solid #efefef;
+  border-right: none;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  z-index: 1;
 }
 
 .acceptance-container::after {
   content: '';
   position: absolute;
-  top: 0;
+  top: -1px;
   right: calc(-1 * var(--acceptance-gap-fill));
   width: var(--acceptance-gap-fill);
-  height: 100%;
+  height: calc(100% + 2px);
   background: #fff;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
 }
 
 .acceptance-content {
@@ -107,7 +111,7 @@
   min-width: 200px;
   height: 56px;
   padding: 16px 32px;
-  background: #E85D02;
+  background: #ED6C2C;
   color: white;
   border: none;
   border-radius: 6px;
@@ -123,7 +127,7 @@
 }
 
 .school-acceptance .btn-primary:hover {
-  background: #cf5300;
+  background: #FF4E00;
 }
 
 .guarantee-badge {
@@ -135,7 +139,8 @@
   align-items: center;
   background: transparent;
   position: relative;
-  right: -140px;
+  right: -174px;
+  z-index: 2;
 }
 
 .badge-card {
@@ -211,3 +216,4 @@
     height: auto;
   }
 }
+

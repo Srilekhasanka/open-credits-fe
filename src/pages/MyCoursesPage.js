@@ -5,6 +5,48 @@ import { useAuth } from '../context/AuthContext';
 import enrollmentService from '../services/enrollmentService';
 import '../components/DashboardLayout.css';
 
+const businessIcon = '/images/Business.svg';
+const computerIcon = '/images/Computer.svg';
+const healthIcon = '/images/Health.svg';
+const lawIcon = '/images/Law.svg';
+const psychologyIcon = '/images/Psychology.svg';
+const scienceIcon = '/images/Science.svg';
+const literatureIcon = '/images/Literature.svg';
+const financeIcon = '/images/Finance.svg';
+const generalIcon = '/images/General.svg';
+const economyIcon = '/images/Economy.svg';
+const mathIcon = '/images/Math.svg';
+
+const subjectIcons = {
+  business: businessIcon,
+  'computer science': computerIcon,
+  computerscience: computerIcon,
+  health: healthIcon,
+  healthcare: healthIcon,
+  law: lawIcon,
+  lawandjustice: lawIcon,
+  psychology: psychologyIcon,
+  science: scienceIcon,
+  literature: literatureIcon,
+  finance: financeIcon,
+  finances: financeIcon,
+  general: generalIcon,
+  economics: economyIcon,
+  economy: economyIcon,
+  math: mathIcon
+};
+
+const prefixToSubject = {
+  bus: 'business',
+  acc: 'business',
+  law: 'law',
+  psy: 'psychology',
+  bio: 'science',
+  chem: 'science',
+  math: 'math',
+  cs: 'computer science'
+};
+
 const MyCoursesPage = () => {
   const { isAuthenticated, user, enrolledCourses, cartItems, setEnrolledCoursesData } = useAuth();
   const navigate = useNavigate();
@@ -40,7 +82,13 @@ const MyCoursesPage = () => {
             name: hasCode ? nameParts.join(':').trim() : rawName,
             description: item.course?.description || '',
             progress: Number.isFinite(numericProgress) ? numericProgress : 0,
-            status: item.status || item.course?.status || 'In Progress'
+            status: item.status || item.course?.status || 'In Progress',
+            subject:
+              item.course?.subject ||
+              item.course?.subject_area ||
+              item.course?.category ||
+              item.course?.discipline ||
+              ''
           };
         });
 
@@ -105,6 +153,17 @@ const MyCoursesPage = () => {
 
   const continueCourses = enrolledCourses.slice(0, 3);
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  const getSubjectIcon = (course) => {
+    const rawSubject = course.subject || '';
+    const normalized = rawSubject.toLowerCase().replace(/\s+/g, '');
+    const spaced = rawSubject.toLowerCase();
+    if (subjectIcons[normalized] || subjectIcons[spaced]) {
+      return subjectIcons[normalized] || subjectIcons[spaced];
+    }
+    const codePrefix = (course.code || '').split(' ')[0].toLowerCase();
+    const fallbackKey = prefixToSubject[codePrefix];
+    return fallbackKey ? subjectIcons[fallbackKey] : null;
+  };
 
   return (
     <div className="dashboard__main">
@@ -143,7 +202,11 @@ const MyCoursesPage = () => {
           <section className="dashboard__banner">
             <div>
               <h2>Enjoying Open Credits?</h2>
-              <p>Refer it to your friends, family and more to win iPad, Mac Books, iPhones, and more.</p>
+              <p>
+                Refer it to your friends, family and more to win Ipad, Mac Books, Iphones, Trip
+                <br />
+                to Miami, Cruise rides, and more!
+              </p>
             </div>
             <button type="button" onClick={() => navigate('/resources')}>Refer Now</button>
           </section>
@@ -159,16 +222,26 @@ const MyCoursesPage = () => {
                 )}
                 {continueCourses.map((course) => {
                   const progressValue = course.progress ?? 0;
+                  const iconSrc = getSubjectIcon(course);
                   return (
                     <div key={course.id} className="dashboard__mini-card">
                       <div className="dashboard__mini-header">
-                        <div className="dashboard__mini-dot" />
+                        <div className="dashboard__mini-icon">
+                          {iconSrc ? (
+                            <img src={iconSrc} alt="" aria-hidden="true" />
+                          ) : (
+                            <span>{course.code?.split(' ')[0] || 'OC'}</span>
+                          )}
+                        </div>
                         <h3>{course.code}: {course.name}</h3>
                       </div>
                       <span>{progressValue}% complete</span>
+                      {/*
                       <div className="dashboard__mini-progress">
                         <div style={{ width: `${progressValue}%` }} />
                       </div>
+                      */}
+                      {/*
                       <button
                         className="dashboard__mini-action"
                         type="button"
@@ -176,6 +249,7 @@ const MyCoursesPage = () => {
                       >
                         Continue
                       </button>
+                      */}
                     </div>
                   );
                 })}
@@ -209,11 +283,18 @@ const MyCoursesPage = () => {
                 {!loadingEnrollments && filteredCourses.length === 0 && (
                   <div className="mycourses__loading">No courses match this filter.</div>
                 )}
-                {filteredCourses.map((course) => {
+                {filteredCourses.slice(0, 2).map((course) => {
                   const progressValue = course.progress ?? 0;
+                  const iconSrc = getSubjectIcon(course);
                   return (
                     <div key={course.id} className="dashboard__course-card">
-                      <div className="dashboard__course-icon">{course.code?.split(' ')[0] || 'OC'}</div>
+                      <div className="dashboard__course-icon">
+                        {iconSrc ? (
+                          <img src={iconSrc} alt="" aria-hidden="true" />
+                        ) : (
+                          course.code?.split(' ')[0] || 'OC'
+                        )}
+                      </div>
                       <div>
                         <h3>{course.code}: {course.name}</h3>
                         <p>{course.description || 'Track your coursework, assignments, and weekly milestones.'}</p>
@@ -245,17 +326,18 @@ const MyCoursesPage = () => {
               view profile
             </button>
             <div className="dashboard__profile-avatar">{displayInitial}</div>
-            <h3>{formattedName}</h3>
-            <span>@{displayName}</span>
-          </div>
-
-          <div className="dashboard__highlights">
-            <h4>Highlights</h4>
-            <div className="dashboard__highlight-item">
-              <span>You have completed a course</span>
+            <div className="dashboard__profile-name">
+              <h3>{formattedName}</h3>
+              <span>@referenceID</span>
             </div>
-            <div className="dashboard__highlight-item">
-              <span>You have an incomplete Quiz</span>
+            <div className="dashboard__highlights">
+              <h4>Highlights</h4>
+              <div className="dashboard__highlight-item">
+                <span>You have completed a course</span>
+              </div>
+              <div className="dashboard__highlight-item">
+                <span>You have an incomplete Quiz</span>
+              </div>
             </div>
           </div>
         </aside>

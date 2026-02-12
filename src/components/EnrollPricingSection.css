@@ -1,5 +1,5 @@
 .enroll-pricing-section {
-  padding: 70px 0 90px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -246,3 +246,4 @@
     line-height: 48px;
   }
 }
+

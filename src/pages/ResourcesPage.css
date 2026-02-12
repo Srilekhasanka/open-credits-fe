@@ -1,13 +1,13 @@
 .resources-page {
   background: #fff;
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: var(--section-gap);
 }
 
 .resources-container {
   max-width: var(--layout-max, 1512px);
   margin: 0 auto;
-  padding: 40px var(--layout-pad-right) 80px var(--layout-pad-left);
+  padding: 0 var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
 }
 
 .resources-header h1 {
@@ -155,7 +155,7 @@
 }
 
 .resources-card-body button:hover {
-  background: #f25d1f;
+  background: #FF4E00;
 }
 
 @media (max-width: 720px) {
@@ -170,7 +170,7 @@
 
 @media (max-width: 768px) {
   .resources-container {
-    padding: 32px var(--layout-pad-right) 60px var(--layout-pad-left);
+    padding: 0 var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
   }
 
   .resources-header h1 {

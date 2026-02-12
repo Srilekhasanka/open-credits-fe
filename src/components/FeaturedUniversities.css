@@ -1,5 +1,5 @@
 .featured-universities {
-  padding: 40px 0 80px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -149,3 +149,4 @@
     width: 100%;
   }
 }
+

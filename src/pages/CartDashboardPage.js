@@ -7,7 +7,7 @@ import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 const CartDashboardPage = () => {
-  const { isAuthenticated, user, cartItems, removeFromCart } = useAuth();
+  const { isAuthenticated, user, cartItems, removeFromCart, clearCart, enrollCourse } = useAuth();
   const navigate = useNavigate();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
@@ -30,19 +30,61 @@ const CartDashboardPage = () => {
 
   const items = cartItems;
   const total = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
-  const primaryCourseId = items[0]?.course_id ?? items[0]?.id ?? items[0]?._id;
+  const freeItems = items.filter((item) => Number(item.price || 0) === 0);
+  const paidItems = items.filter((item) => Number(item.price || 0) > 0);
+  const paidCourseId = paidItems[0]?.course_id ?? paidItems[0]?.id ?? paidItems[0]?._id;
+
+  const enrollFreeItems = async () => {
+    const failed = [];
+    for (const item of freeItems) {
+      const courseId = item.course_id ?? item.id ?? item._id;
+      try {
+        await apiService.post(API_ENDPOINTS.ENROLLMENTS.COURSES, { course_id: courseId });
+        enrollCourse(item);
+        removeFromCart(item.id);
+      } catch (err) {
+        failed.push(item.name || item.code || 'Unknown course');
+      }
+    }
+    return failed;
+  };
 
   const handleCheckout = async () => {
-    if (!primaryCourseId) {
+    if (items.length === 0) {
       setCheckoutError('Unable to start checkout. Please select a course.');
       return;
     }
 
     setIsCheckingOut(true);
     setCheckoutError('');
+
+    // Enroll free courses directly
+    let failedFree = [];
+    if (freeItems.length > 0) {
+      failedFree = await enrollFreeItems();
+    }
+
+    // If no paid courses, we're done
+    if (paidItems.length === 0) {
+      if (failedFree.length > 0) {
+        setCheckoutError(`Failed to enroll: ${failedFree.join(', ')}. Please try again.`);
+      } else {
+        clearCart();
+        navigate('/my-courses');
+      }
+      setIsCheckingOut(false);
+      return;
+    }
+
+    // Show warning if some free courses failed but continue with paid checkout
+    if (failedFree.length > 0) {
+      setCheckoutError(`Some free courses failed to enroll: ${failedFree.join(', ')}. Proceeding with paid checkout.`);
+    }
+
+    sessionStorage.removeItem('oc_payment_intent');
     try {
       const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, {
-        course_id: primaryCourseId
+        course_id: paidCourseId
       });
       const paymentIntent = intentResponse?.payload;
       if (!paymentIntent?.client_secret) {
@@ -52,7 +94,7 @@ const CartDashboardPage = () => {
       sessionStorage.setItem('oc_payment_intent', JSON.stringify(paymentIntent));
       navigate('/payment', { state: { paymentIntent } });
     } catch (error) {
-      setCheckoutError('Checkout failed. Please try again.');
+      setCheckoutError(error.message || 'Checkout failed. Please try again.');
     } finally {
       setIsCheckingOut(false);
     }
@@ -128,7 +170,7 @@ const CartDashboardPage = () => {
             onClick={handleCheckout}
             disabled={isCheckingOut || items.length === 0}
           >
-            {isCheckingOut ? 'Processing...' : 'Checkout'}
+            {isCheckingOut ? 'Processing...' : (total === 0 ? 'Enroll Now' : 'Checkout')}
           </button>
         </div>
         {checkoutError && <div className="cart__error">{checkoutError}</div>}

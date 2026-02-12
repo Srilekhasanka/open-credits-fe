@@ -1,13 +1,13 @@
 .partnership-page {
   background: #fff;
   min-height: 100vh;
-  padding-top: 40px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .partnership-container {
   max-width: 1521px;
   margin: 0 auto;
-  padding: 20px var(--layout-pad-right) 80px var(--layout-pad-left);
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .partner-banner {

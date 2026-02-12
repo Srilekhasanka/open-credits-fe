@@ -1,7 +1,7 @@
 .corporate-page {
   background: #fff;
   min-height: 100vh;
-  padding: 40px 0 80px;
+  padding: var(--section-gap) 0 var(--section-gap);
   color: #1f1f1f;
 }
 
@@ -123,7 +123,7 @@
   padding: 16px 32px;
   border-radius: 6px;
   border: none;
-  background: #E85002;
+  background: #ED6C2C;
   color: #fff;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
@@ -146,12 +146,12 @@
 
 .corporate-button.is-outline {
   background: #fff;
-  color: #E85002;
-  border: 1px solid #E85002;
+  color: #ED6C2C;
+  border: 1px solid #ED6C2C;
 }
 
 .corporate-why {
-  padding: 70px 0 20px;
+  padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .corporate-why-header h2 span {
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 .corporate-why-header p {
@@ -277,7 +277,7 @@
 }
 
 .corporate-why--employers {
-  padding-top: 40px;
+  padding-top: var(--section-gap);
 }
 
 .corporate-why-image {
@@ -293,7 +293,7 @@
 }
 
 .corporate-built {
-  padding: 40px 0 30px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .corporate-built .corporate-container {
@@ -370,7 +370,7 @@
 }
 
 .corporate-orange {
-  padding: 24px 0 40px;
+  padding: var(--section-gap) 0 var(--section-gap);
 }
 
 .corporate-orange .corporate-container {
@@ -458,7 +458,7 @@
   text-align: center;
   border-radius: 6px;
   background: #fff;
-  color: #E85002;
+  color: #ED6C2C;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -473,7 +473,7 @@
 
 .corporate-orange__cta:hover {
   background: #fff2ec;
-  color: #E85002;
+  color: #ED6C2C;
 }
 
 @media (max-width: 1280px) {
@@ -563,7 +563,7 @@
   }
 
   .corporate-orange {
-    padding: 16px 0 28px;
+    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .corporate-orange__card {
@@ -607,4 +607,5 @@
     line-height: 20px;
   }
 }
+
 
