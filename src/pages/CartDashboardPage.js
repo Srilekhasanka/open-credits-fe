@@ -6,6 +6,65 @@ import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
+const businessIcon = '/images/Business.svg';
+const computerIcon = '/images/Computer.svg';
+const healthIcon = '/images/Health.svg';
+const lawIcon = '/images/Law.svg';
+const psychologyIcon = '/images/Psychology.svg';
+const scienceIcon = '/images/Science.svg';
+const literatureIcon = '/images/Literature.svg';
+const financeIcon = '/images/Finance.svg';
+const generalIcon = '/images/General.svg';
+const economyIcon = '/images/Economy.svg';
+const mathIcon = '/images/Math.svg';
+
+const subjectIcons = {
+  business: businessIcon,
+  'computer science': computerIcon,
+  computerscience: computerIcon,
+  health: healthIcon,
+  healthcare: healthIcon,
+  law: lawIcon,
+  lawandjustice: lawIcon,
+  psychology: psychologyIcon,
+  science: scienceIcon,
+  literature: literatureIcon,
+  finance: financeIcon,
+  finances: financeIcon,
+  general: generalIcon,
+  economics: economyIcon,
+  economy: economyIcon,
+  math: mathIcon
+};
+
+const prefixToSubject = {
+  bus: 'business',
+  acc: 'business',
+  law: 'law',
+  psy: 'psychology',
+  bio: 'science',
+  chem: 'science',
+  math: 'math',
+  cs: 'computer science'
+};
+
+const getSubjectIcon = (course) => {
+  const rawSubject =
+    course?.subject ||
+    course?.subject_area ||
+    course?.category ||
+    course?.discipline ||
+    '';
+  const normalized = rawSubject.toLowerCase().replace(/\s+/g, '');
+  const spaced = rawSubject.toLowerCase();
+  if (subjectIcons[normalized] || subjectIcons[spaced]) {
+    return subjectIcons[normalized] || subjectIcons[spaced];
+  }
+  const codePrefix = (course?.code || '').split(' ')[0].toLowerCase();
+  const fallbackKey = prefixToSubject[codePrefix];
+  return fallbackKey ? subjectIcons[fallbackKey] : null;
+};
+
 const CartDashboardPage = () => {
   const { isAuthenticated, user, cartItems, removeFromCart, clearCart, enrollCourse } = useAuth();
   const navigate = useNavigate();
@@ -134,9 +193,17 @@ const CartDashboardPage = () => {
           ) : (
             items.map((item) => {
               const title = item.name && item.code ? `${item.code}: ${item.name}` : item.name;
+              const iconSrc = getSubjectIcon(item);
+              const fallbackLabel = (item.code || item.name || 'OC').split(' ')[0].slice(0, 3).toUpperCase();
               return (
                 <div key={item.id} className="cart__item">
-                  <div className="cart__item-icon">ACC</div>
+                  <div className="cart__item-icon">
+                    {iconSrc ? (
+                      <img src={iconSrc} alt="" aria-hidden="true" />
+                    ) : (
+                      <span>{fallbackLabel}</span>
+                    )}
+                  </div>
                   <div className="cart__item-content">
                     <div className="cart__item-title">{title}</div>
                     <div className="cart__item-desc">{item.description}</div>

@@ -6,6 +6,8 @@ export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://gnh3r
 export const API_ENDPOINTS = {
   AUTH: {
     SIGNUP: `${API_BASE_URL}/auth/signup`,
+    SIGNUP_COMPLETE: `${API_BASE_URL}/auth/signup/complete`,
+    SIGNUP_REQUEST_OTP: `${API_BASE_URL}/auth/signup/request-otp`,
     SIGNIN: `${API_BASE_URL}/auth/login`,
     LOGOUT: `${API_BASE_URL}/auth/logout`,
     REFRESH_TOKEN: `${API_BASE_URL}/auth/refresh-token`,

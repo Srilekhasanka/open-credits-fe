@@ -20,16 +20,17 @@ class AuthService {
       const firstName = userData.firstName ?? userData.first_name;
       const lastName = userData.lastName ?? userData.last_name;
 
-      const response = await fetch(API_ENDPOINTS.AUTH.SIGNUP, {
+      const response = await fetch(API_ENDPOINTS.AUTH.SIGNUP_COMPLETE, {
         method: HTTP_METHODS.POST,
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: userData.email,
+          verification_token: userData.verification_token,
+          first_name: firstName,
+          last_name: lastName,
           password: userData.password,
-          ...(firstName && { first_name: firstName }),
-          ...(lastName && { last_name: lastName }),
+          confirm_password: userData.confirm_password || userData.password,
         }),
       });
 

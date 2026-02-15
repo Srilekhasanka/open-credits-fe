@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
+import { API_ENDPOINTS } from '../config/constants';
 import '../App.css';
 
 const successTick = '/images/success-tick.gif';
@@ -18,11 +19,24 @@ const GetStartedPage = () => {
   });
   const [showPasswords, setShowPasswords] = useState(false);
 
+  // Email OTP verification state
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [otp, setOtp] = useState(Array(6).fill(''));
+  const otpRefs = useRef([]);
+  const [verifyLoading, setVerifyLoading] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [verificationToken, setVerificationToken] = useState('');
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === 'email') {
+      setEmailVerified(false);
+      setShowOtp(false);
+      setOtp(Array(6).fill(''));
+      setVerificationToken('');
+    }
   };
 
   const [loading, setLoading] = useState(false);
@@ -32,6 +46,7 @@ const GetStartedPage = () => {
   const [snackbar, setSnackbar] = useState({ open: false, text: '' });
   const snackbarTimer = useRef(null);
   const passwordsMatch = formData.password && formData.confirmPassword && formData.password === formData.confirmPassword;
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
 
   const showSnackbar = (text) => {
     if (snackbarTimer.current) {
@@ -43,9 +58,105 @@ const GetStartedPage = () => {
     }, 3000);
   };
 
+  // OTP handlers
+  const handleOtpChange = (index, value) => {
+    const numeric = value.replace(/\D/g, '').slice(-1);
+    const nextOtp = [...otp];
+    nextOtp[index] = numeric;
+    setOtp(nextOtp);
+    if (numeric && otpRefs.current[index + 1]) {
+      otpRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleOtpKeyDown = (index, event) => {
+    if (event.key === 'Backspace' && !otp[index] && otpRefs.current[index - 1]) {
+      otpRefs.current[index - 1].focus();
+    }
+  };
+
+  const handleOtpPaste = (event) => {
+    const pasted = event.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+    if (!pasted) return;
+    event.preventDefault();
+    const nextOtp = Array(6).fill('');
+    pasted.split('').forEach((digit, idx) => {
+      nextOtp[idx] = digit;
+    });
+    setOtp(nextOtp);
+    const nextIndex = Math.min(pasted.length, 5);
+    if (otpRefs.current[nextIndex]) {
+      otpRefs.current[nextIndex].focus();
+    }
+  };
+
+  // Click "!" → call /auth/signup/request-otp → show OTP box
+  const handleSendOtp = async () => {
+    if (!isValidEmail) {
+      showSnackbar('Please enter a valid email first.');
+      return;
+    }
+    setVerifyLoading(true);
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.SIGNUP_REQUEST_OTP, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to send OTP');
+      }
+      showSnackbar(data.message || 'OTP sent to your email.');
+      setShowOtp(true);
+      setOtp(Array(6).fill(''));
+      setVerificationToken('');
+    } catch (err) {
+      showSnackbar(err.message || 'Failed to send OTP. Please try again.');
+    } finally {
+      setVerifyLoading(false);
+    }
+  };
+
+  // Verify OTP → email verified
+  const handleVerifyOtp = async () => {
+    const otpValue = otp.join('');
+    if (otpValue.length !== 6) {
+      showSnackbar('Please enter the 6-digit OTP.');
+      return;
+    }
+    setOtpLoading(true);
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.VERIFY_OTP, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'signup', email: formData.email, otp: otpValue }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'OTP verification failed');
+      }
+      if (data?.payload?.verification_token) {
+        setVerificationToken(data.payload.verification_token);
+      }
+      showSnackbar(data.message || 'Email verified successfully!');
+      setEmailVerified(true);
+      setShowOtp(false);
+    } catch (err) {
+      showSnackbar(err.message || 'OTP verification failed. Please try again.');
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    if (!emailVerified) {
+      showSnackbar('Please verify your email first.');
+      return;
+    }
+
     if (!passwordsMatch) {
       const errText = 'Passwords do not match!';
       setError(errText);
@@ -57,21 +168,21 @@ const GetStartedPage = () => {
     setError('');
 
     try {
-      // Call real signup API
       const response = await authService.signup({
-        email: formData.email,
-        password: formData.password,
+        verification_token: verificationToken,
         first_name: formData.firstName,
-        last_name: formData.lastName
+        last_name: formData.lastName,
+        password: formData.password,
+        confirm_password: formData.confirmPassword,
       });
 
+      authService.clearAuthData();
       setSuccessMessage(response.message || 'Signup successful!');
       showSnackbar(response.message || 'Signup successful!');
       setShowSuccess(true);
-      authService.clearAuthData();
       setTimeout(() => {
         navigate('/signin');
-      }, 10000);
+      }, 3000);
     } catch (err) {
       const errText = err.message || 'Signup failed. Please try again.';
       setError(errText);
@@ -80,6 +191,8 @@ const GetStartedPage = () => {
       setLoading(false);
     }
   };
+
+  const submitDisabled = loading || !emailVerified;
 
   if (showSuccess) {
     return (
@@ -140,38 +253,38 @@ const GetStartedPage = () => {
 
   return (
     <div className="page-content">
-      <div style={{ 
-        padding: '100px 20px', 
-        maxWidth: '500px', 
+      <div style={{
+        padding: '100px 20px',
+        maxWidth: '500px',
         margin: '0 auto',
         minHeight: '70vh'
       }}>
-        <h1 style={{ 
-          textAlign: 'center', 
-          marginBottom: '10px', 
-          fontSize: '2.5rem' 
+        <h1 style={{
+          textAlign: 'center',
+          marginBottom: '10px',
+          fontSize: '2.5rem'
         }}>
           Get Started
         </h1>
-        <p style={{ 
-          textAlign: 'center', 
-          color: '#666', 
-          marginBottom: '40px' 
+        <p style={{
+          textAlign: 'center',
+          color: '#666',
+          marginBottom: '40px'
         }}>
           Create your Open Credits account and start earning transferable college credits
         </p>
-        
-        <form onSubmit={handleSubmit} style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: '20px' 
+
+        <form onSubmit={handleSubmit} style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px'
         }}>
           {error}
           <div className="form-row-grid">
             <div>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '8px', 
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
                 fontWeight: '500',
                 color: '#333'
               }}>
@@ -198,9 +311,9 @@ const GetStartedPage = () => {
             </div>
 
             <div>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '8px', 
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
                 fontWeight: '500',
                 color: '#333'
               }}>
@@ -227,39 +340,165 @@ const GetStartedPage = () => {
             </div>
           </div>
 
+          {/* Email with ! icon and OTP */}
           <div>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '8px', 
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
               fontWeight: '500',
               color: '#333'
             }}>
               Email Address
             </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="your@email.com"
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                fontSize: '16px',
-                border: '2px solid #e0e0e0',
-                borderRadius: '8px',
-                outline: 'none',
-              }}
-              onFocus={(e) => e.target.style.borderColor = '#ff6b35'}
-              onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                disabled={emailVerified}
+                placeholder="your@email.com"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  paddingRight: '48px',
+                  fontSize: '16px',
+                  border: `2px solid ${emailVerified ? '#4CAF50' : '#e0e0e0'}`,
+                  borderRadius: '8px',
+                  outline: 'none',
+                  backgroundColor: emailVerified ? '#f0faf0' : 'white',
+                }}
+                onFocus={(e) => {
+                  if (!emailVerified) e.target.style.borderColor = '#ff6b35';
+                }}
+                onBlur={(e) => {
+                  if (!emailVerified) e.target.style.borderColor = '#e0e0e0';
+                }}
+              />
+              <button
+                type="button"
+                onClick={handleSendOtp}
+                disabled={!isValidEmail || emailVerified || verifyLoading}
+                title={emailVerified ? 'Email verified' : isValidEmail ? 'Click to verify email' : 'Enter a valid email'}
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  border: 'none',
+                  background: 'none',
+                  cursor: emailVerified || !isValidEmail || verifyLoading ? 'default' : 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  opacity: !isValidEmail ? 0.4 : 1,
+                }}
+              >
+                {verifyLoading ? (
+                  <svg width="22" height="22" viewBox="0 0 24 24" style={{ animation: 'spin 1s linear infinite', display: 'block' }}>
+                    <circle cx="12" cy="12" r="10" stroke="#ff6b35" strokeWidth="3" fill="none" strokeDasharray="31.4 31.4" strokeLinecap="round" />
+                  </svg>
+                ) : emailVerified ? (
+                  <svg width="22" height="22" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                    <circle cx="12" cy="12" r="11" fill="#4CAF50" />
+                    <path d="M7 12.5l3 3 7-7" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : (
+                  <svg width="22" height="22" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                    <circle cx="12" cy="12" r="11" fill="#ff6b35" />
+                    <text x="12" y="17" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" fontFamily="Arial">!</text>
+                  </svg>
+                )}
+              </button>
+            </div>
+
+            {/* OTP input */}
+            {showOtp && !emailVerified && (
+              <div style={{ marginTop: '14px' }}>
+                <label style={{
+                  display: 'block',
+                  marginBottom: '8px',
+                  fontWeight: '500',
+                  color: '#333',
+                  fontSize: '14px'
+                }}>
+                  Enter the 6-digit OTP sent to your email
+                </label>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(6, 1fr)',
+                  gap: '10px'
+                }}>
+                  {otp.map((digit, index) => (
+                    <input
+                      key={`otp-${index}`}
+                      ref={(el) => { otpRefs.current[index] = el; }}
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleOtpChange(index, e.target.value)}
+                      onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                      onPaste={handleOtpPaste}
+                      style={{
+                        width: '100%',
+                        padding: '12px 0',
+                        textAlign: 'center',
+                        fontSize: '18px',
+                        border: '2px solid #e0e0e0',
+                        borderRadius: '8px',
+                        outline: 'none'
+                      }}
+                      onFocus={(e) => e.target.style.borderColor = '#ff6b35'}
+                      onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+                    />
+                  ))}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '12px' }}>
+                  <button
+                    type="button"
+                    onClick={handleSendOtp}
+                    disabled={verifyLoading}
+                    style={{
+                      color: '#ff6b35',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                      font: 'inherit',
+                      fontSize: '14px',
+                      opacity: verifyLoading ? 0.6 : 1
+                    }}
+                  >
+                    {verifyLoading ? 'Resending...' : 'Resend OTP'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleVerifyOtp}
+                    disabled={otpLoading || otp.join('').length !== 6}
+                    style={{
+                      padding: '8px 20px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      backgroundColor: otpLoading || otp.join('').length !== 6 ? '#ccc' : '#ff6b35',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: otpLoading || otp.join('').length !== 6 ? 'not-allowed' : 'pointer',
+                    }}
+                  >
+                    {otpLoading ? 'Verifying...' : 'Verify'}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '8px', 
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
               fontWeight: '500',
               color: '#333'
             }}>
@@ -271,6 +510,7 @@ const GetStartedPage = () => {
               value={formData.password}
               onChange={handleChange}
               required
+              disabled={!emailVerified}
               placeholder="Create a password"
               style={{
                 width: '100%',
@@ -279,6 +519,8 @@ const GetStartedPage = () => {
                 border: '2px solid #e0e0e0',
                 borderRadius: '8px',
                 outline: 'none',
+                opacity: !emailVerified ? 0.5 : 1,
+                backgroundColor: !emailVerified ? '#f5f5f5' : 'white',
               }}
               onFocus={(e) => e.target.style.borderColor = '#ff6b35'}
               onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
@@ -286,9 +528,9 @@ const GetStartedPage = () => {
           </div>
 
           <div>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '8px', 
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
               fontWeight: '500',
               color: '#333'
             }}>
@@ -301,6 +543,7 @@ const GetStartedPage = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
+                disabled={!emailVerified}
                 placeholder="Confirm your password"
                 style={{
                   width: '100%',
@@ -310,6 +553,8 @@ const GetStartedPage = () => {
                   border: `2px solid ${passwordsMatch ? '#4CAF50' : '#e0e0e0'}`,
                   borderRadius: '8px',
                   outline: 'none',
+                  opacity: !emailVerified ? 0.5 : 1,
+                  backgroundColor: !emailVerified ? '#f5f5f5' : 'white',
                 }}
                 onFocus={(e) => {
                   if (!passwordsMatch) e.target.style.borderColor = '#ff6b35';
@@ -355,9 +600,9 @@ const GetStartedPage = () => {
             </div>
           </div>
 
-          <label style={{ 
-            display: 'flex', 
-            alignItems: 'flex-start', 
+          <label style={{
+            display: 'flex',
+            alignItems: 'flex-start',
             gap: '8px',
             fontSize: '14px',
             color: '#666'
@@ -370,37 +615,42 @@ const GetStartedPage = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={submitDisabled}
             style={{
               padding: '14px',
               fontSize: '16px',
               fontWeight: '600',
-              backgroundColor: loading ? '#ccc' : '#ff6b35',
+              backgroundColor: submitDisabled ? '#ccc' : '#ff6b35',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
-              cursor: loading ? 'not-allowed' : 'pointer',
+              cursor: submitDisabled ? 'not-allowed' : 'pointer',
               transition: 'background-color 0.3s',
               marginTop: '10px',
-              pointerEvents: loading ? 'none' : 'auto'
+              pointerEvents: submitDisabled ? 'none' : 'auto'
             }}
-            onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#ff5722')}
-            onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#ff6b35')}
+            onMouseEnter={(e) => !submitDisabled && (e.target.style.backgroundColor = '#ff5722')}
+            onMouseLeave={(e) => !submitDisabled && (e.target.style.backgroundColor = '#ff6b35')}
           >
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
+          {!emailVerified && (
+            <p style={{ textAlign: 'center', color: '#999', fontSize: '13px', margin: '-8px 0 0' }}>
+              Please verify your email to continue
+            </p>
+          )}
         </form>
 
-        <p style={{ 
-          textAlign: 'center', 
-          marginTop: '30px', 
-          color: '#666' 
+        <p style={{
+          textAlign: 'center',
+          marginTop: '30px',
+          color: '#666'
         }}>
           Already have an account?{' '}
-          <a href="/signin" style={{ 
-            color: '#ff6b35', 
-            textDecoration: 'none', 
-            fontWeight: '600' 
+          <a href="/signin" style={{
+            color: '#ff6b35',
+            textDecoration: 'none',
+            fontWeight: '600'
           }}>
             Sign In
           </a>
@@ -447,10 +697,15 @@ const GetStartedPage = () => {
           </button>
         </div>
       )}
+
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };
 
 export default GetStartedPage;
-
-

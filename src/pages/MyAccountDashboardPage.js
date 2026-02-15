@@ -219,42 +219,6 @@ export default function MyAccountDashboardPage() {
       <section className="account">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h2>My Account</h2>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button
-              type="button"
-              onClick={() => setIsEditing((prev) => !prev)}
-              style={{
-                padding: '8px 14px',
-                borderRadius: '8px',
-                border: '1px solid #ff6b35',
-                backgroundColor: isEditing ? '#fff5f0' : 'white',
-                color: '#ff6b35',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              {isEditing ? 'Cancel' : 'Edit'}
-            </button>
-            {isEditing && (
-              <button
-                type="button"
-                onClick={handleSaveProfile}
-                disabled={saveLoading}
-                style={{
-                  padding: '8px 14px',
-                  borderRadius: '8px',
-                  border: '1px solid #ff6b35',
-                  backgroundColor: '#ff6b35',
-                  color: 'white',
-                  fontWeight: 600,
-                  cursor: saveLoading ? 'not-allowed' : 'pointer',
-                  opacity: saveLoading ? 0.7 : 1
-                }}
-              >
-                {saveLoading ? 'Saving...' : 'Save'}
-              </button>
-            )}
-          </div>
         </div>
         <div className="account__layout">
           <div className="account__menu">
@@ -283,88 +247,6 @@ export default function MyAccountDashboardPage() {
 
           {activeTab === 'profile' && (
             <div className="account__form">
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '18px' }}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    width: '84px',
-                    height: '84px',
-                    borderRadius: '50%',
-                    backgroundColor: '#ff6b35',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '28px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    boxShadow: '0 6px 16px rgba(255, 107, 53, 0.3)',
-                    margin: '0 auto 10px'
-                  }}>
-                    {displayImageUrl && !imageError ? (
-                      <img
-                        src={displayImageUrl}
-                        alt="Profile"
-                        onError={() => setImageError(true)}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
-                      />
-                    ) : (
-                      (displayUser?.firstName || displayUser?.email || 'U').charAt(0)
-                    )}
-                  </div>
-                  {isEditing && (
-                    <>
-                      <input
-                        ref={profileFileInputRef}
-                        type="file"
-                        accept="image/png, image/jpeg"
-                        style={{ display: 'none' }}
-                        onChange={(e) => {
-                          const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
-                          if (file && !['image/jpeg', 'image/png'].includes(file.type)) {
-                            showSnackbar('Only JPEG and PNG images are allowed.');
-                            e.target.value = '';
-                            setProfileForm((prev) => ({ ...prev, profilePictureFile: null }));
-                            setProfilePreviewUrl('');
-                            return;
-                          }
-                          setProfileForm((prev) => ({ ...prev, profilePictureFile: file }));
-                          if (file) {
-                            const objectUrl = URL.createObjectURL(file);
-                            setProfilePreviewUrl((prevUrl) => {
-                              if (prevUrl) {
-                                URL.revokeObjectURL(prevUrl);
-                              }
-                              return objectUrl;
-                            });
-                          } else {
-                            setProfilePreviewUrl('');
-                          }
-                        }}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => profileFileInputRef.current && profileFileInputRef.current.click()}
-                        style={{
-                          padding: '6px 12px',
-                          borderRadius: '8px',
-                          border: '1px solid #ff6b35',
-                          backgroundColor: 'white',
-                          color: '#ff6b35',
-                          fontWeight: 600,
-                          cursor: 'pointer'
-                        }}
-                      >
-                        Upload photo
-                      </button>
-                      {profileForm.profilePictureFile && (
-                        <div style={{ marginTop: '6px', fontSize: '12px', color: '#666' }}>
-                          {profileForm.profilePictureFile.name}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
               <div className="account__row">
                 <label>
                   Name
