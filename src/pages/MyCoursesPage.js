@@ -203,9 +203,9 @@ const MyCoursesPage = () => {
             <div>
               <h2>Enjoying Open Credits?</h2>
               <p>
-                Refer it to your friends, family and more to win Ipad, Mac Books, Iphones, Trip
+                Refer it to your friends, family and more to win Ipad, Mac Books, Iphones,
                 <br />
-                to Miami, Cruise rides, and more!
+                Trip to Miami, Cruise rides, and more!
               </p>
             </div>
             <button type="button" onClick={() => navigate('/resources')}>Refer Now</button>
@@ -233,7 +233,7 @@ const MyCoursesPage = () => {
                             <span>{course.code?.split(' ')[0] || 'OC'}</span>
                           )}
                         </div>
-                        <h3>{course.code}: {course.name}</h3>
+                        <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
                       </div>
                       <span>{progressValue}% complete</span>
                       {/*
@@ -296,7 +296,7 @@ const MyCoursesPage = () => {
                         )}
                       </div>
                       <div>
-                        <h3>{course.code}: {course.name}</h3>
+                        <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
                         <p>{course.description || 'Track your coursework, assignments, and weekly milestones.'}</p>
                       </div>
                       <div className="dashboard__progress">

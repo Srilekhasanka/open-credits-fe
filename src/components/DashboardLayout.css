@@ -10,6 +10,10 @@
   --dashboard-accent-soft: #fff1ea;
   --dashboard-border: #e6e9f0;
   --dashboard-shadow: 0 8px 18px rgba(26, 32, 44, 0.06);
+  --dashboard-course-card-width: 380px;
+  --dashboard-course-card-height: 429px;
+  --dashboard-bookmark-size: 28px;
+  --dashboard-bookmark-icon-size: 25px;
   --dashboard-sidebar-width: 272px;
   --dashboard-nav-item-width: 204px;
   --dashboard-nav-item-height: 48px;
@@ -161,7 +165,7 @@
 }
 
 .dashboard__welcome span {
-  color: #ed6c2c;
+  color: #ED6C2C;
   font-weight: 700;
 }
 
@@ -291,9 +295,9 @@
   border-radius: 12px;
   padding: 16px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   width: 800px;
   height: 171px;
   box-shadow: var(--dashboard-shadow);
@@ -327,7 +331,8 @@
   background: #ffffff;
   color: #ED6C2C;
   font-weight: 600;
-  width: 143px;
+  min-width: 160px;
+  width: auto;
   height: 56px;
   padding: 16px 32px;
   border-radius: 6px;
@@ -340,7 +345,8 @@
   gap: 10px;
   box-sizing: border-box;
   position: relative;
-  left: -5px;
+  left: 0;
+  white-space: nowrap;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -525,16 +531,20 @@
 
 .dashboard__filters {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .dashboard__filter-btn {
-  border: 1px solid #e6e9f0;
-  background: #f4f6fb;
-  color: var(--dashboard-muted);
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 0.7rem;
+  border: none;
+  background: #ececec;
+  color: #000000;
+  padding: 0 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 26px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  height: 26px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -543,27 +553,25 @@
 }
 
 .dashboard__filter-btn.is-active {
-  background: #fff1ea;
-  color: var(--dashboard-accent);
+  background: #ececec;
+  color: #000000;
   border-color: transparent;
 }
 
 .dashboard__filter-btn--sort {
-  padding: 5px 8px;
+  padding: 0 10px;
 }
 
 .dashboard__sort-arrow {
   display: inline-flex;
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e2e5ec;
-  background: #ffffff;
-  font-size: 0.62rem;
-  color: #6f7b8b;
-  line-height: 1;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: #000000;
+  line-height: 26px;
+  padding: 0;
 }
 
 .dashboard__course-grid {
@@ -574,45 +582,64 @@
 
 .dashboard__course-card {
   background: #ffffff;
-  border-radius: 14px;
-  border: 1px solid var(--dashboard-border);
-  padding: 18px;
-  box-shadow: 0 10px 24px rgba(31, 42, 58, 0.06);
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  padding: 18px 18px 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 390px;
-  height: 429px;
+  width: var(--dashboard-course-card-width);
+  height: var(--dashboard-course-card-height);
   box-sizing: border-box;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard__course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
 }
 
 .dashboard__course-icon {
   width: 78px;
   height: 78px;
   border-radius: 50%;
-  background: #eaf4ec;
+  background: #ffffff;
   display: grid;
   place-items: center;
-  color: #4b9b6e;
+  color: #6f7b8b;
   font-weight: 700;
-  border: 1px solid #d7ebdc;
+  border: none;
 }
 
 .dashboard__course-icon img {
-  width: 44px;
-  height: 44px;
+  width: 78px;
+  height: 78px;
   object-fit: contain;
   display: block;
 }
 
 .dashboard__course-card h3 {
-  font-size: 0.92rem;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  margin: 0 0 6px;
+  min-height: 64px;
+  white-space: pre-line;
 }
 
 .dashboard__course-card p {
-  font-size: 0.76rem;
-  color: var(--dashboard-muted);
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #374151;
+  margin: 0;
+  min-height: 84px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  white-space: pre-line;
 }
 
 .dashboard__progress {
@@ -799,23 +826,30 @@
 }
 
 .mycourses__title-row h2 {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .mycourses__filters {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .mycourses__filter {
-  border: 1px solid #dfe5f0;
-  background: #eef3fb;
-  color: #6f7b8b;
-  padding: 3px 8px;
+  border: none;
+  background: #ececec;
+  color: #000000;
+  padding: 0 10px;
   border-radius: 4px;
-  font-size: 0.62rem;
+  font-size: 12px;
+  line-height: 26px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  height: 26px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -823,26 +857,25 @@
 }
 
 .mycourses__filter--active {
-  color: var(--dashboard-accent);
-  background: var(--dashboard-accent-soft);
+  color: #000000;
+  background: #ececec;
   border-color: transparent;
 }
 
 .mycourses__filter--sort {
-  padding: 3px 6px;
+  padding: 0 10px;
 }
 
 .mycourses__sort-arrow {
   display: inline-flex;
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e2e5ec;
-  font-size: 0.62rem;
-  color: #6f7b8b;
-  line-height: 1;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: #000000;
+  line-height: 26px;
+  padding: 0;
 }
 
 .mycourses__grid {
@@ -860,13 +893,22 @@
 .mycourses__card {
   background: #ffffff;
   border-radius: 12px;
-  border: 1px solid #f0f1f5;
-  padding: 20px;
-  box-shadow: 0 14px 28px rgba(26, 32, 44, 0.08);
+  border: 1px solid #f0f0f0;
+  padding: 18px 18px 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 220px;
+  width: var(--dashboard-course-card-width);
+  height: var(--dashboard-course-card-height);
+  box-sizing: border-box;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mycourses__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
 }
 
 .mycourses__card-top {
@@ -879,25 +921,25 @@
   width: 78px;
   height: 78px;
   border-radius: 50%;
-  background: #eaf4ec;
-  color: #4b9b6e;
+  background: #ffffff;
+  color: #6f7b8b;
   display: grid;
   place-items: center;
   font-size: 0.68rem;
   font-weight: 700;
-  border: 1px solid #d7ebdc;
+  border: none;
 }
 
 .mycourses__course-icon img {
-  width: 44px;
-  height: 44px;
+  width: 78px;
+  height: 78px;
   object-fit: contain;
   display: block;
 }
 
 .mycourses__bookmark {
-  width: 22px;
-  height: 22px;
+  width: var(--dashboard-bookmark-size);
+  height: var(--dashboard-bookmark-size);
   border-radius: 5px;
   border: 1px solid #eef0f6;
   background: #ffffff;
@@ -908,8 +950,8 @@
 }
 
 .mycourses__bookmark img {
-  width: 14px;
-  height: 14px;
+  width: var(--dashboard-bookmark-icon-size);
+  height: var(--dashboard-bookmark-icon-size);
   display: block;
 }
 
@@ -924,19 +966,33 @@
 }
 
 .mycourses__card-body h3 {
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  margin: 0 0 6px;
+  min-height: 64px;
+  white-space: pre-line;
+}
+
+.mycourses__card-body {
+  padding-top: 30px;
 }
 
 .mycourses__card-body p {
-  font-size: 0.68rem;
-  color: #7a8797;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #374151;
+  margin: 0;
+  min-height: 84px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  white-space: pre-line;
 }
 
 .mycourses__card-divider {
-  height: 1px;
-  background: #eff1f6;
+  display: none;
 }
 
 .mycourses__progress-row {
@@ -944,27 +1000,38 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  margin-top: auto;
 }
 
 .mycourses__progress-label {
-  font-size: 0.68rem;
-  color: var(--dashboard-accent);
+  font-size: 20px;
+  line-height: 32px;
   font-weight: 600;
+  color: #ed6c2c;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .mycourses__last-opened {
-  font-size: 0.58rem;
-  color: #a0a8b6;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9ca3af;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .mycourses__cta {
   border: none;
   background: var(--dashboard-accent);
   color: #ffffff;
-  padding: 5px 12px;
-  border-radius: 5px;
-  font-size: 0.62rem;
-  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  min-width: 145px;
+  min-height: 56px;
   cursor: pointer;
 }
 
@@ -1001,13 +1068,32 @@
 .allcourses__card {
   background: #ffffff;
   border-radius: 12px;
-  border: 1px solid #f0f1f5;
-  padding: 20px;
-  box-shadow: 0 14px 28px rgba(26, 32, 44, 0.08);
+  border: 1px solid #f0f0f0;
+  padding: 18px 18px 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 220px;
+  width: var(--dashboard-course-card-width);
+  height: var(--dashboard-course-card-height);
+  box-sizing: border-box;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.allcourses__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
+}
+
+.allcourses__card .mycourses__card-divider {
+  display: none;
+}
+
+.allcourses__card .mycourses__card-body {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 30px;
 }
 
 .allcourses__price-row {
@@ -1015,27 +1101,38 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  margin-top: auto;
 }
 
 .allcourses__price {
-  color: var(--dashboard-accent);
-  font-weight: 700;
-  font-size: 0.72rem;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 600;
+  color: #ed6c2c;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .allcourses__seats {
-  font-size: 0.6rem;
-  color: #a0a8b6;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9ca3af;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .allcourses__cta {
   border: none;
   background: var(--dashboard-accent);
   color: #ffffff;
-  padding: 6px 16px;
+  padding: 16px 32px;
   border-radius: 6px;
-  font-size: 0.62rem;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  min-width: 145px;
+  min-height: 56px;
   cursor: pointer;
 }
 
@@ -1058,39 +1155,55 @@
 }
 
 .affiliate__header h2 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .affiliate__header p {
-  font-size: 0.72rem;
-  color: #7a8797;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #6b7280;
   margin-top: 4px;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .affiliate__stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  gap: 20px;
 }
 
 .affiliate__stat-card {
-  background: var(--dashboard-accent);
+  background: #ED6C2C;
   color: #ffffff;
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 280px;
+  height: 120px;
+  box-sizing: border-box;
 }
 
 .affiliate__stat-card span {
-  font-size: 0.68rem;
-  opacity: 0.9;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  opacity: 1;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .affiliate__stat-card strong {
-  font-size: 1rem;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  margin-top: 15px;
 }
 
 .affiliate__tabs {
@@ -1101,17 +1214,20 @@
 .affiliate__tab {
   border: 1px solid #efeff4;
   background: #ffffff;
-  color: #6f7b8b;
+  color: #6b7280;
   padding: 6px 12px;
   border-radius: 6px;
-  font-size: 0.68rem;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
 }
 
 .affiliate__tab--active {
-  color: var(--dashboard-accent);
-  border-color: var(--dashboard-accent);
-  background: #fff6f1;
+  color: #ED6C2C;
+  border-color: #ED6C2C;
+  background: #ffffff;
 }
 
 .affiliate__section {
@@ -1121,35 +1237,59 @@
 }
 
 .affiliate__section h3 {
-  font-size: 0.8rem;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .affiliate__link-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  max-width: 320px;
+  gap: 16px;
+  max-width: 393px;
+  background: #f9fafb;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 44px;
 }
 
 .affiliate__link-row input {
   flex: 1;
-  border: 1px solid #e2e6ef;
-  border-radius: 6px;
-  padding: 6px 8px;
-  font-size: 0.68rem;
-  color: #5c6675;
+  border: none;
+  background: transparent;
+  padding: 0 4px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  height: 24px;
+  box-sizing: border-box;
+}
+
+.affiliate__link-row input:focus {
+  outline: none;
+  background: transparent;
+}
+
+.affiliate__link-row:focus-within {
+  background: #f9fafb;
 }
 
 .affiliate__link-row button {
-  border: 1px solid #e2e6ef;
+  border: 1px solid #9ca3af;
   background: #ffffff;
-  border-radius: 6px;
-  width: 28px;
-  height: 28px;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  color: #6f7b8b;
+  color: #6b7280;
 }
 
 .affiliate__section-header {
@@ -1225,27 +1365,36 @@
   border: 1px solid #eef0f6;
   border-radius: 10px;
   overflow: hidden;
-  max-width: 260px;
+  max-width: 466px;
+  width: 100%;
 }
 
 .affiliate__visitors-head {
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   gap: 12px;
-  background: #f7f7fa;
-  padding: 8px 14px;
-  font-size: 0.68rem;
-  color: #6f7b8b;
+  background: #f8f5f5;
+  padding: 10px 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  min-height: 39px;
+  align-items: center;
 }
 
 .affiliate__visitors-row {
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 16px;
   border-top: 1px solid #eef0f6;
-  font-size: 0.7rem;
-  color: #5c6675;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   align-items: center;
 }
 
@@ -1258,7 +1407,8 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-width: 260px;
+  max-width: 393px;
+  width: 100%;
 }
 
 .affiliate__field {
@@ -1268,51 +1418,71 @@
 }
 
 .affiliate__field label {
-  font-size: 0.72rem;
-  color: #3c4655;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .affiliate__field input {
-  border: 1px solid #d7dbe4;
-  border-radius: 4px;
-  padding: 6px 8px;
-  font-size: 0.68rem;
-  color: #5c6675;
-  background: #f2f2f2;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #000000;
+  background: #f9fafb;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  height: 44px;
+  box-sizing: border-box;
 }
 
 .affiliate__field-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  background: #f9fafb;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  padding: 10px 10px 10px 20px;
+  height: 44px;
+  box-sizing: border-box;
 }
 
 .affiliate__field-row input {
   flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0;
+  height: 24px;
 }
 
 .affiliate__field-row button {
-  border: 1px solid #d7dbe4;
+  border: 1px solid #9ca3af;
   background: #ffffff;
   border-radius: 4px;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  color: #6f7b8b;
+  color: #6b7280;
 }
 
 .affiliate__save {
   border: none;
-  background: var(--dashboard-accent);
+  background: #ED6C2C;
   color: #ffffff;
-  padding: 8px 16px;
+  padding: 16px 32px;
   border-radius: 6px;
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
   cursor: pointer;
+  min-width: 106px;
+  min-height: 56px;
   width: fit-content;
 }
 
@@ -1323,8 +1493,11 @@
 }
 
 .cart h2 {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .cart__list {
@@ -1343,50 +1516,86 @@
   gap: 18px;
   align-items: center;
   box-shadow: 0 10px 24px rgba(26, 32, 44, 0.08);
+  width: 100%;
+  min-height: 205px;
+  box-sizing: border-box;
 }
 
 .cart__item-icon {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #eaf4ec;
+  background: transparent;
   color: #4b9b6e;
   display: grid;
   place-items: center;
   font-size: 0.7rem;
   font-weight: 700;
-  border: 1px solid #d7ebdc;
+  border: none;
+  overflow: visible;
+}
+
+.cart__item-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .cart__item-title {
-  font-size: 0.82rem;
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  margin-bottom: 6px;
 }
 
 .cart__item-desc {
-  font-size: 0.7rem;
-  color: #7a8797;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #374151;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .cart__remove {
   margin-top: 8px;
-  border: 1px solid #e1e5ef;
+  border: 1px solid #9ca3af;
   background: #ffffff;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 0.64rem;
-  color: #6f7b8b;
+  border-radius: 30px;
+  padding: 5px 10px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #6b7280;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  height: 34px;
+  min-width: 109px;
+  box-sizing: border-box;
+}
+
+.cart__remove span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  color: #6b7280;
 }
 
 .cart__price {
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: #3c4655;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  padding-top: 32px;
+  align-self: flex-start;
 }
 
 .cart__summary {
@@ -1408,35 +1617,52 @@
 }
 
 .cart__summary-left strong {
-  font-size: 0.8rem;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .cart__summary-right {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  justify-self: end;
+  text-align: right;
 }
 
 .cart__total {
-  font-size: 0.9rem;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: 700;
-  color: #3c4655;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .cart__note {
-  font-size: 0.64rem;
-  color: #7a8797;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #374151;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .cart__checkout {
   border: none;
-  background: var(--dashboard-accent);
+  background: #ED6C2C;
   color: #ffffff;
-  padding: 8px 18px;
+  padding: 16px 32px;
   border-radius: 6px;
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
   cursor: pointer;
+  min-height: 56px;
+}
+
+.cart__checkout:hover:not(:disabled) {
+  background: #FF4E00;
 }
 
 @media (max-width: 720px) {
@@ -1790,8 +2016,11 @@
 }
 
 .account h2 {
-  font-size: 0.95rem;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: 600;
+  color: #111827;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .account__layout {
@@ -1812,8 +2041,11 @@
 .account__menu-item {
   background: transparent;
   border: none;
-  color: #6f7b8b;
-  font-size: 0.7rem;
+  color: #111827;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   text-align: left;
   cursor: pointer;
   padding: 4px 0;
@@ -1821,7 +2053,7 @@
 
 .account__menu-item--active {
   color: var(--dashboard-accent);
-  font-weight: 600;
+  font-weight: 500;
   position: relative;
 }
 
@@ -1853,32 +2085,54 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.68rem;
-  color: #3c4655;
-  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  color: #1f2937;
+  font-weight: 400;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .account__form input {
-  border: 1px solid #d7dbe4;
-  border-radius: 4px;
-  padding: 6px 8px;
-  font-size: 0.68rem;
-  color: #5c6675;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  padding: 10px;
+  height: 44px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+}
+
+.account__form input::placeholder {
+  color: #9ca3af;
+}
+
+.account__form input:focus,
+.account__form input:focus-visible,
+.billing__field input:focus,
+.billing__field input:focus-visible {
+  border-color: #ED6C2C;
+  box-shadow: 0 0 0 2px rgba(237, 108, 44, 0.2);
+  outline: none;
 }
 
 .account__label-spacer {
-  height: 0.68rem;
+  height: 28px;
 }
 
 .account__empty {
-  font-size: 0.7rem;
-  color: #7a8797;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 500;
+  color: #6b7280;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   padding-top: 6px;
 }
 
 .billing {
   display: grid;
-  grid-template-columns: 1fr 280px;
+  grid-template-columns: minmax(0, 432px) minmax(0, 440px);
   gap: 24px;
 }
 
@@ -1886,23 +2140,40 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  max-width: 432px;
 }
 
 .billing__field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.68rem;
-  color: #3c4655;
+  display: block;
+  font-size: 18px;
+  line-height: 28px;
+  color: #253058;
   font-weight: 600;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.billing__field span[aria-hidden="true"] {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  transform: translateY(-1px);
 }
 
 .billing__field input {
-  border: 1px solid #e3e6ef;
-  background: #f8f9fc;
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-size: 0.7rem;
+  border: 1px solid #e8ebf1;
+  background: #f8f9fb;
+  border-radius: 8px;
+  padding: 12px;
+  height: 48px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+  display: block;
+  margin-top: 6px;
+  width: 100%;
 }
 
 .billing__field--accent input {
@@ -1925,36 +2196,57 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .billing__history h4 {
-  font-size: 0.78rem;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: 600;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .billing__history-card {
-  border: 1px solid #eef0f6;
-  border-radius: 8px;
-  padding: 10px 12px;
+  border: 1px solid #f9fafb;
+  border-radius: 4px;
+  padding: 14px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  min-height: 85px;
+  box-sizing: border-box;
 }
 
 .billing__history-title {
-  font-size: 0.7rem;
+  font-size: 18px;
+  line-height: 28px;
   font-weight: 600;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .billing__history-date {
-  font-size: 0.6rem;
-  color: #9aa4b2;
+  font-size: 12px;
+  line-height: 16px;
+  color: #6b7280;
+  font-style: italic;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .billing__history-price {
-  font-size: 0.75rem;
+  font-size: 18px;
+  line-height: 28px;
   font-weight: 600;
+  color: #000000;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.billing__history-card > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 @media (max-width: 900px) {

@@ -208,6 +208,7 @@ const AffiliateDashboardPage = () => {
               </div>
             </div>
 
+            {/*
             <div className="affiliate__section">
               <div className="affiliate__section-header">
                 <div>
@@ -237,6 +238,7 @@ const AffiliateDashboardPage = () => {
                 ))}
               </div>
             </div>
+            */}
           </>
         )}
 
@@ -260,7 +262,6 @@ const AffiliateDashboardPage = () => {
 
         {activeTab === 'settings' && (
           <div className="affiliate__section">
-            <h3>Settings</h3>
             <div className="affiliate__settings">
               <div className="affiliate__field">
                 <label>Affiliate Code</label>

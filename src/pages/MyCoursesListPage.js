@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+﻿import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
@@ -286,10 +286,6 @@ const MyCoursesListPage = () => {
         <div className="mycourses__title-row">
           <h2>My Courses</h2>
           <div className="mycourses__filters">
-            <button className="mycourses__filter mycourses__filter--sort" type="button">
-              Sort by
-              <span aria-hidden="true" className="mycourses__sort-arrow">↑</span>
-            </button>
             <button
               className={`mycourses__filter ${courseFilter === 'completed' ? 'mycourses__filter--active' : ''}`}
               type="button"
@@ -344,7 +340,7 @@ const MyCoursesListPage = () => {
                   </button>
                 </div>
                 <div className="mycourses__card-body">
-                  <h3>{course.code}: {course.name}</h3>
+                  <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
                   <p>{course.description || 'Learn core managerial accounting concepts, interpret financial statements.'}</p>
                 </div>
                 <div className="mycourses__card-divider" />
@@ -372,3 +368,4 @@ const MyCoursesListPage = () => {
 };
 
 export default MyCoursesListPage;
+
