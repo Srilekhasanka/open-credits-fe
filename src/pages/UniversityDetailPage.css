@@ -1,6 +1,9 @@
 .university-page {
   background: #fff;
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: var(--section-gap) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
 
 .university-card {
@@ -328,7 +331,7 @@
 
 .university-why {
   height: 457px;
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 60px 0 0;
 }
 
 .university-why-inner {
@@ -490,8 +493,8 @@
 
 .university-savings .savings-section.savings-calculator {
   max-width: 1512px;
-  margin: 24px auto 0;
-  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
+  margin: 0 auto;
+  padding: 60px var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .university-savings {
@@ -523,7 +526,7 @@
 }
 
 .university-work .work-process {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 60px 0 0;
   min-height: 0;
 }
 
@@ -563,7 +566,7 @@
 }
 
 .university-courses {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 60px 0 0;
   margin-top: 0;
 }
 
@@ -913,6 +916,14 @@
   vertical-align: middle;
 }
 
+.university-page > .testimonials {
+  padding: 60px 0 0;
+}
+
+.university-page > .faq {
+  padding: 60px 0 0;
+}
+
 @media (max-width: 900px) {
   .university-courses-card-head {
     flex-direction: column;
@@ -941,6 +952,36 @@
 }
 
 @media (max-width: 768px) {
+  .university-page {
+    gap: 40px;
+    padding: 40px 0;
+  }
+
+  .university-work .work-process {
+    padding: 40px 0 0;
+  }
+
+  .university-why {
+    height: auto;
+    padding: 40px 0 0;
+  }
+
+  .university-savings .savings-section.savings-calculator {
+    padding-top: 40px;
+  }
+
+  .university-courses {
+    padding: 40px 0 0;
+  }
+
+  .university-page > .testimonials {
+    padding: 40px 0 0;
+  }
+
+  .university-page > .faq {
+    padding: 40px 0 0;
+  }
+
   .university-header {
     flex-direction: column;
     align-items: flex-start;
@@ -960,11 +1001,6 @@
   .university-cta {
     width: 100%;
     min-width: 0;
-  }
-
-  .university-why {
-    height: auto;
-    padding: var(--section-gap) 0 var(--section-gap);
   }
 
   .university-why-inner {
