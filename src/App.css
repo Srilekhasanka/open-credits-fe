@@ -1,6 +1,7 @@
 ﻿.App {
   width: 100%;
   overflow-x: hidden;
+  background: #fff;
 }
 
 .App.app--with-header {

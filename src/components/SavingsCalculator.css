@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 .savings-section.savings-calculator {
   margin: 0 auto;
   max-width: 1512px;
@@ -11,12 +13,12 @@
   font-size: 36px;
   line-height: 44px;
   font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   text-align: left;
   margin: 0 0 55px;
   color: #111827;
-  width: 825px;
-  height: 44px;
-  max-width: 100%;
+  white-space: nowrap;
 }
 
 .savings-section.savings-calculator h2 span {
@@ -51,7 +53,8 @@
   font-weight: 700;
   margin-bottom: 8px;
   color: #000000;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
 
 .savings-section.savings-calculator .savings-input {
@@ -76,6 +79,9 @@
   border: none;
   font-size: 18px;
   line-height: 28px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   background: transparent;
   color: #111827;
   outline: none;
@@ -175,6 +181,7 @@
 
 .savings-section.savings-calculator .savings-input--autocomplete {
   position: relative;
+  cursor: text;
 }
 
 .savings-section.savings-calculator .savings-autocomplete-menu {
@@ -249,13 +256,14 @@
   width: 214px;
   height: 48px;
   padding: 0 16px;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 28px;
   border-radius: 999px;
   border: 1px solid #9fc0ff;
   color: #000000;
   background: #fff;
   font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
   white-space: nowrap;
 }
@@ -314,6 +322,7 @@
   line-height: 32px;
   font-weight: 700;
   color: #1f2937;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .savings-row.is-total span:last-child {
@@ -367,7 +376,7 @@
   font-size: 18px;
   line-height: 28px;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .savings-pill.is-accent {
@@ -414,12 +423,13 @@
   font-size: 18px;
   line-height: 28px;
   margin-bottom: 8px;
-  font-weight: 500;
+  font-weight: 400;
   text-decoration: underline;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .savings-section.savings-calculator .bundle-price {
-  font-size: 36px;
+  font-size: 35.36px;
   line-height: 55px;
   font-weight: 700;
   color: #ed6c2c;
@@ -432,6 +442,7 @@
   color: #ed6c2c;
   margin-top: 6px;
   font-weight: 700;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 @media (max-width: 1280px) {
