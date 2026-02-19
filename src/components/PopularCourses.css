@@ -21,7 +21,7 @@
   line-height: 44px;
   font-weight: 700;
   color: #000000;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .courses-header .highlight {
@@ -38,8 +38,8 @@
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -123,7 +123,7 @@
   margin: 90px 0 0;
   color: #111827;
   min-height: 64px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   white-space: pre-line;
 }
 
@@ -139,7 +139,7 @@
   color: #6b7280;
   margin: 0;
   min-height: 84px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   white-space: pre-line;
 }
 
@@ -161,7 +161,7 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   min-height: 34px;
 }
 
@@ -200,17 +200,17 @@
 .course-price {
   font-size: 20px;
   line-height: 32px;
-  font-weight: 600;
+  font-weight: 700;
   color: #ed6c2c;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .course-seats {
-  font-size: 12px;
-  line-height: 16px;
-  color: #9ca3af;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #d1d5db;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .btn-enroll {

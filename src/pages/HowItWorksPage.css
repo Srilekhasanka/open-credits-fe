@@ -1,7 +1,7 @@
 .partnership-page {
   background: #fff;
   min-height: 100vh;
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: var(--section-gap) 0 calc(var(--section-gap) + 120px);
 }
 
 .partnership-container {
@@ -56,24 +56,31 @@
 }
 
 .partner-banner__content h1 {
-  font-size: 58px;
+  font-size: 58.09px;
   line-height: 71px;
-  margin: 0 0 12px;
+  margin: 0 0 49px;
   color: #000000;
   font-weight: 700;
   font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
 
 .partner-banner__content h1 span {
   color: #ED6C2C;
   display: block;
+  font-weight: 700;
 }
 
 .partner-banner__content p {
-  font-size: 16px;
-  line-height: 24px;
-  color: #4b5563;
+  font-size: 18px;
+  line-height: 28px;
+  color: #000000;
   margin: 0 0 10px;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.partner-banner__content p:not(:first-of-type) {
+  margin-left: -225px;
 }
 
 .partner-banner__content p:first-of-type {
@@ -175,7 +182,11 @@
   line-height: 38px;
   color: #000000;
   font-weight: 700;
-  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.partnership-feature-title-nowrap {
+  white-space: nowrap;
 }
 
 .partnership-feature-copy h3 {
@@ -184,7 +195,7 @@
   line-height: 28px;
   font-weight: 700;
   color: #111827;
-  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   white-space: nowrap;
 }
 
@@ -194,6 +205,11 @@
   line-height: 28px;
   color: #111827;
   font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.partnership-feature-nowrap {
+  white-space: nowrap;
 }
 
 .partnership-feature-image {
@@ -243,11 +259,11 @@
 .partnership-link {
   border: none;
   background: none;
-  color: #2563eb;
+  color: #2f6bff;
   font-size: 14px;
   line-height: 20px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   text-decoration: none;
   cursor: pointer;
   padding: 0;
@@ -330,7 +346,11 @@
   line-height: 44px;
   color: #000000;
   font-weight: 700;
-  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.partner-colleges {
+  margin-top: 60px;
 }
 
 .partner-colleges-header p {
@@ -338,7 +358,7 @@
   font-size: 20px;
   line-height: 32px;
   color: #000000;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   max-width: 760px;
 }
 
@@ -370,9 +390,15 @@
   border: 1px solid #e5e7eb;
   font-size: 18px;
   line-height: 28px;
-  color: #9ca3af;
+  color: #d1d5db;
   background: #fff;
   outline: none;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.partner-colleges-search input::placeholder {
+  color: #d1d5db;
 }
 
 .partner-colleges-icon {

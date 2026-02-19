@@ -92,6 +92,8 @@ const SavingsCalculator = () => {
   const [isUniversityOpen, setIsUniversityOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const universityDropdownRef = useRef(null);
+  const universityInputRef = useRef(null);
+  const scholarshipInputRef = useRef(null);
   const searchTimeoutRef = useRef(null);
 
   // Calculator API state
@@ -293,9 +295,10 @@ const SavingsCalculator = () => {
       <div className="savings-card">
         <div className="savings-left">
           <div className="savings-field">
-            <label htmlFor="university-search">Pick your University</label>
-            <div className="savings-input savings-input--autocomplete" ref={universityDropdownRef}>
+            <label htmlFor="university-search">Pick your University*</label>
+            <div className="savings-input savings-input--autocomplete" ref={universityDropdownRef} onClick={() => universityInputRef.current?.focus()}>
               <input
+                ref={universityInputRef}
                 id="university-search"
                 type="text"
                 placeholder="Search your college"
@@ -352,7 +355,7 @@ const SavingsCalculator = () => {
             </div>
           </div>
           <div className="savings-field">
-            <label htmlFor="course-count">Number of Courses</label>
+            <label htmlFor="course-count">Number of Courses*</label>
             <div className="savings-input savings-input--select" ref={courseDropdownRef}>
               <button
                 id="course-count"
@@ -393,8 +396,9 @@ const SavingsCalculator = () => {
           </div>
           <div className="savings-field">
             <label htmlFor="scholarship-amount">Scholarship amount</label>
-            <div className="savings-input">
+            <div className="savings-input" style={{cursor: 'text'}} onClick={() => scholarshipInputRef.current?.focus()}>
               <input
+                ref={scholarshipInputRef}
                 id="scholarship-amount"
                 type="text"
                 placeholder="Enter amount here"
@@ -404,7 +408,7 @@ const SavingsCalculator = () => {
             </div>
           </div>
           <div className="savings-field">
-            <label>Student Type</label>
+            <label>Student Type*</label>
             <div className="savings-toggle">
               <button
                 type="button"
@@ -466,7 +470,7 @@ const SavingsCalculator = () => {
                   <div className="bundle-label">{bundle.courses} Course Bundle</div>
                   <div className="bundle-price">{formatCurrency(bundle.final_price)}</div>
                   <div className="bundle-note">
-                    {bundle.discount ? `Save ${formatCurrency(bundle.discount)}` : ''}
+                    {bundle.discount ? `Save upto ${formatCurrency(bundle.discount)}` : ''}
                   </div>
                 </div>
               ))
@@ -475,17 +479,17 @@ const SavingsCalculator = () => {
                 <div className="savings-bundle">
                   <div className="bundle-label">6 Course Bundle</div>
                   <div className="bundle-price">$0</div>
-                  <div className="bundle-note"></div>
+                  <div className="bundle-note">Save upto $0</div>
                 </div>
                 <div className="savings-bundle">
                   <div className="bundle-label">12 Course Bundle</div>
                   <div className="bundle-price">$0</div>
-                  <div className="bundle-note"></div>
+                  <div className="bundle-note">Save upto $0</div>
                 </div>
                 <div className="savings-bundle">
                   <div className="bundle-label">24 Course Bundle</div>
                   <div className="bundle-price">$0</div>
-                  <div className="bundle-note"></div>
+                  <div className="bundle-note">Save upto $0</div>
                 </div>
               </>
             )}

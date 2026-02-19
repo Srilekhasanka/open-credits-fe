@@ -17,6 +17,7 @@
   margin: 0;
   color: #1f1f1f;
   font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -112,6 +113,7 @@
   margin: 0;
   color: #111827;
   font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .testimonial-header p {
@@ -120,6 +122,7 @@
   line-height: 24px;
   color: #6b7280;
   font-weight: 500;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .testimonial-text {
@@ -128,6 +131,7 @@
   color: #111827;
   margin: 0;
   font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 @media (max-width: 1520px) {

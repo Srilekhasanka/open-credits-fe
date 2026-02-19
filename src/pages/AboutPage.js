@@ -29,10 +29,12 @@ const AboutPage = () => {
             Our platform offers Nationally accredited recommended courses that are widely accepted by
             U.S. colleges and universities. By earning credits outside the traditional semester
             system, students can reduce tuition costs, accelerate graduation timelines, and avoid
-            unnecessary debt without compromising academic quality. Whether you're returning to
-            school, supplementing your current degree, or looking for a smarter alternative to
-            high-cost tuition, Open Credits provides a clear, affordable pathway to college
-            completion.
+            unnecessary debt without compromising academic quality.{' '}
+            <span className="about-nowrap">
+              Whether you're returning to school, supplementing your
+            </span>{' '}
+            current degree, or looking for a smarter alternative to high-cost tuition, Open Credits
+            provides a clear, affordable pathway to college completion.
           </p>
         </div>
 

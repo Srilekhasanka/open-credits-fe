@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Montserrat:wght@700&display=swap');
+
 .why-section {
   padding: var(--section-gap) 0 var(--section-gap);
   background: white;
@@ -14,7 +16,8 @@
   line-height: 44px;
   font-weight: 700;
   color: #000;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   margin-bottom: 50px;
   text-align: left;
 }
@@ -25,7 +28,7 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 289px);
   gap: 24px;
 }
 
@@ -38,7 +41,7 @@
   transition: all 0.3s;
   display: flex;
   flex-direction: column;
-  min-height: 494px;
+  min-height: 421px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -73,7 +76,8 @@
   line-height: 32px;
   margin-bottom: 12px;
   color: #111827;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   min-height: 64px;
 }
 
@@ -84,7 +88,9 @@
   margin-top: 15px;
   margin-bottom: 16px;
   min-height: 112px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .learn-more {
@@ -97,7 +103,7 @@
   align-items: center;
   gap: 8px;
   white-space: nowrap;
-  margin-top: 50px;
+  margin-top: auto;
   width: 140px;
   height: 20px;
 }

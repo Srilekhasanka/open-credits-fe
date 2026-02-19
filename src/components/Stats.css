@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Red+Hat+Display:wght@700&display=swap');
+
 .stats {
   background: #fff;
   padding: var(--section-gap) 0 var(--section-gap);
@@ -18,12 +20,12 @@
 .stats-title {
   font-size: 20px;
   line-height: 32px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 400;
+  letter-spacing: 0;
   color: #111827;
   text-transform: uppercase;
   white-space: nowrap;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .stats-marquee {
@@ -32,11 +34,11 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 117px);
-  gap: 75px;
+  grid-template-columns: repeat(4, 102px);
+  gap: 96px;
   justify-content: start;
   width: auto;
-  margin-left: 100px;
+  margin-left: 0;
 }
 
 .stats-grid--duplicate {
@@ -48,30 +50,33 @@
   justify-items: center;
   text-align: center;
   gap: 8px;
-  width: 117px;
-  height: 146px;
+  width: 102px;
+  height: 125px;
 }
 
 .stats-icon {
-  width: 55px;
-  height: 55px;
+  width: 47px;
+  height: 47px;
   object-fit: contain;
   display: block;
 }
 
 .stats-value {
-  font-size: 30px;
-  line-height: 38px;
+  font-size: 25.69px;
+  line-height: 32.5px;
   font-weight: 700;
   color: #111827;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
 
 .stats-label {
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
   color: #111827;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
 
 @media (max-width: 968px) {

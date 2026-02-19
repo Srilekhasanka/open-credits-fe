@@ -55,7 +55,7 @@ const WorkProcess = () => {
 
             <div className="process-step step-3">
               <div className="process-step-number" aria-hidden="true">3</div>
-              <h3>Transfer your Credit</h3>
+              <h3>Transfer your<br />Credit</h3>
               <p>
                 Bring your completed coursework
                 <br/>

@@ -50,13 +50,16 @@
 }
 
 .corporate-hero__content h1 {
-  font-size: 58px;
+  font-size: 58.09px;
   margin: 0 auto 12px;
+  padding-top: 30px;
   max-width: 651px;
   font-weight: 700;
   line-height: 71px;
   letter-spacing: 0;
   text-transform: none;
+  color: #000000;
+  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 @media (max-width: 1200px) {
@@ -88,13 +91,16 @@
   min-height: 56px;
   margin: 0 auto;
   text-align: left;
-  font-size: clamp(14px, 1.1vw, 18px);
+  font-size: 18px;
   line-height: 28px;
   color: #000000;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .corporate-hero__lead-line {
   white-space: nowrap;
+  margin-left: -95px;
 }
 
 .corporate-hero__lead-center {
@@ -116,6 +122,7 @@
   gap: 30px;
   flex-wrap: nowrap;
   margin: 30px auto 0;
+  padding-top: 30px;
 }
 
 .corporate-button {
@@ -125,7 +132,7 @@
   border: none;
   background: #ED6C2C;
   color: #fff;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -150,9 +157,15 @@
   border: 1px solid #ED6C2C;
 }
 
+.corporate-button:not(.is-outline):hover {
+  background: #FF4E00;
+  color: #ffffff;
+}
+
 .corporate-why {
   padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
+  margin-top: 60px;
 }
 
 .corporate-why .corporate-container {
@@ -168,7 +181,7 @@
 
 .corporate-why-header h2 {
   margin: 0 0 12px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 36px;
   font-weight: 700;
   line-height: 44px;
@@ -193,7 +206,7 @@
 
 .corporate-why-header p.corporate-why-lead {
   margin: 0 0 8px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 700;
   line-height: 28px;
@@ -204,7 +217,7 @@
   width: 100%;
   max-width: none;
   margin: 0 0 16px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
@@ -224,6 +237,7 @@
   grid-template-columns: repeat(2, minmax(0, 582px));
   justify-content: center;
   gap: 24px 48px;
+  margin-top: 60px;
 }
 
 .corporate-why-card {
@@ -242,16 +256,16 @@
 
 .corporate-why-card h3 {
   margin: 0 0 16px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 32px;
-  color: #111827;
+  color: #000000;
 }
 
 .corporate-why-card p {
   margin: 0;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
@@ -308,7 +322,7 @@
 }
 
 .corporate-built__copy h2 {
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 36px;
   line-height: 44px;
   font-weight: 700;
@@ -327,7 +341,7 @@
 }
 
 .corporate-built__item h3 {
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 18px;
   line-height: 28px;
   margin: 0 0 8px;
@@ -336,10 +350,10 @@
 }
 
 .corporate-built__item p {
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: #000000;
+  color: #111827;
   line-height: 28px;
   margin: 0;
   max-width: 570px;
@@ -440,10 +454,10 @@
   position: relative;
   z-index: 1;
   margin: 0;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
-  font-size: clamp(40px, 4.1vw, 58px);
+  font-family: 'Red Hat Display', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-size: 55.22px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 75px;
   letter-spacing: 0;
   color: #ffffff;
 }
@@ -458,8 +472,8 @@
   text-align: center;
   border-radius: 6px;
   background: #fff;
-  color: #ED6C2C;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  color: #E85002;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;

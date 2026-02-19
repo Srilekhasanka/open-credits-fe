@@ -41,10 +41,11 @@
 }
 
 .logo-text {
-  color: #ED6C2C;
-  font-size: 18px;
+  color: #E85002;
+  font-size: 18.08px;
   font-weight: 800;
   font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0;
 }
 
 .nav {
@@ -57,9 +58,11 @@
 .nav a,
 .nav-button {
   text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  font-weight: 500;
+  color: #000000;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   transition: color 0.3s;
   padding: 10px;
   min-height: 44px;
@@ -142,6 +145,7 @@
   line-height: 28px;
   font-weight: 400;
   color: #111827;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
 }
 
@@ -174,7 +178,8 @@
   font-size: 24px;
   line-height: 32px;
   font-weight: 600;
-  color: #222;
+  color: #111827;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .courses-explore {
@@ -184,9 +189,10 @@
   height: 56px;
   padding: 0 32px;
   border-radius: 6px;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
 }
 
@@ -204,6 +210,7 @@
   font-size: 18px;
   line-height: 28px;
   font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .courses-preview-link {
@@ -232,13 +239,16 @@
   height: 56px;
   padding: 0 32px;
   background: white;
-  border: 1px solid #E85D02;
+  border: 1px solid #E85002;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   cursor: pointer;
   transition: all 0.3s;
-  color: #E85D02;
+  color: #E85002;
 }
 
 .btn-outline:hover {
@@ -248,12 +258,15 @@
 .btn-primary {
   height: 56px;
   padding: 0 32px;
-  background: #E85D02;
+  background: #E85002;
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   cursor: pointer;
   transition: background 0.3s;
 }

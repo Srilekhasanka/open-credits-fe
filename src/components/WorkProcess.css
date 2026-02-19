@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Montserrat:wght@700&display=swap');
+
 .work-process {
   padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
@@ -40,7 +42,10 @@
 .process-header h2 {
   font-size: 36px;
   line-height: 44px;
+  font-weight: 700;
   color: #333;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   margin: 0;
 }
 
@@ -129,22 +134,31 @@
 
 .process-step h3 {
   margin: 0 0 10px;
-  font-size: 28px;
+  font-size: 30px;
+  line-height: 38px;
   font-weight: 700;
   color: #1f2937;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
 
 .process-step p {
   margin: 0 0 14px;
-  font-size: 15.5px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
   color: #2f3a4a;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
 
 .process-step-link {
-  font-size: 14.5px;
-  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
   color: #1d4ed8;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   text-decoration: none;
 }
 
@@ -181,7 +195,7 @@
 
 .step-3 {
   left: auto;
-  right: 50px;
+  right: 10px;
   top: 140px;
   max-width: 300px;
 }
@@ -217,113 +231,6 @@
   height: 42px;
 }
 
-
-/* School Acceptance Section */
-.school-acceptance {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  padding: 30px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
-}
-
-.acceptance-content {
-  flex: 1;
-}
-
-.acceptance-content h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 12px;
-}
-
-.acceptance-content p {
-  font-size: 13px;
-  line-height: 1.5;
-  color: #666;
-  margin-bottom: 18px;
-}
-
-.acceptance-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-.btn-secondary-outline {
-  padding: 10px 20px;
-  background: white;
-  color: #ED6C2C;
-  border: 2px solid #ED6C2C;
-  border-radius: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-secondary-outline:hover {
-  background: #ED6C2C;
-  color: white;
-}
-
-.btn-primary {
-  padding: 10px 20px;
-  background: #ED6C2C;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn-primary:hover {
-  background: #e55522;
-}
-
-.acceptance-badge {
-  flex-shrink: 0;
-}
-
-.badge-container {
-  width: 160px;
-  height: 160px;
-  background: linear-gradient(135deg, #ED6C2C 0%, #FF8555 100%);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  box-shadow: 0 6px 20px rgba(255, 102, 51, 0.3);
-  border: 4px solid white;
-  position: relative;
-}
-
-.badge-seal {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-.badge-text {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.badge-subtitle {
-  font-size: 10px;
-  opacity: 0.9;
-}
-
 @media (max-width: 968px) {
   .gradient-blur-left {
     width: 200px;
@@ -341,15 +248,6 @@
   
   .process-visual {
     margin-bottom: 20px;
-  }
-  
-  .school-acceptance {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .acceptance-buttons {
-    justify-content: center;
   }
 }
 

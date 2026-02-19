@@ -46,7 +46,9 @@ const partnershipFeatureCards = [
         <br />
         cost test-based programs, our open-access approach
         <br />
-        supports equity while helping students build momentum
+        <span className="partnership-feature-nowrap">
+          supports equity while helping students build momentum
+        </span>
         <br />
         toward college success.
       </>
@@ -64,9 +66,13 @@ const partnershipFeatureCards = [
         <br />
         through flexible, self-paced courses designed for
         <br />
-        transfer. Our model supports institutions with a scalable,
+        <span className="partnership-feature-nowrap">
+          transfer. Our model supports institutions with a scalable,
+        </span>
         <br />
-        cost-effective solution that helps students stay on track,
+        <span className="partnership-feature-nowrap">
+          cost-effective solution that helps students stay on track,
+        </span>
         <br />
         complete prerequisites faster, and persist through key
         <br />
@@ -86,7 +92,9 @@ const partnershipFeatureCards = [
         <br />
         boards, and community organizations to deliver 
         <br />
-        affordable pathways into higher education. Together, we
+        <span className="partnership-feature-nowrap">
+          affordable pathways into higher education. Together, we
+        </span>
         <br />
         help learners earn transferable college credit, reduce
         <br />
@@ -139,7 +147,15 @@ const HowItWorksPage = () => {
           {partnershipFeatureCards.map((card) => (
             <article key={card.title} className="partnership-feature-card">
               <div className="partnership-feature-copy">
-                <h2>{card.title}</h2>
+                <h2
+                  className={
+                    card.title === 'Higher Education Partnerships'
+                      ? 'partnership-feature-title-nowrap'
+                      : undefined
+                  }
+                >
+                  {card.title}
+                </h2>
                 <h3>{card.subtitle}</h3>
                 <p>{card.description}</p>
                 {card.href ? (

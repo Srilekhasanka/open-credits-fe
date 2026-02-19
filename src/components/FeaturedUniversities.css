@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 .featured-universities {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: var(--section-gap) 0 24px;
   background: #fff;
 }
 
@@ -15,7 +17,7 @@
   margin-bottom: 20px;
   color: #111827;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .featured-description {
@@ -81,12 +83,13 @@
   height: 56px;
   padding: 16px 32px;
   border-radius: 6px;
-  border: 1px solid #ED6C2C;
+  border: 1px solid #E85002;
   background: #fff;
-  color: #ED6C2C;
+  color: #E85002;
   font-size: 16px;
   line-height: 24px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -7,7 +7,7 @@
 .find-college-container {
   max-width: 1512px;
   margin: 0 auto;
-  padding: var(--section-gap) var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
+  padding: calc(var(--section-gap) + 120px) var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
 }
 
 .find-college-header h1 {
@@ -16,7 +16,7 @@
   font-weight: 700;
   margin: 0 0 12px;
   color: #000000;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-header p {
@@ -25,8 +25,8 @@
   font-weight: 400;
   color: #000000;
   max-width: 1271px;
-  margin: 0;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  margin: 0 0 114px;
+  font-family: 'Montserrat', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-panel {
@@ -65,21 +65,24 @@
   color: #111827;
   background: #fff;
   outline: none;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-search input::placeholder {
   color: #d1d5db;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-note {
   text-align: center;
-  font-size: 11px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
   color: #6b6b6b;
   margin: 0 0 22px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-note a {
@@ -141,16 +144,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 35px;
   font-size: 20px;
   line-height: 32px;
   font-weight: 400;
   color: #000000;
-  margin-top: 46px;
-  margin-bottom: 24px;
+  margin-top: 117px;
+  margin-bottom: 120px;
   min-height: 56px;
   padding: 0;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-footer button {
@@ -158,13 +161,15 @@
   padding: 16px 32px;
   border: none;
   border-radius: 6px;
-  background: #E85D02;
+  background: #E85002;
   color: #fff;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 500;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  white-space: nowrap;
   cursor: pointer;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .find-college-footer button:hover {

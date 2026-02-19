@@ -1,46 +1,30 @@
 .school-acceptance {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 60px 0 var(--section-gap);
   background: #fff;
   margin-bottom: 0;
 }
 
 .acceptance-wrapper {
-  --acceptance-gap-fill: 150px;
-  max-width: none;
-  margin: 0;
-  padding: 0 0 0 var(--layout-pad-left);
-  display: flex;
-  gap: 0px;
-  align-items: center;
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .acceptance-container {
-  flex: 1;
-  max-width: none;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  transform: translateX(-60px);
   min-height: 340px;
   padding: 36px 44px;
-  margin-left: 0;
   position: relative;
   display: flex;
   align-items: center;
   background: #fff;
-  border-radius: 14px 0 0 14px;
+  border-radius: 14px;
   border: 1px solid #efefef;
-  border-right: none;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  z-index: 1;
-}
-
-.acceptance-container::after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  right: calc(-1 * var(--acceptance-gap-fill));
-  width: var(--acceptance-gap-fill);
-  height: calc(100% + 2px);
-  background: #fff;
-  border-top: 1px solid #efefef;
-  border-bottom: 1px solid #efefef;
+  overflow: visible;
 }
 
 .acceptance-content {
@@ -48,12 +32,12 @@
 }
 
 .acceptance-content h2 {
-  font-size: 30px;
-  line-height: 38px;
+  font-size: 36px;
+  line-height: 44px;
   margin-bottom: 12px;
   color: #000000;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat';
   white-space: nowrap;
 }
 
@@ -62,7 +46,9 @@
   line-height: 28px;
   color: #000000;
   margin-bottom: 22px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter';
+  padding-left: 25px;
 }
 
 .acceptance-intro {
@@ -83,21 +69,27 @@
   align-items: center;
 }
 
+.acceptance-buttons .btn-outline,
+.acceptance-buttons .btn-primary {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+}
+
 .school-acceptance .btn-outline {
   min-width: 242px;
   height: 56px;
   padding: 16px 32px;
   background: #fff;
-  color: #E85D02;
-  border: 1px solid #E85D02;
+  color: #E85002;
+  border: 1px solid #E85002;
   border-radius: 6px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-left: 22px;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -115,10 +107,6 @@
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -131,15 +119,16 @@
 }
 
 .guarantee-badge {
-  flex-shrink: 0;
+  position: absolute;
+  right: calc(-1 * var(--layout-pad-right));
+  top: 50%;
+  transform: translateY(-50%);
   width: 380px;
   height: 340px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   background: transparent;
-  position: relative;
-  right: -174px;
   z-index: 2;
 }
 
@@ -158,28 +147,23 @@
 }
 
 @media (max-width: 968px) {
-  .acceptance-wrapper {
-    flex-direction: column;
-    padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
-  }
-
   .acceptance-container {
-    width: 100%;
+    flex-direction: column;
     min-height: 0;
     text-align: center;
     padding: 30px 20px;
-  }
-
-  .acceptance-container::after {
-    content: none;
+    overflow: hidden;
   }
 
   .guarantee-badge {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
     width: 100%;
     min-height: 0;
-    right: 0;
   }
-  
+
   .acceptance-buttons {
     justify-content: center;
     flex-wrap: wrap;
@@ -211,9 +195,12 @@
     min-width: 0;
   }
 
+  .school-acceptance .btn-outline {
+    margin-left: 0;
+  }
+
   .guarantee-badge {
     width: 100%;
     height: auto;
   }
 }
-

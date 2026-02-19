@@ -24,17 +24,17 @@ const SchoolAcceptance = () => {
                 schedule a call to move forward with confidence.
               </span>
             </p>
-            
+
             <div className="acceptance-buttons">
               <button className="btn-outline">Find accepted Colleges</button>
               <button className="btn-primary">Talk to an Advisor</button>
             </div>
           </div>
-        </div>
 
-        <div className="guarantee-badge">
-          <div className="badge-card">
-            <img src={graduatedImage} alt="Credit transfer guarantee" />
+          <div className="guarantee-badge">
+            <div className="badge-card">
+              <img src={graduatedImage} alt="Credit transfer guarantee" />
+            </div>
           </div>
         </div>
       </div>

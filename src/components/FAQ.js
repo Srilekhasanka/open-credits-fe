@@ -74,8 +74,9 @@ const FAQ = () => {
             </div>
             <h3 className="support-title">Do you have more questions?</h3>
             <p className="support-text">
-              End-to-end payments and financial management in a single solution. Meet
-              the right platform to help realize.
+              <span className="support-text-lead">Ask us anything. We'll help you</span>
+              <span className="support-text-line support-text-line--nowrap support-text-line--indent">understand Credits eligibility, course</span>
+              <span className="support-text-line support-text-line--nowrap support-text-line--indent support-text-line--indent-right">selection, and how to get started.</span>
             </p>
             <div className="support-actions">
               <button className="btn-chat" type="button">

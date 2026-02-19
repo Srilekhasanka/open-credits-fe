@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Red+Hat+Display:wght@400;700&display=swap');
 
 .higheredu-page {
   background: #fff;
@@ -56,12 +56,15 @@
 .higheredu-hero__content h1 {
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 58.09px;
+  padding-top: 40px;
   margin: 0 auto 12px;
   max-width: 842px;
   font-weight: 700;
   line-height: 71px;
   letter-spacing: 0;
   color: #000000;
+  font-style: normal;
+  text-align: center;
   text-transform: none;
 }
 
@@ -118,6 +121,7 @@
   gap: 30px;
   flex-wrap: nowrap;
   margin: 30px auto 0;
+  padding-top: 30px;
 }
 
 .higheredu-button {
@@ -153,7 +157,8 @@
 }
 
 .higheredu-why {
-  padding: var(--section-gap) 0 var(--section-gap);
+  margin-top: 60px;
+  padding: 0 0 var(--section-gap);
 }
 
 .higheredu-why .higheredu-container {
@@ -169,7 +174,7 @@
 
 .higheredu-why-header h2 {
   margin: 0 0 12px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
   font-size: 36px;
   font-weight: 700;
   line-height: 44px;
@@ -182,9 +187,11 @@
 }
 
 .higheredu-why-header p {
-  font-size: 11px;
-  color: #666666;
-  line-height: 1.6;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #000000;
   margin: 0 0 6px;
   text-align: left;
 }
@@ -195,7 +202,7 @@
 
 .higheredu-why-header p.higheredu-why-lead {
   margin: 0 0 8px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 18px;
   font-weight: 700;
   line-height: 28px;
@@ -206,7 +213,7 @@
   width: 100%;
   max-width: none;
   margin: 0 0 16px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
@@ -230,15 +237,17 @@
   grid-template-columns: repeat(2, minmax(0, 582px));
   justify-content: center;
   gap: 24px 48px;
+  margin-top: 60px;
 }
 
 .higheredu-why-card {
-  border: 1px solid #f0f0f0;
-  border-radius: 12px;
+  border: 1px solid #f3f4f6;
+  border-radius: 10px;
   padding: 22px 24px;
-  height: 231px;
+  height: auto;
+  min-height: 262px;
   background: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
   text-align: left;
   box-sizing: border-box;
   display: flex;
@@ -247,23 +256,25 @@
 }
 
 .higheredu-why-card h3 {
-  margin: 0 0 16px;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  margin: 10px 0 16px;
+  font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 32px;
   color: #111827;
   text-align: left;
+  max-width: 472px;
 }
 
 .higheredu-why-card p {
   margin: 0;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
   color: #111827;
   text-align: left;
+  max-width: 472px;
 }
 
 .higheredu-why-icon {
@@ -300,7 +311,7 @@
 }
 
 .higheredu-built__copy h2 {
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
   font-size: 36px;
   line-height: 44px;
   margin: 0 0 45px;
@@ -310,24 +321,24 @@
 }
 
 .higheredu-built__item {
-  margin-bottom: 36px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
 .higheredu-built__item h3 {
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 18px;
   line-height: 28px;
   margin: 0 0 8px;
   font-weight: 700;
-  color: #000000;
+  color: #111827;
 }
 
 .higheredu-built__item p {
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: #000000;
+  color: #111827;
   line-height: 28px;
   margin: 0;
   max-width: 570px;
@@ -406,7 +417,7 @@
   left: 50%;
   top: 44%;
   transform: translate(-50%, -50%);
-  width: min(734px, calc(100% - 48px));
+  width: min(775px, calc(100% - 48px));
   margin: 0;
   font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
   font-size: 55.22px;
@@ -434,8 +445,8 @@
   text-align: center;
   border-radius: 6px;
   background: #fff;
-  color: #ED6C2C;
-  font-family: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  color: #E85002;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;

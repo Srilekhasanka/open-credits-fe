@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Montserrat:wght@700&display=swap');
+
 .hero {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 120px 0 var(--section-gap);
   background: radial-gradient(circle at 70% 30%, #fff2eb 0%, #ffffff 55%);
 }
 
@@ -22,6 +24,9 @@
 .hero-content h1 {
   font-size: 48px;
   line-height: 56px;
+  font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   margin-bottom: 20px;
   color: #333;
 }
@@ -37,26 +42,32 @@
 .hero-content p {
   font-size: 18px;
   line-height: 28px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   color: #000;
   margin-bottom: 30px;
   max-width: 100%;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .hero-actions {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 
 .btn-chat {
+  width: 139px;
+  height: 56px;
   padding: 16px 32px;
   background: white;
-  color: #ED6C2C;
-  border: 1px solid #ED6C2C;
+  color: #E85002;
+  border: 1px solid #E85002;
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  letter-spacing: 0;
   cursor: pointer;
   transition: all 0.3s;
   display: inline-flex;
@@ -69,11 +80,15 @@
 }
 
 .hero-actions .btn-primary {
-  width: 139px;
+  min-width: 145px;
   height: 56px;
-  padding: 0 16px;
+  padding: 16px 32px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .hero-image {
@@ -86,8 +101,8 @@
 }
 
 .image-frame {
-  width: 480px;
-  height: 378px;
+  width: 523px;
+  height: 412px;
   max-width: 100%;
   background: transparent;
   border-radius: 0;

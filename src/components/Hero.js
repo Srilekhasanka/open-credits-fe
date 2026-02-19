@@ -23,9 +23,8 @@ const Hero = () => {
             <span className="highlight">Credits</span> - 100% Online
           </h1>
           <p>
-            Flexible, accredited online courses designed to{' '}
-            <span className="hero-no-break">transfer. Lower your costs,</span> gain college credit,
-            and move forward with confidence.
+            <span className="hero-no-break">Flexible, accredited online courses designed to transfer. Lower your costs,</span>{' '}
+            gain college credit, and move forward with confidence.
           </p>
           {!isAuthenticated && (
             <div className="hero-actions">
