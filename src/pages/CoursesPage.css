@@ -1,7 +1,7 @@
 .courses-page {
   background: #fff;
   min-height: 100vh;
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: calc(var(--section-gap) + 120px) 0 120px;
 }
 
 .courses-wrapper {
@@ -20,8 +20,36 @@
   font-size: 36px;
   line-height: 44px;
   font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   margin: 0;
-  color: #1f1f1f;
+  color: #000000;
+}
+
+.courses-student-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 70px;
+}
+
+.student-tab {
+  padding: 10px 10px;
+  border-radius: 6px;
+  border: 0.5px solid transparent;
+  background: #fff;
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  cursor: pointer;
+}
+
+.student-tab--active {
+  background: #fff;
+  color: #ED6C2C;
+  border-color: #ED6C2C;
 }
 
 .courses-search {
@@ -38,12 +66,15 @@
   padding: 10px 48px 10px 20px;
   font-size: 18px;
   line-height: 28px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   color: #444;
   outline: none;
 }
 
 .courses-search input::placeholder {
-  color: #d1d5db;
+  color: #d4d4d4;
 }
 
 .courses-search-icon {
@@ -74,6 +105,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  margin-top: 53px;
   margin-bottom: 22px;
 }
 
@@ -99,6 +131,9 @@
 .subject-label {
   font-size: 16px;
   line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   color: #1f2937;
 }
 
@@ -151,6 +186,9 @@
 .sort-label {
   font-size: 16px;
   line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   color: #1f2937;
 }
 
@@ -187,9 +225,13 @@
 }
 
 .courses-breadcrumb {
-  font-size: 11px;
-  color: #9a9a9a;
-  margin-bottom: 18px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  color: #a3a3a3;
+  margin-top: 70px;
 }
 
 .courses-error {
@@ -317,10 +359,11 @@
   font-size: 24px;
   line-height: 32px;
   font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   margin: 90px 0 0;
-  color: #111827;
+  color: #171717;
   min-height: 64px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   white-space: pre-line;
 }
 
@@ -328,10 +371,11 @@
   font-size: 18px;
   line-height: 28px;
   font-weight: 400;
-  color: #6b7280;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  color: #404040;
   margin: 0;
   min-height: 84px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   white-space: pre-line;
 }
 
@@ -353,7 +397,8 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   min-height: 34px;
 }
 
@@ -369,17 +414,19 @@
 .courses-page .course-price {
   font-size: 20px;
   line-height: 32px;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
   color: #ed6c2c;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .courses-page .course-seats {
-  font-size: 12px;
-  line-height: 16px;
-  color: #9ca3af;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  color: #d4d4d4;
 }
 
 .courses-page .course-enroll {

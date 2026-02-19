@@ -34,7 +34,7 @@ const FindMyCollegePage = () => {
     'program.\r\n\r\n' +
     'Best regards,\r\n' +
     '[Your Name]\r\n';
-  const emailTemplateHref = `https://mail.google.com/mail/?view=cm&fs=1&to=Connect@opencredits.org&su=${encodeURIComponent(
+  const emailTemplateHref = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(
     emailSubject
   )}&body=${encodeURIComponent(emailBody)}`;
 

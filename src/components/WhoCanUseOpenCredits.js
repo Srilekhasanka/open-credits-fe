@@ -8,7 +8,7 @@ const adultUncle = '/images/Adultuncle.svg';
 const cards = [
   { img: highschoolGirl, title: 'High School', subtitle: 'Students', href: '/get-started' },
   { img: universityBoy, title: 'University', subtitle: 'Students', href: '/get-started' },
-  { img: adultUncle, title: 'Adult', subtitle: 'Learners', href: '/get-started' }
+  { img: adultUncle, title: 'Adult', subtitle: 'Learners', href: '/get-started', className: 'who-card--adult' }
 ];
 
 const WhoCanUseOpenCredits = () => {
@@ -21,7 +21,7 @@ const WhoCanUseOpenCredits = () => {
         <div className="who-grid">
           {cards.map((card) => (
             <article
-              className="who-card"
+              className={`who-card${card.className ? ` ${card.className}` : ''}`}
               key={`${card.title}-${card.subtitle}`}
               style={{ backgroundImage: `url(${card.img})` }}
             >

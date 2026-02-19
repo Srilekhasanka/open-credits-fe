@@ -23,6 +23,7 @@ const CoursesPage = () => {
   const [searchParams] = useSearchParams();
   const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const [studentType, setStudentType] = useState('us');
   const [subject, setSubject] = useState('All');
   const [sortBy, setSortBy] = useState('Price: Low to High');
   const [loading, setLoading] = useState(false);
@@ -214,6 +215,27 @@ const CoursesPage = () => {
           </div>
         </div>
 
+        <div className="courses-student-tabs">
+          <button
+            type="button"
+            className={`student-tab${studentType === 'us' ? ' student-tab--active' : ''}`}
+            onClick={() => setStudentType('us')}
+          >
+            U.S local students
+          </button>
+          <button
+            type="button"
+            className={`student-tab${studentType === 'international' ? ' student-tab--active' : ''}`}
+            onClick={() => setStudentType('international')}
+          >
+            International Students
+          </button>
+        </div>
+
+        <div className="courses-breadcrumb">
+          Home/Courses/{subject === 'All' ? 'All' : subject}
+        </div>
+
         <div className="courses-filters">
           <div className="filters-left">
             <div className="subject-control">
@@ -245,10 +267,6 @@ const CoursesPage = () => {
               </span>
             </div>
           </div>
-        </div>
-
-        <div className="courses-breadcrumb">
-          Home/Courses/{subject === 'All' ? 'All' : subject}
         </div>
 
         {showError && loadError && (

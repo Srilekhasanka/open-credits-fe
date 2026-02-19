@@ -45,18 +45,38 @@
 }
 
 .who-card {
+  --who-image-offset: 70px;
+  --who-mask-top: var(--who-image-offset);
+  --who-mask-height: 2px;
   background: #FDFBFE;
   border-radius: 21.65px;
   border: 1px solid #f1f1f1;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  position: relative;
   display: flex;
   flex-direction: column;
   background-repeat: no-repeat;
-  background-position: center 70px;
+  background-position: center var(--who-image-offset);
   background-size: 300px 388px;
   padding-top: 458px;
   min-height: 585px;
+}
+
+.who-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--who-mask-top);
+  height: var(--who-mask-height);
+  background: #FDFBFE;
+  pointer-events: none;
+}
+
+.who-card--adult {
+  --who-mask-top: 24px;
+  --who-mask-height: 80px;
 }
 
 .who-card__footer {
