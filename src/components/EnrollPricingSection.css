@@ -1,5 +1,5 @@
 .enroll-pricing-section {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: calc(var(--section-gap) + 120px) 0 var(--section-gap);
   background: #fff;
 }
 
@@ -15,23 +15,29 @@
   font-weight: 700;
   color: #000000;
   margin-bottom: 8px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat';
+  letter-spacing: 0;
 }
 
 .enroll-pricing-note {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 20px;
+  line-height: 32px;
   color: #000000;
-  font-weight: 400;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-family: 'Montserrat';
   margin-bottom: 32px;
+}
+
+.enroll-pricing-note strong {
+  font-weight: inherit;
 }
 
 .enroll-pricing-note a {
   color: #2563eb;
   margin-left: 6px;
   text-decoration: underline;
-  font-weight: 400;
+  font: inherit;
+  font-weight: inherit;
 }
 
 .enroll-pricing-grid {
@@ -99,7 +105,7 @@
   color: #1f2937;
   margin: 4px 0 0;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat';
   white-space: pre-line;
 }
 
@@ -109,7 +115,7 @@
   color: #6b7280;
   margin-bottom: 6px;
   font-weight: 400;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Inter';
 }
 
 .enroll-pricing-price {
@@ -130,15 +136,18 @@
   line-height: 56px;
   font-weight: 700;
   color: #1f2937;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat';
 }
 
 .enroll-price-sub {
   font-size: 14px;
   line-height: 20px;
-  color: #6b7280;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  color: #4b5563;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-family: 'Inter';
+  position: relative;
+  top: -10px;
 }
 
 .enroll-pricing-list {
@@ -152,7 +161,7 @@
   color: #1f2937;
   font-weight: 700;
   letter-spacing: 0.2px;
-  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat';
 }
 
 .enroll-pricing-list li {
@@ -160,6 +169,11 @@
   align-items: center;
   gap: 8px;
   position: relative;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  font-family: 'Montserrat';
 }
 
 .enroll-pricing-list li::before {
@@ -184,8 +198,8 @@
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter';
   cursor: pointer;
   transition: all 0.3s;
   margin-top: 12px;

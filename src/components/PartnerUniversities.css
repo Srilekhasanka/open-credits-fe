@@ -15,7 +15,7 @@
   margin-bottom: 14px;
   color: #000000;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .universities-container .highlight {
@@ -34,9 +34,12 @@
   border-radius: 100px;
   border: 1px solid #e2e2e2;
   padding: 0 44px 0 20px;
-  font-size: 12px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
   color: #444;
   background: #fff;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .partnered-search input::placeholder {
@@ -137,7 +140,7 @@
   line-height: 32px;
   color: #000000;
   font-weight: 400;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .partnered-footer-button {
@@ -148,8 +151,8 @@
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
 }
 

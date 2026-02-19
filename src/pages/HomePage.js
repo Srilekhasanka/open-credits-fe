@@ -6,6 +6,7 @@ import WhoCanUseOpenCredits from '../components/WhoCanUseOpenCredits';
 import WorkProcess from '../components/WorkProcess';
 import SavingsCalculator from '../components/SavingsCalculator';
 import FeaturedUniversities from '../components/FeaturedUniversities';
+import SchoolAcceptance from '../components/SchoolAcceptance';
 import PopularCourses from '../components/PopularCourses';
 import PartnerUniversities from '../components/PartnerUniversities';
 import EnrollPricingSection from '../components/EnrollPricingSection';
@@ -22,6 +23,7 @@ const HomePage = () => {
       <WorkProcess />
       <SavingsCalculator />
       <FeaturedUniversities />
+      <SchoolAcceptance />
       <PopularCourses />
       <PartnerUniversities />
       <EnrollPricingSection />

@@ -15,22 +15,53 @@ const k12Image = '/images/K-12_main.svg';
 const learnerCards = [
   {
     title: 'Affordable',
-    copy: 'We keep learning accessible. Open Credits helps students get ahead on college-level coursework without the financial burden of traditional college tuition or expensive testing programs.',
+    copy: (
+      <>
+        We keep learning accessible. Open Credits helps
+        <br />
+        students get ahead on college-level coursework
+        <br />
+        without the financial burden of traditional college
+        <br />
+        tuition or expensive testing programs.
+      </>
+    ),
     icon: dollarIcon
   },
   {
     title: 'Flexible and self-paced',
-    copy: 'Students can learn on their schedule, from almost any device. This flexibility supports different learning speeds, school schedules, and individual needs.',
+    copy: (
+      <>
+        Students can learn on their schedule, from almost any
+        <br />
+        device. This flexibility supports different learning speeds, school schedules, and
+        individual needs.
+      </>
+    ),
     icon: partnershipIcon
   },
   {
     title: 'Competency-based learning',
-    copy: 'Courses are designed around mastery. Learners demonstrate understanding throughout the course, building deeper comprehension and confidence.',
+    copy: (
+      <>
+        Courses are designed around mastery. Learners
+        <br />
+        demonstrate understanding throughout the course,
+        <br />
+        building deeper comprehension and confidence.
+      </>
+    ),
     icon: menusIcon
   },
   {
     title: 'Supportive learning experience',
-    copy: 'Help with Credit support and documentation every step of the way.',
+    copy: (
+      <>
+        Help with Credit support and documentation every step of
+        <br />
+        the way.
+      </>
+    ),
     icon: questionMarkIcon
   }
 ];

@@ -119,7 +119,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>Copyright Open Credits by Vipi International Inc. 2026 | Accredited by NYSED</p>
+          <p>© Copyright Open Credits by Vipi International Inc. 2026 | Accredited by NYSED</p>
         </div>
       </div>
     </footer>

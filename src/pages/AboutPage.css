@@ -1,6 +1,6 @@
 .about-page {
   background: #fff;
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: calc(var(--section-gap) + 120px) 0 var(--section-gap);
 }
 
 .about-container {
@@ -14,7 +14,7 @@
 }
 
 .about-content h1 {
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 36px;
   line-height: 44px;
   font-weight: 700;
@@ -25,12 +25,16 @@
 
 .about-content p {
   margin: 0 0 14px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   font-size: 20px;
   line-height: 32px;
   font-weight: 400;
   color: #000000;
   max-width: 615px;
+}
+
+.about-nowrap {
+  white-space: nowrap;
 }
 
 .about-content p:last-of-type {

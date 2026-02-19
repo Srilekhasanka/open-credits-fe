@@ -2,6 +2,7 @@
   background: #fff;
   min-height: 100vh;
   padding-top: var(--section-gap);
+  padding-bottom: 120px;
 }
 
 .resources-container {
@@ -21,14 +22,16 @@
 
 .resources-header p {
   font-size: 18px;
-  line-height: 26px;
-  color: #6b6b6b;
+  line-height: normal;
+  color: #000000;
   max-width: 1200px;
   margin: 0 0 26px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Open Sans', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .resources-header {
+  margin-top: 120px;
   margin-bottom: 26px;
 }
 
@@ -56,11 +59,11 @@
 .resources-tabs button {
   border: none;
   background: none;
-  color: #7a7a7a;
+  color: #111827;
   font-size: 18px;
   line-height: 28px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
   padding: 0;
   border-bottom: 2px solid transparent;
@@ -116,19 +119,19 @@
 
 .resources-card-body h2 {
   margin: 0 0 8px;
-  font-size: 26px;
-  line-height: 32px;
+  font-size: 30px;
+  line-height: 38px;
   color: #111827;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .resources-card-body p {
   margin: 0 0 14px;
   font-size: 18px;
   line-height: 32px;
-  color: #4b5563;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  color: #111827;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .resources-card-body {
@@ -145,8 +148,8 @@
   color: #fff;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 600;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   width: 174px;
   height: 56px;
   padding: 0;

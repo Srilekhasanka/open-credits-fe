@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 .featured-universities {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: var(--section-gap) 0 24px;
   background: #fff;
 }
 

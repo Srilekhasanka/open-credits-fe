@@ -1,5 +1,5 @@
 .school-acceptance {
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 60px 0 var(--section-gap);
   background: #fff;
   margin-bottom: 0;
 }
@@ -12,6 +12,9 @@
 
 .acceptance-container {
   width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  transform: translateX(-60px);
   min-height: 340px;
   padding: 36px 44px;
   position: relative;
@@ -29,12 +32,12 @@
 }
 
 .acceptance-content h2 {
-  font-size: 30px;
-  line-height: 38px;
+  font-size: 36px;
+  line-height: 44px;
   margin-bottom: 12px;
   color: #000000;
   font-weight: 700;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat';
   white-space: nowrap;
 }
 
@@ -43,7 +46,9 @@
   line-height: 28px;
   color: #000000;
   margin-bottom: 22px;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-family: 'Inter';
+  padding-left: 25px;
 }
 
 .acceptance-intro {
@@ -64,21 +69,27 @@
   align-items: center;
 }
 
+.acceptance-buttons .btn-outline,
+.acceptance-buttons .btn-primary {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+}
+
 .school-acceptance .btn-outline {
   min-width: 242px;
   height: 56px;
   padding: 16px 32px;
   background: #fff;
-  color: #E85D02;
-  border: 1px solid #E85D02;
+  color: #E85002;
+  border: 1px solid #E85002;
   border-radius: 6px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-left: 22px;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -96,10 +107,6 @@
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -186,6 +193,10 @@
   .school-acceptance .btn-primary {
     width: 100%;
     min-width: 0;
+  }
+
+  .school-acceptance .btn-outline {
+    margin-left: 0;
   }
 
   .guarantee-badge {

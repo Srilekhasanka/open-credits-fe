@@ -51,11 +51,11 @@ img, svg, video {
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Montserrat';
 }
 
 .chatbot__toggle {
-  background: #ff6b35;
+  background: #ED6C2C;
   color: #fff;
   border: none;
   border-radius: 999px;

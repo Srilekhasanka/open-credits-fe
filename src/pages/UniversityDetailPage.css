@@ -920,9 +920,6 @@
   padding: 60px 0 0;
 }
 
-.university-page > .faq {
-  padding: 60px 0 0;
-}
 
 @media (max-width: 900px) {
   .university-courses-card-head {
@@ -978,9 +975,6 @@
     padding: 40px 0 0;
   }
 
-  .university-page > .faq {
-    padding: 40px 0 0;
-  }
 
   .university-header {
     flex-direction: column;

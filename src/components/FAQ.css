@@ -1,6 +1,7 @@
 .faq {
   padding: var(--section-gap) 0 var(--section-gap);
   background: #fff;
+  padding-bottom: calc(var(--section-gap) + 120px);
 }
 
 .faq-container {
@@ -24,6 +25,7 @@
   margin: 0 0 28px;
   color: #111827;
   font-weight: 700;
+  font-family: 'Montserrat';
 }
 
 .faq-content .highlight {
@@ -57,6 +59,8 @@
   font-size: 20px;
   line-height: 32px;
   font-weight: 700;
+  font-family: 'Montserrat';
+  letter-spacing: 0;
   text-align: left;
   color: #000000;
   transition: background-color 0.2s ease;
@@ -87,6 +91,9 @@
   font-size: 18px;
   line-height: 28px;
   color: #000000;
+  font-family: 'Inter';
+  font-weight: 400;
+  letter-spacing: 0;
   white-space: pre-line;
   margin: 0;
 }
@@ -107,6 +114,7 @@
   align-items: flex-start;
   justify-content: center;
   max-width: 403px;
+  margin-top: 40px;
 }
 
 .support-card {
@@ -138,8 +146,11 @@
   font-size: 24px;
   line-height: 32px;
   margin: 8px 0 6px;
-  color: #111827;
+  color: #000000;
   font-weight: 700;
+  font-family: 'Montserrat';
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .support-text {
@@ -148,6 +159,30 @@
   color: #000000;
   margin: 0 auto 16px;
   max-width: 240px;
+  font-family: 'Inter';
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.support-text-lead,
+.support-text-line {
+  display: block;
+}
+
+.support-text-lead {
+  white-space: nowrap;
+}
+
+.support-text-line--nowrap {
+  white-space: nowrap;
+}
+
+.support-text-line--indent {
+  margin-left: -25px;
+}
+
+.support-text-line--indent-right {
+  margin-left: -15px;
 }
 
 .support-actions {
@@ -165,7 +200,10 @@
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: 'Inter';
+  letter-spacing: 0;
+  white-space: nowrap;
   cursor: pointer;
   border: 1px solid #ED6C2C;
   background: #fff;
