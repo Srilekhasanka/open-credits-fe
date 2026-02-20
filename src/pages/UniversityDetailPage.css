@@ -22,6 +22,38 @@
   margin-bottom: 12px;
 }
 
+.university-page .university-card.stony .university-title,
+.university-page .university-card.stony .university-name {
+  white-space: nowrap;
+}
+
+.university-page .university-card.stony .university-logo {
+  width: 177px;
+  transform: translateX(-85px);
+}
+
+.university-page .university-card.stony .university-logo img {
+  width: 177px;
+  height: 65px;
+  max-width: none;
+}
+
+.university-page .university-card.stony .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.stony .university-badges {
+  position: relative;
+  top: -50px;
+}
+
+.university-page .university-card.stony .university-badges span {
+  background: #fff;
+  border-color: #ba3548;
+  color: #ba3548;
+}
+
 .university-page .university-card.njcu .university-header {
   gap: 140px;
 }
@@ -67,6 +99,22 @@
   white-space: nowrap;
 }
 
+.university-page .university-card.mvnu .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.mvnu .university-badges {
+  position: relative;
+  top: -50px;
+}
+
+.university-page .university-card.mvnu .university-badges span {
+  background: #fff;
+  border-color: #03306B;
+  color: #03306B;
+}
+
 .university-page .university-card.cmu .university-header {
   gap: 120px;
 }
@@ -74,6 +122,29 @@
 .university-page .university-card.cmu .university-title,
 .university-page .university-card.cmu .university-name {
   white-space: nowrap;
+}
+
+.university-page .university-card.ohio .university-header {
+  gap: 120px;
+}
+
+.university-page .university-card.ohio .university-title,
+.university-page .university-card.ohio .university-name {
+  white-space: nowrap;
+}
+
+.university-page .university-card.ohio .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.ohio .university-badges {
+  position: relative;
+  top: -30px;
+}
+
+.university-page .university-card.ohio .university-badges span {
+  background: #fff;
 }
 
 .university-title {
@@ -133,7 +204,67 @@
 }
 
 .university-page .university-card.indiana-tech .university-name {
-  color: #ED6C2C;
+  color: #FF4E00;
+}
+
+.university-page .university-card.indiana-tech .university-copy > p,
+.university-page .university-card.indiana-tech .university-badges {
+  position: relative;
+  top: -20px;
+}
+
+.university-page .university-card.njcu .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.njcu .university-badges {
+  position: relative;
+  top: -50px;
+}
+
+.university-page .university-card.njit .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.njit .university-badges {
+  position: relative;
+  top: -30px;
+}
+
+.university-page .university-card.njit .university-badges span {
+  border-color: #C90202;
+  color: #C90202;
+  background: #fff;
+}
+
+.university-page .university-card.suny .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.suny .university-badges {
+  position: relative;
+  top: -30px;
+}
+
+.university-page .university-card.suny .university-badges span {
+  background: #fff;
+}
+
+.university-page .university-card.sdsu .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.sdsu .university-badges {
+  position: relative;
+  top: -30px;
+}
+
+.university-page .university-card.sdsu .university-badges span {
+  background: #fff;
 }
 
 .university-divider {
@@ -143,14 +274,14 @@
 
 .university-logo {
   margin-left: auto;
-  width: 116px;
+  width: 161px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .university-logo img {
-  height: 40px;
+  height: 71px;
   width: auto;
   max-width: 100%;
   display: block;
@@ -182,26 +313,52 @@
 
 .university-body {
   display: grid;
-  grid-template-columns: 575px 601px;
-  gap: 159px;
+  grid-template-columns: 650px 601px;
+  gap: 100px;
   align-items: center;
+  margin-top: 75px;
 }
 
 .university-copy p {
   width: 100%;
-  max-width: 575px;
+  max-width: 580px;
   min-height: 0;
   font-size: 20px;
   line-height: 32px;
   font-weight: 400;
   font-family: 'Montserrat';
   letter-spacing: 0;
-  color: #333;
+  color: #000;
   margin: 0;
 }
 
-.university-page .university-card.penn .university-copy p {
+.university-page .university-card.penn .university-logo {
+  width: 244px;
+  overflow: hidden;
+}
+
+.university-page .university-card.penn .university-logo img {
+  width: 244px;
+  height: 130px;
+  max-width: none;
+  margin: -33px;
+}
+
+.university-page .university-card.penn .university-copy > p {
+  position: relative;
+  top: -70px;
   color: #000;
+}
+
+.university-page .university-card.penn .university-badges {
+  position: relative;
+  top: -50px;
+}
+
+.university-page .university-card.penn .university-badges span {
+  background: #fff;
+  border-color: #03306B;
+  color: #03306B;
 }
 
 .university-page .university-card.stony .university-copy p {
@@ -220,6 +377,38 @@
   color: #000;
 }
 
+.university-page .university-card.cmu .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.cmu .university-badges {
+  position: relative;
+  top: -50px;
+}
+
+.university-page .university-card.cmu .university-badges span {
+  background: #fff;
+  border-color: #6A0031;
+  color: #6A0031;
+}
+
+.university-page .university-card.franklin .university-copy > p {
+  position: relative;
+  top: -70px;
+}
+
+.university-page .university-card.franklin .university-badges {
+  position: relative;
+  top: -50px;
+}
+
+.university-page .university-card.franklin .university-badges span {
+  background: #fff;
+  border-color: #0C1F2D;
+  color: #0C1F2D;
+}
+
 .university-badges {
   display: flex;
   flex-wrap: wrap;
@@ -227,7 +416,7 @@
   row-gap: 10px;
   margin-top: 12px;
   margin-bottom: 4px;
-  max-width: 488px;
+  max-width: 580px;
 }
 
 .university-badges span {
@@ -303,7 +492,7 @@
 }
 
 .university-page .university-card.mvnu .university-cta {
-  background: #092A6F;
+  background: #03306B;
 }
 
 .university-page .university-card.franklin .university-cta {
@@ -316,13 +505,12 @@
 
 .university-hero {
   width: 100%;
-  transform: translateX(-36px);
+  transform: translate(-115px, -30px);
 }
 
 .university-hero img {
-  width: 100%;
-  max-width: 540px;
-  height: auto;
+  width: 601px;
+  height: 522px;
   border-radius: 30px;
   display: block;
   object-fit: cover;
@@ -374,7 +562,7 @@
   font-weight: 400;
   font-family: 'Montserrat';
   letter-spacing: 0;
-  color: #333;
+  color: #000;
   max-width: 560px;
 }
 
@@ -417,13 +605,26 @@
   max-width: 523px;
 }
 
+.university-why.is-pace .university-why-copy p {
+  max-width: 640px;
+}
+
 .university-why.is-indiana-tech .university-why-logo {
-  background: #1f1c1d;
   padding: 0;
+  background: transparent;
+  min-height: 0;
+  line-height: 0;
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.university-why.is-indiana-tech .university-why-copy h2 {
+  margin-bottom: 65px;
 }
 
 .university-why.is-indiana-tech .university-why-logo img {
-  border-radius: 12px;
+  border-radius: 0;
 }
 
 .university-why.is-njcu .university-why-logo {
@@ -454,7 +655,7 @@
 }
 
 .university-why.is-suny .university-why-logo {
-  background: #0b3d91;
+  background: transparent;
   padding: 0;
 }
 
@@ -469,6 +670,34 @@
 
 .university-why.is-sdsu .university-why-logo img {
   border-radius: 12px;
+}
+
+.university-why.is-stony .university-why-logo {
+  background: transparent;
+  padding: 0;
+}
+
+.university-why.is-stony .university-why-logo img {
+  width: 389px;
+  height: 143px;
+  max-width: 389px;
+  border-radius: 0;
+}
+
+.university-why.is-stony .university-why-copy h2 {
+  margin-bottom: 60px;
+}
+
+.university-why.is-cmu .university-why-copy h2 {
+  margin-bottom: 60px;
+}
+
+.university-why.is-franklin .university-why-copy h2 {
+  margin-bottom: 60px;
+}
+
+.university-why.is-mvnu .university-why-copy p {
+  margin-top: 60px;
 }
 
 .university-why.is-mvnu .university-why-logo {
@@ -490,8 +719,9 @@
 }
 
 .university-why.is-cmu .university-why-logo {
-  background: #6a0030;
+  background: transparent;
   padding: 0;
+  transform: translateX(-2px);
 }
 
 .university-why.is-cmu .university-why-logo img {
@@ -508,6 +738,31 @@
   max-width: 460px;
   height: auto;
   border-radius: 0;
+}
+
+.university-why.is-njcu .university-why-copy h2 {
+  margin-bottom: 50px;
+}
+
+.university-why.is-njit .university-why-copy h2 {
+  margin-bottom: 50px;
+}
+
+.university-why.is-ohio .university-why-copy h2 {
+  margin-bottom: 60px;
+}
+
+.university-why.is-suny .university-why-copy h2 {
+  margin-bottom: 60px;
+}
+
+.university-why.is-sdsu .university-why-copy h2 {
+  margin-top: 10px;
+  margin-bottom: 60px;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
 
 .university-savings .savings-section.savings-calculator {
@@ -545,8 +800,8 @@
 }
 
 .university-work .work-process {
-  padding: 60px 0 0;
-  min-height: 0;
+  padding: 60px 0;
+  min-height: 854px;
 }
 
 .university-work .process-content {
@@ -1028,6 +1283,12 @@
 
   .university-hero {
     transform: none;
+  }
+
+  .university-hero img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
   }
 
   .university-hero-placeholder {

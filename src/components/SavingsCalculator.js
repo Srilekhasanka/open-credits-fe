@@ -142,7 +142,8 @@ const SavingsCalculator = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          student_type: activeTab === TAB_US ? 'us_local_military' : 'international_student',
+          university_id: selectedUniversity?.id || selectedUniversity?._id || '',
+          student_type: activeTab === TAB_US ? 'us_local_military' : 'international',
           number_of_courses: courseCount,
           scholarship_amount: scholarshipAmount || 0,
           cost_of_living_per_semester: livingCost || 0,
@@ -180,7 +181,7 @@ const SavingsCalculator = () => {
         clearTimeout(calcTimeoutRef.current);
       }
     };
-  }, [calculateCosts, courseCount, selectedUniversity, activeTab]);
+  }, [calculateCosts, courseCount, selectedUniversity, activeTab, costPerCredit, livingCost, scholarshipAmount]);
 
   // Debounced university search
   useEffect(() => {
@@ -349,7 +350,7 @@ const SavingsCalculator = () => {
                   })}
                 </ul>
               )}
-              {isUniversityOpen && universitySearch.length >= 2 && universities.length === 0 && !isLoading && (
+              {isUniversityOpen && !selectedUniversity && universitySearch.length >= 2 && universities.length === 0 && !isLoading && (
                 <div className="savings-autocomplete-empty">No universities found</div>
               )}
             </div>

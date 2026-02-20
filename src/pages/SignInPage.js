@@ -242,7 +242,7 @@ const SignInPage = () => {
                   display: 'block', 
                   marginBottom: '8px', 
                   fontWeight: '500',
-                  color: '#333'
+                  color: '#000'
                 }}>
                   Email Address
                 </label>
@@ -271,7 +271,7 @@ const SignInPage = () => {
                   display: 'block', 
                   marginBottom: '8px', 
                   fontWeight: '500',
-                  color: '#333'
+                  color: '#000'
                 }}>
                   Password
                 </label>
@@ -373,7 +373,7 @@ const SignInPage = () => {
                 display: 'block', 
                 marginBottom: '10px', 
                 fontWeight: '500',
-                color: '#333'
+                color: '#000'
               }}>
                 OTP Code
               </label>
@@ -435,7 +435,7 @@ const SignInPage = () => {
                   display: 'block', 
                   marginBottom: '8px', 
                   fontWeight: '500',
-                  color: '#333'
+                  color: '#000'
                 }}>
                   Email Address
                 </label>
@@ -461,7 +461,7 @@ const SignInPage = () => {
                   display: 'block', 
                   marginBottom: '8px', 
                   fontWeight: '500',
-                  color: '#333'
+                  color: '#000'
                 }}>
                   New Password
                 </label>
@@ -488,7 +488,7 @@ const SignInPage = () => {
                   display: 'block', 
                   marginBottom: '8px', 
                   fontWeight: '500',
-                  color: '#333'
+                  color: '#000'
                 }}>
                   Confirm New Password
                 </label>

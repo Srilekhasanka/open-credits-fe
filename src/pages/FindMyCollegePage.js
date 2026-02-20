@@ -1,21 +1,58 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import '../App.css';
 import './FindMyCollegePage.css';
-import { universities as universityData } from '../data/universities';
+import { universities as localUniversities } from '../data/universities';
+import { API_ENDPOINTS } from '../config/constants';
+import apiService from '../services/apiService';
 
 const FindMyCollegePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const debounceTimer = useRef(null);
 
-  const filteredUniversities = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    if (!query) {
-      return universityData;
+  const isSearching = searchQuery.trim().length > 0;
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
     }
 
-    return universityData.filter((uni) => uni.name.toLowerCase().includes(query));
-  }, [searchQuery]);
+    if (!query.trim()) {
+      setSearchResults([]);
+      setSearching(false);
+      return;
+    }
+
+    setSearching(true);
+    debounceTimer.current = setTimeout(async () => {
+      try {
+        const response = await apiService.get(API_ENDPOINTS.UNIVERSITIES.SEARCH(query));
+        const data = response?.payload?.universities || [];
+        setSearchResults(data);
+      } catch (error) {
+        console.error('Failed to search universities:', error);
+        setSearchResults([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 300);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
+
+  const displayUniversities = isSearching ? searchResults : localUniversities;
 
   const emailSubject = 'Inquiry About Transfer Credits';
   const emailBody =
@@ -38,6 +75,11 @@ const FindMyCollegePage = () => {
     emailSubject
   )}&body=${encodeURIComponent(emailBody)}`;
 
+  const handleImgError = (e) => {
+    e.target.style.display = 'none';
+    e.target.nextSibling.style.display = '';
+  };
+
   return (
     <div className="find-college-page">
       <div className="find-college-container">
@@ -57,7 +99,7 @@ const FindMyCollegePage = () => {
               type="text"
               placeholder="Search your college"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleSearch}
             />
           </div>
 
@@ -69,24 +111,52 @@ const FindMyCollegePage = () => {
           </p>
 
           <div className="find-college-grid">
-            {filteredUniversities.map((university) => {
-              const content = university.logo ? (
-                <img src={university.logo} alt={university.name} />
-              ) : (
-                <span style={{ color: university.color }}>{university.name}</span>
-              );
+            {searching ? (
+              <p>Searching...</p>
+            ) : (
+              displayUniversities.map((university) => {
+                const key = university.slug || university.id;
+                const logoSrc = university.logo || university.logo_url;
 
-              return (
-                <Link
-                  key={university.slug}
-                  className={`find-college-card${university.fullBleed ? ' full-bleed' : ''}`}
-                  to={`/universities/${university.slug}`}
-                  aria-label={`View ${university.name}`}
-                >
-                  {content}
-                </Link>
-              );
-            })}
+                const content = logoSrc ? (
+                  <>
+                    <img
+                      src={logoSrc}
+                      alt={university.name}
+                      onError={handleImgError}
+                    />
+                    <span className="find-college-card-fallback" style={{ display: 'none' }}>
+                      {university.name}
+                    </span>
+                  </>
+                ) : (
+                  <span style={{ color: university.color }}>{university.name}</span>
+                );
+
+                if (isSearching) {
+                  return (
+                    <div
+                      key={key}
+                      className={`find-college-card${university.fullBleed ? ' full-bleed' : ''}`}
+                      aria-label={university.name}
+                    >
+                      {content}
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={key}
+                    className={`find-college-card${university.fullBleed ? ' full-bleed' : ''}`}
+                    to={`/universities/${university.slug}`}
+                    aria-label={`View ${university.name}`}
+                  >
+                    {content}
+                  </Link>
+                );
+              })
+            )}
           </div>
         </div>
 

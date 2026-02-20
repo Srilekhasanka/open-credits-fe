@@ -150,7 +150,7 @@ const PaymentPage = () => {
           {/* Success Message */}
           <h1 style={{
             fontSize: '2rem',
-            color: '#333',
+            color: '#000',
             marginBottom: '15px',
             marginTop: '20px',
             fontWeight: '700'
@@ -187,7 +187,7 @@ const PaymentPage = () => {
             </div>
             <h3 style={{
               fontSize: '1.2rem',
-              color: '#333',
+              color: '#000',
               fontWeight: '600',
               marginBottom: '5px'
             }}>
@@ -321,7 +321,7 @@ const PaymentPage = () => {
   return (
     <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', paddingTop: '80px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '30px', color: '#333' }}>Complete Your Enrollment</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '30px', color: '#000' }}>Complete Your Enrollment</h1>
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '30px' }}>
           {/* Payment Form */}
@@ -329,7 +329,7 @@ const PaymentPage = () => {
             <form onSubmit={handleSubmit}>
               {/* Payment Method Selection */}
               <div style={{ marginBottom: '30px' }}>
-                <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#333' }}>Payment Method</h2>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#000' }}>Payment Method</h2>
                 <div style={{ display: 'flex', gap: '15px' }}>
                   <button
                     type="button"
@@ -369,7 +369,7 @@ const PaymentPage = () => {
               {/* Card Information */}
               {paymentMethod === 'card' && (
                 <div style={{ marginBottom: '30px' }}>
-                  <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#333' }}>Card Information</h2>
+                  <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#000' }}>Card Information</h2>
                   
                   <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: '500' }}>Card Number</label>
@@ -487,7 +487,7 @@ const PaymentPage = () => {
 
               {/* Billing Information */}
               <div style={{ marginBottom: '30px' }}>
-                <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#333' }}>Billing Information</h2>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#000' }}>Billing Information</h2>
                 
                 <div style={{ marginBottom: '20px' }}>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: '500' }}>Email Address</label>
@@ -670,7 +670,7 @@ const PaymentPage = () => {
           {/* Order Summary */}
           <div>
             <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', position: 'sticky', top: '100px' }}>
-              <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#333' }}>Order Summary</h2>
+              <h2 style={{ fontSize: '1.3rem', marginBottom: '20px', color: '#000' }}>Order Summary</h2>
               
               {/* Course Details */}
               <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #f0f0f0' }}>
@@ -687,7 +687,7 @@ const PaymentPage = () => {
                 }}>
                   {course.icon}
                 </div>
-                <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px', color: '#333' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px', color: '#000' }}>
                   {course.code}: {course.name}
                 </h3>
                 <p style={{ fontSize: '13px', color: '#666', marginBottom: '10px' }}>{course.desc}</p>

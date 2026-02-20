@@ -286,7 +286,7 @@ const GetStartedPage = () => {
                 display: 'block',
                 marginBottom: '8px',
                 fontWeight: '500',
-                color: '#333'
+                color: '#000'
               }}>
                 First Name
               </label>
@@ -315,7 +315,7 @@ const GetStartedPage = () => {
                 display: 'block',
                 marginBottom: '8px',
                 fontWeight: '500',
-                color: '#333'
+                color: '#000'
               }}>
                 Last Name
               </label>
@@ -346,7 +346,7 @@ const GetStartedPage = () => {
               display: 'block',
               marginBottom: '8px',
               fontWeight: '500',
-              color: '#333'
+              color: '#000'
             }}>
               Email Address
             </label>
@@ -420,7 +420,7 @@ const GetStartedPage = () => {
                   display: 'block',
                   marginBottom: '8px',
                   fontWeight: '500',
-                  color: '#333',
+                  color: '#000',
                   fontSize: '14px'
                 }}>
                   Enter the 6-digit OTP sent to your email
@@ -500,7 +500,7 @@ const GetStartedPage = () => {
               display: 'block',
               marginBottom: '8px',
               fontWeight: '500',
-              color: '#333'
+              color: '#000'
             }}>
               Password
             </label>
@@ -532,7 +532,7 @@ const GetStartedPage = () => {
               display: 'block',
               marginBottom: '8px',
               fontWeight: '500',
-              color: '#333'
+              color: '#000'
             }}>
               Confirm Password
             </label>

@@ -128,6 +128,14 @@
   object-fit: contain;
 }
 
+.find-college-card-fallback {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
 .find-college-card.full-bleed {
   padding: 0;
   overflow: hidden;

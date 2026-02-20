@@ -1,14 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './PartnerUniversities.css';
-import { universities } from '../data/universities';
+import { API_ENDPOINTS } from '../config/constants';
+import apiService from '../services/apiService';
+import { universities as localUniversities } from '../data/universities';
 
 const PartnerUniversities = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const debounceTimer = useRef(null);
 
-  const filteredUniversities = universities.filter((uni) =>
-    uni.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const isSearching = searchQuery.trim().length > 0;
+
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    if (!query.trim()) {
+      setSearchResults([]);
+      setSearching(false);
+      return;
+    }
+
+    setSearching(true);
+    debounceTimer.current = setTimeout(async () => {
+      try {
+        const response = await apiService.get(API_ENDPOINTS.UNIVERSITIES.SEARCH(query));
+        const data = response?.payload?.universities || [];
+        setSearchResults(data);
+      } catch (error) {
+        console.error('Failed to search universities:', error);
+        setSearchResults([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 300);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
+
+  const displayUniversities = isSearching ? searchResults : localUniversities;
 
   return (
     <section className="partner-universities">
@@ -23,39 +65,62 @@ const PartnerUniversities = () => {
               placeholder="Search your college"
               aria-label="Search your college"
               value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
+              onChange={handleSearch}
             />
             <span className="partnered-search-icon" aria-hidden="true" />
           </div>
           <div className="partnered-grid">
-            {filteredUniversities.map((university) => (
-              university.hasPartnerPage ? (
-                <Link
-                  key={university.slug}
-                  className={`partnered-card${university.fullBleed ? ' full-bleed' : ''}`}
-                  to={`/universities/${university.slug}`}
-                  aria-label={`View ${university.name}`}
-                >
-                  {university.logo ? (
-                    <img src={university.logo} alt={university.name} />
-                  ) : (
-                    <span style={{ color: university.color }}>{university.name}</span>
-                  )}
-                </Link>
-              ) : (
-                <div
-                  key={university.slug}
-                  className={`partnered-card${university.fullBleed ? ' full-bleed' : ''}`}
-                  aria-label={university.name}
-                >
-                  {university.logo ? (
-                    <img src={university.logo} alt={university.name} />
-                  ) : (
-                    <span style={{ color: university.color }}>{university.name}</span>
-                  )}
-                </div>
-              )
-            ))}
+            {searching ? (
+              <p>Searching...</p>
+            ) : (
+              displayUniversities.map((university) => {
+                const key = university.slug || university.id;
+                const logoSrc = university.logo || university.logo_url;
+
+                const handleImgError = (e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = '';
+                };
+
+                const cardContent = logoSrc ? (
+                  <>
+                    <img
+                      src={logoSrc}
+                      alt={university.name}
+                      onError={handleImgError}
+                    />
+                    <span className="partnered-card-fallback" style={{ display: 'none' }}>
+                      {university.name}
+                    </span>
+                  </>
+                ) : (
+                  <span style={{ color: university.color }}>{university.name}</span>
+                );
+
+                if (!isSearching && university.hasPartnerPage) {
+                  return (
+                    <Link
+                      key={key}
+                      className={`partnered-card${university.fullBleed ? ' full-bleed' : ''}`}
+                      to={`/universities/${university.slug}`}
+                      aria-label={`View ${university.name}`}
+                    >
+                      {cardContent}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <div
+                    key={key}
+                    className={`partnered-card${university.fullBleed ? ' full-bleed' : ''}`}
+                    aria-label={university.name}
+                  >
+                    {cardContent}
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
         <div className="partnered-footer">
