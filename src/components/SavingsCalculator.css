@@ -507,6 +507,7 @@
     font-size: 30px;
     line-height: 38px;
     margin-bottom: 32px;
+    white-space: normal;
   }
 
   .savings-section.savings-calculator .savings-card {

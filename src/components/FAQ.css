@@ -280,6 +280,24 @@
     height: auto;
   }
 
+  .support-title {
+    white-space: normal;
+  }
+
+  .support-text {
+    max-width: none;
+  }
+
+  .support-text-lead,
+  .support-text-line--nowrap {
+    white-space: normal;
+  }
+
+  .support-text-line--indent,
+  .support-text-line--indent-right {
+    margin-left: 0;
+  }
+
   .support-actions {
     flex-wrap: wrap;
   }
@@ -291,8 +309,17 @@
   }
 
   .faq-content h2 {
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .support-actions {
+    flex-direction: column;
   }
 
   .btn-chat,

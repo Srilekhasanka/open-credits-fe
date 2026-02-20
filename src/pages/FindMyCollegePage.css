@@ -184,7 +184,11 @@
   }
 
   .find-college-grid {
-    grid-template-columns: repeat(2, 244px);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .find-college-card {
+    width: 100%;
   }
 }
 
@@ -218,7 +222,22 @@
     grid-template-columns: 1fr;
   }
 
+  .find-college-header h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .find-college-header p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 40px;
+  }
+
   .find-college-footer {
     flex-direction: column;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 24px;
   }
 }

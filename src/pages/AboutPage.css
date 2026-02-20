@@ -94,6 +94,10 @@
     line-height: 26px;
   }
 
+  .about-nowrap {
+    white-space: normal;
+  }
+
   .about-content p:last-of-type {
     margin-top: 40px;
   }

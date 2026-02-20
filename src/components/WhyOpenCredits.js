@@ -27,7 +27,7 @@ const WhyOpenCredits = () => {
       title: 'Self-Paced Learning',
       description: 'Learn anytime, anywhere with no start or end dates.',
       linkLabel: 'View accepted colleges',
-      linkHref: '#accepted-colleges'
+      linkHref: '/find-my-college'
     },
     {
       icon: <img src={fasterIcon} alt="Graduate Faster" className="feature-img-icon" />,

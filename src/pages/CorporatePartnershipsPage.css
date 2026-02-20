@@ -551,6 +551,10 @@
     line-height: 1.6;
   }
 
+  .corporate-hero__lead-line {
+    margin-left: 0;
+  }
+
   .corporate-hero {
     border-radius: 14px;
   }

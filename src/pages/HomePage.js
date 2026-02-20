@@ -25,8 +25,8 @@ const HomePage = () => {
       <FeaturedUniversities />
       <SchoolAcceptance />
       <PopularCourses />
-      <PartnerUniversities />
-      <EnrollPricingSection />
+      <PartnerUniversities className="partner-universities--home" />
+      <EnrollPricingSection className="enroll-pricing-section--home" />
       <Testimonials />
       <FAQ />
     </>

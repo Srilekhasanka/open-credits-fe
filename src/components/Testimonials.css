@@ -146,6 +146,7 @@
 
   .testimonial-card {
     width: 360px;
+    height: auto;
     min-height: 400px;
   }
 }
@@ -162,6 +163,7 @@
 
   .testimonial-card {
     width: 320px;
+    height: auto;
     min-height: 380px;
   }
 }
@@ -188,7 +190,13 @@
 
   .testimonial-card {
     width: 82vw;
+    height: auto;
     min-height: 0;
+  }
+
+  .testimonial-text {
+    font-size: 16px;
+    line-height: 26px;
   }
 }
 
