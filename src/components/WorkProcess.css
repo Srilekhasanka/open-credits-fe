@@ -239,22 +239,14 @@
     top: 100px;
     transform: none;
   }
-  
-  .process-header {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-  }
-  
-  .process-visual {
-    margin-bottom: 20px;
-  }
-}
 
-@media (max-width: 640px) {
   .work-process {
-    padding: var(--section-gap) 0 var(--section-gap);
     min-height: auto;
+  }
+
+  .process-header {
+    text-align: left;
+    margin-bottom: 32px;
   }
 
   .process-content {
@@ -265,6 +257,9 @@
     position: static;
     min-height: auto;
     margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
   }
 
   .process-curve,
@@ -276,7 +271,53 @@
   .process-step {
     position: static;
     max-width: none;
-    margin: 0 0 28px;
+    padding-left: 24px;
+    border-left: 3px solid #f0f0f0;
+  }
+
+  .process-step-number {
+    position: static;
+    font-size: 48px;
+    line-height: 1;
+    margin: 0 0 8px;
+    color: rgba(237, 108, 44, 0.15);
+  }
+
+  .process-step h3 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .process-step p {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .process-step p br {
+    display: none;
+  }
+
+  .step-3 h3 {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .process-header h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .process-visual {
+    gap: 32px;
+  }
+
+  .process-step {
+    padding-left: 20px;
+  }
+
+  .process-step-number {
+    font-size: 40px;
   }
 
   .process-step h3 {
@@ -285,24 +326,29 @@
   }
 
   .process-step p {
-    font-size: 14px;
-    line-height: 22px;
-  }
-
-  .process-step-number {
-    position: static;
-    display: block;
-    margin: 0 0 6px;
-    font-size: 56px;
-    line-height: 1;
-  }
-
-  .step-3 h3 {
-    white-space: normal;
+    font-size: 15px;
+    line-height: 24px;
   }
 
   .process-step-link {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .process-header h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .process-step h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .process-step p {
+    font-size: 14px;
+    line-height: 22px;
   }
 }
 

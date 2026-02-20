@@ -5,7 +5,16 @@
       "Bash(findstr:*)",
       "Bash(powershell -Command:*)",
       "Bash(ls:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(for:*)",
+      "Bash(do)",
+      "Bash(if ! grep -q \"@media\" \"$file\")",
+      "Bash(then)",
+      "Bash(echo:*)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(grep:*)",
+      "Bash(npx react-scripts build)"
     ]
   }
 }

@@ -91,8 +91,18 @@
   .stats-grid {
     width: 100%;
     max-width: 680px;
+    grid-template-columns: repeat(4, 1fr);
     gap: 28px;
     margin-left: 0;
+  }
+
+  .stats-title {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .stats-item {
+    width: auto;
   }
 }
 

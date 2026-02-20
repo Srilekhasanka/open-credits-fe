@@ -993,6 +993,33 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .university-body {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 968px) {
+  .university-work .process-visual {
+    position: static;
+    min-height: auto;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .university-work .step-1,
+  .university-work .step-2,
+  .university-work .step-3 {
+    position: static;
+    max-width: none;
+    left: auto;
+    right: auto;
+    top: auto;
+  }
+}
+
 @media (max-width: 900px) {
   .university-body {
     grid-template-columns: 1fr;
@@ -1006,7 +1033,6 @@
   .university-hero-placeholder {
     height: 200px;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -1049,6 +1075,30 @@
     flex-wrap: wrap;
   }
 
+  .university-page .university-card.njcu .university-title,
+  .university-page .university-card.njcu .university-name,
+  .university-page .university-card.njit .university-title,
+  .university-page .university-card.njit .university-name,
+  .university-page .university-card.sdsu .university-title,
+  .university-page .university-card.sdsu .university-name,
+  .university-page .university-card.suny .university-title,
+  .university-page .university-card.suny .university-name,
+  .university-page .university-card.mvnu .university-title,
+  .university-page .university-card.mvnu .university-name,
+  .university-page .university-card.cmu .university-title,
+  .university-page .university-card.cmu .university-name {
+    white-space: normal;
+  }
+
+  .university-page .university-card.njcu .university-header,
+  .university-page .university-card.njit .university-header,
+  .university-page .university-card.sdsu .university-header,
+  .university-page .university-card.suny .university-header,
+  .university-page .university-card.mvnu .university-header,
+  .university-page .university-card.cmu .university-header {
+    gap: 20px;
+  }
+
   .university-logo {
     margin-left: 0;
   }
@@ -1056,6 +1106,7 @@
   .university-cta {
     width: 100%;
     min-width: 0;
+    white-space: normal;
   }
 
   .university-why-inner {
@@ -1099,6 +1150,15 @@
 }
 
 @media (max-width: 640px) {
+  .university-page {
+    padding: 140px 0 40px;
+  }
+
+  .university-title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
   .university-copy p {
     font-size: 16px;
     line-height: 24px;
@@ -1109,13 +1169,57 @@
     line-height: 22px;
   }
 
+  .university-chip {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .university-why-copy h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .university-why-copy p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
   .university-courses-inner h2 {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .university-courses-inner p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .university-courses-card-head h3 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .university-courses-totals div {
+    width: 100%;
   }
 
   .university-courses-row {
     grid-template-columns: 26px 1fr 70px 1fr 70px 60px;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 14px;
+    min-height: 70px;
+  }
+
+  .university-courses-row.is-header {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .university-courses-row:not(.is-header) span:nth-child(3),
+  .university-courses-row:not(.is-header) span:nth-child(5) {
+    font-size: 14px;
+    line-height: 22px;
   }
 }
 

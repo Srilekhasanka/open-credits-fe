@@ -115,9 +115,15 @@
   background: #fff;
 }
 
+@media (max-width: 968px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .featured-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .featured-card {
@@ -130,6 +136,16 @@
     min-height: 180px;
     flex: 0 0 180px;
   }
+
+  .featured-container h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .featured-description {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -139,6 +155,7 @@
 
   .featured-card {
     width: 100%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -150,6 +167,11 @@
 
   .featured-button {
     width: 100%;
+  }
+
+  .featured-container h2 {
+    font-size: 24px;
+    line-height: 32px;
   }
 }
 

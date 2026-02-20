@@ -153,6 +153,28 @@
     text-align: center;
     padding: 30px 20px;
     overflow: hidden;
+    transform: none;
+  }
+
+  .acceptance-content {
+    max-width: 100%;
+  }
+
+  .acceptance-content h2 {
+    white-space: normal;
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .acceptance-content p {
+    padding-left: 0;
+  }
+
+  .acceptance-content p,
+  .acceptance-intro,
+  .acceptance-midline,
+  .acceptance-line {
+    white-space: normal;
   }
 
   .guarantee-badge {
@@ -161,12 +183,19 @@
     top: auto;
     transform: none;
     width: 100%;
+    max-width: 300px;
+    margin: 20px auto 0;
     min-height: 0;
+    height: auto;
   }
 
   .acceptance-buttons {
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .school-acceptance .btn-outline {
+    margin-left: 0;
   }
 }
 
