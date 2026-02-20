@@ -203,9 +203,7 @@ const MyCoursesPage = () => {
             <div>
               <h2>Enjoying Open Credits?</h2>
               <p>
-                Refer it to your friends, family and more to win Ipad, Mac Books, Iphones,
-                <br />
-                Trip to Miami, Cruise rides, and more!
+                Refer it to your friends, family and more to win Ipad, Mac Books, Iphones, Trip to Miami, Cruise rides, and more!
               </p>
             </div>
             <button type="button" onClick={() => navigate('/resources')}>Refer Now</button>

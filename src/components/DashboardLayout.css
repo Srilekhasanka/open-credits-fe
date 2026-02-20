@@ -331,6 +331,11 @@
   font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
+.dashboard__banner > div {
+  flex: 1;
+  min-width: 0;
+}
+
 .dashboard__banner button {
   border: none;
   background: #ffffff;
@@ -353,6 +358,7 @@
   left: 0;
   white-space: nowrap;
   cursor: pointer;
+  flex-shrink: 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -693,9 +699,9 @@
   background: #ffffff;
   border-radius: 16px;
   padding: 18px;
-  border: 1px solid var(--dashboard-border);
+  border: none;
   text-align: center;
-  box-shadow: var(--dashboard-shadow);
+  box-shadow: none;
   position: relative;
   min-height: var(--dashboard-profile-height);
   display: flex;
@@ -2312,6 +2318,7 @@
 
 .dashboard__sidebar-action--primary:hover {
   background: #ff4e00;
+  color: #ffffff;
 }
 
 .dashboard__auth-cta {
