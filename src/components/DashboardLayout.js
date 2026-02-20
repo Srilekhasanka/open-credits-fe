@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiGrid, FiBookOpen, FiUsers, FiBarChart2, FiShoppingCart, FiLogOut, FiChevronRight } from 'react-icons/fi';
+import { FiGrid, FiBookOpen, FiUsers, FiBarChart2, FiShoppingCart, FiLogOut, FiChevronRight, FiMenu, FiX } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import './DashboardLayout.css';
 
@@ -10,6 +10,36 @@ const DashboardLayout = ({ children }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Close menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 820) setMobileMenuOpen(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
+  const handleNav = useCallback((path) => {
+    navigate(path);
+    setMobileMenuOpen(false);
+  }, [navigate]);
 
   const navItems = [
     { label: 'Dashboard', icon: <FiGrid />, path: '/dashboard' },
@@ -21,7 +51,33 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div className="dashboard">
-      <aside className="dashboard__sidebar">
+      {/* Mobile header bar */}
+      <div className="dashboard__mobile-header">
+        <button
+          className="dashboard__hamburger"
+          type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+        >
+          {mobileMenuOpen ? <FiX /> : <FiMenu />}
+        </button>
+        <Link to="/dashboard" className="dashboard__brand dashboard__brand--mobile">
+          <img src={companyLogo} alt="Open Credits" />
+          <span className="dashboard__brand-text">
+            Open <strong>Credits</strong>
+          </span>
+        </Link>
+      </div>
+
+      {/* Overlay backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="dashboard__overlay"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={`dashboard__sidebar ${mobileMenuOpen ? 'is-open' : ''}`}>
         <Link to="/dashboard" className="dashboard__brand">
           <img src={companyLogo} alt="Open Credits" />
           <span className="dashboard__brand-text">
@@ -35,7 +91,7 @@ const DashboardLayout = ({ children }) => {
               <button
                 key={item.label}
                 className={`dashboard__nav-item ${isActive ? 'is-active' : ''}`}
-                onClick={() => navigate(item.path)}
+                onClick={() => handleNav(item.path)}
                 type="button"
               >
                 {item.icon}
@@ -45,7 +101,7 @@ const DashboardLayout = ({ children }) => {
           })}
         </nav>
         <div className="dashboard__sidebar-footer">
-          <button className="dashboard__nav-item dashboard__sidebar-action" type="button" onClick={() => navigate('/my-account')}>
+          <button className="dashboard__nav-item dashboard__sidebar-action" type="button" onClick={() => handleNav('/my-account')}>
             <FiChevronRight />
             My Account
           </button>
