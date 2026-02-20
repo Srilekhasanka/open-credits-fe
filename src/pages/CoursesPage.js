@@ -142,10 +142,17 @@ const CoursesPage = () => {
       setLoadError('');
 
       try {
-        const params = {};
+        const params = {
+          is_local: studentType === 'us',
+        };
 
-        const payload = await courseService.getCourses(params);
-        const items = Array.isArray(payload) ? payload : payload?.courses || payload?.data || [];
+        const response = await courseService.getCourses(params);
+        const items = Array.isArray(response) ? response
+          : Array.isArray(response?.payload?.courses) ? response.payload.courses
+          : Array.isArray(response?.payload) ? response.payload
+          : Array.isArray(response?.courses) ? response.courses
+          : Array.isArray(response?.data) ? response.data
+          : [];
 
         if (isMounted) {
           const normalized = items.map(normalizeCourse);
@@ -169,7 +176,7 @@ const CoursesPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [retryToken]);
+  }, [retryToken, studentType]);
 
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

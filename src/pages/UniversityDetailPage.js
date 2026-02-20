@@ -85,25 +85,20 @@ const UniversityDetailPage = () => {
               {isPace
                 ? (
                 <>
-                  Pace University is known for career-focused programs with
+                  Pace University is known for career-focused programs with strong industry connections in business, technology, healthcare, and the arts.
                   <br />
-                  strong industry connections in business, technology,
-                  <br />
-                  healthcare, and the arts.
-                  <br />
-                    Open Credits offers a faster way to complete transferable
-                  <br />
-                  college credits online. Choose from CMU-aligned courses
-                  <br />
-                  mapped to general education and electives, complete them
-                  <br />
-                  at your own pace, and submit your transcript for Pace's
-                  <br />
-                  credit review to move closer to graduation with confidence.
+                  Open Credits offers a faster way to complete transferable college credits online. Choose from CMU-aligned courses mapped to general education and electives, complete them at your own pace, and submit your transcript for Pace's credit review to move closer to graduation with confidence.
                 </>
               )
                 : isIndianaTech
-                  ? 'Indiana Tech is known for flexible, career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 Indiana Tech-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for Indiana Techâ€™s credit review so you can move closer to graduation with confidence.'
+                  ? (
+                  <>
+                    Indiana Tech is known for applied, workforce-aligned programs in technology, business, and engineering.
+                    <br />
+                    <br />
+                    Open Credits helps students earn transferable college credits faster through flexible, online coursework aligned with general education and electives, reviewed for Indiana Tech transfer credit.
+                  </>
+                  )
                   : isStonyBrook
                     ? (
                     <>
@@ -143,14 +138,56 @@ const UniversityDetailPage = () => {
                   : isFranklin
                     ? (
                     <>
-                      Franklin University is known for serving adult learners and transfer students with flexible degree pathways.
+                      Franklin University is known for serving adult learners<br />and transfer students with flexible degree pathways.
                       <br />
                       <br />
                       Open Credits allows students to complete transferable credits online and reduce time and cost to graduation.
                     </>
                   )
                   : isNjcu
-                    ? 'NJCU is known for career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from nearly 70 NJCU-aligned courses built for general education and electives, complete them at your pace, and submit your transcript for NJCUâ€™s credit review so you can move closer to graduation with confidence.'
+                    ? (
+                    <>
+                      NJCU is known for access-focused education and strong pathways for transfer and first-generation students.
+                      <br />
+                      <br />
+                      Open credits provides a faster way to complete transferable general education and elective credits online, helping NJCU students stay on track toward graduation.
+                    </>
+                  )
+                  : isNjit
+                    ? (
+                    <>
+                      NJIT is known for rigorous STEM, engineering, and technology programs.
+                      <br />
+                      <br />
+                      Open Credits allows students to complete approved general education and elective credits online and submit transcripts for NJIT's transfer review.
+                    </>
+                  )
+                  : isSuny
+                    ? (
+                    <>
+                      SUNY institutions are known for affordability, transfer mobility, and statewide access to higher education.
+                      <br />
+                      <br />
+                      Open Credits enables students to complete transferable credits online that align with SUNY general education and elective requirements.
+                    </>
+                  )
+                  : isSdsu
+                    ? (
+                    <>
+                      SDSU is known for strong programs in business, engineering, public health, and applied research.
+                      <br />
+                      <br />
+                      Open Credits supports students in completing transferable lower-division and elective credits online to accelerate degree progress.
+                    </>
+                  )
+                  : isCmu
+                    ? (
+                    <>
+                      Central Michigan University is known for career-focused programs that help students move quickly toward graduation.
+                      <br />
+                      Open Credits offers a faster way to earn transferable college credits online. Choose from nearly 70 CMU-aligned courses for general education and electives, complete them at your pace, and submit transcripts for CMU's credit review.
+                    </>
+                  )
                     : `${university.name} offers career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from flexible courses built for general education and electives, complete them at your pace, and submit your transcript for credit review so you can move closer to graduation with confidence.`}
             </p>
             <div className="university-badges">
@@ -176,76 +213,99 @@ const UniversityDetailPage = () => {
       <div className="university-work">
         <WorkProcess />
       </div>
-      {(isPace || isIndianaTech || isNjcu || isNjit || isOhioState || isSuny || isSdsu || isMvnu || isFranklin || isCmu || isPennState) && (
-        <section className={`university-why ${isPace ? 'is-pace' : ''} ${isIndianaTech ? 'is-indiana-tech' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''}`}>
+      {(isPace || isIndianaTech || isNjcu || isNjit || isOhioState || isSuny || isSdsu || isMvnu || isFranklin || isCmu || isPennState || isStonyBrook) && (
+        <section className={`university-why ${isPace ? 'is-pace' : ''} ${isIndianaTech ? 'is-indiana-tech' : ''} ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''}`}>
           <div className="university-why-inner">
             <div className="university-why-copy">
               <h2>
-                {isIndianaTech ? 'Why Join Indiana Tech?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : isPennState ? 'Why Join Penn State University?' : 'Why Join Pace University?'}
+                {isIndianaTech ? 'Why Join Indiana Tech?' : isStonyBrook ? 'Why Join Stony Brook University?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : isPennState ? 'Why Join Penn State University?' : 'Why Join Pace University?'}
               </h2>
               <p>
                 {isIndianaTech
-                  ? 'Indiana Tech is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                  ? ''
+                  : isStonyBrook
+                    ? (
+                    <>
+                      Stony Brook University offers top-tier academics backed by major research activity and strong STEM and health science programs. As a public research university, it <span className="nowrap">delivers exceptional academic value, rigorous education,</span> and global recognition at an accessible cost.
+                    </>
+                  )
                   : isNjcu
-                    ? 'NJCU is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                    ? (
+                    <>
+                      <span className="nowrap">NJCU is built around access, equity, and student success,</span> particularly for transfer and first-generation students. Its urban locaiton, supportive academic environment, and career-connected programs make it a strong option for <span className="nowrap">students seeking flexibility, affordability, and proximity to</span> New York City opportunities.
+                    </>
+                  )
                     : isNjit
-                      ? 'NJIT is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                      ? 'NJIT delivers rigorous, high-value education in engineering, computing, and applied sciences. Known for strong research output and industry alignment, NJIT prepares students for competitive STEM careers while offering excellent return on investment through public tuition rates.'
                       : isOhioState
-                        ? 'Ohio State University is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                        ? 'Ohio State University combines academic breadth, research excellence, and national recognition. Students benefit from extensive academic resources, strong employer credibility, and one of the largest alumni networks in the world, creating long-term value beyond graduation.'
                         : isSuny
-                          ? 'SUNY is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                          ? 'The SUNY system provides high-quality, affordable education with strong transfer mobility across New York State. Designed to serve diverse student populations, SUNY institutions offer clear pathways to degree completion, broad program options, and consistent credit transfer opportunities.'
                           : isSdsu
-                            ? 'SDSU is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                            ? 'SDSU is known for career-oriented programs, strong employer connections, and applied research excellence. With high graduation rates and strong placement outcomes, SDSU is especially attractive to transfer students seeking efficient pathways into business, engineering, public health, and professional careers.'
                             : isMvnu
-                              ? 'MVNU is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                              ? (
+                                <>
+                                  <span className="nowrap">Mount Vernon Nazarene University offers a personalized,</span> values-driven education focused on both academic growth and character development. Small class sizes, supportive faculty, and a transfer-friendly environment help students progress with confidence toward meaningful careers.
+                                </>
+                              )
                               : isFranklin
-                                ? 'Franklin University is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                                ? 'Franklin University is designed specifically for adult learners and transfer students, offering flexible scheduling and generous credit acceptance. Its career-aligned programs allow students to reduce time to graduation while balancing work, family, and education.'
                                 : isCmu
-                                  ? 'CMU is accredited by the Distance Education Accrediting Commission. All programs are offered 100% online.'
+                                  ? (
+                                    <>
+                                      Central Michigan University focuses on career readiness through practical learning, strong mentorship, and accessible education. With flexible formats, affordable tuition, and scholarship opportunities, CMU supports <span className="nowrap">students who want to complete their degrees efficiently</span> and enter the workforce with confidence.
+                                    </>
+                                  )
                                   : isPennState
                                     ? 'Penn State is known for academic rigor, scale, and lifelong value through one of the strongest alumni networks globally. Students gain access to respected programs, extensive research opportunities, and flexible transfer pathways that support both academic and professional success.'
                                   : (
                                     <>
-                                      Pace University offers career-focused education rooted in
+                                      Pace University offers career-focused education rooted&nbsp;in
                                       <br />
                                       real-world experience, with strong access to internships,
-                                      employer partnerships, and industry networks in New York
-                                      <br/> City.
-                                      Its programs are designed for flexibility and career mobility,
-                                      making Pace an ideal choice for transfer students, working
-                                      professionals, and those seeking strong outcomes 
-                                      <br/>in business,
-                                      healthcare, law, and technology.
+                                      <br />
+                                      employer partnerships, and industry networks in New
+                                      <br />
+                                      York City. Its programs are designed for flexibility and
+                                      <br />
+                                      career mobility, making Pace an ideal choice for transfer
+                                      <br />
+                                      students, working professionals, and those seeking
+                                      <br />
+                                      strong outcomes in business, healthcare, law, and
+                                      <br />
+                                      technology.
                                     </>
                                   )}
               </p>
-              {!isPace && !isPennState && (
+              {!isPace && !isPennState && !isStonyBrook && (
                 <p>
                   {isIndianaTech
-                    ? 'Indiana Tech is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                    ? 'Indiana Tech emphasizes practical, skills-driven learning aligned with today\'s workforce needs. With a strong focus on techbology, cybersecurity, engieering, and business, the university provides flexible and affordable programs designed to help students advance quickly into high-demand careers.'
                     : isNjcu
-                      ? 'NJCU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                      ? ''
                       : isNjit
-                        ? 'NJIT is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                        ? ''
                         : isOhioState
-                          ? 'Ohio State University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                          ? ''
                           : isSuny
-                            ? 'SUNY is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                            ? ''
                             : isSdsu
-                              ? 'SDSU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                              ? ''
                               : isMvnu
-                                ? 'MVNU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                                ? ''
                                 : isFranklin
-                                  ? 'Franklin University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                                  ? ''
                                   : isCmu
-                                    ? 'CMU is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'
+                                    ? ''
                                     : 'Pace University is designed to give students a jumpstart to a better job by putting quality education within their reach. Lean business practices make it possible for us to offer remarkably low tuition. Scholarships are available.'}
                 </p>
               )}
             </div>
             <div className="university-why-logo">
               <img
-                src={university.whyLogo || university.headerLogo || university.logo}
+                src={isStonyBrook ? '/images/whystony.svg' : (university.whyLogo || university.headerLogo || university.logo)}
                 alt={university.name}
               />
             </div>

@@ -147,6 +147,7 @@
   color: #111827;
   font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   cursor: pointer;
+  text-align: left;
 }
 
 .courses-category:hover,

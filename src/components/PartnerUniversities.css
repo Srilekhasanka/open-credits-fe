@@ -42,6 +42,11 @@
   font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
+.partnered-search input:focus {
+  outline: none;
+  border-color: #ED6C2C;
+}
+
 .partnered-search input::placeholder {
   color: #9f9f9f;
 }
@@ -110,6 +115,14 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+.partnered-card-fallback {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .partnered-card.full-bleed {

@@ -27,6 +27,7 @@ class CourseService {
       if (params.subject_area) queryParams.append('subject_area', params.subject_area);
       if (params.credential_type) queryParams.append('credential_type', params.credential_type);
       if (params.is_active !== undefined) queryParams.append('is_active', params.is_active);
+      if (params.is_local !== undefined) queryParams.append('is_local', params.is_local);
       if (params.page !== undefined) queryParams.append('page', params.page);
       if (params.limit) queryParams.append('limit', params.limit);
 

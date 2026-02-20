@@ -169,11 +169,7 @@ const Header = () => {
                           type="button"
                           onClick={() => {
                             setShowCoursesDropdown(false);
-                            const params = new URLSearchParams();
-                            if (activeCourseCategory) {
-                              params.set('subject', activeCourseCategory);
-                            }
-                            navigate(`/courses${params.toString() ? `?${params.toString()}` : ''}`);
+                            navigate('/courses');
                           }}
                         >
                           Explore All
@@ -289,7 +285,7 @@ const Header = () => {
                         textAlign: 'left',
                         cursor: 'pointer',
                         fontSize: '14px',
-                        color: '#333',
+                        color: '#000',
                         transition: 'background-color 0.2s'
                       }}
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f8f8'}
@@ -310,7 +306,7 @@ const Header = () => {
                         textAlign: 'left',
                         cursor: 'pointer',
                         fontSize: '14px',
-                        color: '#333',
+                        color: '#000',
                         transition: 'background-color 0.2s'
                       }}
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f8f8'}
@@ -331,7 +327,7 @@ const Header = () => {
                         textAlign: 'left',
                         cursor: 'pointer',
                         fontSize: '14px',
-                        color: '#333',
+                        color: '#000',
                         transition: 'background-color 0.2s',
                         borderBottom: '1px solid #f0f0f0'
                       }}

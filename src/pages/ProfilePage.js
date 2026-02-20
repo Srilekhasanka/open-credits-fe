@@ -94,7 +94,7 @@ const ProfilePage = () => {
           }}>
             {displayProfile.email?.charAt(0).toUpperCase()}
           </div>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: '#333' }}>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: '#000' }}>
             {displayProfile.firstName} {displayProfile.lastName}
           </h1>
           <p style={{ fontSize: '1.1rem', color: '#666' }}>
@@ -109,7 +109,7 @@ const ProfilePage = () => {
           padding: '40px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
         }}>
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '30px', color: '#333', borderBottom: '2px solid #f0f0f0', paddingBottom: '15px' }}>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '30px', color: '#000', borderBottom: '2px solid #f0f0f0', paddingBottom: '15px' }}>
             Profile Details
           </h2>
 
@@ -132,7 +132,7 @@ const ProfilePage = () => {
                 backgroundColor: '#f9f9f9',
                 borderRadius: '8px',
                 fontSize: '16px',
-                color: '#333'
+                color: '#000'
               }}>
                 {displayProfile.firstName || 'Not provided'}
               </div>
@@ -156,7 +156,7 @@ const ProfilePage = () => {
                 backgroundColor: '#f9f9f9',
                 borderRadius: '8px',
                 fontSize: '16px',
-                color: '#333'
+                color: '#000'
               }}>
                 {displayProfile.lastName || 'Not provided'}
               </div>
@@ -180,7 +180,7 @@ const ProfilePage = () => {
                 backgroundColor: '#f9f9f9',
                 borderRadius: '8px',
                 fontSize: '16px',
-                color: '#333'
+                color: '#000'
               }}>
                 {displayProfile.email}
               </div>
@@ -243,7 +243,7 @@ const ProfilePage = () => {
                 flex: 1,
                 padding: '14px',
                 backgroundColor: '#f0f0f0',
-                color: '#333',
+                color: '#000',
                 border: 'none',
                 borderRadius: '8px',
                 fontSize: '16px',
