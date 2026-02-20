@@ -83,12 +83,24 @@
   min-width: 145px;
   height: 56px;
   padding: 16px 32px;
+  background: #E85002;
+  color: white;
+  border: none;
   border-radius: 6px;
   font-size: 16px;
   font-weight: 400;
   font-family: 'Inter', 'DM Sans', sans-serif;
   letter-spacing: 0;
   white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.hero-actions .btn-primary:hover {
+  background: #FF4E00;
 }
 
 .hero-image {
