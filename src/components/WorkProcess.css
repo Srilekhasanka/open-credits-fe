@@ -192,9 +192,6 @@
   /* Hide horizontal connector on mobile */
   .work-steps::before,
   .work-steps::after {
-  /* Hide horizontal connector on mobile */
-  .work-steps::before,
-  .work-steps::after {
     display: none;
   }
 
