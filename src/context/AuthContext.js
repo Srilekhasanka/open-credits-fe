@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS } from '../config/constants';
 
 const AuthContext = createContext();
 
@@ -84,20 +86,79 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('enrolledCourses', JSON.stringify(courses));
   }, []);
 
-  const addToCart = (course) => {
+  // Fetch cart from API
+  const fetchCart = useCallback(async () => {
+    try {
+      const response = await apiService.get(API_ENDPOINTS.CART.LIST);
+      const payload = response?.payload || response?.data || response;
+      const items = Array.isArray(payload)
+        ? payload
+        : payload?.items || payload?.cart_items || payload?.cart || [];
+      const normalized = items.map((item) => {
+        const course = item.course || item;
+        const rawName = course.name || '';
+        const [codePart, ...nameParts] = rawName.split(':');
+        const hasCode = rawName.includes(':');
+        return {
+          id: course.id || item.course_id,
+          cart_item_id: item.id,
+          code: hasCode ? codePart.trim() : '',
+          name: hasCode ? nameParts.join(':').trim() : rawName,
+          description: course.description || '',
+          price: Number(String(course.price ?? 0).replace(/[^0-9.]/g, '')),
+          subject: course.subject_area || course.subject || '',
+        };
+      });
+      setCartItems(normalized);
+      localStorage.setItem('cartItems', JSON.stringify(normalized));
+    } catch {
+      // Keep local cart on API failure
+    }
+  }, []);
+
+  // Fetch cart when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchCart();
+    }
+  }, [isAuthenticated, fetchCart]);
+
+  const addToCart = async (course) => {
     const exists = cartItems.some((item) => item.id === course.id);
     if (exists) return false;
 
+    // Optimistic update
     const updatedCart = [...cartItems, course];
     setCartItems(updatedCart);
     localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+
+    try {
+      await apiService.post(API_ENDPOINTS.CART.ADD, { course_id: course.id });
+      // Re-fetch to get server-assigned cart_item_id
+      fetchCart();
+    } catch {
+      // Revert on failure
+      setCartItems(cartItems);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      return false;
+    }
     return true;
   };
 
-  const removeFromCart = (courseId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== courseId);
+  const removeFromCart = async (courseId) => {
+    const updatedCart = cartItems.filter((i) => i.id !== courseId);
     setCartItems(updatedCart);
     localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+
+    try {
+      await apiService.delete(API_ENDPOINTS.CART.REMOVE, {
+        body: JSON.stringify({ course_id: courseId }),
+      });
+    } catch {
+      // Revert on failure
+      setCartItems(cartItems);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
   };
 
   const clearCart = () => {
@@ -118,7 +179,8 @@ export const AuthProvider = ({ children }) => {
       cartItems,
       addToCart,
       removeFromCart,
-      clearCart
+      clearCart,
+      fetchCart
     }}>
       {children}
     </AuthContext.Provider>

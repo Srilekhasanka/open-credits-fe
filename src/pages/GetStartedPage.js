@@ -15,7 +15,8 @@ const GetStartedPage = () => {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    studentType: ''
   });
   const [showPasswords, setShowPasswords] = useState(false);
 
@@ -152,6 +153,12 @@ const GetStartedPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Student type validation - enable later
+    // if (!formData.studentType) {
+    //   showSnackbar('Please select your student type.');
+    //   return;
+    // }
+
     if (!emailVerified) {
       showSnackbar('Please verify your email first.');
       return;
@@ -174,6 +181,7 @@ const GetStartedPage = () => {
         last_name: formData.lastName,
         password: formData.password,
         confirm_password: formData.confirmPassword,
+        student_type: formData.studentType,
       });
 
       authService.clearAuthData();
@@ -339,6 +347,46 @@ const GetStartedPage = () => {
               />
             </div>
           </div>
+
+          {/* Student Type - commented out for now, will enable later
+          <div>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#000'
+            }}>
+              Student Type*
+            </label>
+            <select
+              name="studentType"
+              value={formData.studentType}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                fontSize: '16px',
+                border: '2px solid #e0e0e0',
+                borderRadius: '8px',
+                outline: 'none',
+                backgroundColor: '#fff',
+                color: formData.studentType ? '#000' : '#999',
+                cursor: 'pointer',
+                appearance: 'none',
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M1.4 0L6 4.6 10.6 0 12 1.4l-6 6-6-6z'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 16px center',
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#ff6b35'}
+              onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+            >
+              <option value="" disabled>Select student type</option>
+              <option value="national">U.S Local / Military</option>
+              <option value="international">International Student</option>
+            </select>
+          </div>
+          */}
 
           {/* Email with ! icon and OTP */}
           <div>

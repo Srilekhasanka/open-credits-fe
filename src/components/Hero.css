@@ -2,7 +2,7 @@
 
 .hero {
   padding: 120px 0 var(--section-gap);
-  background: radial-gradient(circle at 70% 30%, #fff2eb 0%, #ffffff 55%);
+  background: #ffffff;
 }
 
 .hero-container {
@@ -135,7 +135,7 @@
   background: transparent;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 1024px) {
   .hero {
     padding: var(--section-gap) 0 var(--section-gap);
   }
@@ -182,6 +182,22 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .image-frame {
+    width: min(320px, 100%);
+  }
+}
+
 @media (max-width: 640px) {
   .hero-content h1 {
     font-size: 32px;
@@ -209,10 +225,33 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
   .hero-content h1 {
     font-size: 28px;
     line-height: 36px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 20px;
+  }
+
+  .hero-actions .btn-chat,
+  .hero-actions .btn-primary {
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .image-frame {
+    width: min(280px, 100%);
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-content h1 {
+    font-size: 24px;
+    line-height: 32px;
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiBell, FiShoppingCart, FiCopy } from 'react-icons/fi';
+import { FiCopy } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/constants';
@@ -14,6 +14,8 @@ const AffiliateDashboardPage = () => {
   const [loadingReferral, setLoadingReferral] = useState(false);
   const [referralError, setReferralError] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
+  const [bankInfo, setBankInfo] = useState('');
+  const [savingSettings, setSavingSettings] = useState(false);
 
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
@@ -31,6 +33,7 @@ const AffiliateDashboardPage = () => {
         const payload = response?.payload || response?.data || response;
         if (isMounted) {
           setReferralData(payload);
+          setBankInfo(payload?.bank_info || payload?.bankInfo || '');
         }
       } catch (error) {
         if (isMounted) {
@@ -135,16 +138,12 @@ const AffiliateDashboardPage = () => {
           </h1>
         </div>
         <div className="dashboard__topbar-actions">
-          <div className="dashboard__search">
-            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
-            <FiSearch />
-          </div>
           <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
-            <FiShoppingCart />
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
@@ -284,11 +283,31 @@ const AffiliateDashboardPage = () => {
 
               <div className="affiliate__field">
                 <label>Bank Information</label>
-                <input type="text" value="example@gmail.com" readOnly />
+                <input
+                  type="text"
+                  value={bankInfo}
+                  onChange={(e) => setBankInfo(e.target.value)}
+                  placeholder="Enter your bank info or PayPal email"
+                />
               </div>
 
-              <button className="affiliate__save" type="button">
-                Save changes
+              <button
+                className="affiliate__save"
+                type="button"
+                disabled={savingSettings}
+                onClick={async () => {
+                  setSavingSettings(true);
+                  try {
+                    await apiService.put(API_ENDPOINTS.REFERRALS.SETTINGS, { bank_info: bankInfo });
+                    setCopyMessage('Settings saved');
+                  } catch {
+                    setCopyMessage('Failed to save settings');
+                  } finally {
+                    setSavingSettings(false);
+                  }
+                }}
+              >
+                {savingSettings ? 'Saving...' : 'Save changes'}
               </button>
             </div>
           </div>

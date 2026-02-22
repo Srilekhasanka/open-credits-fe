@@ -447,7 +447,7 @@
   background: #FF4E00;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .courses-head {
     flex-direction: column;
     align-items: flex-start;
@@ -505,6 +505,27 @@
   }
 }
 
+@media (max-width: 480px) {
+  .courses-head h1 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .courses-page .course-card h3 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .courses-page .course-desc {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .courses-page .course-enroll {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
 
 .courses-page .savings-section {
   margin-top: 44px;
@@ -720,7 +741,7 @@
   margin-top: 4px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .savings-card {
     grid-template-columns: 1fr;
   }

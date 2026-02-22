@@ -231,14 +231,21 @@
   background: #FF4E00;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .courses-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .course-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .course-card h3 {
+    margin-top: 40px;
+  }
+
   .courses-header {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 16px;
   }
 }
@@ -284,6 +291,48 @@
 
   .btn-view-all {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .courses-header h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .course-card h3 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .course-card p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .course-tag {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px 8px;
+    min-height: 28px;
+  }
+
+  .course-price {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .btn-enroll {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-width: auto;
+    min-height: 48px;
+  }
+
+  .btn-view-all {
+    height: 48px;
+    font-size: 14px;
+    padding: 12px 24px;
   }
 }
 

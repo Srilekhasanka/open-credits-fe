@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import './CommunityPartnershipsPage.css';
+import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
 
 const communityImage = '/images/community_image.svg';
@@ -54,10 +55,10 @@ const CommunityPartnershipsPage = () => (
         </p>
       </div>
       <div className="community-actions">
-        <button type="button" className="community-button community-button--proposal is-outline">
+        <button type="button" className="community-button community-button--proposal is-outline" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Get a Partnership Proposal
         </button>
-        <button type="button" className="community-button community-button--talk">
+        <button type="button" className="community-button community-button--talk" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Talk to us
         </button>
       </div>
@@ -92,12 +93,7 @@ const CommunityPartnershipsPage = () => (
 
     <section className="community-orange">
       <div className="community-container">
-        <div className="community-orange__card">
-          <div className="community-orange__steps" aria-hidden="true">
-            <span className="community-orange__step community-orange__step--1" />
-            <span className="community-orange__step community-orange__step--2" />
-            <span className="community-orange__step community-orange__step--3" />
-          </div>
+        <div className="community-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h3 className="community-orange__title">
             Not just a company favorite.
             <br />

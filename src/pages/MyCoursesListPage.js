@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import enrollmentService from '../services/enrollmentService';
 import apiService from '../services/apiService';
@@ -66,6 +66,7 @@ const MyCoursesListPage = () => {
   const { isAuthenticated, user, enrolledCourses, cartItems, setEnrolledCoursesData } = useAuth();
   const navigate = useNavigate();
   const [loadingEnrollments, setLoadingEnrollments] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const [courseFilter, setCourseFilter] = useState('all');
   const [loadingCourseId, setLoadingCourseId] = useState('');
   const [courseError, setCourseError] = useState('');
@@ -164,14 +165,24 @@ const MyCoursesListPage = () => {
   }, [isAuthenticated]);
 
   const filteredCourses = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    const searchable = query
+      ? enrolledCourses.filter((course) => {
+          const haystack = [course.code, course.name]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+          return haystack.includes(query);
+        })
+      : enrolledCourses;
     if (courseFilter === 'completed') {
-      return enrolledCourses.filter((course) => course.status === 'Completed');
+      return searchable.filter((course) => course.status === 'Completed');
     }
     if (courseFilter === 'unfinished') {
-      return enrolledCourses.filter((course) => course.status !== 'Completed');
+      return searchable.filter((course) => course.status !== 'Completed');
     }
-    return enrolledCourses;
-  }, [enrolledCourses, courseFilter]);
+    return searchable;
+  }, [enrolledCourses, courseFilter, searchTerm]);
 
   if (!isAuthenticated) {
     return (
@@ -266,15 +277,15 @@ const MyCoursesListPage = () => {
         </div>
         <div className="dashboard__topbar-actions">
           <div className="dashboard__search">
-            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
+            <input type="text" placeholder="Search Courses" aria-label="Search courses" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <FiSearch />
           </div>
           <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
-            <FiShoppingCart />
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
@@ -349,14 +360,9 @@ const MyCoursesListPage = () => {
                     <div className="mycourses__progress-label">{progressValue}% complete</div>
                     <div className="mycourses__last-opened">Last opened 2/12/24</div>
                   </div>
-                  <button
-                    className="mycourses__cta"
-                    type="button"
-                    onClick={() => handleViewCourse(course)}
-                    disabled={loadingCourseId === course.id}
-                  >
-                    {loadingCourseId === course.id ? 'Loading...' : 'View Course'}
-                  </button>
+                  <span className="mycourses__cta">
+                    View Course
+                  </span>
                 </div>
               </div>
             );
