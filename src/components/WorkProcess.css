@@ -288,50 +288,78 @@
     line-height: 32px;
   }
 
-  .process-step p {
-    font-size: 16px;
-    line-height: 26px;
+  .work-steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-left: 0;
   }
 
-  .process-step p br {
+  /* Hide horizontal connector on mobile */
+  .work-steps::before,
+  .work-steps::after {
     display: none;
   }
 
-  .step-3 h3 {
-    white-space: normal;
-  }
-}
-
-@media (max-width: 640px) {
-  .process-header h2 {
-    font-size: 24px;
-    line-height: 32px;
+  .work-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 20px;
+    position: relative;
+    padding-bottom: 36px;
   }
 
-  .process-visual {
-    gap: 32px;
+  /* Vertical timeline line */
+  .work-step::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #f0d4c2;
+    transform: translateX(-50%);
+    z-index: 0;
   }
 
-  .process-step {
-    padding-left: 20px;
+  /* Hide line after last step */
+  .work-step:last-child::before {
+    display: none;
   }
 
-  .process-step-number {
-    font-size: 40px;
+  .work-step__icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0;
+    grid-row: 1 / -1;
+    grid-column: 1;
+    align-self: start;
+    background: #fff;
+    border-radius: 50%;
   }
 
-  .process-step h3 {
-    font-size: 22px;
-    line-height: 30px;
+  .work-step__icon img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .work-step h3 {
+    font-size: 20px;
+    line-height: 28px;
+    grid-column: 2;
+    margin: 0 0 8px;
+    padding-top: 4px;
   }
 
   .process-step p {
     font-size: 15px;
     line-height: 24px;
+    grid-column: 2;
+    margin: 0 0 8px;
   }
 
-  .process-step-link {
-    font-size: 14px;
+  .work-step__link {
+    grid-column: 2;
   }
 }
 
@@ -341,9 +369,13 @@
     line-height: 30px;
   }
 
-  .process-step h3 {
-    font-size: 20px;
-    line-height: 28px;
+  .work-step {
+    column-gap: 16px;
+  }
+
+  .work-step h3 {
+    font-size: 18px;
+    line-height: 26px;
   }
 
   .process-step p {

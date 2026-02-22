@@ -84,6 +84,21 @@
   height: 700px;
 }
 
+.partnered-email-note {
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #6b6b6b;
+  margin: 0 0 18px;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+.partnered-email-note a {
+  color: #2f6bff;
+  text-decoration: underline;
+}
+
 .partnered-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

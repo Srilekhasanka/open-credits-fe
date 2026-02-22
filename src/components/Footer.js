@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
+import { CALENDLY_URL } from '../config/constants';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
@@ -77,13 +78,13 @@ const Footer = () => {
             <nav className="footer-column" aria-label="Footer links group 1">
               <ul>
                 <li>
-                  <Link to="/resources">Request Transcript</Link>
+                  <span>Request Transcript</span>
                 </li>
                 <li>
-                  <Link to="/resources">Accreditation</Link>
+                  <span>Accreditation</span>
                 </li>
                 <li>
-                  <Link to="/resources">Support</Link>
+                  <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">Support</a>
                 </li>
               </ul>
             </nav>
@@ -105,7 +106,7 @@ const Footer = () => {
             <nav className="footer-column" aria-label="Footer links group 3">
               <ul>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</Link>
                 </li>
                 <li>
                   <Link to="/courses">Courses</Link>
