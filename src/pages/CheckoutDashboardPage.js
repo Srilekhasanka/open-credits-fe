@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import apiService from '../services/apiService';
 import { API_ENDPOINTS, STRIPE_PUBLISHABLE_KEY } from '../config/constants';
@@ -164,11 +164,11 @@ const CheckoutDashboardPage = () => {
             aria-label="Cart"
             onClick={() => navigate('/shop')}
           >
-            <FiShoppingCart />
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
 import './HigherEducationPartnershipsPage.css';
+import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
 
 const higherEduImage = '/images/higheredu_main.svg';
@@ -58,10 +59,10 @@ const HigherEducationPartnershipsPage = () => (
         </p>
       </div>
       <div className="higheredu-actions">
-        <button type="button" className="higheredu-button higheredu-button--proposal is-outline">
+        <button type="button" className="higheredu-button higheredu-button--proposal is-outline" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Get a Partnership Proposal
         </button>
-        <button type="button" className="higheredu-button higheredu-button--talk">
+        <button type="button" className="higheredu-button higheredu-button--talk" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Talk to us
         </button>
       </div>
@@ -138,12 +139,7 @@ const HigherEducationPartnershipsPage = () => (
 
     <section className="higheredu-orange">
       <div className="higheredu-container">
-        <div className="higheredu-orange__card">
-          <div className="higheredu-orange__steps" aria-hidden="true">
-            <span className="higheredu-orange__step higheredu-orange__step--1" />
-            <span className="higheredu-orange__step higheredu-orange__step--2" />
-            <span className="higheredu-orange__step higheredu-orange__step--3" />
-          </div>
+        <div className="higheredu-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h3 className="higheredu-orange__title">
             <span className="higheredu-orange__title-line">Everyone loves Open Credits,</span>
             <span className="higheredu-orange__title-line">You&apos;ll love it too!</span>

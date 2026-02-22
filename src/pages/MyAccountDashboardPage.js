@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS } from '../config/constants';
 import '../components/DashboardLayout.css';
 
 export default function MyAccountDashboardPage() {
@@ -28,6 +30,8 @@ export default function MyAccountDashboardPage() {
   const profileFileInputRef = useRef(null);
   const [profilePreviewUrl, setProfilePreviewUrl] = useState('');
   const [imageError, setImageError] = useState(false);
+  const [orderHistory, setOrderHistory] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -177,6 +181,30 @@ export default function MyAccountDashboardPage() {
     }
   }, [displayImageUrl]);
 
+  useEffect(() => {
+    if (!isAuthenticated || activeTab !== 'billing') return;
+    let isMounted = true;
+
+    const fetchOrders = async () => {
+      setLoadingOrders(true);
+      try {
+        const response = await apiService.get(API_ENDPOINTS.ORDERS.HISTORY);
+        const payload = response?.payload || response?.data || response;
+        const items = Array.isArray(payload)
+          ? payload
+          : payload?.orders || payload?.history || payload?.data || [];
+        if (isMounted) setOrderHistory(items);
+      } catch {
+        if (isMounted) setOrderHistory([]);
+      } finally {
+        if (isMounted) setLoadingOrders(false);
+      }
+    };
+
+    fetchOrders();
+    return () => { isMounted = false; };
+  }, [isAuthenticated, activeTab]);
+
   if (!isAuthenticated) {
     return (
       <div className="dashboard__auth-cta">
@@ -199,16 +227,12 @@ export default function MyAccountDashboardPage() {
           </h1>
         </div>
         <div className="dashboard__topbar-actions">
-          <div className="dashboard__search">
-            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
-            <FiSearch />
-          </div>
-          <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
-            <FiShoppingCart />
+<button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
@@ -366,15 +390,25 @@ export default function MyAccountDashboardPage() {
               </div>
               <div className="billing__history">
                 <h4>Order History</h4>
-                {['Course name', 'Course name', 'Course name', 'Course name'].map((item, index) => (
-                  <div key={`${item}-${index}`} className="billing__history-card">
-                    <div>
-                      <div className="billing__history-title">{item}</div>
-                      <div className="billing__history-date">Date purchased:</div>
+                {loadingOrders && <div className="mycourses__loading">Loading orders...</div>}
+                {!loadingOrders && orderHistory.length === 0 && (
+                  <div className="mycourses__loading">No order history found.</div>
+                )}
+                {orderHistory.map((order, index) => {
+                  const courseName = order.course?.name || order.course_name || order.name || 'Course';
+                  const price = order.amount || order.price || order.total || order.course?.price || 0;
+                  const date = order.createdAt || order.created_at || order.date || '';
+                  const formattedDate = date ? new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+                  return (
+                    <div key={order.id || `order-${index}`} className="billing__history-card">
+                      <div>
+                        <div className="billing__history-title">{courseName}</div>
+                        <div className="billing__history-date">{formattedDate ? `Date purchased: ${formattedDate}` : 'Date purchased:'}</div>
+                      </div>
+                      <div className="billing__history-price">${price}</div>
                     </div>
-                    <div className="billing__history-price">$433</div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}

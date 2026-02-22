@@ -51,7 +51,7 @@
 .partner-banner__content {
   position: relative;
   text-align: center;
-  max-width: 720px;
+  max-width: 1212px;
   margin: 0 auto;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .partner-banner__content p:not(:first-of-type) {
-  margin-left: -225px;
+  margin-left: 0;
 }
 
 .partner-banner__content p:first-of-type {
@@ -91,15 +91,10 @@
   margin-bottom: 12px;
 }
 
-.partner-banner__content .partner-banner__nowrap {
-  white-space: nowrap;
-}
-
-.partner-banner__content .partner-banner__nowrap {
-  text-align: left;
-  width: 100%;
-  margin: 0;
-  margin-left: -160px;
+.partner-banner__content .partner-banner__desc {
+  text-align: center;
+  max-width: 1212px;
+  margin: 0 auto;
 }
 
 .partnership-hero {
@@ -276,7 +271,7 @@
   color: #1f4dcc;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .partnership-hero {
     flex-direction: column;
     align-items: flex-start;
@@ -294,11 +289,18 @@
   .partnership-feature-card {
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .partnership-feature-copy {
+    max-width: none;
   }
 
   .partnership-feature-image {
     width: 100%;
-    max-width: 420px;
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -308,9 +310,7 @@
     line-height: 46px;
   }
 
-  .partner-banner__content .partner-banner__nowrap {
-    white-space: normal;
-    margin-left: 0;
+  .partner-banner__content .partner-banner__desc {
     text-align: center;
   }
 
@@ -320,9 +320,13 @@
 
   .partnership-feature-card {
     min-height: 0;
+    width: 100%;
+    padding: 18px;
   }
 
   .partnership-feature-image {
+    width: 100%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -330,16 +334,37 @@
     white-space: normal;
   }
 
+  .partnership-feature-copy {
+    max-width: none;
+    padding-top: 12px;
+  }
+
+  .partnership-feature-copy h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    line-height: 34px;
+  }
+
   .partnership-feature-copy h3 {
     white-space: normal;
+    margin: 16px 0 6px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .partnership-feature-copy p {
+    margin: 0 0 12px;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   .partnership-feature-nowrap {
     white-space: normal;
   }
 
-  .partnership-feature-copy {
-    max-width: none;
+  .partnership-link {
+    margin-left: 0;
+    font-size: 14px;
   }
 
   .partner-colleges-nowrap {
@@ -358,9 +383,54 @@
 }
 
 @media (max-width: 640px) {
+  .partnership-page {
+    padding: var(--section-gap) 0 var(--section-gap);
+  }
+
+  .partner-banner {
+    padding: 20px 16px 24px;
+    margin-bottom: 28px;
+  }
+
   .partner-banner__content h1 {
     font-size: 32px;
     line-height: 40px;
+    margin-bottom: 24px;
+  }
+
+  .partner-banner__content p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .partner-banner__content p:first-of-type {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .partnership-feature-card {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .partnership-feature-copy h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .partnership-feature-copy h3 {
+    margin: 12px 0 4px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .partnership-feature-copy p {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .partner-colleges {
+    margin-top: 36px;
   }
 }
 
@@ -475,7 +545,7 @@
   object-fit: contain;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .partner-colleges-panel {
     width: 100%;
     min-height: auto;
@@ -491,12 +561,96 @@
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   .partner-colleges-panel {
     padding: 24px 18px;
   }
 
   .partner-colleges-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .partner-banner {
+    padding: 16px 12px 20px;
+    border-radius: 14px;
+  }
+
+  .partner-banner__content h1 {
+    font-size: 26px;
+    line-height: 34px;
+    margin-bottom: 18px;
+  }
+
+  .partner-banner__content p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .partner-banner__content p:first-of-type {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .partnership-feature-list {
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .partnership-feature-card {
+    padding: 14px;
+    gap: 14px;
+    border-radius: 12px;
+  }
+
+  .partnership-feature-copy h2 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .partnership-feature-copy h3 {
+    margin: 10px 0 4px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .partnership-feature-copy p {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 10px;
+  }
+
+  .partnership-link {
+    font-size: 13px;
+  }
+
+  .partner-colleges {
+    margin-top: 24px;
+  }
+
+  .partner-colleges-header h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .partner-colleges-header p {
+    font-size: 14px;
+    line-height: 22px;
+    max-width: none;
+  }
+
+  .partner-colleges-panel {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .partner-colleges-search input {
+    font-size: 15px;
+    height: 44px;
+  }
+
+  .partner-college-card {
+    height: 110px;
   }
 }

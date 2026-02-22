@@ -3,87 +3,65 @@
   min-height: 100vh;
   padding-top: var(--section-gap);
   padding-bottom: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.resources-blob {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.resources-blob--top-left {
+  top: 0;
+  left: 0;
+}
+
+.resources-blob--top-right {
+  top: 0;
+  right: 0;
 }
 
 .resources-container {
   max-width: var(--layout-max, 1512px);
   margin: 0 auto;
   padding: 0 var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
+  position: relative;
+  z-index: 1;
+}
+
+.resources-header {
+  margin-top: 120px;
+  margin-bottom: 60px;
+  text-align: center;
 }
 
 .resources-header h1 {
   font-size: 36px;
   line-height: 44px;
   font-weight: 700;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   color: #1f1f1f;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
 .resources-header p {
-  font-size: 18px;
-  line-height: normal;
-  color: #000000;
-  max-width: 1200px;
-  margin: 0 0 26px;
-  font-weight: 400;
-  font-family: 'Open Sans', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
-}
-
-.resources-header {
-  margin-top: 120px;
-  margin-bottom: 26px;
-}
-
-.resources-gallery {
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 158px;
-}
-
-.resources-gallery img {
-  width: 100%;
-  display: block;
-  border-radius: 12px;
-}
-
-.resources-tabs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 839px;
-  margin: 32px auto 64px;
-  font-size: 12px;
-}
-
-.resources-tabs button {
-  border: none;
-  background: none;
-  color: #111827;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #555;
+  max-width: 100%;
+  margin: 0 auto;
   font-weight: 400;
   font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
-  cursor: pointer;
-  padding: 0;
-  border-bottom: 2px solid transparent;
-}
-
-.resources-tabs button.active {
-  color: #ED6C2C;
-  border-color: #ED6C2C;
 }
 
 .resources-list {
   width: 100%;
-  border-radius: 0;
-  background: transparent;
-  border: none;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 63px;
-  margin-bottom: 70px;
+  gap: 48px;
+  align-items: center;
 }
 
 .resources-card {
@@ -117,6 +95,12 @@
   display: block;
 }
 
+.resources-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .resources-card-body h2 {
   margin: 0 0 8px;
   font-size: 30px;
@@ -132,14 +116,6 @@
   line-height: 32px;
   color: #111827;
   font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
-}
-
-.resources-card-body {
-  width: 651px;
-  height: 313px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .resources-card-body button {
@@ -161,52 +137,40 @@
   background: #FF4E00;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1024px) {
   .resources-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: 300px 1fr;
+    gap: 28px;
+    padding: 28px;
   }
 
   .resources-card-image {
-    height: 160px;
+    height: 280px;
+    min-height: 280px;
   }
 }
 
 @media (max-width: 768px) {
-  .resources-container {
-    padding: 0 var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
-  }
-
   .resources-header h1 {
     font-size: 28px;
     line-height: 36px;
   }
 
-  .resources-tabs {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 12px 18px;
-    justify-content: flex-start;
-  }
-
   .resources-card {
+    grid-template-columns: 1fr;
     padding: 24px;
   }
 
-  .resources-card-body {
-    width: auto;
-    height: auto;
-  }
-
   .resources-card-image {
-    height: 220px;
-    min-height: 220px;
+    height: 200px;
+    min-height: 200px;
   }
 }
 
 @media (max-width: 640px) {
   .resources-header p {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 22px;
   }
 
   .resources-card-body h2 {
@@ -221,5 +185,27 @@
 
   .resources-card-body button {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .resources-header h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .resources-header p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .resources-card-body h2 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .resources-card-body p {
+    font-size: 14px;
+    line-height: 22px;
   }
 }

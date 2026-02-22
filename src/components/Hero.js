@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 import { useAuth } from '../context/AuthContext';
+import { CALENDLY_URL } from '../config/constants';
 
 const homeStudent = '/images/homestudent.svg';
 
@@ -10,7 +11,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleEnroll = () => {
-    navigate('/enroll');
+    navigate('/signin');
   };
   
   return (
@@ -28,8 +29,8 @@ const Hero = () => {
           </p>
           {!isAuthenticated && (
             <div className="hero-actions">
-              <button className="btn-chat" type="button">
-                Chat Now
+              <button className="btn-chat" type="button" onClick={() => window.open(CALENDLY_URL, '_blank')}>
+                Book Call
               </button>
               <button className="btn-primary" type="button" onClick={handleEnroll}>
                 Enroll Now

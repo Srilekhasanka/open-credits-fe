@@ -47,7 +47,6 @@
 }
 
 .feature-card:hover {
-  background: #fff9f7;
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
@@ -117,7 +116,7 @@
   line-height: 1;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 1024px) {
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;

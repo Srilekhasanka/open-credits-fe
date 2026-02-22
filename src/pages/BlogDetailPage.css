@@ -1,0 +1,138 @@
+.blog-detail {
+  background: #fff;
+  min-height: 100vh;
+  padding-top: 160px;
+  padding-bottom: 120px;
+}
+
+.blog-detail__container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.blog-detail__title {
+  font-size: 42px;
+  line-height: 52px;
+  font-weight: 700;
+  font-family: 'Montserrat', 'DM Sans', sans-serif;
+  color: #1f1f1f;
+  margin: 0 0 16px;
+}
+
+.blog-detail__subtitle {
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  color: #6b7280;
+  margin: 0 0 32px;
+}
+
+.blog-detail__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.blog-detail__author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.blog-detail__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ED6C2C;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+.blog-detail__author {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  color: #1f1f1f;
+}
+
+.blog-detail__date {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  color: #6b7280;
+}
+
+.blog-detail__hero {
+  width: 100%;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.blog-detail__hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.blog-detail__content p {
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  color: #1f1f1f;
+  margin: 0 0 24px;
+}
+
+@media (max-width: 768px) {
+  .blog-detail {
+    padding-top: 130px;
+  }
+
+  .blog-detail__title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .blog-detail__subtitle {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .blog-detail__content p {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-detail__title {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .blog-detail__subtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .blog-detail__content p {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}

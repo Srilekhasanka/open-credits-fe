@@ -13,7 +13,6 @@ const FeaturedUniversities = () => {
       name: 'University at Buffalo',
       logo: ubLogo,
       slug: 'university-at-buffalo',
-      isRoutable: false,
       logoWidth: 158,
       logoHeight: 122
     },

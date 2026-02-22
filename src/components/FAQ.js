@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { CALENDLY_URL } from '../config/constants';
 import './FAQ.css';
 
 const doYouHaveQuestions = '/images/doyouhavequestions.svg';
-const whatsappIcon = '/images/whatsapp.png';
+
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -79,11 +80,10 @@ const FAQ = () => {
               <span className="support-text-line support-text-line--nowrap support-text-line--indent support-text-line--indent-right">selection, and how to get started.</span>
             </p>
             <div className="support-actions">
-              <button className="btn-chat" type="button">
+              <button className="btn-chat" type="button" onClick={() => window.open(CALENDLY_URL, '_blank')}>
                 Chat Now
-                <img className="btn-chat-icon" src={whatsappIcon} alt="" aria-hidden="true" />
               </button>
-              <button className="btn-advisor" type="button">Talk to an Advisor</button>
+              <button className="btn-advisor" type="button" onClick={() => window.open(CALENDLY_URL, '_blank')}>Talk to an Advisor</button>
             </div>
           </div>
         </div>

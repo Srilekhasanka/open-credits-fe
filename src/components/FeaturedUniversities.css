@@ -115,9 +115,14 @@
   background: #fff;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 1024px) {
   .featured-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured-card {
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -172,6 +177,34 @@
   .featured-container h2 {
     font-size: 24px;
     line-height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-container h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .featured-description {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .featured-card {
+    padding: 14px 12px 30px;
+  }
+
+  .featured-logo {
+    height: 140px;
+    min-height: 140px;
+    flex: 0 0 140px;
+  }
+
+  .featured-button {
+    height: 48px;
+    padding: 12px 24px;
+    font-size: 14px;
   }
 }
 

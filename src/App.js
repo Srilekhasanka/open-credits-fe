@@ -34,6 +34,7 @@ import EnrollPage from './pages/EnrollPage';
 import PricingPage from './pages/PricingPage';
 import AboutPage from './pages/AboutPage';
 import UniversityDetailPage from './pages/UniversityDetailPage';
+import BlogDetailPage from './pages/BlogDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
 
 function ScrollToTop() {
@@ -83,6 +84,7 @@ function AppContent() {
             <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
             <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
             <Route path="/universities/:slug" element={<UniversityDetailPage />} />
+            <Route path="/blog/:slug" element={<BlogDetailPage />} />
           </Routes>
         </DashboardLayout>
       ) : (
@@ -112,6 +114,7 @@ function AppContent() {
           <Route path="/payment/status" element={<PaymentStatusDashboardPage />} />
           <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
           <Route path="/universities/:slug" element={<UniversityDetailPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
         </Routes>
       )}
       {showPublicHeader && <Footer />}

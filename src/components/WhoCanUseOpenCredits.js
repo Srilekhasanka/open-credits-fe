@@ -6,9 +6,9 @@ const universityBoy = '/images/Universityboy.svg';
 const adultUncle = '/images/Adultuncle.svg';
 
 const cards = [
-  { img: highschoolGirl, title: 'High School', subtitle: 'Students', href: '/get-started' },
-  { img: universityBoy, title: 'University', subtitle: 'Students', href: '/get-started' },
-  { img: adultUncle, title: 'Adult', subtitle: 'Learners', href: '/get-started', className: 'who-card--adult' }
+  { img: highschoolGirl, title: 'High School', subtitle: 'Students', href: '/partnerships/k-12' },
+  { img: universityBoy, title: 'University', subtitle: 'Students', href: '/partnerships/higher-education' },
+  { img: adultUncle, title: 'Adult', subtitle: 'Learners', href: '/partnerships/corporate', className: 'who-card--adult' }
 ];
 
 const WhoCanUseOpenCredits = () => {

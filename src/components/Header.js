@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import courseService from '../services/courseService';
+import { CALENDLY_URL } from '../config/constants';
 import './Header.css';
 
 const companyLogo = '/images/company-logo.svg';
@@ -69,11 +70,55 @@ const Header = () => {
   const [activeCourseCategory, setActiveCourseCategory] = useState('');
   const [courseCategories, setCourseCategories] = useState([]);
   const [coursePreviews, setCoursePreviews] = useState({});
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileCourseExpanded, setMobileCourseExpanded] = useState(false);
 
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
     navigate('/');
+  };
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileCourseExpanded(false);
+  };
+
+  const handleMobileCourseToggle = async () => {
+    const isOpening = !mobileCourseExpanded;
+    setMobileCourseExpanded(isOpening);
+
+    if (!isOpening || courseCategories.length > 0) return;
+
+    setIsLoadingCourseCategories(true);
+    try {
+      const payload = await courseService.getCourseCategories({
+        is_active: true,
+        include_courses: true,
+        limit_per_category: 10,
+      });
+      const { categories, previews } = buildCourseDropdownData(payload);
+      if (categories.length > 0) {
+        setCourseCategories(categories);
+        setCoursePreviews(previews);
+        setActiveCourseCategory((prev) =>
+          categories.includes(prev) ? prev : categories[0]
+        );
+      }
+    } catch (error) {
+      console.error('Failed to fetch header course categories:', error);
+    } finally {
+      setIsLoadingCourseCategories(false);
+    }
   };
 
   const handleCoursesDropdownToggle = async () => {
@@ -209,8 +254,93 @@ const Header = () => {
           <Link to="/find-my-college">Find My College</Link>
           <Link to="/enroll">Enroll</Link>
           <Link to="/how-it-works">Partnership</Link>
-          <Link to="/resources">Resources</Link>
+          <Link to="/resources">Blog</Link>
         </nav>
+
+        <button
+          className={`hamburger ${mobileMenuOpen ? 'is-open' : ''}`}
+          type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileMenuOpen}
+        >
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+        </button>
+
+        {mobileMenuOpen && (
+          <div className="mobile-nav-overlay" onClick={closeMobileMenu} />
+        )}
+        <div className={`mobile-nav ${mobileMenuOpen ? 'is-open' : ''}`}>
+          <div className="mobile-nav-inner">
+            <div className="mobile-nav-links">
+              <button
+                className="mobile-nav-link mobile-nav-courses-toggle"
+                type="button"
+                onClick={handleMobileCourseToggle}
+              >
+                <span>Courses</span>
+                <img
+                  className={`mobile-nav-caret ${mobileCourseExpanded ? 'is-expanded' : ''}`}
+                  src={keyboardArrowRight}
+                  alt=""
+                  aria-hidden="true"
+                />
+              </button>
+              {mobileCourseExpanded && (
+                <div className="mobile-courses-submenu">
+                  {isLoadingCourseCategories && courseCategories.length === 0 && (
+                    <span className="mobile-courses-loading">Loading...</span>
+                  )}
+                  {courseCategories.map((category) => (
+                    <button
+                      key={category}
+                      type="button"
+                      className="mobile-courses-category"
+                      onClick={() => {
+                        closeMobileMenu();
+                        const params = new URLSearchParams();
+                        params.set('category', category);
+                        navigate(`/courses?${params.toString()}`);
+                      }}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                  <button
+                    className="mobile-courses-explore"
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
+                      navigate('/courses');
+                    }}
+                  >
+                    Explore All Courses
+                  </button>
+                </div>
+              )}
+              <Link className="mobile-nav-link" to="/find-my-college" onClick={closeMobileMenu}>Find My College</Link>
+              <Link className="mobile-nav-link" to="/enroll" onClick={closeMobileMenu}>Enroll</Link>
+              <Link className="mobile-nav-link" to="/how-it-works" onClick={closeMobileMenu}>Partnership</Link>
+              <Link className="mobile-nav-link" to="/resources" onClick={closeMobileMenu}>Blog</Link>
+            </div>
+            <div className="mobile-nav-actions">
+              {isAuthenticated ? (
+                <>
+                  <button className="mobile-nav-link" onClick={() => { closeMobileMenu(); navigate('/my-account'); }}>Profile Details</button>
+                  <button className="mobile-nav-link" onClick={() => { closeMobileMenu(); navigate('/my-courses'); }}>My Courses</button>
+                  <button className="mobile-nav-link mobile-nav-logout" onClick={() => { closeMobileMenu(); handleLogout(); }}>Log Out</button>
+                </>
+              ) : (
+                <>
+                  <button className="mobile-btn-outline" onClick={() => { closeMobileMenu(); window.open(CALENDLY_URL, '_blank'); }}>Book Call</button>
+                  <button className="mobile-btn-primary" onClick={() => { closeMobileMenu(); navigate('/signin'); }}>Sign In</button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
 
         <div className="header-actions">
           {isAuthenticated ? (
@@ -361,7 +491,7 @@ const Header = () => {
             </div>
           ) : (
             <>
-              <button className="btn-outline" onClick={() => navigate('/get-started')}>Book Call</button>
+              <button className="btn-outline" onClick={() => window.open(CALENDLY_URL, '_blank')}>Book Call</button>
               <button className="btn-primary" onClick={() => navigate('/signin')}>Sign In</button>
             </>
           )}

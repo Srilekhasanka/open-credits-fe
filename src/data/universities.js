@@ -3,6 +3,7 @@ const paceHero = '/images/openxpace.svg';
 const paceHeaderLogo = '/images/pacex.svg';
 const paceWhyLogo = '/images/whypaceuni.svg';
 const ubLogo = '/images/ub.svg';
+const ubHero = '/images/buffalouni.svg';
 const stonyLogo = '/images/stony.svg';
 const stonyHero = '/images/openxstony.svg';
 const sdsuLogo = '/images/sdsu.svg';
@@ -48,13 +49,18 @@ export const universities = [
     headerLogo: paceHeaderLogo,
     whyLogo: paceWhyLogo,
     color: '#003366',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'c79f2713-5104-4e4b-9594-2524bfb0d3eb'
   },
   {
     slug: 'university-at-buffalo',
     name: 'University at Buffalo',
     logo: ubLogo,
-    color: '#0047bb'
+    headerLogo: ubLogo,
+    heroImage: ubHero,
+    color: '#0047bb',
+    hasPartnerPage: true,
+    universityId: '2021b9ed-e1f5-4c77-b99e-8c732475a53a'
   },
   {
     slug: 'stony-brook-university',
@@ -62,7 +68,8 @@ export const universities = [
     logo: stonyLogo,
     heroImage: stonyHero,
     color: '#7a1f2b',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'd32f29ac-fdc6-47c2-a15a-ecac4ba080b3'
   },
   {
     slug: 'njcu',
@@ -72,7 +79,8 @@ export const universities = [
     heroImage: njcuHero,
     whyLogo: njcuWhyLogo,
     color: '#0f5aa5',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: '45ab5747-b1d7-42a8-ae28-9c4e3d0399b8'
   },
   {
     slug: 'njit',
@@ -82,7 +90,8 @@ export const universities = [
     heroImage: njitHero,
     whyLogo: njitWhyLogo,
     color: '#d32f2f',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'cd4eba18-59db-4dc3-981a-b9500bce58f3'
   },
   {
     slug: 'san-diego-state-university',
@@ -92,7 +101,8 @@ export const universities = [
     heroImage: sdsuHero,
     whyLogo: sdsuWhyLogo,
     color: '#a6192e',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'd7d8f0d4-7c71-4838-a465-ca22a112ea32'
   },
   {
     slug: 'suny',
@@ -103,7 +113,8 @@ export const universities = [
     whyLogo: sunyWhyLogo,
     color: '#0b3d91',
     fullBleed: true,
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'd21d04c4-521c-4f31-aef5-55c0135ed76c'
   },
   {
     slug: 'the-ohio-state-university',
@@ -113,7 +124,8 @@ export const universities = [
     heroImage: ohioHero,
     whyLogo: ohioWhyLogo,
     color: '#bb0000',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: '1c0e57b9-4495-4db8-86f6-4ce002c50fcb'
   },
   {
     slug: 'mvnu',
@@ -123,7 +135,8 @@ export const universities = [
     heroImage: mvnuHero,
     whyLogo: mvnuWhyLogo,
     color: '#006f4c',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: '0ad65725-8beb-4f23-8228-74cb4823191c'
   },
   {
     slug: 'franklin-university',
@@ -134,7 +147,8 @@ export const universities = [
     whyLogo: franklinWhyLogo,
     color: '#0f1a2f',
     fullBleed: true,
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: '0d62e6f9-cd1f-4b0d-aaa2-1a563879909f'
   },
   {
     slug: 'central-michigan-university',
@@ -145,7 +159,8 @@ export const universities = [
     whyLogo: cmuWhyLogo,
     color: '#6a0030',
     fullBleed: true,
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: '3d0a5997-e633-4415-bff8-08baff9567f9'
   },
   {
     slug: 'penn-state',
@@ -154,7 +169,8 @@ export const universities = [
     heroImage: pennHero,
     whyLogo: pennWhyLogo,
     color: '#1e407c',
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'c06d01e2-bf85-4fbc-ab5a-b7c12db9e047'
   },
   {
     slug: 'crestpoint-university',
@@ -171,7 +187,8 @@ export const universities = [
     whyLogo: indianaTechWhyLogo,
     color: '#b43c2e',
     fullBleed: true,
-    hasPartnerPage: true
+    hasPartnerPage: true,
+    universityId: 'd493571c-03ae-432d-ad27-41bd830cec46'
   },
   {
     slug: 'ec-council-university',

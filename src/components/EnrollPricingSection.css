@@ -238,7 +238,7 @@
   background: #e55522;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .enroll-pricing-grid {
     grid-template-columns: 1fr;
   }
@@ -289,6 +289,44 @@
   .enroll-pricing-desc {
     font-size: 16px;
     line-height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .enroll-pricing-container h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .enroll-pricing-card {
+    padding: 16px 14px;
+  }
+
+  .enroll-pricing-visual {
+    height: 180px;
+    margin: -16px -14px 0;
+  }
+
+  .enroll-price-main {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .enroll-pricing-card h3 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .enroll-pricing-desc {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .enroll-pricing-cta,
+  .enroll-pricing-cta--solid {
+    height: 48px;
+    padding: 12px 24px;
+    font-size: 14px;
   }
 }
 

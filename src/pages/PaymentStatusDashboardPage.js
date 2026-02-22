@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
-import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { STRIPE_PUBLISHABLE_KEY } from '../config/constants';
 import '../components/DashboardLayout.css';
@@ -92,11 +92,11 @@ const PaymentStatusDashboardPage = () => {
             <FiSearch />
           </div>
           <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
-            <FiShoppingCart />
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
