@@ -1,9 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import apiService from '../services/apiService';
+import { API_ENDPOINTS } from '../config/constants';
 import enrollmentService from '../services/enrollmentService';
 import '../components/DashboardLayout.css';
+
+const bookmarkAddIcon = '/images/bookmark_add.svg';
 
 const businessIcon = '/images/Business.svg';
 const computerIcon = '/images/Computer.svg';
@@ -54,6 +58,23 @@ const MyCoursesPage = () => {
   const [courseFilter, setCourseFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [loadingEnrollments, setLoadingEnrollments] = useState(false);
+  const [bookmarkedIds, setBookmarkedIds] = useState(new Set());
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    let isMounted = true;
+    const fetchBookmarks = async () => {
+      try {
+        const response = await apiService.get(API_ENDPOINTS.BOOKMARKS.LIST);
+        const payload = response?.payload || response?.data || response;
+        const items = Array.isArray(payload) ? payload : payload?.bookmarks || payload?.data || [];
+        const ids = items.map((item) => item.course_id || item.courseId || item.course?.id || item.id).filter(Boolean);
+        if (isMounted) setBookmarkedIds(new Set(ids));
+      } catch { /* ignore */ }
+    };
+    fetchBookmarks();
+    return () => { isMounted = false; };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -153,6 +174,24 @@ const MyCoursesPage = () => {
 
   const continueCourses = enrolledCourses.slice(0, 3);
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+
+  const toggleBookmark = async (courseId) => {
+    if (!courseId) return;
+    const isBookmarked = bookmarkedIds.has(courseId);
+    try {
+      if (isBookmarked) {
+        await apiService.delete(API_ENDPOINTS.BOOKMARKS.REMOVE(courseId));
+      } else {
+        await apiService.post(API_ENDPOINTS.BOOKMARKS.ADD, { course_id: courseId });
+      }
+      setBookmarkedIds((prev) => {
+        const next = new Set(prev);
+        isBookmarked ? next.delete(courseId) : next.add(courseId);
+        return next;
+      });
+    } catch { /* ignore */ }
+  };
+
   const getSubjectIcon = (course) => {
     const rawSubject = course.subject || '';
     const normalized = rawSubject.toLowerCase().replace(/\s+/g, '');
@@ -185,11 +224,11 @@ const MyCoursesPage = () => {
             <FiSearch />
           </div>
           <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
-            <FiShoppingCart />
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
@@ -223,31 +262,18 @@ const MyCoursesPage = () => {
                   const iconSrc = getSubjectIcon(course);
                   return (
                     <div key={course.id} className="dashboard__mini-card">
-                      <div className="dashboard__mini-header">
-                        <div className="dashboard__mini-icon">
-                          {iconSrc ? (
-                            <img src={iconSrc} alt="" aria-hidden="true" />
-                          ) : (
-                            <span>{course.code?.split(' ')[0] || 'OC'}</span>
-                          )}
-                        </div>
+                      <div className="dashboard__mini-icon">
+                        {iconSrc ? (
+                          <img src={iconSrc} alt="" aria-hidden="true" />
+                        ) : (
+                          <span>{course.code?.split(' ')[0] || 'OC'}</span>
+                        )}
+                      </div>
+                      <div className="dashboard__mini-body">
                         <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
+                        <span>{progressValue}% complete</span>
                       </div>
-                      <span>{progressValue}% complete</span>
-                      {/*
-                      <div className="dashboard__mini-progress">
-                        <div style={{ width: `${progressValue}%` }} />
-                      </div>
-                      */}
-                      {/*
-                      <button
-                        className="dashboard__mini-action"
-                        type="button"
-                        onClick={() => navigate(`/course/${course.id}/learn`, { state: { resume: true } })}
-                      >
-                        Continue
-                      </button>
-                      */}
+                      <img src="/images/contiplay.svg" alt="" className="dashboard__mini-play" />
                     </div>
                   );
                 })}
@@ -257,6 +283,7 @@ const MyCoursesPage = () => {
             <section className="dashboard__section">
               <div className="dashboard__section-header dashboard__section-header--stack">
                 <div className="dashboard__section-title">My Courses</div>
+                <button className="dashboard__view-all-btn" type="button" onClick={() => navigate('/my-courses')}>View my Courses</button>
                 <div className="dashboard__filters">
                   <button
                     className={`dashboard__filter-btn ${courseFilter === 'completed' ? 'is-active' : ''}`}
@@ -286,31 +313,37 @@ const MyCoursesPage = () => {
                   const iconSrc = getSubjectIcon(course);
                   return (
                     <div key={course.id} className="dashboard__course-card">
-                      <div className="dashboard__course-icon">
-                        {iconSrc ? (
-                          <img src={iconSrc} alt="" aria-hidden="true" />
-                        ) : (
-                          course.code?.split(' ')[0] || 'OC'
-                        )}
+                      <div className="dashboard__course-card-top">
+                        <div className="dashboard__course-icon">
+                          {iconSrc ? (
+                            <img src={iconSrc} alt="" aria-hidden="true" />
+                          ) : (
+                            course.code?.split(' ')[0] || 'OC'
+                          )}
+                        </div>
+                        <button
+                          className={`mycourses__bookmark ${bookmarkedIds.has(course.id) ? 'is-active' : ''}`}
+                          type="button"
+                          aria-label="Bookmark"
+                          aria-pressed={bookmarkedIds.has(course.id)}
+                          onClick={() => toggleBookmark(course.id)}
+                        >
+                          <img src={bookmarkAddIcon} alt="" aria-hidden="true" />
+                        </button>
                       </div>
-                      <div>
+                      <div className="dashboard__course-card-body">
                         <h3>{course.code ? `${course.code}: ` : ''}{course.name}</h3>
-                        <p>{course.description || 'Track your coursework, assignments, and weekly milestones.'}</p>
+                        <p>{course.description || 'Learn core managerial accounting concepts, interpret financial statements.'}</p>
                       </div>
-                      <div className="dashboard__progress">
-                        <span>{progressValue}% complete</span>
-                        <span>{progressValue}%</span>
+                      <div className="dashboard__course-card-footer">
+                        <div>
+                          <div className="dashboard__progress-label">{progressValue}% complete</div>
+                          <div className="dashboard__last-opened">Last opened 2/12/24</div>
+                        </div>
+                        <span className="dashboard__course-action">
+                          View Course
+                        </span>
                       </div>
-                      <div className="dashboard__progress-bar">
-                        <div style={{ width: `${progressValue}%` }} />
-                      </div>
-                      <button
-                        className="dashboard__course-action"
-                        type="button"
-                        onClick={() => navigate(`/course/${course.id}/learn`, { state: { resume: true } })}
-                      >
-                        View Course
-                      </button>
                     </div>
                   );
                 })}
@@ -318,27 +351,6 @@ const MyCoursesPage = () => {
             </section>
         </div>
 
-        <aside className="dashboard__profile">
-          <div className="dashboard__profile-card">
-            <button className="dashboard__profile-link-inline" type="button" onClick={() => navigate('/my-account')}>
-              view profile
-            </button>
-            <div className="dashboard__profile-avatar">{displayInitial}</div>
-            <div className="dashboard__profile-name">
-              <h3>{formattedName}</h3>
-              <span>@referenceID</span>
-            </div>
-            <div className="dashboard__highlights">
-              <h4>Highlights</h4>
-              <div className="dashboard__highlight-item">
-                <span>You have completed a course</span>
-              </div>
-              <div className="dashboard__highlight-item">
-                <span>You have an incomplete Quiz</span>
-              </div>
-            </div>
-          </div>
-        </aside>
       </div>
     </div>
   );

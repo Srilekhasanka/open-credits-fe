@@ -188,6 +188,20 @@
   background: #FF4E00;
 }
 
+@media (max-width: 1024px) {
+  .partnered-image-wrap {
+    height: auto;
+  }
+
+  .partnered-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .partnered-card {
+    height: 120px;
+  }
+}
+
 @media (max-width: 768px) {
   .partnered-image-wrap {
     height: auto;
@@ -222,6 +236,33 @@
 
   .partnered-card {
     height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .universities-container h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .partnered-search input {
+    font-size: 16px;
+    height: 44px;
+  }
+
+  .partnered-card {
+    height: 85px;
+  }
+
+  .partnered-footer {
+    font-size: 16px;
+    line-height: 24px;
+    gap: 10px;
+  }
+
+  .partnered-footer-button {
+    font-size: 14px;
+    padding: 6px 14px;
   }
 }
 

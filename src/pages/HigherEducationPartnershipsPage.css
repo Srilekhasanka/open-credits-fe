@@ -73,6 +73,10 @@
     font-size: clamp(34px, 5vw, 58px);
     line-height: 1.2;
   }
+
+  .higheredu-hero__content .higheredu-hero__lead {
+    transform: none;
+  }
 }
 
 .higheredu-hero__content h1 span {
@@ -346,8 +350,6 @@
 }
 
 .higheredu-built__image {
-  border-left: 1px dashed #cfd6e4;
-  padding-left: 20px;
   aspect-ratio: 576 / 637;
 }
 
@@ -373,43 +375,11 @@
   height: 352px;
   margin: 0 auto;
   border-radius: 20px;
-  background: linear-gradient(180deg, #ff9c4b 0%, #ff7d26 52%, #ED6C2C 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   overflow: hidden;
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
   position: relative;
-}
-
-.higheredu-orange__steps {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.higheredu-orange__step {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -2px;
-  border-radius: 14px 14px 0 0;
-}
-
-.higheredu-orange__step--1 {
-  width: 92%;
-  height: 168px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.higheredu-orange__step--2 {
-  width: 76%;
-  height: 122px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.higheredu-orange__step--3 {
-  width: 60%;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .higheredu-orange__title {
@@ -479,7 +449,58 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1024px) {
+  .higheredu-hero__content .higheredu-hero__lead {
+    transform: none;
+    text-align: center;
+  }
+
+  .higheredu-hero__lead-line1 {
+    white-space: normal;
+  }
+
+  .higheredu-hero__lead-line2 {
+    margin-left: 0;
+  }
+
+  .higheredu-hero__content h1 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .higheredu-actions {
+    gap: 16px;
+  }
+
+  .higheredu-why-header {
+    text-align: center;
+  }
+
+  .higheredu-why-header h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .higheredu-why-card {
+    min-height: 0;
+  }
+
+  .higheredu-built__layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .higheredu-orange__card {
+    height: 300px;
+  }
+
+  .higheredu-orange__title {
+    font-size: 42px;
+    line-height: 56px;
+  }
+}
+
+@media (max-width: 768px) {
   .higheredu-hero__content h1 {
     font-size: 22px;
   }
@@ -556,18 +577,6 @@
     min-height: 260px;
   }
 
-  .higheredu-orange__step--1 {
-    height: 124px;
-  }
-
-  .higheredu-orange__step--2 {
-    height: 92px;
-  }
-
-  .higheredu-orange__step--3 {
-    height: 58px;
-  }
-
   .higheredu-orange__title {
     top: 42%;
     font-size: 32px;
@@ -586,6 +595,104 @@
     min-width: 140px;
     font-size: 14px;
     line-height: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .higheredu-hero__content h1 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .higheredu-why-header h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .higheredu-why-card h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .higheredu-why-card p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .higheredu-built__copy h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .higheredu-orange__card {
+    height: 220px;
+    min-height: 220px;
+  }
+
+  .higheredu-orange__title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .higheredu-orange__cta {
+    height: 44px;
+    padding: 10px 16px;
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  .higheredu-button--proposal,
+  .higheredu-button--talk {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .higheredu-hero__content h1 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .higheredu-why-header h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .higheredu-why-card h3 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .higheredu-why-card p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .higheredu-built__copy h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .higheredu-orange__card {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .higheredu-orange__title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .higheredu-orange__cta {
+    height: 40px;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .higheredu-button--proposal,
+  .higheredu-button--talk {
+    height: 48px;
+    font-size: 14px;
   }
 }
 

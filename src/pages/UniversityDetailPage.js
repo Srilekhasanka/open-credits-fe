@@ -1,14 +1,16 @@
-﻿import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+﻿import React, { useEffect, useMemo, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './UniversityDetailPage.css';
 import WorkProcess from '../components/WorkProcess';
 import SavingsCalculator from '../components/SavingsCalculator';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import { universities, defaultBadges } from '../data/universities';
+import universityService from '../services/universityService';
 
 const UniversityDetailPage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const university = universities.find((item) => item.slug === slug);
   const isPace = university?.slug === 'pace-university';
   const isIndianaTech = university?.slug === 'indiana-tech';
@@ -22,10 +24,67 @@ const UniversityDetailPage = () => {
   const isFranklin = university?.slug === 'franklin-university';
   const isCmu = university?.slug === 'central-michigan-university';
   const isPennState = university?.slug === 'penn-state';
+  const isBuffalo = university?.slug === 'university-at-buffalo';
+
+  const [equivalencies, setEquivalencies] = useState([]);
+  const [eqLoading, setEqLoading] = useState(false);
+  const [eqSearch, setEqSearch] = useState('');
+  const [selectedRows, setSelectedRows] = useState({});
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [slug]);
+
+  useEffect(() => {
+    if (!university?.universityId) return;
+    let cancelled = false;
+
+    const fetchEquivalencies = async () => {
+      setEqLoading(true);
+      try {
+        const res = await universityService.getEquivalencies(university.universityId);
+        const items = Array.isArray(res) ? res
+          : Array.isArray(res?.payload?.items) ? res.payload.items
+          : Array.isArray(res?.payload) ? res.payload
+          : Array.isArray(res?.data) ? res.data
+          : [];
+        if (!cancelled) setEquivalencies(items);
+      } catch {
+        if (!cancelled) setEquivalencies([]);
+      } finally {
+        if (!cancelled) setEqLoading(false);
+      }
+    };
+
+    fetchEquivalencies();
+    return () => { cancelled = true; };
+  }, [university?.universityId]);
+
+  const filteredEquivalencies = useMemo(() => {
+    if (!eqSearch.trim()) return equivalencies;
+    const q = eqSearch.toLowerCase();
+    return equivalencies.filter((eq) => {
+      const ocName = (eq.opencredit?.name || '').toLowerCase();
+      const uniName = (eq.equivalent_course_code || '').toLowerCase();
+      return ocName.includes(q) || uniName.includes(q);
+    });
+  }, [equivalencies, eqSearch]);
+
+  const toggleRow = (idx) => {
+    setSelectedRows((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const totals = useMemo(() => {
+    let uniCredits = 0;
+    let ocPrice = 0;
+    filteredEquivalencies.forEach((eq, idx) => {
+      if (selectedRows[idx]) {
+        uniCredits += Number(eq.equivalent_course_credits || 0);
+        ocPrice += Number(eq.opencredit?.price || 0);
+      }
+    });
+    return { uniCredits, ocPrice };
+  }, [filteredEquivalencies, selectedRows]);
 
   if (!university) {
     return (
@@ -40,12 +99,12 @@ const UniversityDetailPage = () => {
 
   return (
     <div className="university-page">
-      <div className={`university-card ${isPace ? 'pace' : ''} ${isIndianaTech ? 'indiana-tech' : ''} ${isStonyBrook ? 'stony' : ''} ${isNjcu ? 'njcu' : ''} ${isNjit ? 'njit' : ''} ${isOhioState ? 'ohio' : ''} ${isSuny ? 'suny' : ''} ${isSdsu ? 'sdsu' : ''} ${isMvnu ? 'mvnu' : ''} ${isFranklin ? 'franklin' : ''} ${isCmu ? 'cmu' : ''} ${isPennState ? 'penn' : ''}`}>
+      <div className={`university-card ${isPace ? 'pace' : ''} ${isIndianaTech ? 'indiana-tech' : ''} ${isStonyBrook ? 'stony' : ''} ${isNjcu ? 'njcu' : ''} ${isNjit ? 'njit' : ''} ${isOhioState ? 'ohio' : ''} ${isSuny ? 'suny' : ''} ${isSdsu ? 'sdsu' : ''} ${isMvnu ? 'mvnu' : ''} ${isFranklin ? 'franklin' : ''} ${isCmu ? 'cmu' : ''} ${isPennState ? 'penn' : ''} ${isBuffalo ? 'buffalo' : ''}`}>
         <div className="university-header">
           <div className="university-title">
             <span>Open Credits</span>
             <span className="university-divider">&times;</span>
-            <strong className={`university-name ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''}`}>
+            <strong className={`university-name ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''} ${isBuffalo ? 'is-buffalo' : ''}`}>
               {isNjcu
                 ? 'New Jersey City University'
                 : isStonyBrook
@@ -188,6 +247,15 @@ const UniversityDetailPage = () => {
                       Open Credits offers a faster way to earn transferable college credits online. Choose from nearly 70 CMU-aligned courses for general education and electives, complete them at your pace, and submit transcripts for CMU's credit review.
                     </>
                   )
+                  : isBuffalo
+                    ? (
+                    <>
+                      University of buffalo is known for academic rigor, scale, and one of the strongest alumni networks in the world.
+                      <br />
+                      <br />
+                      Open Credits helps students complete transferable credits online, supporting flexible degree planning across University at Buffalo pathways.
+                    </>
+                  )
                     : `${university.name} offers career-focused programs and Open Credits is a faster way to complete transferable college credits online. Choose from flexible courses built for general education and electives, complete them at your pace, and submit your transcript for credit review so you can move closer to graduation with confidence.`}
             </p>
             <div className="university-badges">
@@ -213,12 +281,12 @@ const UniversityDetailPage = () => {
       <div className="university-work">
         <WorkProcess />
       </div>
-      {(isPace || isIndianaTech || isNjcu || isNjit || isOhioState || isSuny || isSdsu || isMvnu || isFranklin || isCmu || isPennState || isStonyBrook) && (
-        <section className={`university-why ${isPace ? 'is-pace' : ''} ${isIndianaTech ? 'is-indiana-tech' : ''} ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''}`}>
+      {(isPace || isIndianaTech || isNjcu || isNjit || isOhioState || isSuny || isSdsu || isMvnu || isFranklin || isCmu || isPennState || isStonyBrook || isBuffalo) && (
+        <section className={`university-why ${isPace ? 'is-pace' : ''} ${isIndianaTech ? 'is-indiana-tech' : ''} ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''} ${isPennState ? 'is-penn' : ''} ${isBuffalo ? 'is-buffalo' : ''}`}>
           <div className="university-why-inner">
             <div className="university-why-copy">
               <h2>
-                {isIndianaTech ? 'Why Join Indiana Tech?' : isStonyBrook ? 'Why Join Stony Brook University?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : isPennState ? 'Why Join Penn State University?' : 'Why Join Pace University?'}
+                {isIndianaTech ? 'Why Join Indiana Tech?' : isStonyBrook ? 'Why Join Stony Brook University?' : isNjcu ? 'Why Join NJCU?' : isNjit ? 'Why Join NJIT?' : isOhioState ? 'Why Join OSU?' : isSuny ? 'Why Join SUNY?' : isSdsu ? 'Why Join SDSU Universities?' : isMvnu ? 'Why Join MVNU Universities?' : isFranklin ? 'Why Join Franklin University?' : isCmu ? 'Why Join Central Michigan University?' : isPennState ? 'Why Join Penn State University?' : isBuffalo ? 'Why Join University at Buffalo?' : 'Why Join Pace University?'}
               </h2>
               <p>
                 {isIndianaTech
@@ -259,27 +327,11 @@ const UniversityDetailPage = () => {
                                   )
                                   : isPennState
                                     ? 'Penn State is known for academic rigor, scale, and lifelong value through one of the strongest alumni networks globally. Students gain access to respected programs, extensive research opportunities, and flexible transfer pathways that support both academic and professional success.'
-                                  : (
-                                    <>
-                                      Pace University offers career-focused education rooted&nbsp;in
-                                      <br />
-                                      real-world experience, with strong access to internships,
-                                      <br />
-                                      employer partnerships, and industry networks in New
-                                      <br />
-                                      York City. Its programs are designed for flexibility and
-                                      <br />
-                                      career mobility, making Pace an ideal choice for transfer
-                                      <br />
-                                      students, working professionals, and those seeking
-                                      <br />
-                                      strong outcomes in business, healthcare, law, and
-                                      <br />
-                                      technology.
-                                    </>
-                                  )}
+                                  : isBuffalo
+                                    ? 'University of buffalo is known for academic rigor, scale, and lifelong value through one of the strongest alumni networks globally. Students gain access to respected programs, extensive research opportunities, and flexible transfer pathways that support both academic and professional success.'
+                                  : 'Pace University offers career-focused education rooted in real-world experience, with strong access to internships, employer partnerships, and industry networks in New York City. Its programs are designed for flexibility and career mobility, making Pace an ideal choice for transfer students, working professionals, and those seeking strong outcomes in business, healthcare, law, and technology.'}
               </p>
-              {!isPace && !isPennState && !isStonyBrook && (
+              {!isPace && !isPennState && !isStonyBrook && !isBuffalo && (
                 <p>
                   {isIndianaTech
                     ? 'Indiana Tech emphasizes practical, skills-driven learning aligned with today\'s workforce needs. With a strong focus on techbology, cybersecurity, engieering, and business, the university provides flexible and affordable programs designed to help students advance quickly into high-demand careers.'
@@ -305,7 +357,7 @@ const UniversityDetailPage = () => {
             </div>
             <div className="university-why-logo">
               <img
-                src={isStonyBrook ? '/images/whystony.svg' : (university.whyLogo || university.headerLogo || university.logo)}
+                src={isStonyBrook ? '/images/whystony.svg' : isBuffalo ? '/images/whybuffalo.svg' : (university.whyLogo || university.headerLogo || university.logo)}
                 alt={university.name}
               />
             </div>
@@ -324,7 +376,12 @@ const UniversityDetailPage = () => {
             Match Open Credits courses to {isNjcu ? 'NJCU' : university.name} equivalents. Select courses to estimate total transferable credits.
           </p>
           <div className="university-courses-search">
-            <input type="text" placeholder="Search your courses" />
+            <input
+              type="text"
+              placeholder="Search your courses"
+              value={eqSearch}
+              onChange={(e) => setEqSearch(e.target.value)}
+            />
             <span className="university-courses-search-icon" aria-hidden="true" />
           </div>
           <div className="university-courses-card">
@@ -336,11 +393,11 @@ const UniversityDetailPage = () => {
                 <div className="university-courses-totals">
                   <div className="total-university">
                     <span>With University</span>
-                    <strong>$0</strong>
+                    <strong>${totals.uniCredits}</strong>
                   </div>
                   <div className="total-open">
                     <span>With Open Credits</span>
-                    <strong>$0</strong>
+                    <strong>${totals.ocPrice}</strong>
                   </div>
                 </div>
             </div>
@@ -349,20 +406,36 @@ const UniversityDetailPage = () => {
                 <span />
                 <span>Open Credits Course</span>
                 <span>Credits</span>
-                <span>Open Credits Course</span>
+                <span>{isNjcu ? 'NJCU' : isStonyBrook ? 'Stony Brook' : university.name} Course</span>
                 <span>Credits</span>
                 <span>Add to Cart</span>
               </div>
-              {Array.from({ length: 7 }).map((_, idx) => (
-                <div key={idx} className="university-courses-row">
-                  <input type="checkbox" />
-                  <span>Course Title Course Title Course Title</span>
-                  <span>3</span>
-                  <span>Course Title Course Title Course Title</span>
-                  <span>3</span>
-                  <img className="cart-icon" src="/images/add_shopping_cart.svg" alt="Add to cart" />
+              {eqLoading ? (
+                <div className="university-courses-row">
+                  <span /><span>Loading equivalencies...</span>
                 </div>
-              ))}
+              ) : filteredEquivalencies.length === 0 ? (
+                <div className="university-courses-row">
+                  <span /><span>{equivalencies.length === 0 ? 'No equivalency data available.' : 'No courses match your search.'}</span>
+                </div>
+              ) : (
+                filteredEquivalencies.map((eq, idx) => (
+                  <div key={eq.id || idx} className="university-courses-row">
+                    <input
+                      type="checkbox"
+                      checked={!!selectedRows[idx]}
+                      onChange={() => toggleRow(idx)}
+                    />
+                    <span>{eq.opencredit?.name || ''}</span>
+                    <span>{eq.opencredit?.credits || ''}</span>
+                    <span>{eq.equivalent_course_code || ''}</span>
+                    <span>{eq.equivalent_course_credits || ''}</span>
+                    <button type="button" className="cart-btn" onClick={() => navigate('/signin')}>
+                      <img className="cart-icon" src="/images/add_shopping_cart.svg" alt="Add to cart" />
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

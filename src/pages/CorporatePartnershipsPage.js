@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
 import './CorporatePartnershipsPage.css';
+import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
 
 const corporateImage = '/images/corporate_main.svg';
@@ -81,10 +82,10 @@ const CorporatePartnershipsPage = () => (
         </p>
       </div>
       <div className="corporate-actions">
-        <button type="button" className="corporate-button corporate-button--proposal is-outline">
+        <button type="button" className="corporate-button corporate-button--proposal is-outline" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Get a Partnership Proposal
         </button>
-        <button type="button" className="corporate-button corporate-button--talk">
+        <button type="button" className="corporate-button corporate-button--talk" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Talk to us
         </button>
       </div>
@@ -157,13 +158,7 @@ const CorporatePartnershipsPage = () => (
 
     <section className="corporate-orange">
       <div className="corporate-container">
-        <div className="corporate-orange__card">
-          <div className="corporate-orange__layers" aria-hidden="true">
-            <span className="corporate-orange__layer corporate-orange__layer--1" />
-            <span className="corporate-orange__layer corporate-orange__layer--2" />
-            <span className="corporate-orange__layer corporate-orange__layer--3" />
-            <span className="corporate-orange__layer corporate-orange__layer--4" />
-          </div>
+        <div className="corporate-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h2 className="corporate-orange__title">
             Not just a company favorite.
             <br />

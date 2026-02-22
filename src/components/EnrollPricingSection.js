@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './EnrollPricingSection.css';
 
 const peopleBox = '/images/peoplebox.svg';
@@ -47,6 +48,7 @@ const pricingCards = [
 ];
 
 const EnrollPricingSection = ({ className = '' }) => {
+  const navigate = useNavigate();
   const emailSubject = 'Letter of Utilisation of Education Loan Funds for Undergraduate Academic Program';
   const emailBody =
     'To,\r\nWhomsoever It May Concern\r\n\r\n' +
@@ -91,7 +93,7 @@ const EnrollPricingSection = ({ className = '' }) => {
             NOTE : Education loans or sponsorships can be used to take Open Credits Courses. We
             provide an official offer letter on request.
             <br /> Send us an Email -
-            <a href={mailHref} target="_blank" rel="noreferrer">Contact@opencredits.org</a>
+            <a href={mailHref} target="_blank" rel="noreferrer">contact@opencredits.org</a>
           </strong>
         </p>
 
@@ -122,6 +124,7 @@ const EnrollPricingSection = ({ className = '' }) => {
               <button
                 type="button"
                 className={`enroll-pricing-cta enroll-pricing-cta--${card.variant}`}
+                onClick={card.cta === 'Calculate Now' ? () => navigate('/pricing') : card.cta === 'Enroll Now' ? () => navigate('/signin') : undefined}
               >
                 {card.cta}
               </button>

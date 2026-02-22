@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiBell, FiShoppingCart } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import apiService from '../services/apiService';
 import { API_ENDPOINTS } from '../config/constants';
@@ -66,6 +66,7 @@ const AllCoursesDashboardPage = () => {
   const navigate = useNavigate();
 
   const [toastMessage, setToastMessage] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [priceSort, setPriceSort] = useState('asc');
   const [bookmarkedIds, setBookmarkedIds] = useState(new Set());
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
@@ -176,6 +177,22 @@ const AllCoursesDashboardPage = () => {
     };
   }, [isAuthenticated]);
 
+  const sortedCourses = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    const filtered = query
+      ? courses.filter((course) => {
+          const haystack = [course.code, course.name]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+          return haystack.includes(query);
+        })
+      : courses;
+    return [...filtered].sort((a, b) =>
+      priceSort === 'asc' ? (a.price ?? 0) - (b.price ?? 0) : (b.price ?? 0) - (a.price ?? 0)
+    );
+  }, [courses, searchTerm, priceSort]);
+
   if (!isAuthenticated) {
     return (
       <div className="dashboard__auth-cta">
@@ -191,12 +208,6 @@ const AllCoursesDashboardPage = () => {
   const displayName = user?.email ? user.email.split('@')[0] : 'Student';
   const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
   const displayInitial = formattedName.charAt(0);
-  const sortedCourses = [...courses].sort((a, b) => {
-    if (priceSort === 'asc') {
-      return (a.price ?? 0) - (b.price ?? 0);
-    }
-    return (b.price ?? 0) - (a.price ?? 0);
-  });
 
   const toggleBookmark = async (courseId) => {
     if (!courseId || loadingBookmarks) return;
@@ -233,15 +244,15 @@ const AllCoursesDashboardPage = () => {
         </div>
         <div className="dashboard__topbar-actions">
           <div className="dashboard__search">
-            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
+            <input type="text" placeholder="Search Courses" aria-label="Search courses" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <FiSearch />
           </div>
           <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
-            <FiShoppingCart />
+            <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>
           <button className="dashboard__icon-btn" type="button" aria-label="Notifications">
-            <FiBell />
+            <img src="/images/dashnoti.svg" alt="" className="dashboard__icon-img" />
           </button>
           <button className="dashboard__avatar" type="button" onClick={() => navigate('/my-account')}>
             {displayInitial}
@@ -305,16 +316,20 @@ const AllCoursesDashboardPage = () => {
                     <div className="allcourses__price">${course.price}</div>
                     <div className="allcourses__seats">{course.seats}</div>
                   </div>
-                  <button
-                    className="allcourses__cta"
-                    type="button"
-                    onClick={() => {
-                      const added = addToCart(course);
-                      setToastMessage(added ? 'Added to cart' : 'Already in cart');
-                    }}
-                  >
-                    Add to Cart
-                  </button>
+                  {cartItems.some((item) => item.id === course.id) ? (
+                    <span className="allcourses__cta allcourses__cta--added">Added to cart</span>
+                  ) : (
+                    <button
+                      className="allcourses__cta"
+                      type="button"
+                      onClick={() => {
+                        const added = addToCart(course);
+                        setToastMessage(added ? 'Added to cart' : 'Already in cart');
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  )}
                 </div>
               </div>
             );

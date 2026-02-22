@@ -1,4 +1,5 @@
 import React from 'react';
+import { CALENDLY_URL } from '../config/constants';
 import './SchoolAcceptance.css';
 
 const graduatedImage = '/images/graduated.svg';
@@ -27,7 +28,7 @@ const SchoolAcceptance = () => {
 
             <div className="acceptance-buttons">
               <button className="btn-outline">Find accepted Colleges</button>
-              <button className="btn-primary">Talk to an Advisor</button>
+              <button className="btn-primary" onClick={() => window.open(CALENDLY_URL, '_blank')}>Talk to an Advisor</button>
             </div>
           </div>
 

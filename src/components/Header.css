@@ -280,20 +280,293 @@
   background: #FF4E00;
 }
 
-@media (max-width: 768px) {
+/* ===== Hamburger button (hidden on desktop) ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  z-index: 1002;
+  flex-shrink: 0;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111827;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.is-open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.is-open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== Mobile nav overlay ===== */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+/* ===== Mobile nav drawer ===== */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  max-width: 85vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #fff;
+  z-index: 1001;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav.is-open {
+  right: 0;
+}
+
+.mobile-nav-inner {
+  padding: 80px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #111827;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-nav-link:hover {
+  color: #E85002;
+}
+
+.mobile-nav-caret {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav-caret.is-expanded {
+  transform: rotate(270deg);
+}
+
+/* ===== Mobile courses submenu ===== */
+.mobile-courses-submenu {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 8px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-courses-loading {
+  padding: 10px 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.mobile-courses-category {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #374151;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-courses-category:hover {
+  color: #E85002;
+}
+
+.mobile-courses-explore {
+  margin-top: 8px;
+  padding: 12px 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #E85002;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mobile-courses-explore:hover {
+  color: #FF4E00;
+}
+
+/* ===== Mobile nav bottom actions ===== */
+.mobile-nav-actions {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-nav-logout {
+  color: #E85002 !important;
+  border-bottom: none !important;
+}
+
+.mobile-btn-outline {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  background: white;
+  border: 1px solid #E85002;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  color: #E85002;
+  cursor: pointer;
+}
+
+.mobile-btn-outline:hover {
+  background: #fff5f0;
+}
+
+.mobile-btn-primary {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  background: #E85002;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: 'Inter', 'DM Sans', 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  cursor: pointer;
+}
+
+.mobile-btn-primary:hover {
+  background: #FF4E00;
+}
+
+@media (max-width: 1024px) {
   .nav {
     display: none;
   }
-  
-  .header-container {
-    max-width: 1512px;
-    margin: 0 auto;
-    padding: 20px var(--layout-pad-right) 20px var(--layout-pad-left);
+
+  .hamburger {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  }
+
+  .mobile-nav-overlay {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .header-container {
+    padding: 20px var(--layout-pad-right) 20px var(--layout-pad-left);
     min-height: 111px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    min-height: 96px;
+  }
+
+  .header-container {
+    min-height: 96px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .header-actions .btn-outline,
+  .header-actions .btn-primary {
+    width: 96px;
+    height: 48px;
+    font-size: 13px;
+  }
+
+  .mobile-nav {
+    width: 280px;
+  }
+
+  .mobile-nav-inner {
+    padding: 72px 20px 28px;
+  }
+
+  .mobile-nav-link {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px 0;
+  }
+
+  .mobile-courses-category {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .mobile-btn-outline,
+  .mobile-btn-primary {
+    height: 48px;
+    font-size: 15px;
   }
 }
 
@@ -333,6 +606,36 @@
     height: 44px;
     padding: 0 8px;
     font-size: 12px;
+  }
+
+  .mobile-nav {
+    width: 260px;
+  }
+
+  .mobile-nav-inner {
+    padding: 68px 16px 24px;
+  }
+
+  .mobile-nav-link {
+    font-size: 15px;
+    line-height: 22px;
+    padding: 11px 0;
+  }
+
+  .mobile-courses-category {
+    font-size: 13px;
+    line-height: 20px;
+    padding: 8px 0;
+  }
+
+  .mobile-courses-explore {
+    font-size: 14px;
+  }
+
+  .mobile-btn-outline,
+  .mobile-btn-primary {
+    height: 44px;
+    font-size: 14px;
   }
 }
 

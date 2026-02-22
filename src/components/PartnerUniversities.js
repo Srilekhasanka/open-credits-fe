@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './PartnerUniversities.css';
-import { API_ENDPOINTS } from '../config/constants';
+import { API_ENDPOINTS, CALENDLY_URL } from '../config/constants';
 import apiService from '../services/apiService';
 import { universities as localUniversities } from '../data/universities';
 
@@ -151,8 +151,8 @@ const PartnerUniversities = () => {
           </div>
         </div>
         <div className="partnered-footer">
-          <span>Can't find your University?</span>
-          <button className="partnered-footer-button" type="button">Talk to an Advisor</button>
+          <span>Have more questions ?</span>
+          <button className="partnered-footer-button" type="button" onClick={() => window.open(CALENDLY_URL, '_blank')}>Talk to an Advisor</button>
         </div>
       </div>
     </section>

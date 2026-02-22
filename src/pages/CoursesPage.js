@@ -23,7 +23,6 @@ const CoursesPage = () => {
   const [searchParams] = useSearchParams();
   const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
-  const [studentType, setStudentType] = useState('us');
   const [subject, setSubject] = useState('All');
   const [sortBy, setSortBy] = useState('Price: Low to High');
   const [loading, setLoading] = useState(false);
@@ -142,9 +141,7 @@ const CoursesPage = () => {
       setLoadError('');
 
       try {
-        const params = {
-          is_local: studentType === 'us',
-        };
+        const params = {};
 
         const response = await courseService.getCourses(params);
         const items = Array.isArray(response) ? response
@@ -176,7 +173,7 @@ const CoursesPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [retryToken, studentType]);
+  }, [retryToken]);
 
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -220,23 +217,6 @@ const CoursesPage = () => {
             />
             <span className="courses-search-icon" aria-hidden="true" />
           </div>
-        </div>
-
-        <div className="courses-student-tabs">
-          <button
-            type="button"
-            className={`student-tab${studentType === 'us' ? ' student-tab--active' : ''}`}
-            onClick={() => setStudentType('us')}
-          >
-            U.S local students
-          </button>
-          <button
-            type="button"
-            className={`student-tab${studentType === 'international' ? ' student-tab--active' : ''}`}
-            onClick={() => setStudentType('international')}
-          >
-            International Students
-          </button>
         </div>
 
         <div className="courses-breadcrumb">

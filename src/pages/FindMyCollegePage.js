@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import '../App.css';
+import { CALENDLY_URL } from '../config/constants';
 import './FindMyCollegePage.css';
 import { universities as localUniversities } from '../data/universities';
 import { API_ENDPOINTS } from '../config/constants';
@@ -104,7 +105,7 @@ const FindMyCollegePage = () => {
           </div>
 
           <p className="find-college-note">
-            If your U.S. university isn't listed, send them this{' '}
+            If your U.S. university isn't listed, send your university registrar this{' '}
             <a href={emailTemplateHref} target="_blank" rel="noreferrer">
               email template to confirm if they will accept any college credits: click here.
             </a>
@@ -162,7 +163,7 @@ const FindMyCollegePage = () => {
 
         <div className="find-college-footer">
           <span>Have more Questions?</span>
-          <button type="button">Talk to an Advisor</button>
+          <button type="button" onClick={() => window.open(CALENDLY_URL, '_blank')}>Talk to an Advisor</button>
         </div>
       </div>
     </div>

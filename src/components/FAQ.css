@@ -259,6 +259,18 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .faq-content h2 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .support-card {
+    width: 100%;
+    height: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .faq-question {
     font-size: 18px;
@@ -326,6 +338,41 @@
   .btn-advisor {
     width: 100%;
     min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-content h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+    line-height: 22px;
+    padding: 12px 14px;
+  }
+
+  .faq-answer p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .support-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .support-text {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .btn-chat,
+  .btn-advisor {
+    height: 48px;
+    padding: 0 20px;
+    font-size: 14px;
   }
 }
 

@@ -1,10 +1,10 @@
 .pricing-page {
   background: #fff;
-  padding: var(--section-gap) 0 var(--section-gap);
+  padding: 120px 0 120px;
 }
 
 .pricing-container {
-  max-width: 980px;
+  max-width: 1512px;
   margin: 0 auto;
-  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
+  padding: 0;
 }

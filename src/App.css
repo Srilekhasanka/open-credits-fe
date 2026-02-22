@@ -1,6 +1,5 @@
 ﻿.App {
   width: 100%;
-  overflow-x: hidden;
   background: #fff;
 }
 
@@ -52,6 +51,12 @@ img, svg, video {
   align-items: flex-end;
   gap: 12px;
   font-family: 'Montserrat';
+  transition: bottom 0.2s ease;
+}
+
+.dashboard ~ .chatbot,
+body:has(.dashboard) .chatbot {
+  bottom: 90px;
 }
 
 .chatbot__toggle {
@@ -196,10 +201,25 @@ img, svg, video {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1200px) {
+  :root {
+    --layout-pad-left: 48px;
+    --layout-pad-right: 48px;
+  }
+}
+
+@media (max-width: 1024px) {
   :root {
     --layout-pad-left: 24px;
     --layout-pad-right: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --layout-pad-left: 20px;
+    --layout-pad-right: 20px;
+    --section-gap: 48px;
   }
 }
 
@@ -211,8 +231,18 @@ img, svg, video {
   :root {
     --layout-pad-left: 18px;
     --layout-pad-right: 18px;
+    --section-gap: 40px;
   }
 }
 
+@media (max-width: 480px) {
+  .App.app--with-header {
+    padding-top: 88px;
+  }
 
-
+  :root {
+    --layout-pad-left: 14px;
+    --layout-pad-right: 14px;
+    --section-gap: 32px;
+  }
+}

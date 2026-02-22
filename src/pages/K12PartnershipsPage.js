@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import './K12PartnershipsPage.css';
+import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
 
 const dollarIcon = '/images/dollar_card.svg';
@@ -86,10 +87,10 @@ const K12PartnershipsPage = () => (
         </p>
       </div>
       <div className="k12-actions">
-        <button type="button" className="k12-button k12-button--proposal is-outline">
+        <button type="button" className="k12-button k12-button--proposal is-outline" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Get a Partnership Proposal
         </button>
-        <button type="button" className="k12-button k12-button--talk">
+        <button type="button" className="k12-button k12-button--talk" onClick={() => window.open(CALENDLY_URL, '_blank')}>
           Talk to us
         </button>
       </div>
@@ -191,12 +192,7 @@ const K12PartnershipsPage = () => (
 
     <section className="k12-orange">
       <div className="k12-container">
-        <div className="k12-orange__card">
-          <div className="k12-orange__steps" aria-hidden="true">
-            <span className="k12-orange__step k12-orange__step--1" />
-            <span className="k12-orange__step k12-orange__step--2" />
-            <span className="k12-orange__step k12-orange__step--3" />
-          </div>
+        <div className="k12-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h3 className="k12-orange__title">
             Not just a students favorite.
             <br />

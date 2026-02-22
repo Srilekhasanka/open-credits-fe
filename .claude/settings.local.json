@@ -14,7 +14,8 @@
       "Bash(fi)",
       "Bash(done)",
       "Bash(grep:*)",
-      "Bash(npx react-scripts build)"
+      "Bash(npx react-scripts build)",
+      "Bash(npm run build:*)"
     ]
   }
 }

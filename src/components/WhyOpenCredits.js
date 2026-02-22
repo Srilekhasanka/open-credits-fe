@@ -1,5 +1,6 @@
 import React from 'react';
 import './WhyOpenCredits.css';
+import { CALENDLY_URL } from '../config/constants';
 
 const partnershipIcon = '/images/partnership.svg';
 const dollarIcon = '/images/dollar.svg';
@@ -34,7 +35,8 @@ const WhyOpenCredits = () => {
       title: 'Graduate Faster',
       description: 'Earn transferable credits on your schedule and reduce time to graduation.',
       linkLabel: 'Schedule Call',
-      linkHref: '/get-started'
+      linkHref: CALENDLY_URL,
+      external: true
     }
   ];
 
@@ -56,7 +58,11 @@ const WhyOpenCredits = () => {
                 ))}
               </h3>
               <p>{feature.description}</p>
-              <a href={feature.linkHref} className="learn-more">
+              <a
+                href={feature.linkHref}
+                className="learn-more"
+                {...(feature.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
                 {feature.linkLabel} <span className="learn-more__arrow">→</span>
               </a>
             </div>

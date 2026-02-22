@@ -87,7 +87,7 @@
 
 .find-college-note a {
   color: #2f6bff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .find-college-grid {
@@ -184,7 +184,7 @@
   background: #FF4E00;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .find-college-panel {
     width: 100%;
     min-height: auto;
@@ -202,7 +202,7 @@
 
 @media (max-width: 768px) {
   .find-college-container {
-    padding: var(--section-gap) var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
+    padding: calc(var(--section-gap) + 80px) var(--layout-pad-right) var(--section-gap) var(--layout-pad-left);
   }
 
   .find-college-header h1 {
@@ -213,15 +213,21 @@
   .find-college-header p {
     font-size: 16px;
     line-height: 24px;
+    margin-bottom: 40px;
   }
 
   .find-college-note {
     font-size: 16px;
     line-height: 24px;
   }
+
+  .find-college-footer {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   .find-college-panel {
     padding: 24px 18px;
   }
@@ -247,5 +253,26 @@
     margin-bottom: 40px;
     font-size: 16px;
     line-height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .find-college-header h1 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .find-college-header p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .find-college-panel {
+    padding: 20px 14px;
+  }
+
+  .find-college-footer {
+    font-size: 14px;
+    line-height: 22px;
   }
 }

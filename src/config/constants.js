@@ -48,6 +48,12 @@ export const API_ENDPOINTS = {
   CHAT: {
     SEND: `${API_BASE_URL}/chat/`,
   },
+  CART: {
+    LIST: `${API_BASE_URL}/cart`,
+    ADD: `${API_BASE_URL}/cart`,
+    REMOVE: `${API_BASE_URL}/cart`,
+    CLEAR: `${API_BASE_URL}/cart`,
+  },
   BOOKMARKS: {
     LIST: `${API_BASE_URL}/bookmarks`,
     ADD: `${API_BASE_URL}/bookmarks`,
@@ -55,6 +61,7 @@ export const API_ENDPOINTS = {
   },
   REFERRALS: {
     ME: `${API_BASE_URL}/referrals/me`,
+    SETTINGS: `${API_BASE_URL}/referrals/me/settings`,
   },
   PROGRESS: {
     LESSON: (lessonId) => `${API_BASE_URL}/progress/lessons/${lessonId}`,
@@ -74,9 +81,13 @@ export const API_ENDPOINTS = {
   UNIVERSITIES: {
     LIST: `${API_BASE_URL}/universities`,
     SEARCH: (query) => `${API_BASE_URL}/universities?search=${encodeURIComponent(query)}`,
+    EQUIVALENCIES: (universityId) => `${API_BASE_URL}/universities/${universityId}/equivalencies`,
   },
   CALCULATOR: {
     COURSE: `${API_BASE_URL}/course-calculator`,
+  },
+  ORDERS: {
+    HISTORY: `${API_BASE_URL}/orders/history`,
   },
 };
 
@@ -106,4 +117,6 @@ export const APP_CONSTANTS = {
 };
 
 export const STRIPE_PUBLISHABLE_KEY = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_test_51QvqSoIK0lak7An4XnBFh5MX1aN2vhSFcn2aszwCv2ns00pK7bspEpednRCTsAA9t2IeG2nF3Jzt9fLUyyGlP4Ve00hgLUXIF0';
+
+export const CALENDLY_URL = 'https://calendly.com/opencredits-marketing/30min';
 
