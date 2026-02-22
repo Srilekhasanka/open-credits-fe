@@ -106,7 +106,7 @@ const PaymentStatusDashboardPage = () => {
 
       <section className="payment-status">
         <div className="payment-status__header">
-          <h2>PAyement</h2>
+          <h2>Payment</h2>
           <button className="checkout__back" type="button" onClick={() => navigate('/shop')}>
             Go Back to Cart
           </button>
