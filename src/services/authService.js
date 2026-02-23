@@ -149,7 +149,7 @@ class AuthService {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email, otp, type: 'reset_password' }),
       });
 
       const data = await response.json();

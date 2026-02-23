@@ -369,12 +369,19 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .community-hero__lead-line1 {
     white-space: normal;
     transform: none;
   }
 
+  .community-hero__content h1 {
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 1024px) {
   .community-hero__content h1 {
     font-size: 36px;
     line-height: 44px;

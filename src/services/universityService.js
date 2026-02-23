@@ -1,11 +1,13 @@
 import { API_ENDPOINTS } from '../config/constants';
-import apiService from './apiService';
 
 class UniversityService {
   async getEquivalencies(universityId) {
     const url = API_ENDPOINTS.UNIVERSITIES.EQUIVALENCIES(universityId);
-    const response = await apiService.get(url);
-    return response;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    return response.json();
   }
 }
 

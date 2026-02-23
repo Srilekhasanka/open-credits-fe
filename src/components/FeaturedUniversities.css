@@ -35,13 +35,13 @@
 
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(4, 288px);
+  grid-template-columns: repeat(4, minmax(0, 288px));
   gap: 18px;
   justify-content: flex-start;
 }
 
 .featured-card {
-  width: 288px;
+  width: 100%;
   border: 1px solid #efefef;
   border-radius: 14px;
   padding: 18px 16px 45px;

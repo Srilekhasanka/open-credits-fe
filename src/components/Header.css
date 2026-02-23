@@ -504,8 +504,29 @@
     display: none;
   }
 
+  .header-container {
+    padding: 20px var(--layout-pad-right) 20px var(--layout-pad-left);
+    min-height: 111px;
+    justify-content: center;
+    position: relative;
+  }
+
   .hamburger {
     display: flex;
+    position: absolute;
+    left: var(--layout-pad-left);
+    margin-left: 0;
+  }
+
+  .header-actions {
+    position: absolute;
+    right: var(--layout-pad-right);
+    margin-left: 0;
+  }
+
+  .header-actions .btn-outline,
+  .header-actions .btn-primary {
+    display: none;
   }
 
   .mobile-nav-overlay {
@@ -514,15 +535,6 @@
 
   .mobile-nav {
     display: block;
-  }
-
-  .header-actions {
-    display: none;
-  }
-
-  .header-container {
-    padding: 20px var(--layout-pad-right) 20px var(--layout-pad-left);
-    min-height: 111px;
   }
 }
 

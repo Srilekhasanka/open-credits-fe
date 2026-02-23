@@ -75,15 +75,15 @@ const UniversityDetailPage = () => {
   };
 
   const totals = useMemo(() => {
-    let uniCredits = 0;
+    let uniPrice = 0;
     let ocPrice = 0;
     filteredEquivalencies.forEach((eq, idx) => {
       if (selectedRows[idx]) {
-        uniCredits += Number(eq.equivalent_course_credits || 0);
+        uniPrice += Number(eq.university_cost_price || 0);
         ocPrice += Number(eq.opencredit?.price || 0);
       }
     });
-    return { uniCredits, ocPrice };
+    return { uniPrice, ocPrice };
   }, [filteredEquivalencies, selectedRows]);
 
   if (!university) {
@@ -393,7 +393,7 @@ const UniversityDetailPage = () => {
                 <div className="university-courses-totals">
                   <div className="total-university">
                     <span>With University</span>
-                    <strong>${totals.uniCredits}</strong>
+                    <strong>${totals.uniPrice}</strong>
                   </div>
                   <div className="total-open">
                     <span>With Open Credits</span>
