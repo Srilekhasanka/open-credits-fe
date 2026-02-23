@@ -427,7 +427,7 @@ const UniversityDetailPage = () => {
                       onChange={() => toggleRow(idx)}
                     />
                     <span>{eq.opencredit?.name || ''}</span>
-                    <span>{eq.opencredit?.credits || ''}</span>
+                    <span>{eq.open_course_credits || ''}</span>
                     <span>{eq.equivalent_course_code || ''}</span>
                     <span>{eq.equivalent_course_credits || ''}</span>
                     <button type="button" className="cart-btn" onClick={() => navigate('/signin')}>
