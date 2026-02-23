@@ -333,20 +333,20 @@
   display: none;
   position: fixed;
   top: 0;
-  right: -100%;
+  left: -100%;
   width: 300px;
   max-width: 85vw;
   height: 100vh;
   height: 100dvh;
   background: #fff;
   z-index: 1001;
-  transition: right 0.3s ease;
+  transition: left 0.3s ease;
   overflow-y: auto;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-nav.is-open {
-  right: 0;
+  left: 0;
 }
 
 .mobile-nav-inner {
