@@ -2584,12 +2584,42 @@ img.dashboard__mini-play {
   .dashboard__topbar-actions {
     width: 100%;
     justify-content: space-between;
+    align-items: center;
+    gap: 6px;
   }
 
   .dashboard__search {
     flex: 1;
     min-width: 0;
     width: auto;
+    height: 40px;
+    padding: 8px 16px;
+  }
+
+  .dashboard__icon-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dashboard__icon-img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dashboard__avatar {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    font-size: 14px;
+  }
+
+  .dashboard__cart-badge {
+    min-width: 14px;
+    height: 14px;
+    font-size: 0.5rem;
+    top: -3px;
+    right: -3px;
   }
 
   .dashboard__welcome h1 {
