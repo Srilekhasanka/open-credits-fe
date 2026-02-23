@@ -444,8 +444,8 @@
 
 .dashboard__card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, 304px);
+  gap: 20px;
 }
 
 .dashboard__mini-card {
@@ -587,8 +587,8 @@ img.dashboard__mini-play {
 
 .dashboard__course-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, var(--dashboard-course-card-width));
+  gap: 20px;
 }
 
 .dashboard__course-card {
