@@ -34,8 +34,8 @@
   border-radius: 20px;
   padding: 40px 48px 48px;
   margin: 24px auto 40px;
-  width: 1210px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1210px;
   min-height: 452px;
 }
 
@@ -92,15 +92,14 @@
 
 .find-college-grid {
   display: grid;
-  grid-template-columns: repeat(4, 244px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  justify-content: center;
 }
 
 .find-college-card {
   background: #fff;
   border-radius: 15px;
-  width: 244px;
+  width: 100%;
   height: 130px;
   display: flex;
   align-items: center;

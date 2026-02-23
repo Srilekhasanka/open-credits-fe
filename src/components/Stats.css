@@ -79,6 +79,16 @@
   letter-spacing: 0;
 }
 
+@media (max-width: 1280px) {
+  .stats-container {
+    column-gap: 60px;
+  }
+
+  .stats-grid {
+    gap: 40px;
+  }
+}
+
 @media (max-width: 1024px) {
   .stats-container {
     padding: 0 20px;

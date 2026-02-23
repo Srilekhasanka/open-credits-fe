@@ -8,7 +8,7 @@
 .footer-container {
   max-width: 1512px;
   margin: 0 auto;
-  padding: 0 124.84px 0 151px;
+  padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
 .footer-top {

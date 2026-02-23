@@ -271,21 +271,7 @@
   color: #1f4dcc;
 }
 
-@media (max-width: 1024px) {
-  .partnership-hero {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .partnership-hero-image {
-    width: 100%;
-    max-width: 420px;
-  }
-
-  .partnership-grid {
-    grid-template-columns: 1fr;
-  }
-
+@media (max-width: 1280px) {
   .partnership-feature-card {
     flex-direction: column;
     align-items: flex-start;
@@ -301,6 +287,22 @@
     width: 100%;
     max-width: 100%;
     height: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .partnership-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .partnership-hero-image {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .partnership-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -464,8 +466,8 @@
   background: #e9e9e9;
   border-radius: 20px;
   padding: 40px 48px 48px;
-  width: 1210px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1210px;
   min-height: 452px;
   margin: 0 auto;
 }
@@ -518,15 +520,14 @@
 
 .partner-colleges-grid {
   display: grid;
-  grid-template-columns: repeat(4, 244px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  justify-content: center;
 }
 
 .partner-college-card {
   background: #fff;
   border-radius: 15px;
-  width: 244px;
+  width: 100%;
   height: 130px;
   display: flex;
   align-items: center;

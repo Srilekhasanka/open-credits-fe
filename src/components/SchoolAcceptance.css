@@ -145,14 +145,14 @@
   object-fit: contain;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .acceptance-container {
+    transform: none;
     flex-direction: column;
     min-height: 0;
     text-align: center;
     padding: 30px 20px;
     overflow: hidden;
-    transform: none;
   }
 
   .acceptance-content {
@@ -197,6 +197,7 @@
     margin-left: 0;
   }
 }
+
 
 @media (max-width: 768px) {
   .acceptance-content h2 {

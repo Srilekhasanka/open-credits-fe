@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CALENDLY_URL } from '../config/constants';
 import './SchoolAcceptance.css';
 
 const graduatedImage = '/images/graduated.svg';
 
 const SchoolAcceptance = () => {
+  const navigate = useNavigate();
   return (
     <section className="school-acceptance">
       <div className="acceptance-wrapper">
@@ -27,7 +29,7 @@ const SchoolAcceptance = () => {
             </p>
 
             <div className="acceptance-buttons">
-              <button className="btn-outline">Find accepted Colleges</button>
+              <button className="btn-outline" onClick={() => navigate('/find-my-college')}>Find accepted Colleges</button>
               <button className="btn-primary" onClick={() => window.open(CALENDLY_URL, '_blank')}>Talk to an Advisor</button>
             </div>
           </div>

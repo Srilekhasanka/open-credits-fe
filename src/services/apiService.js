@@ -18,9 +18,13 @@ class ApiService {
       const token = authService.getAccessToken();
       
       const headers = {
-        'Content-Type': 'application/json',
         ...options.headers,
       };
+
+      // Only set Content-Type for requests that have a body
+      if (options.method && options.method !== 'GET' && options.method !== 'HEAD') {
+        headers['Content-Type'] = headers['Content-Type'] || 'application/json';
+      }
 
       // Add authorization header if token exists
       if (token) {
