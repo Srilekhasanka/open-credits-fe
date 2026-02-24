@@ -7,6 +7,19 @@ import authService from './authService';
  */
 
 class ApiService {
+  constructor() {
+    this._onSessionExpired = null;
+    this._refreshPromise = null; // Mutex: only one refresh at a time
+  }
+
+  /**
+   * Register a callback invoked when the session expires (401 + refresh failure).
+   * @param {Function} cb
+   */
+  onSessionExpired(cb) {
+    this._onSessionExpired = cb;
+  }
+
   /**
    * Make an authenticated API request
    * @param {string} url - API endpoint URL
@@ -41,9 +54,14 @@ class ApiService {
       // Handle token expiration
       if (response.status === 401 && token) {
         try {
-          // Try to refresh the token
-          await authService.refreshToken();
-          
+          // Use a single refresh promise so concurrent 401s don't race
+          if (!this._refreshPromise) {
+            this._refreshPromise = authService.refreshToken().finally(() => {
+              this._refreshPromise = null;
+            });
+          }
+          await this._refreshPromise;
+
           // Retry the request with new token
           const newToken = authService.getAccessToken();
           if (newToken) {
@@ -51,9 +69,11 @@ class ApiService {
             response = await fetch(url, { ...config, headers });
           }
         } catch (refreshError) {
-          // Refresh failed, redirect to login
+          // Refresh failed — notify app via callback
           authService.clearAuthData();
-          window.location.href = '/signin';
+          if (this._onSessionExpired) {
+            this._onSessionExpired();
+          }
           throw new Error('Session expired. Please login again.');
         }
       }

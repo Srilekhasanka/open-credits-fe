@@ -158,8 +158,9 @@ const SignInPage = () => {
         const okText = response.message || 'OTP verified successfully.';
         setMessage(okText);
         showSnackbar('success', okText);
-        if (response?.payload?.reset_token) {
-          setResetToken(response.payload.reset_token);
+        const token = response?.payload?.reset_token || response?.payload?.verification_token;
+        if (token) {
+          setResetToken(token);
           setShowReset(true);
           setShowOtp(false);
         }
