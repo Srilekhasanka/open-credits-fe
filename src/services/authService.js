@@ -248,9 +248,8 @@ class AuthService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
-          reset_token: resetToken,
-          new_password: newPassword,
+          verification_token: resetToken,
+          password: newPassword,
           confirm_password: confirmPassword,
         }),
       });

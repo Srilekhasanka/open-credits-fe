@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import apiService from '../services/apiService';
+import authService from '../services/authService';
 import { API_ENDPOINTS } from '../config/constants';
 
 const AuthContext = createContext();
@@ -50,16 +51,40 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setIsAuthenticated(false);
     setUser(null);
     setEnrolledCourses([]);
     setCartItems([]);
+    authService.clearAuthData();
     localStorage.removeItem('user');
     sessionStorage.removeItem('user');
     localStorage.removeItem('enrolledCourses');
     localStorage.removeItem('cartItems');
-  };
+  }, []);
+
+  // Register session-expired callback so apiService can trigger logout
+  useEffect(() => {
+    apiService.onSessionExpired(() => {
+      logout();
+      window.location.href = '/signin';
+    });
+  }, [logout]);
+
+  // Validate session on app load — if token exists, verify it's still valid
+  useEffect(() => {
+    const token = authService.getAccessToken();
+    if (token && isAuthenticated) {
+      authService.getProfile().catch(() => {
+        // Token invalid — try refresh, else logout
+        authService.refreshToken().catch(() => {
+          logout();
+        });
+      });
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
 
   const register = (userData) => {
     setIsAuthenticated(true);
