@@ -201,6 +201,13 @@ body:has(.dashboard) .chatbot {
   }
 }
 
+@media (max-width: 1440px) {
+  :root {
+    --layout-pad-left: 80px;
+    --layout-pad-right: 80px;
+  }
+}
+
 @media (max-width: 1200px) {
   :root {
     --layout-pad-left: 48px;

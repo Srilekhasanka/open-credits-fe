@@ -499,6 +499,31 @@
   background: #FF4E00;
 }
 
+@media (max-width: 1280px) {
+  .nav {
+    gap: 2px;
+  }
+
+  .nav a,
+  .nav-button {
+    font-size: 14px;
+    padding: 8px 6px;
+  }
+
+  .header-actions {
+    margin-left: 10px;
+    gap: 8px;
+  }
+
+  .header-actions .btn-outline,
+  .header-actions .btn-primary {
+    width: 100px;
+    height: 48px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 1024px) {
   .nav {
     display: none;

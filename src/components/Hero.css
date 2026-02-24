@@ -135,6 +135,25 @@
   background: transparent;
 }
 
+@media (max-width: 1440px) {
+  .hero-container {
+    gap: 24px;
+  }
+
+  .hero-no-break {
+    white-space: normal;
+  }
+
+  .image-frame {
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    aspect-ratio: 523 / 412;
+    transform: none;
+    overflow: hidden;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero {
     padding: var(--section-gap) 0 var(--section-gap);
