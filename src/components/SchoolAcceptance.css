@@ -12,9 +12,6 @@
 
 .acceptance-container {
   width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
-  transform: translateX(-60px);
   min-height: 340px;
   padding: 36px 44px;
   position: relative;
@@ -119,7 +116,7 @@
 
 .guarantee-badge {
   position: absolute;
-  right: calc(-1 * var(--layout-pad-right));
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   width: 380px;
