@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  column-gap: 291px;
+  column-gap: clamp(60px, 15vw, 291px);
   row-gap: 16px;
   min-height: 146px;
 }
@@ -35,7 +35,7 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 102px);
-  gap: 96px;
+  gap: clamp(40px, 5vw, 96px);
   justify-content: start;
   width: auto;
   margin-left: 0;
