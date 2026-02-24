@@ -83,7 +83,7 @@ const SavingsCalculator = () => {
   const courseSelectRef = useRef(null);
   const courseDropdownRef = useRef(null);
   const [isCourseOpen, setIsCourseOpen] = useState(false);
-  const courseOptions = [1, 2, 3, 4, 5, 6, 7, 8];
+  const courseOptions = Array.from({ length: 24 }, (_, index) => index + 1);
 
   // University search state
   const [universitySearch, setUniversitySearch] = useState('');
