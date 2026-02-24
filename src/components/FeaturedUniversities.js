@@ -80,3 +80,4 @@ const FeaturedUniversities = () => {
 };
 
 export default FeaturedUniversities;
+
