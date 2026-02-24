@@ -78,7 +78,7 @@ const SavingsCalculator = () => {
   const [activeTab, setActiveTab] = useState(null);
   const [courseCount, setCourseCount] = useState(null);
   const [costPerCredit, setCostPerCredit] = useState(0);
-  const [scholarshipAmount, setScholarshipAmount] = useState(0);
+  const [scholarshipAmount, setScholarshipAmount] = useState('');
   const [livingCost, setLivingCost] = useState(0);
   const courseSelectRef = useRef(null);
   const courseDropdownRef = useRef(null);
@@ -145,7 +145,7 @@ const SavingsCalculator = () => {
           university_id: selectedUniversity?.id || selectedUniversity?._id || '',
           student_type: activeTab === TAB_US ? 'us_local_military' : 'international',
           number_of_courses: courseCount,
-          scholarship_amount: scholarshipAmount || 0,
+          scholarship_amount: parseNumber(scholarshipAmount),
           cost_of_living_per_semester: livingCost || 0,
           university_cost_per_credit: costPerCredit || 0,
         }),
@@ -276,7 +276,7 @@ const SavingsCalculator = () => {
   // Handle scholarship input
   const handleScholarshipChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
-    setScholarshipAmount(value ? parseInt(value, 10) : 0);
+    setScholarshipAmount(value);
   };
 
   // Get values from API response only
@@ -403,7 +403,8 @@ const SavingsCalculator = () => {
                 id="scholarship-amount"
                 type="text"
                 placeholder="Enter amount here"
-                value={scholarshipAmount > 0 ? scholarshipAmount : ''}
+                inputMode="numeric"
+                value={scholarshipAmount}
                 onChange={handleScholarshipChange}
               />
             </div>
