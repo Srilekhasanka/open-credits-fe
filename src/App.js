@@ -36,7 +36,7 @@ import AboutPage from './pages/AboutPage';
 import UniversityDetailPage from './pages/UniversityDetailPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
-import ScrollGlow from './components/ScrollGlow';
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -120,7 +120,7 @@ function AppContent() {
       )}
       {showPublicHeader && <Footer />}
       <ChatbotWidget />
-      <ScrollGlow />
+      
     </div>
   );
 }
