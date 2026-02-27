@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
+import ScrollReveal from '../components/ScrollReveal';
 import './K12PartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
@@ -96,7 +97,7 @@ const K12PartnershipsPage = () => (
       </div>
     </div>
 
-    <section className="k12-why">
+    <ScrollReveal variant="fade-up"><section className="k12-why">
       <div className="k12-container">
         <div className="k12-why-header">
           <h2>
@@ -120,9 +121,9 @@ const K12PartnershipsPage = () => (
           ))}
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="k12-partners">
+    <ScrollReveal variant="fade-up"><section className="k12-partners">
       <div className="k12-container">
         <h2>
           How Open Credits Partners <span>With K-12 Schools</span>
@@ -188,9 +189,9 @@ const K12PartnershipsPage = () => (
           </div>
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="k12-orange">
+    <ScrollReveal variant="zoom-in"><section className="k12-orange">
       <div className="k12-container">
         <div className="k12-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h3 className="k12-orange__title">
@@ -203,10 +204,10 @@ const K12PartnershipsPage = () => (
           </Link>
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
     <WorkProcess />
-    <SavingsCalculator />
+    <ScrollReveal variant="fade-up"><SavingsCalculator /></ScrollReveal>
 
   </section>
 );

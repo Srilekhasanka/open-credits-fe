@@ -18,8 +18,8 @@ const AffiliateDashboardPage = () => {
   const [savingSettings, setSavingSettings] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const displayName = user?.email ? user.email.split('@')[0] : 'Student';
-  const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  const fullName = [user?.first_name, user?.last_name].filter(Boolean).join(' ');
+  const formattedName = fullName || (user?.email ? user.email.split('@')[0].charAt(0).toUpperCase() + user.email.split('@')[0].slice(1) : 'Student');
   const displayInitial = formattedName.charAt(0);
 
   useEffect(() => {

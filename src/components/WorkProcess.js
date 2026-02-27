@@ -25,19 +25,27 @@ const WorkProcess = () => {
     const el = stepsRef.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimate(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
+    const handleScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const windowH = window.innerHeight;
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+      // Start filling when top of section enters viewport bottom,
+      // fully filled when top of section reaches ~55% from top
+      const start = windowH;
+      const end = windowH * 0.55;
+      const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+
+      el.style.setProperty('--line-progress', progress);
+
+      if (progress > 0 && !animate) {
+        setAnimate(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [animate]);
 
   return (
     <section className="work-process">
@@ -53,8 +61,7 @@ const WorkProcess = () => {
             </div>
             <h3>Pick Your Courses</h3>
             <p>
-              Choose from flexible, self-paced online courses that fit your goals,
-              schedule, and university requirements.
+              Choose from flexible, self-paced<br />online courses that fit your goals,<br />schedule, and university<br />requirements.
             </p>
             <Link className="work-step__link" to="/courses">View Courses &nbsp;&rarr;</Link>
           </div>
@@ -65,8 +72,7 @@ const WorkProcess = () => {
             </div>
             <h3>Earn College Credits</h3>
             <p>
-              Complete the course and receive credit recommendations you can submit
-              to your school, helping you save time and reduce tuition costs.
+              Complete the course and receive<br />credit recommendations you can submit to<br />your school, helping you save time and<br />reduce tuition costs.
             </p>
             <Link className="work-step__link" to="/find-my-college">View Accepted Universities &nbsp;&rarr;</Link>
           </div>
@@ -77,8 +83,7 @@ const WorkProcess = () => {
             </div>
             <h3>Transfer your Credit</h3>
             <p>
-              Bring your completed coursework with you. We help you understand
-              what transfers and how to apply credits toward your degree.
+              Bring your completed coursework with<br />you. We help you understand what<br />transfers and how to apply credits<br />toward your degree.
             </p>
             <a className="work-step__link" href="#pricing" onClick={handlePricingClick}>View Pricing &nbsp;&rarr;</a>
           </div>

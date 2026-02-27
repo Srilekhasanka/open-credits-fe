@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
+import ScrollReveal from '../components/ScrollReveal';
 import './HigherEducationPartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
@@ -68,7 +69,7 @@ const HigherEducationPartnershipsPage = () => (
       </div>
     </div>
 
-    <section className="higheredu-why">
+    <ScrollReveal variant="fade-up"><section className="higheredu-why">
       <div className="higheredu-container">
         <div className="higheredu-why-header">
           <h2>
@@ -92,9 +93,9 @@ const HigherEducationPartnershipsPage = () => (
           ))}
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="higheredu-built">
+    <ScrollReveal variant="fade-up"><section className="higheredu-built">
       <div className="higheredu-container higheredu-built__layout">
         <div className="higheredu-built__copy">
           <h2>Built for academic quality and flexibility</h2>
@@ -135,9 +136,9 @@ const HigherEducationPartnershipsPage = () => (
           />
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="higheredu-orange">
+    <ScrollReveal variant="zoom-in"><section className="higheredu-orange">
       <div className="higheredu-container">
         <div className="higheredu-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h3 className="higheredu-orange__title">
@@ -149,11 +150,11 @@ const HigherEducationPartnershipsPage = () => (
           </Link>
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
     <WorkProcess />
-    <SavingsCalculator />
-    <FAQ />
+    <ScrollReveal variant="fade-up"><SavingsCalculator /></ScrollReveal>
+    <ScrollReveal variant="fade-up"><FAQ /></ScrollReveal>
   </section>
 );
 

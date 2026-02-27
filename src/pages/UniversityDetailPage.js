@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ScrollReveal from '../components/ScrollReveal';
 import './UniversityDetailPage.css';
 import WorkProcess from '../components/WorkProcess';
 import SavingsCalculator from '../components/SavingsCalculator';
@@ -364,9 +365,9 @@ const UniversityDetailPage = () => {
           </div>
         </section>
       )}
-      <div className="university-savings">
+      <ScrollReveal variant="fade-up"><div className="university-savings">
         <SavingsCalculator />
-      </div>
+      </div></ScrollReveal>
       <section className={`university-courses ${isIndianaTech ? 'is-indiana-tech' : ''} ${isStonyBrook ? 'is-stony' : ''} ${isNjcu ? 'is-njcu' : ''} ${isNjit ? 'is-njit' : ''} ${isOhioState ? 'is-ohio' : ''} ${isSuny ? 'is-suny' : ''} ${isSdsu ? 'is-sdsu' : ''} ${isMvnu ? 'is-mvnu' : ''} ${isFranklin ? 'is-franklin' : ''} ${isCmu ? 'is-cmu' : ''}`}>
         <div className="university-courses-inner">
           <h2>
@@ -440,8 +441,8 @@ const UniversityDetailPage = () => {
           </div>
         </div>
       </section>
-      <Testimonials />
-      <FAQ />
+      <ScrollReveal variant="fade-up"><Testimonials /></ScrollReveal>
+      <ScrollReveal variant="fade-up"><FAQ /></ScrollReveal>
     </div>
   );
 };

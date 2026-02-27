@@ -5,6 +5,8 @@
 }
 
 .courses-wrapper {
+  max-width: 1512px;
+  margin: 0 auto;
   padding: 0 var(--layout-pad-right) 0 var(--layout-pad-left);
 }
 
@@ -56,6 +58,7 @@
   position: relative;
   width: 584px;
   max-width: 100%;
+  margin-right: 30px;
 }
 
 .courses-search input {
@@ -181,6 +184,7 @@
   padding: 16px 40px 16px 32px;
   background: #fff;
   min-width: 146px;
+  margin-right: 10px;
 }
 
 .sort-label {
@@ -290,12 +294,13 @@
 
 .courses-page .course-card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 18px 18px 16px;
   border: 1px solid #f0f0f0;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.13);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
+  max-width: 388px;
   min-height: 554px;
   box-sizing: border-box;
   position: relative;

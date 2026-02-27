@@ -125,6 +125,14 @@ const parsePrice = (value) => {
   return 0;
 };
 
+const parseDisplayOrder = (value) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const getDisplayOrderValue = (course) =>
+  Number.isFinite(course.displayOrder) ? course.displayOrder : Number.MAX_SAFE_INTEGER;
+
 const normalizeCourse = (course) => {
   const tags = Array.isArray(course.tags) ? course.tags : [];
   if (!tags.length) {
@@ -147,7 +155,8 @@ const normalizeCourse = (course) => {
       display: seats.display
     },
     tags,
-    icon: resolveCourseIcon(course)
+    icon: resolveCourseIcon(course),
+    displayOrder: parseDisplayOrder(course.display_order ?? course.displayOrder)
   };
 };
 
@@ -166,7 +175,12 @@ const PopularCourses = () => {
 
         const normalized = items.map(normalizeCourse);
         if (isMounted) {
-          setCourses(normalized.slice(0, 6));
+          const sorted = [...normalized].sort((a, b) => {
+            const diff = getDisplayOrderValue(a) - getDisplayOrderValue(b);
+            if (diff !== 0) return diff;
+            return (a.title || '').localeCompare(b.title || '');
+          });
+          setCourses(sorted.slice(0, 6));
         }
       } catch (error) {
         if (isMounted) {

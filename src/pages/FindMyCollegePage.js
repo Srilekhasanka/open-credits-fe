@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import { CALENDLY_URL } from '../config/constants';
 import './FindMyCollegePage.css';
@@ -93,7 +94,7 @@ const FindMyCollegePage = () => {
           </p>
         </div>
 
-        <div className="find-college-panel">
+        <ScrollReveal variant="fade-up"><div className="find-college-panel">
           <div className="find-college-search">
             <FaSearch aria-hidden="true" />
             <input
@@ -159,12 +160,12 @@ const FindMyCollegePage = () => {
               })
             )}
           </div>
-        </div>
+        </div></ScrollReveal>
 
-        <div className="find-college-footer">
+        <ScrollReveal variant="fade-up"><div className="find-college-footer">
           <span>Have more Questions?</span>
           <button type="button" onClick={() => window.open(CALENDLY_URL, '_blank')}>Talk to an Advisor</button>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div>
   );

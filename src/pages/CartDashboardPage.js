@@ -20,6 +20,7 @@ const mathIcon = '/images/Math.svg';
 
 const subjectIcons = {
   business: businessIcon,
+  accounting: businessIcon,
   'computer science': computerIcon,
   computerscience: computerIcon,
   health: healthIcon,
@@ -34,18 +35,36 @@ const subjectIcons = {
   general: generalIcon,
   economics: economyIcon,
   economy: economyIcon,
-  math: mathIcon
+  math: mathIcon,
+  marketing: businessIcon,
+  philosophy: psychologyIcon,
+  history: generalIcon,
+  sociology: generalIcon,
+  english: literatureIcon,
+  communications: generalIcon,
+  education: generalIcon
 };
 
 const prefixToSubject = {
   bus: 'business',
   acc: 'business',
+  accounting: 'business',
+  marketing: 'business',
   law: 'law',
   psy: 'psychology',
+  philosophy: 'psychology',
   bio: 'science',
   chem: 'science',
   math: 'math',
-  cs: 'computer science'
+  cs: 'computer science',
+  his: 'general',
+  history: 'general',
+  soc: 'general',
+  sociology: 'general',
+  eng: 'literature',
+  english: 'literature',
+  com: 'general',
+  edu: 'general'
 };
 
 const getSubjectIcon = (course) => {
@@ -70,6 +89,49 @@ const CartDashboardPage = () => {
   const navigate = useNavigate();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [couponCode, setCouponCode] = useState('');
+  const [couponMessage, setCouponMessage] = useState('');
+  const [couponError, setCouponError] = useState(false);
+  const [couponApplying, setCouponApplying] = useState(false);
+  const [discount, setDiscount] = useState(null);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponMessage('Please enter a coupon code');
+      setCouponError(true);
+      return;
+    }
+
+    const courseIds = cartItems.map((item) => item.course_id ?? item.id ?? item._id);
+    if (courseIds.length === 0) {
+      setCouponMessage('Add items to cart first');
+      setCouponError(true);
+      return;
+    }
+
+    setCouponApplying(true);
+    setCouponMessage('');
+    setCouponError(false);
+
+    try {
+      const response = await apiService.post(API_ENDPOINTS.COUPONS.VALIDATE, {
+        coupon_code: couponCode.trim(),
+        course_ids: courseIds,
+      });
+      const data = response?.payload || response;
+      setDiscount(data);
+      const savings = (Number(data.coupon_discount) || 0) + (Number(data.bundle_discount) || 0);
+      setCouponMessage(`Coupon applied! You save $${savings}`);
+      setCouponError(false);
+    } catch (err) {
+      setCouponMessage(err.message || 'Invalid coupon code');
+      setCouponError(true);
+      setDiscount(null);
+    } finally {
+      setCouponApplying(false);
+    }
+  };
 
   if (!isAuthenticated) {
     return (
@@ -83,8 +145,8 @@ const CartDashboardPage = () => {
     );
   }
 
-  const displayName = user?.email ? user.email.split('@')[0] : 'Student';
-  const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  const fullName = [user?.first_name, user?.last_name].filter(Boolean).join(' ');
+  const formattedName = fullName || (user?.email ? user.email.split('@')[0].charAt(0).toUpperCase() + user.email.split('@')[0].slice(1) : 'Student');
   const displayInitial = formattedName.charAt(0);
 
   const items = cartItems;
@@ -117,35 +179,28 @@ const CartDashboardPage = () => {
     setIsCheckingOut(true);
     setCheckoutError('');
 
-    // Enroll free courses directly
-    let failedFree = [];
-    if (freeItems.length > 0) {
-      failedFree = await enrollFreeItems();
-    }
-
-    // If no paid courses, we're done
-    if (paidItems.length === 0) {
-      if (failedFree.length > 0) {
-        setCheckoutError(`Failed to enroll: ${failedFree.join(', ')}. Please try again.`);
-      } else {
-        clearCart();
-        navigate('/my-courses');
-      }
-      setIsCheckingOut(false);
-      return;
-    }
-
-    // Show warning if some free courses failed but continue with paid checkout
-    if (failedFree.length > 0) {
-      setCheckoutError(`Some free courses failed to enroll: ${failedFree.join(', ')}. Proceeding with paid checkout.`);
-    }
+    // For all items (free or paid), go through the payment intent flow
+    const courseId = items[0]?.course_id ?? items[0]?.id ?? items[0]?._id;
 
     sessionStorage.removeItem('oc_payment_intent');
     try {
       const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, {
-        course_id: paidCourseId
+        course_id: courseId
       });
       const paymentIntent = intentResponse?.payload;
+
+      // If already paid (e.g. $0 course), enroll directly and go to my-courses
+      if (paymentIntent?.is_paid) {
+        for (const item of items) {
+          enrollCourse(item);
+        }
+        clearCart();
+        setIsCheckingOut(false);
+        setSuccessMessage('Enrolled successfully!');
+        setTimeout(() => navigate('/my-courses'), 2000);
+        return;
+      }
+
       if (!paymentIntent?.client_secret) {
         setCheckoutError('Checkout failed. Payment intent missing.');
         return;
@@ -223,12 +278,43 @@ const CartDashboardPage = () => {
           )}
         </div>
 
+        <div className="cart__coupon">
+          <label className="cart__coupon-label">Do you have a coupon code? <img src="/images/info.svg" alt="info" className="cart__coupon-info" /></label>
+          <div className="cart__coupon-row">
+            <input
+              type="text"
+              className="cart__coupon-input"
+              placeholder="Enter coupon code"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+            />
+            <button
+              type="button"
+              className="cart__coupon-apply"
+              onClick={handleApplyCoupon}
+              disabled={couponApplying}
+            >
+              {couponApplying ? 'Applying...' : 'Apply'}
+            </button>
+          </div>
+          {couponMessage && <div className={`cart__coupon-msg${couponError ? ' cart__coupon-msg--error' : ''}`}>{couponMessage}</div>}
+        </div>
+
         <div className="cart__summary">
           <div className="cart__summary-left">
             <strong>Total</strong>
           </div>
           <div className="cart__summary-right">
-            <div className="cart__total">${total}</div>
+            <div className="cart__total">
+              {discount ? (
+                <>
+                  <span className="cart__total-original">${total}</span>
+                  <span>${Number(discount.final_amount).toFixed(2)}</span>
+                </>
+              ) : (
+                `$${total}`
+              )}
+            </div>
             <div className="cart__note">Add 2 more courses to save with bundles</div>
           </div>
           <button
@@ -241,6 +327,7 @@ const CartDashboardPage = () => {
           </button>
         </div>
         {checkoutError && <div className="cart__error">{checkoutError}</div>}
+        {successMessage && <div className="cart__success">{successMessage}</div>}
       </section>
     </div>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
+import ScrollReveal from '../components/ScrollReveal';
 import './CorporatePartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
@@ -91,7 +92,7 @@ const CorporatePartnershipsPage = () => (
       </div>
     </div>
 
-    <section className="corporate-why">
+    <ScrollReveal variant="fade-up"><section className="corporate-why">
       <div className="corporate-container">
         <div className="corporate-why-header">
           <h2>
@@ -118,9 +119,9 @@ const CorporatePartnershipsPage = () => (
           ))}
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="corporate-built">
+    <ScrollReveal variant="fade-up"><section className="corporate-built">
       <div className="corporate-container corporate-built__layout">
         <div className="corporate-built__copy">
           <h2>Built for Working Adults</h2>
@@ -154,9 +155,9 @@ const CorporatePartnershipsPage = () => (
           />
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="corporate-orange">
+    <ScrollReveal variant="zoom-in"><section className="corporate-orange">
       <div className="corporate-container">
         <div className="corporate-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h2 className="corporate-orange__title">
@@ -169,9 +170,9 @@ const CorporatePartnershipsPage = () => (
           </Link>
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="corporate-why corporate-why--employers">
+    <ScrollReveal variant="fade-up"><section className="corporate-why corporate-why--employers">
       <div className="corporate-container">
         <div className="corporate-why-header">
           <h2>
@@ -198,11 +199,11 @@ const CorporatePartnershipsPage = () => (
           ))}
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
     <WorkProcess />
-    <SavingsCalculator />
-    <FAQ />
+    <ScrollReveal variant="fade-up"><SavingsCalculator /></ScrollReveal>
+    <ScrollReveal variant="fade-up"><FAQ /></ScrollReveal>
   </section>
 );
 

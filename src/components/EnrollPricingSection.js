@@ -2,27 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EnrollPricingSection.css';
 
-const peopleBox = '/images/peoplebox.svg';
 const globeBox = '/images/globebox.svg';
 const buildingBox = '/images/buildingbox.svg';
 
 const pricingCards = [
   {
-    title: 'Single Course -\nOne time Pay (US Nationals and Military)',
-    description: 'One course, pay only once and get 3 Credits.',
-    price: '$250',
-    priceSuffix: '/ course',
-    bullets: [
-      '1 transferable college-credit courses',
-      'No time restrictions',
-      'Loan approval Letter'
-    ],
-    cta: 'Enroll Now',
-    variant: 'outline',
-    icon: <img className="enroll-pricing-main" src={peopleBox} alt="" aria-hidden="true" />
-  },
-  {
-    title: 'Single Course -\nOne time Pay (International Students)',
+    title: 'Single Course -\nOne time Pay',
     description: 'One course, pay only once and get 3 Credits.',
     price: '$850',
     priceSuffix: '/ course',

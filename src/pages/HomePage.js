@@ -12,23 +12,58 @@ import PartnerUniversities from '../components/PartnerUniversities';
 import EnrollPricingSection from '../components/EnrollPricingSection';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
+import ScrollReveal from '../components/ScrollReveal';
 
 const HomePage = () => {
   return (
     <>
       <Hero />
-      <Stats />
-      <WhyOpenCredits />
-      <WhoCanUseOpenCredits />
+      <ScrollReveal variant="fade-up">
+        <Stats />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <WhyOpenCredits />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <WhoCanUseOpenCredits />
+      </ScrollReveal>
       <WorkProcess />
-      <SavingsCalculator />
-      <FeaturedUniversities />
-      <SchoolAcceptance />
-      <PopularCourses />
-      <PartnerUniversities className="partner-universities--home" />
-      <EnrollPricingSection className="enroll-pricing-section--home" />
-      <Testimonials />
-      <FAQ />
+      <div className="home-orange-banner">
+        <div className="home-orange-banner__wrap">
+          <img src="/images/homeorange.svg" alt="" />
+          <div className="home-orange-banner__text">
+            <div className="home-orange-banner__left">
+              <h3>Are you a U.S  Military/resident?</h3>
+              <p>You might be eligible for a $350 every course. Please fill the form and sign in to get a unique code for your account.</p>
+            </div>
+            <a className="home-orange-banner__btn" href="https://airtable.com/appEEgayj533RzdNH/pagaPGUpHEtQC6oVb/form" target="_blank" rel="noreferrer">Fill form</a>
+          </div>
+        </div>
+      </div>
+      <ScrollReveal variant="fade-up">
+        <SavingsCalculator />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <FeaturedUniversities />
+      </ScrollReveal>
+      <ScrollReveal variant="zoom-in">
+        <SchoolAcceptance />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <PopularCourses />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <PartnerUniversities className="partner-universities--home" />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <EnrollPricingSection className="enroll-pricing-section--home" />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <Testimonials />
+      </ScrollReveal>
+      <ScrollReveal variant="fade-up">
+        <FAQ />
+      </ScrollReveal>
     </>
   );
 };

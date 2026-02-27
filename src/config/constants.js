@@ -54,6 +54,9 @@ export const API_ENDPOINTS = {
     REMOVE: `${API_BASE_URL}/cart`,
     CLEAR: `${API_BASE_URL}/cart`,
   },
+  COUPONS: {
+    VALIDATE: `${API_BASE_URL}/coupons/validate`,
+  },
   BOOKMARKS: {
     LIST: `${API_BASE_URL}/bookmarks`,
     ADD: `${API_BASE_URL}/bookmarks`,
