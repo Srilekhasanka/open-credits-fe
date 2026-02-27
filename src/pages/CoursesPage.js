@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import courseService from '../services/courseService';
+import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import './CoursesPage.css';
 
@@ -24,7 +25,7 @@ const CoursesPage = () => {
   const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [subject, setSubject] = useState('All');
-  const [sortBy, setSortBy] = useState('Price: Low to High');
+  const [sortBy, setSortBy] = useState('Recommended');
   const [loading, setLoading] = useState(false);
   const [loadError, setLoadError] = useState('');
   const [showError, setShowError] = useState(false);
@@ -77,7 +78,10 @@ const CoursesPage = () => {
     general: generalIcon,
     economics: economyIcon,
     economy: economyIcon,
-    math: mathIcon
+    math: mathIcon,
+    accounting: businessIcon,
+    sociology: psychologyIcon,
+    humanities: psychologyIcon
   };
 
   const getSubjectIcon = (course) => {
@@ -95,6 +99,11 @@ const CoursesPage = () => {
       return Number.isFinite(parsed) ? parsed : 0;
     }
     return 0;
+  };
+
+  const parseDisplayOrder = (value) => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
   };
 
   const normalizeCourse = (course) => {
@@ -117,6 +126,7 @@ const CoursesPage = () => {
       credits: course.credits ?? course.credit_info ?? '',
       subject: course.subject ?? course.subject_area ?? '',
       auth: course.auth ?? (course.ace_certified ? 'ACE' : course.nccrs_certified ? 'NCCRS' : ''),
+      displayOrder: parseDisplayOrder(course.display_order ?? course.displayOrder),
       seats: {
         enrolled: seats.enrolled ?? 0,
         total: seats.total ?? 50,
@@ -182,11 +192,29 @@ const CoursesPage = () => {
     return matchesSearch && matchesSubject;
   });
 
+  const getDisplayOrderValue = (course) =>
+    Number.isFinite(course.displayOrder) ? course.displayOrder : Number.MAX_SAFE_INTEGER;
+
   const sortedCourses = [...filteredCourses].sort((a, b) => {
-    if (sortBy === 'Price: Low to High') return (Number(a.price) || 0) - (Number(b.price) || 0);
-    if (sortBy === 'Price: High to Low') return (Number(b.price) || 0) - (Number(a.price) || 0);
+    const displayDiff = getDisplayOrderValue(a) - getDisplayOrderValue(b);
+    if (sortBy === 'Recommended') {
+      if (displayDiff !== 0) return displayDiff;
+      return (a.name || '').localeCompare(b.name || '');
+    }
+    if (sortBy === 'Price: Low to High') {
+      const priceDiff = (Number(a.price) || 0) - (Number(b.price) || 0);
+      if (priceDiff !== 0) return priceDiff;
+      if (displayDiff !== 0) return displayDiff;
+      return (a.name || '').localeCompare(b.name || '');
+    }
+    if (sortBy === 'Price: High to Low') {
+      const priceDiff = (Number(b.price) || 0) - (Number(a.price) || 0);
+      if (priceDiff !== 0) return priceDiff;
+      if (displayDiff !== 0) return displayDiff;
+      return (a.name || '').localeCompare(b.name || '');
+    }
     if (sortBy === 'Name A-Z') return (a.name || '').localeCompare(b.name || '');
-    return 0;
+    return displayDiff;
   });
 
   const handleEnrollClick = (course) => {
@@ -223,7 +251,7 @@ const CoursesPage = () => {
           Home/Courses/{subject === 'All' ? 'All' : subject}
         </div>
 
-        <div className="courses-filters">
+        <ScrollReveal variant="fade-up"><div className="courses-filters">
           <div className="filters-left">
             <div className="subject-control">
               <span className="subject-label">Subject</span>
@@ -244,6 +272,7 @@ const CoursesPage = () => {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
               >
+                <option value="Recommended">Recommended</option>
                 <option value="Price: Low to High">Price: Low to High</option>
                 <option value="Price: High to Low">Price: High to Low</option>
               </select>
@@ -256,6 +285,7 @@ const CoursesPage = () => {
           </div>
         </div>
 
+        </ScrollReveal>
         {showError && loadError && (
           <div className="courses-snackbar" role="status" aria-live="polite">
             {loadError}
@@ -276,7 +306,7 @@ const CoursesPage = () => {
             </button>
           </div>
         ) : (
-          <div className="courses-grid">
+          <ScrollReveal variant="fade-up"><div className="courses-grid">
             {sortedCourses.map(course => (
               <div key={course.id} className="course-card">
                 <div className="course-card-top">
@@ -318,7 +348,7 @@ const CoursesPage = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div></ScrollReveal>
         )}
 
       </div>

@@ -57,7 +57,9 @@ const SignInPage = () => {
         {
           email: response.payload.user.email,
           userId: response.payload.user.userId,
-          role: response.payload.user.role
+          role: response.payload.user.role,
+          first_name: response.payload.user.first_name,
+          last_name: response.payload.user.last_name
         },
         { remember: rememberMe }
       );

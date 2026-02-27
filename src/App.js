@@ -14,7 +14,6 @@ import K12PartnershipsPage from './pages/K12PartnershipsPage';
 import HigherEducationPartnershipsPage from './pages/HigherEducationPartnershipsPage';
 import CommunityPartnershipsPage from './pages/CommunityPartnershipsPage';
 import FindMyCollegePage from './pages/FindMyCollegePage';
-import ShopPage from './pages/ShopPage';
 import FinancingPage from './pages/FinancingPage';
 import ResourcesPage from './pages/ResourcesPage';
 import SignInPage from './pages/SignInPage';
@@ -35,8 +34,10 @@ import PricingPage from './pages/PricingPage';
 import AboutPage from './pages/AboutPage';
 import UniversityDetailPage from './pages/UniversityDetailPage';
 import BlogDetailPage from './pages/BlogDetailPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import ChatbotWidget from './components/ChatbotWidget';
-import ScrollGlow from './components/ScrollGlow';
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -86,6 +87,8 @@ function AppContent() {
             <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
             <Route path="/universities/:slug" element={<UniversityDetailPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
           </Routes>
         </DashboardLayout>
       ) : (
@@ -101,7 +104,6 @@ function AppContent() {
           <Route path="/partnerships/higher-education" element={<HigherEducationPartnershipsPage />} />
           <Route path="/partnerships/community" element={<CommunityPartnershipsPage />} />
           <Route path="/find-my-college" element={<FindMyCollegePage />} />
-          <Route path="/shop" element={<ShopPage />} />
           <Route path="/financing" element={<FinancingPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/signin" element={<SignInPage />} />
@@ -116,11 +118,13 @@ function AppContent() {
           <Route path="/course/:courseId/learn" element={<CourseLearningPage />} />
           <Route path="/universities/:slug" element={<UniversityDetailPage />} />
           <Route path="/blog/:slug" element={<BlogDetailPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
         </Routes>
       )}
       {showPublicHeader && <Footer />}
       <ChatbotWidget />
-      <ScrollGlow />
+      
     </div>
   );
 }

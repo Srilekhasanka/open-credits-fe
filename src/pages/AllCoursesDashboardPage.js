@@ -61,13 +61,18 @@ const getSubjectIcon = (course) => {
   return fallbackKey ? subjectIcons[fallbackKey] : null;
 };
 
+const parseDisplayOrder = (value) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
 const AllCoursesDashboardPage = () => {
   const { isAuthenticated, user, addToCart, cartItems } = useAuth();
   const navigate = useNavigate();
 
   const [toastMessage, setToastMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [priceSort, setPriceSort] = useState('asc');
+  const [priceSort, setPriceSort] = useState('desc');
   const [bookmarkedIds, setBookmarkedIds] = useState(new Set());
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
 
@@ -150,7 +155,8 @@ const AllCoursesDashboardPage = () => {
               course.subject_area ||
               course.category ||
               course.discipline ||
-              ''
+              '',
+            displayOrder: parseDisplayOrder(course.display_order ?? course.displayOrder)
           };
         });
 
@@ -177,6 +183,9 @@ const AllCoursesDashboardPage = () => {
     };
   }, [isAuthenticated]);
 
+  const getDisplayOrderValue = (course) =>
+    Number.isFinite(course.displayOrder) ? course.displayOrder : Number.MAX_SAFE_INTEGER;
+
   const sortedCourses = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
     const filtered = query
@@ -188,9 +197,17 @@ const AllCoursesDashboardPage = () => {
           return haystack.includes(query);
         })
       : courses;
-    return [...filtered].sort((a, b) =>
-      priceSort === 'asc' ? (a.price ?? 0) - (b.price ?? 0) : (b.price ?? 0) - (a.price ?? 0)
-    );
+    return [...filtered].sort((a, b) => {
+      if (priceSort === 'asc' || priceSort === 'desc') {
+        const priceDiff = priceSort === 'asc'
+          ? (a.price ?? 0) - (b.price ?? 0)
+          : (b.price ?? 0) - (a.price ?? 0);
+        if (priceDiff !== 0) return priceDiff;
+      }
+      const displayDiff = getDisplayOrderValue(a) - getDisplayOrderValue(b);
+      if (displayDiff !== 0) return displayDiff;
+      return (a.name || '').localeCompare(b.name || '');
+    });
   }, [courses, searchTerm, priceSort]);
 
   if (!isAuthenticated) {
@@ -205,8 +222,8 @@ const AllCoursesDashboardPage = () => {
     );
   }
 
-  const displayName = user?.email ? user.email.split('@')[0] : 'Student';
-  const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  const fullName = [user?.first_name, user?.last_name].filter(Boolean).join(' ');
+  const formattedName = fullName || (user?.email ? user.email.split('@')[0].charAt(0).toUpperCase() + user.email.split('@')[0].slice(1) : 'Student');
   const displayInitial = formattedName.charAt(0);
 
   const toggleBookmark = async (courseId) => {
@@ -265,13 +282,18 @@ const AllCoursesDashboardPage = () => {
           <h2>All Courses</h2>
           <div className="allcourses__filters">
             <button
-              className="mycourses__filter mycourses__filter--sort"
+              className={`mycourses__filter mycourses__filter--sort${priceSort ? ' mycourses__filter--sort-active' : ''}`}
               type="button"
-              onClick={() => setPriceSort((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
+              onClick={() => setPriceSort((prev) => (prev === 'desc' ? 'asc' : 'desc'))}
             >
-              Sort by price
-              <span aria-hidden="true" className="mycourses__sort-arrow">
-                {priceSort === 'asc' ? ' ↑' : ' ↓'}
+              Sort by
+              <span
+                aria-hidden="true"
+                className={`mycourses__sort-arrow${priceSort === 'desc' ? ' mycourses__sort-arrow--desc' : ''}`}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 3.5V12.5M8 3.5L4 7.5M8 3.5L12 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </span>
             </button>
           </div>
@@ -342,4 +364,5 @@ const AllCoursesDashboardPage = () => {
 };
 
 export default AllCoursesDashboardPage;
+
 

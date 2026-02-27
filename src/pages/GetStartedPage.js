@@ -657,7 +657,24 @@ const GetStartedPage = () => {
           }}>
             <input type="checkbox" required style={{ marginTop: '3px' }} />
             <span>
-              I agree to the Terms of Service and Privacy Policy
+              I agree to the{' '}
+              <a
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#3642DD', textDecoration: 'underline' }}
+              >
+                Terms of Service
+              </a>
+              {' '}and{' '}
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#3642DD', textDecoration: 'underline' }}
+              >
+                Privacy Policy
+              </a>
             </span>
           </label>
 

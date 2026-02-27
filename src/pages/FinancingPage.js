@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 
 const FinancingPage = () => {
@@ -12,7 +13,7 @@ const FinancingPage = () => {
           Affordable payment plans to help you achieve your educational goals without breaking the bank.
         </p>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginTop: '40px' }}>
+        <ScrollReveal variant="fade-up"><div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginTop: '40px' }}>
           <div style={{ padding: '30px', border: '2px solid #e0e0e0', borderRadius: '12px' }}>
             <h3 style={{ color: '#ff6b35', marginBottom: '15px' }}>Pay Per Course</h3>
             <p style={{ color: '#666' }}>Flexible payment options for individual courses. No long-term commitment required.</p>
@@ -25,7 +26,7 @@ const FinancingPage = () => {
             <h3 style={{ color: '#ff6b35', marginBottom: '15px' }}>Financial Aid</h3>
             <p style={{ color: '#666' }}>Learn about available financial aid options and scholarship opportunities.</p>
           </div>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div>
   );

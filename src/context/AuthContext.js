@@ -26,6 +26,9 @@ export const AuthProvider = ({ children }) => {
       const userData = JSON.parse(storedUser);
       setUser(userData);
       setIsAuthenticated(true);
+    } else {
+      // No user session — clear any stale tokens
+      authService.clearAuthData();
     }
 
     const storedCourses = localStorage.getItem('enrolledCourses');
@@ -39,16 +42,11 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (userData, options = {}) => {
+  const login = (userData) => {
     setIsAuthenticated(true);
     setUser(userData);
-    if (options.remember) {
-      localStorage.setItem('user', JSON.stringify(userData));
-      sessionStorage.removeItem('user');
-    } else {
-      sessionStorage.setItem('user', JSON.stringify(userData));
-      localStorage.removeItem('user');
-    }
+    sessionStorage.setItem('user', JSON.stringify(userData));
+    localStorage.removeItem('user');
   };
 
   const logout = useCallback(() => {

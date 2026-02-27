@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node extract.js)",
+      "Bash(node extract2.js)",
+      "Bash(node extract3.js)",
+      "Bash(node extract4.js)",
+      "Bash(node extract5.js)",
+      "mcp__claude_ai_Figma__get_design_context"
+    ]
+  }
+}

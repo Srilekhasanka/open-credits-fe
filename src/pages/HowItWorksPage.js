@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import './HowItWorksPage.css';
 import { universities as universityData } from '../data/universities';
@@ -85,7 +86,7 @@ const HowItWorksPage = () => {
 
         <div className="partnership-feature-list">
           {partnershipFeatureCards.map((card) => (
-            <article key={card.title} className="partnership-feature-card">
+            <ScrollReveal key={card.title} variant="fade-up"><article className="partnership-feature-card">
               <div className="partnership-feature-copy">
                 <h2
                   className={
@@ -111,11 +112,11 @@ const HowItWorksPage = () => {
               <div className="partnership-feature-image">
                 <img src={card.image} alt={card.imageAlt} loading="lazy" />
               </div>
-            </article>
+            </article></ScrollReveal>
           ))}
         </div>
 
-        <div className="partner-colleges">
+        <ScrollReveal variant="fade-up"><div className="partner-colleges">
           <div className="partner-colleges-header">
             <h2>Our Partner Colleges</h2>
             <p>
@@ -156,7 +157,7 @@ const HowItWorksPage = () => {
               })}
             </div>
           </div>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div>
   );

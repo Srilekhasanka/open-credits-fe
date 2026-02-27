@@ -8,6 +8,11 @@ import './Header.css';
 const companyLogo = '/images/company-logo.svg';
 const keyboardArrowRight = '/images/keyboard_arrow_right.svg';
 
+const getDisplayOrderValue = (course) => {
+  const parsed = Number(course?.display_order ?? course?.displayOrder);
+  return Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
+};
+
 const buildCourseDropdownData = (payload) => {
   const rawCategories = Array.isArray(payload)
     ? payload
@@ -29,7 +34,10 @@ const buildCourseDropdownData = (payload) => {
       }
 
       const courses = Array.isArray(category?.courses) ? category.courses : [];
-      const preview = courses
+      const orderedCourses = [...courses].sort(
+        (a, b) => getDisplayOrderValue(a) - getDisplayOrderValue(b)
+      );
+      const preview = orderedCourses
         .slice(0, 10)
         .map((course, index) => {
           const courseName = String(

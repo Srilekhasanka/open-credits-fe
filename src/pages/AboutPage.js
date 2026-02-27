@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal from '../components/ScrollReveal';
 import Stats from '../components/Stats';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
@@ -43,9 +44,9 @@ const AboutPage = () => {
         </div>
       </div>
 
-      <Stats />
-      <Testimonials />
-      <FAQ />
+      <ScrollReveal variant="fade-up"><Stats /></ScrollReveal>
+      <ScrollReveal variant="fade-up"><Testimonials /></ScrollReveal>
+      <ScrollReveal variant="fade-up"><FAQ /></ScrollReveal>
     </section>
   );
 };

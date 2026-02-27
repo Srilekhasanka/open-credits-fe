@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
+import ScrollReveal from '../components/ScrollReveal';
 import './CommunityPartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
 import SavingsCalculator from '../components/SavingsCalculator';
@@ -64,7 +65,7 @@ const CommunityPartnershipsPage = () => (
       </div>
     </div>
 
-    <section className="community-why">
+    <ScrollReveal variant="fade-up"><section className="community-why">
       <div className="community-container">
         <div className="community-why-header">
           <h2>
@@ -89,9 +90,9 @@ const CommunityPartnershipsPage = () => (
           ))}
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
-    <section className="community-orange">
+    <ScrollReveal variant="zoom-in"><section className="community-orange">
       <div className="community-container">
         <div className="community-orange__card" style={{ backgroundImage: "url('/images/orange.svg')" }}>
           <h3 className="community-orange__title">
@@ -104,11 +105,11 @@ const CommunityPartnershipsPage = () => (
           </Link>
         </div>
       </div>
-    </section>
+    </section></ScrollReveal>
 
     <WorkProcess />
 
-    <SavingsCalculator />
+    <ScrollReveal variant="fade-up"><SavingsCalculator /></ScrollReveal>
   </section>
 );
 

@@ -78,7 +78,7 @@ const Footer = () => {
             <nav className="footer-column" aria-label="Footer links group 1">
               <ul>
                 <li>
-                  <span>Request Transcript</span>
+                  <a href="https://airtable.com/appfAu5FMq9UsqmNh/pag9V5LitdFgp0yqP/form" target="_blank" rel="noopener noreferrer">Request Transcript</a>
                 </li>
                 <li>
                   <span>Accreditation</span>
