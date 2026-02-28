@@ -2897,6 +2897,10 @@ img.dashboard__mini-play {
     min-height: auto;
   }
 
+  .cart {
+    padding-bottom: 220px;
+  }
+
   .cart__item-title {
     font-size: 18px;
     line-height: 26px;
@@ -2916,6 +2920,20 @@ img.dashboard__mini-play {
     grid-template-columns: 1fr;
     text-align: left;
     gap: 12px;
+  }
+
+  .cart__coupon-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cart__coupon-input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .cart__coupon-apply {
+    width: 100%;
   }
 
   .cart__summary-right {

@@ -100,6 +100,8 @@ const CartDashboardPage = () => {
   const [couponError, setCouponError] = useState(false);
   const [couponApplying, setCouponApplying] = useState(false);
   const [discount, setDiscount] = useState(null);
+  const [couponToken, setCouponToken] = useState('');
+  const [appliedCouponCode, setAppliedCouponCode] = useState('');
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) {
@@ -126,6 +128,20 @@ const CartDashboardPage = () => {
       });
       const data = response?.payload || response;
       setDiscount(data);
+      const resolvedToken =
+        data?.coupon_token ||
+        data?.couponToken ||
+        data?.token ||
+        '';
+      const resolvedCode = couponCode.trim();
+      setCouponToken(resolvedToken);
+      setAppliedCouponCode(resolvedCode);
+      sessionStorage.setItem('oc_coupon_code', resolvedCode);
+      if (resolvedToken) {
+        sessionStorage.setItem('oc_coupon_token', resolvedToken);
+      } else {
+        sessionStorage.removeItem('oc_coupon_token');
+      }
       const savings = (Number(data.coupon_discount) || 0) + (Number(data.bundle_discount) || 0);
       setCouponMessage(`Coupon applied! You save $${savings}`);
       setCouponError(false);
@@ -133,6 +149,10 @@ const CartDashboardPage = () => {
       setCouponMessage(err.message || 'Invalid coupon code');
       setCouponError(true);
       setDiscount(null);
+      setCouponToken('');
+      setAppliedCouponCode('');
+      sessionStorage.removeItem('oc_coupon_code');
+      sessionStorage.removeItem('oc_coupon_token');
     } finally {
       setCouponApplying(false);
     }
@@ -185,13 +205,20 @@ const CartDashboardPage = () => {
     setCheckoutError('');
 
     // For all items (free or paid), go through the payment intent flow
-    const courseId = items[0]?.course_id ?? items[0]?.id ?? items[0]?._id;
+    const courseIds = items
+      .map((item) => item.course_id ?? item.id ?? item._id)
+      .filter(Boolean);
 
     sessionStorage.removeItem('oc_payment_intent');
     try {
-      const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, {
-        course_id: courseId
-      });
+      const intentPayload = { course_ids: courseIds };
+      if (appliedCouponCode) {
+        intentPayload.coupon_code = appliedCouponCode;
+      }
+      if (couponToken) {
+        intentPayload.coupon_token = couponToken;
+      }
+      const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, intentPayload);
       const paymentIntent = intentResponse?.payload;
 
       // If already paid (e.g. $0 course), enroll directly and go to my-courses
