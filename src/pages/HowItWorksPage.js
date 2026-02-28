@@ -147,7 +147,7 @@ const HowItWorksPage = () => {
                 return (
                   <Link
                     key={college.slug}
-                    className="partner-college-card"
+                    className={`partner-college-card${college.fullBleed ? ' full-bleed' : ''}`}
                     to={`/universities/${college.slug}`}
                     aria-label={`View ${college.name}`}
                   >
