@@ -578,10 +578,13 @@
   }
 
   .corporate-built__layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .corporate-built__image {
+    order: -1;
     border-left: none;
     padding-left: 0;
   }
@@ -623,6 +626,14 @@
     line-height: 32px;
   }
 
+  .corporate-why-copy__line {
+    white-space: normal;
+  }
+
+  .corporate-why-copy__line-end {
+    display: inline;
+  }
+
   .corporate-why-card h3 {
     font-size: 20px;
     line-height: 28px;
@@ -662,6 +673,14 @@
   .corporate-why-header h2 {
     font-size: 22px;
     line-height: 30px;
+  }
+
+  .corporate-why-copy__line {
+    white-space: normal;
+  }
+
+  .corporate-why-copy__line-end {
+    display: inline;
   }
 
   .corporate-why-card h3 {

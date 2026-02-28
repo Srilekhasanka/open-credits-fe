@@ -200,6 +200,11 @@
     display: none;
   }
 
+  /* Hide <br /> tags on mobile for natural text wrapping */
+  .work-step p br {
+    display: none;
+  }
+
   .work-step {
     display: grid;
     grid-template-columns: 56px 1fr;
@@ -209,7 +214,7 @@
     padding-bottom: 36px;
   }
 
-  /* Vertical timeline line */
+  /* Vertical timeline line - static background */
   .work-step::before {
     content: "";
     position: absolute;
@@ -222,8 +227,27 @@
     z-index: 0;
   }
 
+  /* Vertical timeline line - animated fill */
+  .work-step::after {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 0;
+    width: 3px;
+    background: #ED6C2C;
+    transform: translateX(-50%) scaleY(var(--line-progress-mobile, 0));
+    transform-origin: top;
+    z-index: 1;
+    height: 100%;
+    transition: transform 0.1s linear;
+  }
+
   /* Hide line after last step */
   .work-step:last-child::before {
+    display: none;
+  }
+
+  .work-step:last-child::after {
     display: none;
   }
 
@@ -236,6 +260,8 @@
     align-self: start;
     background: #fff;
     border-radius: 50%;
+    position: relative;
+    z-index: 2;
   }
 
   .work-step__icon img {
@@ -249,6 +275,7 @@
     grid-column: 2;
     margin: 0 0 8px;
     padding-top: 4px;
+    text-align: left;
   }
 
   .work-step p {
@@ -256,10 +283,12 @@
     line-height: 24px;
     grid-column: 2;
     margin: 0 0 8px;
+    text-align: left;
   }
 
   .work-step__link {
     grid-column: 2;
+    text-align: left;
   }
 }
 
@@ -271,6 +300,11 @@
 
   .work-step {
     column-gap: 16px;
+  }
+
+  /* Hide <br /> tags on small mobile for natural text wrapping */
+  .work-step p br {
+    display: none;
   }
 
   .work-step h3 {

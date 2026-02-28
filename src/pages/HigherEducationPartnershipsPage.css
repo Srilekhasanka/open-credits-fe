@@ -491,8 +491,13 @@
   }
 
   .higheredu-built__layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+  }
+
+  .higheredu-built__image {
+    order: -1;
   }
 
   .higheredu-orange__card {
