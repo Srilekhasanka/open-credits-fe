@@ -7,13 +7,13 @@ const buildingBox = '/images/buildingbox.svg';
 
 const pricingCards = [
   {
-    title: 'Single Course -\nOne time Pay',
+    title: 'Single Course - One time Pay',
     description: 'One course, pay only once and get 3 Credits.',
     price: '$850',
     priceSuffix: '/ course',
     bullets: [
-      '1 transferable college-credit courses',
-      'No time restrictions',
+      '1 transferable college- credit courses',
+      'No time restrictions product',
       'Loan approval Letter'
     ],
     cta: 'Enroll Now',
@@ -21,14 +21,25 @@ const pricingCards = [
     icon: <img className="enroll-pricing-main" src={globeBox} alt="" aria-hidden="true" />
   },
   {
-    title: 'University specific Pricing\nand bundle discounts\n(Custom Plan)',
-    description: 'Custom Courses, bundles and university specific pricing',
+    title: 'Bundle Savings\n(6, 12, 24 courses)',
+    description: 'One course, pay only once and get 3 Credits.',
     price: null,
     priceSuffix: null,
-    bullets: ['Custom Plan for you', 'No time restrictions', 'Loan approval Letter'],
+    bullets: [
+      '1 transferable college- credit courses',
+      'No time restrictions product',
+      'Loan approval Letter'
+    ],
     cta: 'Calculate Now',
     variant: 'solid',
-    icon: <img className="enroll-pricing-main" src={buildingBox} alt="" aria-hidden="true" />
+    icon: (
+      <img
+        className="enroll-pricing-main enroll-pricing-main--building"
+        src={buildingBox}
+        alt=""
+        aria-hidden="true"
+      />
+    )
   }
 ];
 
