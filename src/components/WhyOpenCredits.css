@@ -172,10 +172,34 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .why-container h2 {
     font-size: 22px;
     line-height: 30px;
+  }
+
+  .feature-card {
+    padding: 22px 18px;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .feature-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .feature-img-icon {
+    width: 48px;
+    height: 48px;
   }
 }
 

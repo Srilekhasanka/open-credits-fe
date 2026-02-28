@@ -180,6 +180,40 @@
   }
 }
 
+/* ===== Tablet portrait: max-width 768px ===== */
+@media (max-width: 768px) {
+  .work-heading {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 40px;
+  }
+
+  .work-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .work-steps::before,
+  .work-steps::after {
+    display: none;
+  }
+
+  .work-step:nth-child(2) .work-step__icon,
+  .work-step:nth-child(3) .work-step__icon {
+    margin-left: -10px;
+  }
+
+  .work-step h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .work-step p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 /* ===== Mobile: max-width 640px ===== */
 @media (max-width: 640px) {
   .work-heading {

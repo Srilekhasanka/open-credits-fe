@@ -142,6 +142,27 @@
   object-fit: contain;
 }
 
+@media (max-width: 1024px) {
+  .acceptance-container {
+    padding: 32px 36px;
+  }
+
+  .acceptance-content h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .acceptance-content p {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .guarantee-badge {
+    width: 320px;
+    height: 280px;
+  }
+}
+
 @media (max-width: 1280px) {
   .acceptance-container {
     transform: none;

@@ -218,6 +218,36 @@
 }
 
 /* Small mobile */
+@media (max-width: 480px) {
+  .who-container h2 {
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 20px;
+  }
+
+  .who-card {
+    padding-top: 320px;
+    min-height: 430px;
+    background-size: 70% auto;
+    background-position: center 24px;
+  }
+
+  .who-card__footer {
+    padding: 14px 16px 22px;
+  }
+
+  .who-card__title,
+  .who-card__subtitle {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .who-card__link {
+    font-size: 13px;
+  }
+}
+
+/* Extra small mobile */
 @media (max-width: 400px) {
   .who-container h2 {
     font-size: 22px;
