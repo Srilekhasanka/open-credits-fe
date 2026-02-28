@@ -90,7 +90,7 @@ const getSubjectIcon = (course) => {
 };
 
 const CartDashboardPage = () => {
-  const { isAuthenticated, user, cartItems, removeFromCart, clearCart, enrollCourse } = useAuth();
+  const { isAuthenticated, user, cartItems, cartPricing, removeFromCart, clearCart, enrollCourse, fetchCart } = useAuth();
   const navigate = useNavigate();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
@@ -297,7 +297,7 @@ const CartDashboardPage = () => {
                     <button
                       className="cart__remove"
                       type="button"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={async () => { await removeFromCart(item.id); fetchCart(); }}
                     >
                       Remove
                       <span aria-hidden="true">×</span>
@@ -343,11 +343,25 @@ const CartDashboardPage = () => {
                   <span className="cart__total-original">${total}</span>
                   <span>${Number(discount.final_amount).toFixed(2)}</span>
                 </>
+              ) : cartPricing?.bundle_applied ? (
+                <>
+                  <span className="cart__total-original">${Number(cartPricing.subtotal).toFixed(2)}</span>
+                  <span>${Number(cartPricing.you_pay).toFixed(2)}</span>
+                </>
               ) : (
                 `$${total}`
               )}
             </div>
-            <div className="cart__note">Add 2 more courses to save with bundles</div>
+            {cartPricing?.bundle_applied && !discount && (
+              <div className="cart__bundle-savings">Bundle discount: -${Number(cartPricing.bundle_discount).toFixed(2)}</div>
+            )}
+            {cartPricing?.next_bundle_tier && !cartPricing?.bundle_applied ? (
+              <div className="cart__note">Add {cartPricing.next_bundle_tier - items.length} more course{cartPricing.next_bundle_tier - items.length !== 1 ? 's' : ''} to save with bundles</div>
+            ) : cartPricing?.next_bundle_tier ? (
+              <div className="cart__note">Add {cartPricing.next_bundle_tier - items.length} more course{cartPricing.next_bundle_tier - items.length !== 1 ? 's' : ''} for the next bundle tier</div>
+            ) : (
+              <div className="cart__note">Add more courses to save with bundles</div>
+            )}
           </div>
           <button
             className="cart__checkout"
