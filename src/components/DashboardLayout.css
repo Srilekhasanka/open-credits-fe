@@ -1755,6 +1755,12 @@ img.dashboard__mini-play {
   font-size: 18px;
 }
 
+.cart__bundle-savings {
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .cart__summary {
   background: #ffffff;
   border-top: 1px solid #edf0f6;

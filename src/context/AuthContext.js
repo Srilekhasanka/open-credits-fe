@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [cartPricing, setCartPricing] = useState(null);
 
   // Load user and enrolled courses from storage on mount
   useEffect(() => {
@@ -134,6 +135,8 @@ export const AuthProvider = ({ children }) => {
       });
       setCartItems(normalized);
       localStorage.setItem('cartItems', JSON.stringify(normalized));
+      const pricing = payload?.pricing || null;
+      setCartPricing(pricing);
     } catch {
       // Keep local cart on API failure
     }
@@ -200,6 +203,7 @@ export const AuthProvider = ({ children }) => {
       enrollCourse,
       setEnrolledCoursesData,
       cartItems,
+      cartPricing,
       addToCart,
       removeFromCart,
       clearCart,
