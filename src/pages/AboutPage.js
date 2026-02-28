@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import Stats from '../components/Stats';
 import Testimonials from '../components/Testimonials';
@@ -10,6 +11,11 @@ const aboutUsImage = '/images/aboutus.svg';
 const AboutPage = () => {
   return (
     <section className="about-page">
+      <SEO
+        title="About Us"
+        description="Learn how Open Credits helps students earn affordable, transferable college credits online — one credit at a time."
+        canonicalPath="/about"
+      />
       <div className="about-container">
         <div className="about-content">
           <h1>

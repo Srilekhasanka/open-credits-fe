@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import courseService from '../services/courseService';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import './CoursesPage.css';
@@ -239,6 +240,12 @@ const CoursesPage = () => {
 
   return (
     <div className="courses-page">
+      <SEO
+        title="Browse Courses"
+        description="Explore accredited online courses in business, science, math, and more. Affordable, self-paced, and designed to transfer."
+        keywords="online courses, college courses, business courses, science courses, accredited courses, transferable credits"
+        canonicalPath="/courses"
+      />
       <div className="courses-wrapper">
         <div className="courses-head">
           <h1>Find Courses</h1>

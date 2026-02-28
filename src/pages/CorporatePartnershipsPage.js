@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './CorporatePartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
@@ -62,6 +63,11 @@ const whyEmployerCards = [
 
 const CorporatePartnershipsPage = () => (
   <section className="corporate-page">
+    <SEO
+      title="Corporate Partnerships"
+      description="Upskill your workforce with flexible, transferable college credits through Open Credits corporate partnerships."
+      canonicalPath="/partnerships/corporate"
+    />
     <div className="corporate-hero">
       <img
         className="corporate-shared-image"

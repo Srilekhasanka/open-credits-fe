@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
 import { API_ENDPOINTS } from '../config/constants';
+import SEO from '../components/SEO';
 import '../App.css';
 
 const successTick = '/images/success-tick.gif';
@@ -261,6 +262,11 @@ const GetStartedPage = () => {
 
   return (
     <div className="page-content">
+      <SEO
+        title="Get Started"
+        description="Create your Open Credits account and start earning transferable college credits today."
+        canonicalPath="/get-started"
+      />
       <div style={{
         padding: '100px 20px',
         maxWidth: '500px',

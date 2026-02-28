@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import { CALENDLY_URL } from '../config/constants';
@@ -84,6 +85,11 @@ const FindMyCollegePage = () => {
 
   return (
     <div className="find-college-page">
+      <SEO
+        title="Find My College"
+        description="Search if your college accepts Open Credits transferable college credits."
+        canonicalPath="/find-my-college"
+      />
       <div className="find-college-container">
         <div className="find-college-header">
           <h1>Find Your College</h1>

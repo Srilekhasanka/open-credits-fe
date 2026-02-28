@@ -6,7 +6,8 @@
       "Bash(node extract3.js)",
       "Bash(node extract4.js)",
       "Bash(node extract5.js)",
-      "mcp__claude_ai_Figma__get_design_context"
+      "mcp__claude_ai_Figma__get_design_context",
+      "Bash(npm install react-helmet-async)"
     ]
   }
 }

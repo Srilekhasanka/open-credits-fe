@@ -22,3 +22,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ── Typography Utility Classes ── */
+
+/* Heading utilities */
+.h1 {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 700;
+  font-family: 'Montserrat';
+}
+
+.h2 {
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 700;
+  font-family:  'Montserrat';
+}
+
+.h3 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  font-family: 'Montserrat';
+}
+
+/* Body text utilities */
+.b1 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+}
+
+.b2 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+}
+
+.b3 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+}
+
+/* Responsive typography scaling */
+@media (max-width: 768px) {
+  .h1 { font-size: 36px; line-height: 44px; }
+  .h2 { font-size: 28px; line-height: 36px; }
+  .h3 { font-size: 20px; line-height: 28px; }
+  .b1 { font-size: 16px; line-height: 24px; }
+  .b2 { font-size: 15px; line-height: 22px; }
+  .b3 { font-size: 13px; line-height: 18px; }
+}
+
+@media (max-width: 480px) {
+  .h1 { font-size: 28px; line-height: 36px; }
+  .h2 { font-size: 24px; line-height: 32px; }
+  .h3 { font-size: 18px; line-height: 24px; }
+  .b1 { font-size: 15px; line-height: 22px; }
+  .b2 { font-size: 14px; line-height: 20px; }
+  .b3 { font-size: 12px; line-height: 18px; }
+}

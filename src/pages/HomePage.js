@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import WhyOpenCredits from '../components/WhyOpenCredits';
@@ -17,6 +18,12 @@ import ScrollReveal from '../components/ScrollReveal';
 const HomePage = () => {
   return (
     <>
+      <SEO
+        title="Earn Affordable, Transferable College Credits Online"
+        description="Earn transferable college credits 100% online. Flexible, accredited courses designed to save time and money on your degree."
+        keywords="college credits online, transferable credits, affordable college, accredited courses, online education"
+        canonicalPath="/"
+      />
       <Hero />
       <ScrollReveal variant="fade-up">
         <Stats />
@@ -30,7 +37,7 @@ const HomePage = () => {
       <WorkProcess />
       <div className="home-orange-banner">
         <div className="home-orange-banner__wrap">
-          <img src="/images/homeorange.svg" alt="" />
+          <img src="/images/homeorange.svg" alt="U.S. Military and resident discount banner for Open Credits courses" />
           <div className="home-orange-banner__text">
             <div className="home-orange-banner__left">
               <h3>Are you a U.S  Military/resident?</h3>

@@ -1,10 +1,16 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './TermsPage.css';
 
 const TermsPage = () => {
   return (
     <div className="terms-page">
+      <SEO
+        title="Terms of Service"
+        description="Read the Open Credits terms of service and user agreement."
+        canonicalPath="/terms"
+      />
       <div className="terms-container">
         <h1>Terms and Conditions</h1>
         <p className="terms-updated"><strong>Last Updated: February 2026</strong></p>

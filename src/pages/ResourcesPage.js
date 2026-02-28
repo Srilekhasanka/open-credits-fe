@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import './ResourcesPage.css';
@@ -58,6 +59,11 @@ const ResourcesPage = () => {
   const navigate = useNavigate();
   return (
     <div className="resources-page">
+      <SEO
+        title="Blog & Resources"
+        description="Read student success stories, college credit guides, and transfer tips on the Open Credits blog."
+        canonicalPath="/resources"
+      />
       <img className="resources-blob resources-blob--top-left" src="/images/left.svg" alt="" />
       <img className="resources-blob resources-blob--top-right" src="/images/right.svg" alt="" />
       <div className="resources-container">

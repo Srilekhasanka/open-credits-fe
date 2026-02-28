@@ -1,5 +1,6 @@
 ﻿import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './UniversityDetailPage.css';
 import WorkProcess from '../components/WorkProcess';
@@ -100,6 +101,11 @@ const UniversityDetailPage = () => {
 
   return (
     <div className="university-page">
+      <SEO
+        title={university?.name || 'University'}
+        description={`Transfer affordable college credits to ${university?.name || 'your university'} with Open Credits.`}
+        canonicalPath={`/universities/${slug}`}
+      />
       <div className={`university-card ${isPace ? 'pace' : ''} ${isIndianaTech ? 'indiana-tech' : ''} ${isStonyBrook ? 'stony' : ''} ${isNjcu ? 'njcu' : ''} ${isNjit ? 'njit' : ''} ${isOhioState ? 'ohio' : ''} ${isSuny ? 'suny' : ''} ${isSdsu ? 'sdsu' : ''} ${isMvnu ? 'mvnu' : ''} ${isFranklin ? 'franklin' : ''} ${isCmu ? 'cmu' : ''} ${isPennState ? 'penn' : ''} ${isBuffalo ? 'buffalo' : ''}`}>
         <div className="university-header">
           <div className="university-title">

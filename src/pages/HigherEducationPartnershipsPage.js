@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
 import FAQ from '../components/FAQ';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './HigherEducationPartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
@@ -39,6 +40,11 @@ const higherEduCards = [
 
 const HigherEducationPartnershipsPage = () => (
   <section className="higheredu-page">
+    <SEO
+      title="Higher Education Partnerships"
+      description="Expand degree pathways and improve student outcomes with Open Credits higher education partnerships."
+      canonicalPath="/partnerships/higher-education"
+    />
     <div className="higheredu-hero">
       <img className="higheredu-shared-image" src={higherEduImage} alt="Higher education classroom" />
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './K12PartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
@@ -70,6 +71,11 @@ const learnerCards = [
 
 const K12PartnershipsPage = () => (
   <section className="k12-page">
+    <SEO
+      title="K-12 Education Services"
+      description="Give K-12 students a head start on college with affordable, self-paced online courses from Open Credits."
+      canonicalPath="/partnerships/k-12"
+    />
     <div className="k12-hero">
       <img className="k12-shared-image" src={k12Image} alt="K-12 classroom learning" />
     </div>
