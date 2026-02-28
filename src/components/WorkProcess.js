@@ -40,6 +40,16 @@ const WorkProcess = () => {
       if (progress > 0 && !animate) {
         setAnimate(true);
       }
+
+      // Handle mobile vertical line animation
+      const steps = el.querySelectorAll('.work-step');
+      steps.forEach((step) => {
+        const stepRect = step.getBoundingClientRect();
+        const stepStart = windowH;
+        const stepEnd = windowH * 0.3;
+        const stepProgress = Math.min(1, Math.max(0, (stepStart - stepRect.top) / (stepStart - stepEnd)));
+        step.style.setProperty('--line-progress-mobile', stepProgress);
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
