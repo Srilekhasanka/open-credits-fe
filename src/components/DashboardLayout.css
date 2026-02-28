@@ -2672,6 +2672,9 @@ img.dashboard__mini-play {
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 24px;
   }
 
   .dashboard__sidebar.is-open {
