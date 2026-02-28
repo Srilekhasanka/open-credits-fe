@@ -30,7 +30,7 @@ const WhoCanUseOpenCredits = () => {
                   <span className="who-card__title">{card.title}</span>
                   <span className="who-card__subtitle">{card.subtitle}</span>
                 </div>
-                <a className="who-card__link" href={card.href}>
+                <a className="who-card__link" href={card.href} aria-label={`Learn more about Open Credits for ${card.title} ${card.subtitle}`}>
                   Learn more <span aria-hidden="true">→</span>
                 </a>
               </div>

@@ -106,11 +106,11 @@ const HowItWorksPage = () => {
                 <h3>{card.subtitle}</h3>
                 <p>{card.description}</p>
                 {card.href ? (
-                  <Link to={card.href} className="partnership-link">
+                  <Link to={card.href} className="partnership-link" aria-label={`Learn more about ${card.title}`}>
                     Learn more →
                   </Link>
                 ) : (
-                  <button type="button" className="partnership-link">
+                  <button type="button" className="partnership-link" aria-label={`Learn more about ${card.title}`}>
                     Learn more →
                   </button>
                 )}
