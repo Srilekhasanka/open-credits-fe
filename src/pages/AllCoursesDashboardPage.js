@@ -50,8 +50,10 @@ const prefixToSubject = {
   law: 'law',
   psy: 'psychology',
   soc: 'psychology',
+  sociology: 'psychology',
   phi: 'psychology',
   phil: 'psychology',
+  philosophy: 'psychology',
   bio: 'science',
   chem: 'science',
   math: 'math',
@@ -67,7 +69,25 @@ const getSubjectIcon = (course) => {
   }
   const codePrefix = (course.code || '').split(' ')[0].toLowerCase();
   const fallbackKey = prefixToSubject[codePrefix];
-  return fallbackKey ? subjectIcons[fallbackKey] : null;
+  if (fallbackKey) return subjectIcons[fallbackKey];
+
+  const fallbackText = [rawSubject, course.code, course.name]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+  if (
+    fallbackText.includes('social science') ||
+    fallbackText.includes('social sciences') ||
+    fallbackText.includes('sociology') ||
+    fallbackText.includes('philosophy') ||
+    fallbackText.includes('psychology')
+  ) {
+    return subjectIcons.psychology;
+  }
+  if (fallbackText.includes('accounting')) {
+    return subjectIcons.business;
+  }
+  return null;
 };
 
 const parseDisplayOrder = (value) => {

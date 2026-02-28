@@ -76,6 +76,8 @@ const CheckoutDashboardPage = () => {
   const navigate = useNavigate();
   const storedIntent = sessionStorage.getItem('oc_payment_intent');
   const parsedStoredIntent = storedIntent ? JSON.parse(storedIntent) : null;
+  const storedCouponCode = sessionStorage.getItem('oc_coupon_code') || '';
+  const storedCouponToken = sessionStorage.getItem('oc_coupon_token') || '';
   const [resolvedIntent, setResolvedIntent] = useState(
     location.state?.paymentIntent ?? parsedStoredIntent
   );
@@ -86,17 +88,24 @@ const CheckoutDashboardPage = () => {
   useEffect(() => {
     const fetchIntent = async () => {
       if (clientSecret || isLoadingIntent) return;
-      const primaryCourseId = cartItems[0]?.course_id ?? cartItems[0]?.id ?? cartItems[0]?._id;
-      if (!primaryCourseId) {
+      const courseIds = cartItems
+        .map((item) => item.course_id ?? item.id ?? item._id)
+        .filter(Boolean);
+      if (courseIds.length === 0) {
         setIntentError('Missing course for checkout. Please go back to cart.');
         return;
       }
       setIsLoadingIntent(true);
       setIntentError('');
       try {
-        const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, {
-          course_id: primaryCourseId
-        });
+        const intentPayload = { course_ids: courseIds };
+        if (storedCouponCode) {
+          intentPayload.coupon_code = storedCouponCode;
+        }
+        if (storedCouponToken) {
+          intentPayload.coupon_token = storedCouponToken;
+        }
+        const intentResponse = await apiService.post(API_ENDPOINTS.PAYMENT.INTENT, intentPayload);
         const paymentIntent = intentResponse?.payload;
         if (!paymentIntent?.client_secret) {
           setIntentError('Payment intent missing. Please try again.');
