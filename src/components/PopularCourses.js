@@ -82,6 +82,8 @@ const fallbackCourses = [
 
 const subjectIcons = {
   business: businessIcon,
+  accounting: businessIcon,
+  account: businessIcon,
   'computer science': computerIcon,
   computerscience: computerIcon,
   health: healthIcon,
@@ -89,6 +91,10 @@ const subjectIcons = {
   law: lawIcon,
   lawandjustice: lawIcon,
   psychology: psychologyIcon,
+  sociology: psychologyIcon,
+  'social science': psychologyIcon,
+  socialscience: psychologyIcon,
+  philosophy: psychologyIcon,
   science: scienceIcon,
   literature: literatureIcon,
   finance: financeIcon,

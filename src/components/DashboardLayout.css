@@ -2625,6 +2625,7 @@ img.dashboard__mini-play {
   .dashboard {
     min-height: 100vh;
     grid-template-columns: 1fr;
+    --dashboard-mobile-header-height: 64px;
   }
 
   /* Show mobile header bar */
@@ -2632,13 +2633,20 @@ img.dashboard__mini-play {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--dashboard-mobile-header-height);
     padding: 12px 16px;
+    box-sizing: border-box;
     background: #ffffff;
     border-bottom: 1px solid var(--dashboard-border);
-    position: sticky;
-    top: 0;
     z-index: 100;
+  }
+
+  .dashboard__page {
+    padding-top: var(--dashboard-mobile-header-height);
   }
 
   .dashboard__brand--mobile {
