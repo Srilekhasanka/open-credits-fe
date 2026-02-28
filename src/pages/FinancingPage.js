@@ -1,10 +1,16 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 
 const FinancingPage = () => {
   return (
     <div className="page-content">
+      <SEO
+        title="Financing Options"
+        description="Explore flexible financing and payment options for your online college credits at Open Credits."
+        canonicalPath="/financing"
+      />
       <div style={{ padding: '120px 20px 60px', maxWidth: '1200px', margin: '0 auto' }}>
         <h1 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '2.5rem' }}>
           Financing Options

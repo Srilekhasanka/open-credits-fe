@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import '../App.css';
 import './HowItWorksPage.css';
@@ -64,6 +65,11 @@ const HowItWorksPage = () => {
 
   return (
     <div className="partnership-page">
+      <SEO
+        title="Partnerships"
+        description="Partner with Open Credits to make affordable college credits available to your students, employees, or community."
+        canonicalPath="/how-it-works"
+      />
       <div className="partnership-container">
         <section className="partner-banner">
           <div className="partner-banner__background">

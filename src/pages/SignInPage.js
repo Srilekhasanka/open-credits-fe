@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
+import SEO from '../components/SEO';
 import '../App.css';
 
 const SignInPage = () => {
@@ -212,8 +213,13 @@ const SignInPage = () => {
 
   return (
     <div className="page-content">
-      <div style={{ 
-        padding: '120px 20px', 
+      <SEO
+        title="Sign In"
+        description="Sign in to your Open Credits account to access courses, track progress, and manage credits."
+        canonicalPath="/signin"
+      />
+      <div style={{
+        padding: '120px 20px',
         maxWidth: '450px', 
         margin: '0 auto',
         minHeight: '70vh'

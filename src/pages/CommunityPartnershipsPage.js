@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkProcess from '../components/WorkProcess';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './CommunityPartnershipsPage.css';
 import { CALENDLY_URL } from '../config/constants';
@@ -38,6 +39,11 @@ const communityCards = [
 
 const CommunityPartnershipsPage = () => (
   <section className="community-page">
+    <SEO
+      title="Community Partnerships"
+      description="Partner with Open Credits to deliver affordable college credit pathways in your community."
+      canonicalPath="/partnerships/community"
+    />
     <div className="community-hero">
       <img className="community-shared-image" src={communityImage} alt="Community partnership" />
     </div>

@@ -1,10 +1,16 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import './PrivacyPolicyPage.css';
 
 const PrivacyPolicyPage = () => {
   return (
     <div className="privacy-page">
+      <SEO
+        title="Privacy Policy"
+        description="Read the Open Credits privacy policy — how we collect, use, and protect your data."
+        canonicalPath="/privacy"
+      />
       <div className="privacy-container">
         <h1>Comprehensive Data Privacy and Security Policy</h1>
         <p className="privacy-subtitle"><strong>VI PI INTERNATIONAL INC., DBA OPEN CREDITS</strong></p>

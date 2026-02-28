@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
 import { useParams, useNavigate } from 'react-router-dom';
 import './BlogDetailPage.css';
@@ -188,6 +189,11 @@ const BlogDetailPage = () => {
 
   return (
     <div className="blog-detail">
+      <SEO
+        title={`${post.title} | Open Credits Blog`}
+        description={post.subtitle}
+        canonicalPath={`/blog/${slug}`}
+      />
       <div className="blog-detail__container">
         <h1 className="blog-detail__title">{post.title}</h1>
         <p className="blog-detail__subtitle">{post.subtitle}</p>
