@@ -1,0 +1,5 @@
+# https://www.opencredits.com robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://www.opencredits.com/sitemap.xml

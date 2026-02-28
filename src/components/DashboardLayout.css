@@ -1767,7 +1767,7 @@ img.dashboard__mini-play {
   bottom: 0;
   left: var(--dashboard-sidebar-width);
   right: 0;
-  z-index: 9999;
+  z-index: 99;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
 }
 

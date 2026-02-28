@@ -64,10 +64,10 @@ const FeaturedUniversities = () => {
               </div>
               {university.isRoutable === false ? (
                 <span className="featured-button is-disabled" aria-disabled="true">
-                  Learn More
+                  Learn More about {university.name}
                 </span>
               ) : (
-                <Link className="featured-button" to={`/universities/${university.slug}`}>
+                <Link className="featured-button" to={`/universities/${university.slug}`} aria-label={`Learn more about ${university.name}`}>
                   Learn More
                 </Link>
               )}
