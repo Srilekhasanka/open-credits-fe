@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { FiSearch } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import authService from '../services/authService';
 import apiService from '../services/apiService';
@@ -227,7 +227,11 @@ export default function MyAccountDashboardPage() {
           </h1>
         </div>
         <div className="dashboard__topbar-actions">
-<button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
+          <div className="dashboard__search">
+            <input type="text" placeholder="Search Courses" aria-label="Search courses" />
+            <FiSearch />
+          </div>
+          <button className="dashboard__icon-btn dashboard__icon-btn--cart" type="button" aria-label="Cart" onClick={() => navigate('/shop')}>
             <img src="/images/dashcart.svg" alt="" className="dashboard__icon-img" />
             {cartItems.length > 0 && <span className="dashboard__cart-badge">{cartItems.length}</span>}
           </button>

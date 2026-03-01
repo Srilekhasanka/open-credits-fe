@@ -102,14 +102,53 @@ const subjectIcons = {
   general: generalIcon,
   economics: economyIcon,
   economy: economyIcon,
-  math: mathIcon
+  math: mathIcon,
+  marketing: businessIcon,
+  history: generalIcon,
+  english: literatureIcon,
+  communications: generalIcon,
+  education: generalIcon,
+  humanities: psychologyIcon
+};
+
+const prefixToSubject = {
+  bus: 'business',
+  acc: 'business',
+  accounting: 'business',
+  marketing: 'business',
+  customer: 'business',
+  law: 'law',
+  psy: 'psychology',
+  social: 'social science',
+  soc: 'social science',
+  sociology: 'social science',
+  phil: 'psychology',
+  philosophy: 'psychology',
+  bio: 'science',
+  chem: 'science',
+  math: 'math',
+  cs: 'computer science',
+  his: 'general',
+  history: 'general',
+  eng: 'literature',
+  english: 'literature',
+  com: 'general',
+  edu: 'general',
+  fin: 'finance',
+  finance: 'finance',
+  eco: 'economics'
 };
 
 const getSubjectIcon = (course) => {
   const raw = course.subject || course.subject_area || course.category || '';
   const normalized = raw.toLowerCase().replace(/\s+/g, '');
   const spaced = raw.toLowerCase();
-  return subjectIcons[normalized] || subjectIcons[spaced] || null;
+  if (subjectIcons[normalized] || subjectIcons[spaced]) {
+    return subjectIcons[normalized] || subjectIcons[spaced];
+  }
+  const codePrefix = (course.code || '').split(' ')[0].toLowerCase();
+  const fallbackKey = prefixToSubject[codePrefix];
+  return fallbackKey ? subjectIcons[fallbackKey] : null;
 };
 
 const hasImageExtension = (value) =>

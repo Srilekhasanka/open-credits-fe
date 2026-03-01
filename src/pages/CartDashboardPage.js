@@ -56,7 +56,9 @@ const prefixToSubject = {
   law: 'law',
   psy: 'psychology',
   philosophy: 'psychology',
-  soc: 'psychology',
+  social: 'social science',
+  soc: 'social science',
+  sociology: 'social science',
   phil: 'psychology',
   bio: 'science',
   chem: 'science',
@@ -64,12 +66,14 @@ const prefixToSubject = {
   cs: 'computer science',
   his: 'general',
   history: 'general',
-  soc: 'general',
-  sociology: 'general',
   eng: 'literature',
   english: 'literature',
   com: 'general',
-  edu: 'general'
+  edu: 'general',
+  fin: 'finance',
+  finance: 'finance',
+  eco: 'economics',
+  customer: 'business'
 };
 
 const getSubjectIcon = (course) => {
