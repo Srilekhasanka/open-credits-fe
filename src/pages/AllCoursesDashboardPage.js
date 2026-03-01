@@ -41,23 +41,41 @@ const subjectIcons = {
   general: generalIcon,
   economics: economyIcon,
   economy: economyIcon,
-  math: mathIcon
+  math: mathIcon,
+  marketing: businessIcon,
+  history: generalIcon,
+  english: literatureIcon,
+  communications: generalIcon,
+  education: generalIcon
 };
 
 const prefixToSubject = {
   bus: 'business',
   acc: 'business',
+  accounting: 'business',
+  marketing: 'business',
+  customer: 'business',
   law: 'law',
   psy: 'psychology',
-  soc: 'psychology',
-  sociology: 'psychology',
+  social: 'social science',
+  soc: 'social science',
+  sociology: 'social science',
   phi: 'psychology',
   phil: 'psychology',
   philosophy: 'psychology',
   bio: 'science',
   chem: 'science',
   math: 'math',
-  cs: 'computer science'
+  cs: 'computer science',
+  his: 'general',
+  history: 'general',
+  eng: 'literature',
+  english: 'literature',
+  com: 'general',
+  edu: 'general',
+  fin: 'finance',
+  finance: 'finance',
+  eco: 'economics'
 };
 
 const getSubjectIcon = (course) => {
