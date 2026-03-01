@@ -119,7 +119,7 @@ export const APP_CONSTANTS = {
   PASSWORD_MIN_LENGTH: 8,
 };
 
-export const STRIPE_PUBLISHABLE_KEY = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_test_51QvqSoIK0lak7An4XnBFh5MX1aN2vhSFcn2aszwCv2ns00pK7bspEpednRCTsAA9t2IeG2nF3Jzt9fLUyyGlP4Ve00hgLUXIF0';
+export const STRIPE_PUBLISHABLE_KEY = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_live_51QvqSoIK0lak7An4HkEtgBpxLqNhRFFGHuSjyOGhwHSanBzyXxHIk1GDIGXFvgmwRclDrKhhgE6NUAFiC8MgSJvn00s8pz3dFt';
 
 export const CALENDLY_URL = 'https://calendly.com/opencredits-marketing/30min';
 

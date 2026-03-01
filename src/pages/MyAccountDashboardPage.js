@@ -82,8 +82,8 @@ export default function MyAccountDashboardPage() {
   }, [user]);
 
   const displayUser = profile || user;
-  const displayName = displayUser?.email ? displayUser.email.split('@')[0] : 'Student';
-  const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  const fullName = [displayUser?.firstName || displayUser?.first_name, displayUser?.lastName || displayUser?.last_name].filter(Boolean).join(' ');
+  const formattedName = fullName || (displayUser?.email ? displayUser.email.split('@')[0].charAt(0).toUpperCase() + displayUser.email.split('@')[0].slice(1) : 'Student');
   const displayInitial = formattedName.charAt(0);
   const displayImageUrl = profilePreviewUrl || displayUser?.profilePictureUrl || '';
 
