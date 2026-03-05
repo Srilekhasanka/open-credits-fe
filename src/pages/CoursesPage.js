@@ -295,7 +295,22 @@ const CoursesPage = () => {
             <span className="courses-search-icon" aria-hidden="true" />
           </div>
         </div>
+      </div>
 
+      <div className="home-orange-banner">
+        <div className="home-orange-banner__wrap">
+          <img src="/images/homeorange.svg" alt="U.S. Military and resident discount banner for Open Credits courses" />
+          <div className="home-orange-banner__text">
+            <div className="home-orange-banner__left">
+              <h3>Are you a U.S  Military/resident?</h3>
+              <p>You might be eligible for a $350 every course. Please fill the form and sign in to get a unique code for your account.</p>
+            </div>
+            <a className="home-orange-banner__btn" href="https://airtable.com/appEEgayj533RzdNH/pagaPGUpHEtQC6oVb/form" target="_blank" rel="noreferrer">Fill form</a>
+          </div>
+        </div>
+      </div>
+
+      <div className="courses-wrapper">
         <div className="courses-breadcrumb">
           Home/Courses/{subject === 'All' ? 'All' : subject}
         </div>

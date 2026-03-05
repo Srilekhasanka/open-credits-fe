@@ -51,9 +51,19 @@ function ScrollToTop() {
 
 function AppContent() {
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const isLearningPage = location.pathname.includes('/course/') && location.pathname.includes('/learn');
   const showPublicHeader = !isAuthenticated && !isLearningPage;
+
+  useEffect(() => {
+    if (isAuthenticated && location.pathname === '/') {
+      logout();
+    }
+  }, [isAuthenticated, location.pathname, logout]);
+
+  if (isAuthenticated && location.pathname === '/') {
+    return null;
+  }
 
   return (
     <div className={`App ${showPublicHeader ? 'app--with-header' : ''}`}>
