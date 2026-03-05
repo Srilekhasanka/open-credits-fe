@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import ScrollReveal from '../components/ScrollReveal';
@@ -270,7 +270,11 @@ const UniversityDetailPage = () => {
                 <span key={badge}>{badge}</span>
               ))}
             </div>
-            <button type="button" className="university-cta">
+            <button
+              type="button"
+              className="university-cta"
+              onClick={() => navigate('/signin')}
+            >
               Register Today and Transfer
             </button>
           </div>
@@ -454,4 +458,5 @@ const UniversityDetailPage = () => {
 };
 
 export default UniversityDetailPage;
+
 

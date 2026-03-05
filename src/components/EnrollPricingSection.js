@@ -43,7 +43,7 @@ const pricingCards = [
   }
 ];
 
-const EnrollPricingSection = ({ className = '' }) => {
+const EnrollPricingSection = ({ className = '', showBanner = false }) => {
   const navigate = useNavigate();
   const emailSubject = 'Letter of Utilisation of Education Loan Funds for Undergraduate Academic Program';
   const emailBody =
@@ -92,7 +92,24 @@ const EnrollPricingSection = ({ className = '' }) => {
             <a href={mailHref} target="_blank" rel="noreferrer">contact@opencredits.org</a>
           </strong>
         </p>
+      </div>
 
+      {showBanner && (
+        <div className="home-orange-banner">
+          <div className="home-orange-banner__wrap">
+            <img src="/images/homeorange.svg" alt="U.S. Military and resident discount banner for Open Credits courses" />
+            <div className="home-orange-banner__text">
+              <div className="home-orange-banner__left">
+                <h3>Are you a U.S  Military/resident?</h3>
+                <p>You might be eligible for a $350 every course. Please fill the form and sign in to get a unique code for your account.</p>
+              </div>
+              <a className="home-orange-banner__btn" href="https://airtable.com/appEEgayj533RzdNH/pagaPGUpHEtQC6oVb/form" target="_blank" rel="noreferrer">Fill form</a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="enroll-pricing-container">
         <div className="enroll-pricing-grid">
           {pricingCards.map((card) => (
             <article key={card.title} className="enroll-pricing-card">

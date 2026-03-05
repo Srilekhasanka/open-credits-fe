@@ -13,7 +13,7 @@ const EnrollPage = () => (
       canonicalPath="/enroll"
     />
     <ScrollReveal variant="fade-up">
-      <EnrollPricingSection />
+      <EnrollPricingSection showBanner />
     </ScrollReveal>
     <ScrollReveal variant="fade-up">
       <section className="enroll-page">
